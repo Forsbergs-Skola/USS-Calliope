@@ -29,6 +29,12 @@ public class PlayerData : IRuntimeData
 // All the save-worthy player information
 {
     public bool IsSandbox { get; private set; }
+
+    /////////////////
+    // Data Fields //
+    /////////////////
+
+
     private int _health;
     public int Health
     {
@@ -40,6 +46,10 @@ public class PlayerData : IRuntimeData
             DataTools.HandleOnDataChanged(this);
         }
     }
+
+    //////////////////
+    // Constructors //
+    //////////////////
     public PlayerData()
     {
         IsSandbox = false;
@@ -57,6 +67,16 @@ public class ProgressionData : IRuntimeData
 // All the save-worthy progression information
 {
     public bool IsSandbox { get; private set; }
+
+    /////////////////
+    // Data Fields //
+    /////////////////
+
+    // TODO all the progression data fields
+
+    //////////////////
+    // Constructors //
+    //////////////////
     public ProgressionData()
     {
         IsSandbox = false;
@@ -72,6 +92,16 @@ public class InventoryData : IRuntimeData
 // all the save-worthy inventory information
 {
     public bool IsSandbox { get; private set; }
+
+    /////////////////
+    // Data Fields //
+    /////////////////
+
+    // TODO all the inventory data fields
+
+    //////////////////
+    // Constructors //
+    //////////////////
     public InventoryData()
     {
         IsSandbox = false;
@@ -106,6 +136,13 @@ public static class DataTools
         if (EventRelay.Instance == null) return;
         EventRelay.Instance.GameEvents.DataUpdatedEvent.TriggerEvent();
     }
+
+    public static StringListWrapper GetWrapperizedStringList(List<string> inList)
+    {
+        StringListWrapper wrappedStrings = new StringListWrapper();
+        wrappedStrings.strings = new List<string>(inList);
+        return wrappedStrings;
+    }
 }
 
 public static class SaveService
@@ -122,12 +159,23 @@ public static class SaveService
     }
     public static void Save(PlayerData playerData, InventoryData inventoryData, ProgressionData progressionData)
     {
-        // TODO
+        ClearSave();
+        SaveData newSD = GameDataToSaveData(playerData, inventoryData, progressionData);
+        // TODO -- write newSD to disk
     }
     public static void Load()
     {
+        SaveData savedData = new SaveData();
+
+        // TODO -- read saved JSON into savedData
+        
         GameData gameData = new GameData();
-        // TODO
+        PlayerData _playerData = GetPlayerDataFromSaveData(savedData);
+        InventoryData _inventoryData = GetInventoryDataFromSaveData(savedData);
+        ProgressionData _progressionData = GetProgressionDataFromSaveData(savedData);
+        gameData.playerData = _playerData;
+        gameData.inventoryData = _inventoryData;
+        gameData.progressionData = _progressionData;
         EventRelay.Instance.GameEvents.SavedGameLoadedEvent.TriggerEvent(gameData);
     }
 
@@ -138,7 +186,7 @@ public static class SaveService
     private static SaveData GameDataToSaveData(PlayerData playerData, InventoryData inventoryData, ProgressionData progressionData)
     {
         SaveData outData = new SaveData();
-        // TODO
+        // TODO...
         return outData;
     }
     public static void ClearSave()
@@ -148,25 +196,19 @@ public static class SaveService
     private static PlayerData GetPlayerDataFromSaveData(SaveData saveData)
     {
         PlayerData playerData = new PlayerData();
-        // TODO
+        // TODO...
         return playerData;
     }
     private static InventoryData GetInventoryDataFromSaveData(SaveData saveData)
     {
         InventoryData inventoryData = new InventoryData();
-        // TODO
+        // TODO...
         return inventoryData;
     }
     private static ProgressionData GetProgressionDataFromSaveData(SaveData saveData)
     {
         ProgressionData progressionData = new ProgressionData();
-        // TODO
+        // TODO...
         return progressionData;
-    }
-    private static StringListWrapper GetWrapperizedStringList(List<string> inList)
-    {
-        StringListWrapper wrappedStrings = new StringListWrapper();
-        wrappedStrings.strings = new List<string>(inList);
-        return wrappedStrings;
     }
 }

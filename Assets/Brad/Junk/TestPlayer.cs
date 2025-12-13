@@ -2,20 +2,19 @@ using UnityEngine;
 
 public class TestPlayer : MonoBehaviour
 {
-    [SerializeField] private PlayerRuntimeData myData;
+    [SerializeField] private PlayerRuntimeData playerData;
 
     private void Start()
     {
-        StartCoroutine(Test());
+        StartCoroutine(TakeDamageTest());
     }
 
-
-    private System.Collections.IEnumerator Test()
+    private System.Collections.IEnumerator TakeDamageTest()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i< 10; i++)
         {
-            yield return new WaitForSeconds(3.0f);
-            myData.Value.Health -= 10;
+            yield return new WaitForSecondsRealtime(3f);
+            playerData.Value.Health -= 1;
         }
     }
 }
