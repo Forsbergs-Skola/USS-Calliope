@@ -5,9 +5,9 @@ public class GameEvents : MonoBehaviour
 {
     [SerializeField] private EmptyPayloadEvent newGameStartedEvent;
     [SerializeField] private GameDataPayloadEvent savedGameLoadedEvent;
-    [SerializeField] private EmptyPayloadEvent dataServiceUpdatedEvent;
+    [SerializeField] private EmptyPayloadEvent dataUpdatedEvent;
 
     public EmptyPayloadEvent NewGameStartedEvent { get => newGameStartedEvent; }
     public GameDataPayloadEvent SavedGameLoadedEvent { get => savedGameLoadedEvent; }
-    public EmptyPayloadEvent DataServiceUpdatedEvent { get => dataServiceUpdatedEvent; }
+    public EmptyPayloadEvent DataUpdatedEvent { get => dataUpdatedEvent; }
 }

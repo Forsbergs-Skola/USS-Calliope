@@ -2,6 +2,16 @@ using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
 
+
+public class Constants
+{
+    public const int MAX_PLAYER_HEALTH = 100;
+}
+public interface IRuntimeData
+{
+    public bool GetIsSandbox();
+}
+
 [System.Serializable]
 // A utility class for serializing lists to JSON
 public class StringListWrapper
@@ -15,22 +25,62 @@ public class SaveData
     // TODO
 }
 [System.Serializable]
-public class PlayerData
+public class PlayerData : IRuntimeData
 // All the save-worthy player information
 {
-    // TODO
+    public bool IsSandbox { get; private set; }
+    private int _health;
+    public int Health
+    {
+        get => _health;
+        set
+        {
+            if (_health == value) return;
+            _health = Mathf.Clamp(value, 0, Constants.MAX_PLAYER_HEALTH);
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+    public PlayerData()
+    {
+        IsSandbox = false;
+        Health = Constants.MAX_PLAYER_HEALTH;
+    }
+    public PlayerData(bool isSandbox)
+    {
+        IsSandbox = isSandbox;
+        Health = Constants.MAX_PLAYER_HEALTH;
+    }
+    public bool GetIsSandbox() { return IsSandbox; }
 }
 [System.Serializable]
-public class ProgressionData
+public class ProgressionData : IRuntimeData
 // All the save-worthy progression information
 {
-    // TODO
+    public bool IsSandbox { get; private set; }
+    public ProgressionData()
+    {
+        IsSandbox = false;
+    }
+    public ProgressionData(bool isSandBox)
+    {
+        IsSandbox = isSandBox;
+    }
+    public bool GetIsSandbox() { return IsSandbox; }
 }
 [System.Serializable]
-public class InventoryData
+public class InventoryData : IRuntimeData
 // all the save-worthy inventory information
 {
-    // TODO
+    public bool IsSandbox { get; private set; }
+    public InventoryData()
+    {
+        IsSandbox = false;
+    }
+    public InventoryData(bool isSandbox)
+    {
+        IsSandbox = isSandbox;
+    }
+    public bool GetIsSandbox() { return IsSandbox; }
 }
 [System.Serializable]
 public class GameData
@@ -45,6 +95,16 @@ public class GameData
         playerData = _playerData;
         inventoryData = _inventoryData;
         progressionData = _progressionData;
+    }
+}
+
+public static class DataTools
+{
+    public static void HandleOnDataChanged(IRuntimeData data)
+    {
+        if (data.GetIsSandbox()) return;
+        if (EventRelay.Instance == null) return;
+        EventRelay.Instance.GameEvents.DataUpdatedEvent.TriggerEvent();
     }
 }
 

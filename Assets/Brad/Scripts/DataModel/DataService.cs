@@ -28,7 +28,7 @@ public class DataService : Singleton<DataService>
         currentPlayerData = InitializePlayerData();
         currentInventoryData = InitializeInventoryData();
         currentProgressionData = InitializeProgressionData();
-        EventRelay.Instance.GameEvents.DataServiceUpdatedEvent.TriggerEvent();
+        EventRelay.Instance.GameEvents.DataUpdatedEvent.TriggerEvent();
     }
 
     private void HandleSavedGameLoaded(GameData _gameData)
@@ -36,7 +36,7 @@ public class DataService : Singleton<DataService>
         currentPlayerData = _gameData.playerData;
         currentInventoryData = _gameData.inventoryData;
         currentProgressionData = _gameData.progressionData;
-        EventRelay.Instance.GameEvents.DataServiceUpdatedEvent.TriggerEvent();
+        EventRelay.Instance.GameEvents.DataUpdatedEvent.TriggerEvent();
     }
 
     private PlayerData InitializePlayerData()
