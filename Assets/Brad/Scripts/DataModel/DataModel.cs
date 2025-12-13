@@ -20,7 +20,7 @@ public class PlayerData
 {
     // TODO
 }
-[System.Serializable] 
+[System.Serializable]
 public class ProgressionData
 // All the save-worthy progression information
 {
@@ -32,11 +32,20 @@ public class InventoryData
 {
     // TODO
 }
+[System.Serializable]
 public class GameData
 {
     public PlayerData playerData;
     public InventoryData inventoryData;
     public ProgressionData progressionData;
+
+    public GameData() { }
+    public GameData(PlayerData _playerData, InventoryData _inventoryData, ProgressionData _progressionData)
+    {
+        playerData = _playerData;
+        inventoryData = _inventoryData;
+        progressionData = _progressionData;
+    }
 }
 
 public static class SaveService
@@ -55,11 +64,11 @@ public static class SaveService
     {
         // TODO
     }
-    public static GameData Load()
+    public static void Load()
     {
         GameData gameData = new GameData();
         // TODO
-        return gameData;
+        EventRelay.Instance.GameEvents.SavedGameLoadedEvent.TriggerEvent(gameData);
     }
 
     //////////////////////
