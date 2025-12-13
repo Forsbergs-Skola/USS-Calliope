@@ -21,11 +21,8 @@ public class TestUI : MonoBehaviour
 
     private void HandleOnDataChanged()
     {
-        // I have verified that I only see output here when
-        // I load the sandbox scene from the bootstrap scene :)
-
-
         if (DataController.Instance == null) return;
+
         int health = DataController.Instance.PlayerRuntimeData.Value.Health;
         Debug.Log($"Player Health: {health}");
     }

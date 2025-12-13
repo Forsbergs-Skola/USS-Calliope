@@ -1,4 +1,5 @@
 using UnityEngine;
+/*
 
 public class DataService : Singleton<DataService>
 {
@@ -55,3 +56,4 @@ public class DataService : Singleton<DataService>
         return newProgressionData;
     }
 }
+*/
