@@ -1,6 +1,6 @@
 # Data Management
 
-*This guide explains how to use the shared data and events in our project. It assumes the current architecture: runtime ScriptableObjects, a DataController & an EventRelay servicein the bootstrap scene.*
+*This guide explains how to use the shared data and data events in our project. It assumes the current architecture: runtime ScriptableObjects, a DataController & an EventRelay servicein the bootstrap scene.*
 
 ## Core concepts
 
@@ -14,11 +14,11 @@
 
 ## Where to put gameplay logic
 
-* **Do not** add new logic into the ScriptableObjects themselves (other than the minimal setup they already have).
+* *DO NOT* add new logic into the ScriptableObjects themselves (other than the minimal setup they already have).
 
-* **Do** put gameplay logic in MonoBehaviours (e.g., combat, UI, enemy AI) that reference the runtime data assets and operate on Value.
+* *DO* put gameplay logic in MonoBehaviours (e.g., combat, UI, enemy AI) that reference the runtime data assets and operate on Value.
 
-* **Do** keep save/load logic inside `SaveService` and initialization logic inside `DataController`.
+* *DO* keep save/load logic inside `SaveService` and initialization logic inside `DataController`.
 
 ## Using runtime data in gameplay (normal, non-sandbox game flow)
 
