@@ -10,31 +10,50 @@ public class AmmoModel : MonoBehaviour
     public int CurrentAmmo => currentAmmo;
     public int MaxAmmo => maxAmmo;
 
-    // Pass in the weapon when equipping
     public void Initialize(SO_WeaponType weapon)
     {
-        maxAmmo = weapon.MaxMagSize;
-        currentAmmoType = weapon.AmmoType;
-        currentWeaponName = weapon.WeaponId; 
+        if (weapon == null)
+        {
+            currentAmmoType = null;
+            currentWeaponName = null;
+            maxAmmo = 0;
+            currentAmmo = 0;
+            return;
+        }
 
-        Debug.Log($"{currentWeaponName} Equipped. Current ammo: {currentAmmo}/{maxAmmo} ({currentAmmoType.AmmoId})");
+        currentAmmoType = weapon.AmmoType;
+        currentWeaponName = weapon.WeaponId;
+        maxAmmo = weapon.MagSize;
+        
+        currentAmmo = 0;
+
+        Debug.Log($"AmmoModel: Equipped {currentWeaponName}. Ammo: {currentAmmo}/{maxAmmo}");
     }
 
     public void AddAmmo(SO_AmmoType ammoType, int amount)
     {
+        // When we have an inventory, add this ammo to the inventory 
+        if (currentAmmoType == null)
+        { 
+            Debug.Log($"AmmoModel: No weapon equipped yet. Ammo pickup of {ammoType.AmmoId} ignored.");
+            return;
+        }
+        // When we have an inventory, add this ammo to the inventory 
         if (ammoType != currentAmmoType)
         {
-            Debug.Log($"Cannot add ammo: {ammoType.AmmoId} does not match weapon type {currentAmmoType.AmmoId}");
+            Debug.Log($"AmmoModel: Cannot add ammo {ammoType.AmmoId}, does not match weapon {currentAmmoType.AmmoId}");
             return;
         }
 
         currentAmmo = Mathf.Min(currentAmmo + amount, maxAmmo);
-        Debug.Log($"Ammo added for {currentWeaponName}: {currentAmmo}/{maxAmmo} ({currentAmmoType.AmmoId})");
+        Debug.Log($"AmmoModel: Added ammo for {currentWeaponName}. Current ammo: {currentAmmo}/{maxAmmo}");
     }
 
     public bool UseAmmo(int amount)
     {
-        if (currentAmmo < amount) return false;
+        if (currentAmmo < amount)
+            return false;
+
         currentAmmo -= amount;
         return true;
     }
