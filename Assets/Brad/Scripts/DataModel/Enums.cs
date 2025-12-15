@@ -13,3 +13,11 @@ public enum EnumAttackType
     MELEE,
     RANGED
 }
+
+public enum EnumWeaponType
+{
+    NONE,
+    PISTOL,
+    SHOTGUN
+    // add/remove more as needed
+}
