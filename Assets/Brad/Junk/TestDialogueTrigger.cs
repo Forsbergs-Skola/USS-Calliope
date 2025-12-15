@@ -52,6 +52,28 @@ public class TestDialogueTrigger : MonoBehaviour
         // ^^ here, you can sset the public value directly, and the setter function on the
         // backend will take care of the rest.
 
+        /////////////////////////////////////////
+        // GET A LIST OF ACTIVE STATUS EFFECTS //
+        /////////////////////////////////////////
+        DataController.Instance.PlayerRuntimeData.Value.GetActiveStatusEffects();
+
+        //////////////////////////////////////
+        // ADD STATUS EFFECTS TO THE PLAYER //
+        //////////////////////////////////////
+        DataController.Instance.PlayerRuntimeData.Value.AddActiveStatusEffect(EnumPlayerStatusEffect.IN_STEALTH);
+        DataController.Instance.PlayerRuntimeData.Value.AddActiveStatusEffect(EnumPlayerStatusEffect.BLEEDING);
+        // ...etc
+
+        ///////////////////////////////////////////
+        // REMOVE STATUS EFFECTS FROM THE PLAYER //
+        ///////////////////////////////////////////
+        DataController.Instance.PlayerRuntimeData.Value.RemoveActiveStatusEffect(EnumPlayerStatusEffect.POISON);
+
+        //////////////////////////////
+        // CLEAR ALL STATUS EFFECTS //
+        //////////////////////////////
+        DataController.Instance.PlayerRuntimeData.Value.ClearAllActiveStatusEffects();
+
 
     }
 }

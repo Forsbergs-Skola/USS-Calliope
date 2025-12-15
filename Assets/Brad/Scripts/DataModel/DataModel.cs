@@ -3,10 +3,19 @@ using System.IO;
 using System.Collections.Generic;
 
 
+public enum EnumPlayerStatusEffect
+{
+    BLEEDING,
+    POISON,
+    IN_STEALTH
+    // add/remove more as needed
+}
+
 public class Constants
 {
     public const int MAX_PLAYER_HEALTH = 100;
 }
+
 public interface IRuntimeData
 {
     public bool GetIsSandbox();
@@ -34,6 +43,33 @@ public class PlayerData : IRuntimeData
     // Data Fields //
     /////////////////
 
+    // LIST FIELDS
+
+    private List<EnumPlayerStatusEffect> _activeStatusEffects;
+    public List<EnumPlayerStatusEffect> GetActiveStatusEffects()
+    {
+        return new List<EnumPlayerStatusEffect>(_activeStatusEffects);
+    }
+    public void AddActiveStatusEffect(EnumPlayerStatusEffect _effect)
+    {
+        if (_activeStatusEffects.Contains(_effect)) return;
+        _activeStatusEffects.Add(_effect);
+        DataTools.HandleOnDataChanged(this);
+    }
+    public void RemoveActiveStatusEffect(EnumPlayerStatusEffect _effect)
+    {
+        if (!_activeStatusEffects.Contains(_effect)) return;
+        _activeStatusEffects.Remove(_effect);
+        DataTools.HandleOnDataChanged(this);
+    }
+    public void ClearAllActiveStatusEffects()
+    {
+        _activeStatusEffects.Clear();
+        _activeStatusEffects = new List<EnumPlayerStatusEffect>();
+        DataTools.HandleOnDataChanged(this);
+    }
+
+    // ATOMIC FIELDS
 
     private int _health;
     public int Health
@@ -56,11 +92,13 @@ public class PlayerData : IRuntimeData
     {
         IsSandbox = false;
         Health = Constants.MAX_PLAYER_HEALTH;
+        _activeStatusEffects = new List<EnumPlayerStatusEffect>();
     }
     public PlayerData(bool isSandbox)
     {
         IsSandbox = isSandbox;
         Health = Constants.MAX_PLAYER_HEALTH;
+        _activeStatusEffects = new List<EnumPlayerStatusEffect>();
     }
     public bool GetIsSandbox() { return IsSandbox; }
 }
