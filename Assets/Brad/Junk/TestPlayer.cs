@@ -14,12 +14,18 @@ public class TestPlayer : MonoBehaviour
         playerData.Value.Health -= damageAmount;
     }
 
+    public void GainXP(int xpAmount)
+    {
+        playerData.Value.XP += xpAmount;
+    }
+
     private System.Collections.IEnumerator TakeDamageTest()
     {
         for (int i = 0; i< 10; i++)
         {
             yield return new WaitForSecondsRealtime(3f);
             TakeDamage(2);
+            GainXP(1);
         }
     }
 

@@ -25,5 +25,8 @@ public class TestUI : MonoBehaviour
 
         int health = DataController.Instance.PlayerRuntimeData.Value.Health;
         Debug.Log($"Player Health: {health}");
+
+        int xp = DataController.Instance.PlayerRuntimeData.Value.XP;
+        Debug.Log($"Player XP: {xp}");
     }
 }
