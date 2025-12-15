@@ -7,9 +7,9 @@ public class PlayerRuntimeData : ScriptableObject
     private void OnEnable()
     {
         Value = null;
-        if (DataController.Instance == null)
+        if (DataController.Instance == null) // If I am loaded into a sandbox scene...
         {
-            Value = new PlayerData(true);
+            Value = new PlayerData(true); // Initialize with IsSandbox = true
         }
     }
 }
