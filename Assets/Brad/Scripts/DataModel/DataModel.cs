@@ -47,6 +47,8 @@ public class PlayerData : IRuntimeData
         }
     }
 
+    // TODO... Other data fields
+
     //////////////////
     // Constructors //
     //////////////////
@@ -74,16 +76,43 @@ public class ProgressionData : IRuntimeData
 
     // TODO all the progression data fields
 
+    private bool _talkedToBob;
+    public bool TalkedToBob
+    {
+        get => _talkedToBob;
+        set
+        {
+            _talkedToBob = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+
+    private bool _talkedToAlice;
+    public bool TalkedToAlice
+    {
+        get => _talkedToAlice;
+        set
+        {
+            _talkedToAlice = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+
+
     //////////////////
     // Constructors //
     //////////////////
     public ProgressionData()
     {
         IsSandbox = false;
+        TalkedToBob = false;
+        TalkedToAlice = false;
     }
     public ProgressionData(bool isSandBox)
     {
         IsSandbox = isSandBox;
+        TalkedToBob = false;
+        TalkedToAlice = false;
     }
     public bool GetIsSandbox() { return IsSandbox; }
 }
