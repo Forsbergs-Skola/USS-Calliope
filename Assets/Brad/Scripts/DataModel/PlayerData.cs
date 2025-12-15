@@ -51,6 +51,18 @@ public class PlayerData : IRuntimeData
         }
     }
 
+    private EnumWeaponType _equippedWeapon;
+    public EnumWeaponType EquippedWeapon
+    {
+        get => _equippedWeapon;
+        set
+        {
+            if (value == _equippedWeapon) return;
+            _equippedWeapon = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+
     private int _xp;
     public int XP
     {
@@ -73,6 +85,7 @@ public class PlayerData : IRuntimeData
         IsSandbox = false;
         Health = Constants.MAX_PLAYER_HEALTH;
         XP = 0;
+        EquippedWeapon = EnumWeaponType.NONE;
         _activeStatusEffects = new List<EnumPlayerStatusEffect>();
     }
     public PlayerData(bool isSandbox)
@@ -80,6 +93,7 @@ public class PlayerData : IRuntimeData
         IsSandbox = isSandbox;
         Health = Constants.MAX_PLAYER_HEALTH;
         XP = 0;
+        EquippedWeapon = EnumWeaponType.NONE;
         _activeStatusEffects = new List<EnumPlayerStatusEffect>();
     }
     public bool GetIsSandbox() { return IsSandbox; }

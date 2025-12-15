@@ -56,6 +56,7 @@ The `DataController` exists and will:
         }
     }
 
+(for list fields, see Appendix 1, "Working with Collections Fields", [below](#appendix-1))
 
 Key points:
 
@@ -94,6 +95,7 @@ Example:
         }
     }
 
+(for list fields, see Appendix 1, "Working with Collections Fields", [below](#appendix-1))
 
 Sandbox rules:
 
@@ -196,3 +198,112 @@ Adding a new data field?
 Saving?
 
 * Only save when all involved data objects have `IsSandbox` == false.
+
+## Appendix 1
+### Working with Collections Fields
+
+Collection type fields (List & Dictionary) are a little different, because adding and removing items does dot trigger the setter logic.
+
+For these, we provide custom public methods to add, remove & clear items, instead of exposing a public field. Player status effects, for example:
+
+*On the back-end:*
+
+    public enum EnumPlayerStatusEffect
+    {
+        BLEEDING,
+        POISON,
+        IN_STEALTH
+        // add/remove more as needed
+    }
+
+    public class PlayerData : IRuntimeData
+    {
+        
+        // ...
+    
+        private List<EnumPlayerStatusEffect> _activeStatusEffects;
+        public List<EnumPlayerStatusEffect> GetActiveStatusEffects()
+        {
+            return new List<EnumPlayerStatusEffect>(_activeStatusEffects);
+        }
+        public void AddActiveStatusEffect(EnumPlayerStatusEffect _effect)
+        {
+            if (_activeStatusEffects.Contains(_effect)) return;
+            _activeStatusEffects.Add(_effect);
+            DataTools.HandleOnDataChanged(this);
+        }
+        public void RemoveActiveStatusEffect(EnumPlayerStatusEffect _effect)
+        {
+            if (!_activeStatusEffects.Contains(_effect)) return;
+            _activeStatusEffects.Remove(_effect);
+            DataTools.HandleOnDataChanged(this);
+        }
+        public void ClearAllActiveStatusEffects()
+        {
+            _activeStatusEffects.Clear();
+            _activeStatusEffects = new List<EnumPlayerStatusEffect>();
+            DataTools.HandleOnDataChanged(this);
+        }
+    
+        // ...
+    
+    }
+
+*Usage pattern, from outside the player prefab:*
+
+    /////////////////////////////////////////
+    // GET A LIST OF ACTIVE STATUS EFFECTS //
+    /////////////////////////////////////////
+    DataController.Instance.PlayerRuntimeData.Value.GetActiveStatusEffects();
+    
+    //////////////////////////////////////
+    // ADD STATUS EFFECTS TO THE PLAYER //
+    //////////////////////////////////////
+    DataController.Instance.PlayerRuntimeData.Value.AddActiveStatusEffect(EnumPlayerStatusEffect.IN_STEALTH);
+    DataController.Instance.PlayerRuntimeData.Value.AddActiveStatusEffect(EnumPlayerStatusEffect.BLEEDING);
+    // ...etc
+    
+    ///////////////////////////////////////////
+    // REMOVE STATUS EFFECTS FROM THE PLAYER //
+    ///////////////////////////////////////////
+    DataController.Instance.PlayerRuntimeData.Value.RemoveActiveStatusEffect(EnumPlayerStatusEffect.POISON);
+    
+    //////////////////////////////
+    // CLEAR ALL STATUS EFFECTS //
+    //////////////////////////////
+    DataController.Instance.PlayerRuntimeData.Value.ClearAllActiveStatusEffects();
+
+*Usage pattern, from inside the player prefab:*
+
+    public class TestPlayer : MonoBehaviour
+    {
+        [SerializeField] private PlayerRuntimeData playerData;
+
+        // ...
+
+        private void Blah()
+        {
+            /////////////////////////////////////////
+            // GET A LIST OF ACTIVE STATUS EFFECTS //
+            /////////////////////////////////////////
+            playerData.Value.GetActiveStatusEffects();
+
+            //////////////////////////////////////
+            // ADD STATUS EFFECTS TO THE PLAYER //
+            //////////////////////////////////////
+            playerData.Value.AddActiveStatusEffect(EnumPlayerStatusEffect.IN_STEALTH);
+            playerData.Value.AddActiveStatusEffect(EnumPlayerStatusEffect.BLEEDING);
+            // ...etc
+
+            ///////////////////////////////////////////
+            // REMOVE STATUS EFFECTS FROM THE PLAYER //
+            ///////////////////////////////////////////
+            playerData.Value.RemoveActiveStatusEffect(EnumPlayerStatusEffect.POISON);
+
+            //////////////////////////////
+            // CLEAR ALL STATUS EFFECTS //
+            //////////////////////////////
+            playerData.Value.ClearAllActiveStatusEffects();
+        }
+
+    }
