@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WeaponPickupPresenter : PickupBase
+public class WeaponPickupHandler : PickupBase
 {
     [SerializeField] private SO_WeaponType weapon;
 

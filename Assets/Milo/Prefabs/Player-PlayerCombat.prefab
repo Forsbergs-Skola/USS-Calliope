@@ -79,6 +79,9 @@ GameObject:
   - component: {fileID: 5996559275985868079}
   - component: {fileID: 4206972160383816233}
   - component: {fileID: 9006871774821792757}
+  - component: {fileID: 925859058689748378}
+  - component: {fileID: 5378962959325982585}
+  - component: {fileID: 4970644461768673461}
   m_Layer: 0
   m_Name: Player-PlayerCombat
   m_TagString: Untagged
@@ -245,16 +248,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d34fadb6927d25418538f033b3d8339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponHandler
-  shootAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  mousePositionAction: {fileID: -318039564575867876, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  maxDistance: 100
-  hitMask:
-    serializedVersion: 2
-    m_Bits: 2147483648
+  aimController: {fileID: 925859058689748378}
+  cooldown: {fileID: 4970644461768673461}
+  impactProcessor: {fileID: 5378962959325982585}
   firePoint: {fileID: 480230480996567608}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 1073741825
+  shootAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!114 &9006871774821792757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,3 +268,48 @@ MonoBehaviour:
   moveSpeed: 5
   moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   mousePositionAction: {fileID: -318039564575867876, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+--- !u!114 &925859058689748378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897305043829407359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d87699535b407a4f8bdc3e956db72b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAimController
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 1073741824
+  maxRaycastDistance: 200
+  mousePositionAction: {fileID: -318039564575867876, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+--- !u!114 &5378962959325982585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897305043829407359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22d321693552ac54ab6b5499e6574c83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ImpactProcessor
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 2147483648
+  fixedMaxDistance: 100
+--- !u!114 &4970644461768673461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897305043829407359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8e39a4298a46d8a55641c09e3aeabb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponCooldown

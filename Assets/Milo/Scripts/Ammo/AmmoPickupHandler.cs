@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class AmmoPickupPresenter : PickupBase
+public class AmmoPickupHandler : PickupBase
 {
     [SerializeField] private AmmoPickUpView view;
 
@@ -15,7 +15,6 @@ public class AmmoPickupPresenter : PickupBase
             return;
         }
 
-        // Access the AmmoModel from the handler
         var ammoModel = weaponHandler.AmmoModel;
         ammoModel.AddAmmo(view.AmmoType, view.AmmoAmount);
 

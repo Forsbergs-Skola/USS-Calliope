@@ -1,26 +1,20 @@
 using UnityEngine;
-using UnityEngine.InputSystem; 
-using System.Collections;
+using UnityEngine.InputSystem;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
-   
+    [SerializeField] private PlayerAimController aimController; 
+    [SerializeField] private WeaponCooldown cooldown;
+    [SerializeField] private ImpactProcessor impactProcessor;
+    [SerializeField] private Transform firePoint;
+    
+    [Header("Input")]
     [SerializeField] private InputActionReference shootAction; 
-    [SerializeField] private InputActionReference mousePositionAction; // <--- ADD THIS
-    
-    private AmmoModel ammoModel;
-    private SO_WeaponType currentWeapon;
-    private bool canShoot = true; 
-    
-    [Header("Raycasting")]
-    [SerializeField] private float maxDistance = 100f; 
-    [SerializeField] private LayerMask hitMask;        
-    [SerializeField] private Transform firePoint;      
-    
-    [Header("Isometric Aiming")]
-    [SerializeField] private LayerMask groundMask;
-    private Camera mainCamera;
 
+    private AmmoModel ammoModel; // The Pure C# Model
+    private SO_WeaponType currentWeapon; 
+    
+    public AmmoModel AmmoModel => ammoModel;
     void Awake()
     {
         ammoModel = new AmmoModel();
@@ -32,25 +26,6 @@ public class PlayerWeaponHandler : MonoBehaviour
             shootAction.action.Enable();
             shootAction.action.performed += OnShootInput; 
         }
-        else
-        {
-            Debug.LogError("Shoot Action Reference is missing or invalid.");
-        }
-        
-        // --- NEW: Enable the Mouse Position Action ---
-        if (mousePositionAction != null && mousePositionAction.action != null)
-        {
-            mousePositionAction.action.Enable();
-        }
-    }
-
-    void Start()
-    {
-        mainCamera = Camera.main;
-        if (mainCamera == null)
-        {
-            Debug.LogError("FATAL: Main Camera tag not found on any active Camera. Isometric aiming will fail.");
-        }
     }
 
     void OnDestroy()
@@ -60,55 +35,50 @@ public class PlayerWeaponHandler : MonoBehaviour
             shootAction.action.performed -= OnShootInput;
             shootAction.action.Disable();
         }
-        if (mousePositionAction != null && mousePositionAction.action != null)
-        {
-             mousePositionAction.action.Disable();
-        }
     }
 
     private void OnShootInput(InputAction.CallbackContext context)
     {
-        if (canShoot)
-        {
-            TryShoot();
-        }
+        TryShoot();
     }
     
-    public void EquipWeapon(SO_WeaponType weapon)
+    public void EquipWeapon(SO_WeaponType newWeapon)
     {
-        if (weapon == null || weapon == currentWeapon)
+        if (newWeapon == null)
+        {
+            Debug.LogWarning("Attempted to equip null weapon.");
             return;
+        }
+        
+        if (newWeapon == currentWeapon)
+            return;
+        
+        currentWeapon = newWeapon;
+        Debug.Log($"Equipped: {newWeapon.WeaponId}");
 
-        currentWeapon = weapon;
-        ammoModel.Initialize(weapon);
-        Debug.Log($"Equipped: {weapon.WeaponId}");
+        
+        ammoModel.Initialize(newWeapon); 
+        
+        cooldown.InitializeCooldown(newWeapon.FireRate);
+        
+        impactProcessor.InitializeProcessor(newWeapon); 
     }
 
     public void TryShoot()
     {
-        if (firePoint == null || mainCamera == null)
-        {
-            Debug.LogError("FATAL ERROR: FirePoint or Camera reference is missing. Check Inspector/Tags.");
-            return;
-        }
+        if (currentWeapon == null || firePoint == null) return; 
 
-        if (currentWeapon == null)
-        {
-            Debug.Log("Click! No weapon equipped.");
-            return;
-        }
+        if (!cooldown.CanFire()) return;
         
-        const int ammoPerShot = 1; 
+        const int ammoPerShot = 1;
+        if (!ammoModel.UseAmmo(ammoPerShot))
+        {
+            Debug.Log($"Click! {currentWeapon.WeaponId} out of ammo."); 
+            return;
+        }
 
-        if (ammoModel.UseAmmo(ammoPerShot))
-        {
-            FireWeapon();
-            StartCoroutine(FireRateCooldown(currentWeapon.FireRate));
-        }
-        else
-        {
-            Debug.Log($"Click! {currentWeapon.WeaponId} out of ammo.");
-        }
+        FireWeapon();
+        cooldown.StartCooldown(currentWeapon.FireRate);
     }
 
     private void FireWeapon()
@@ -116,66 +86,21 @@ public class PlayerWeaponHandler : MonoBehaviour
         Vector3 origin = firePoint.position;
         Vector3 finalDirection; 
 
-        if (GetMouseWorldPositionOnGround(out Vector3 targetPosition))
+        if (aimController.TryGetAimDirection(origin, out finalDirection))
         {
-            finalDirection = (targetPosition - origin).normalized;
-        }
-        else
-        {
-            Debug.LogWarning("Mouse not over ground plane. Using direct forward.");
-            finalDirection = firePoint.forward; 
-        }
-
-        RaycastHit hit;
-
-        if (Physics.Raycast(origin, finalDirection, out hit, maxDistance, hitMask))
-        {
-            Debug.Log($"Hit: {hit.collider.name} at {hit.point} | Dist: {hit.distance:F2}m");
+            RaycastHit hit;
             
-            HandleHit(hit.collider.gameObject, hit.point);
-
-            Debug.DrawLine(origin, hit.point, Color.red, 0.1f);
+            if (Physics.Raycast(origin, finalDirection, out hit, impactProcessor.MaxDistance, impactProcessor.HitMask))
+            {
+                impactProcessor.ProcessHit(hit);
+                Debug.DrawLine(origin, hit.point, Color.red, 0.1f);
+            }
+            else
+            {
+                Debug.Log("Shot missed everything.");
+                Debug.DrawLine(origin, origin + finalDirection * impactProcessor.MaxDistance, Color.yellow, 0.1f);
+            }
         }
-        else
-        {
-            Debug.Log("Shot missed everything.");
-            Debug.DrawLine(origin, origin + finalDirection * maxDistance, Color.yellow, 0.1f);
-        }
-
-        Debug.Log($"Fired {currentWeapon.WeaponId}. Ammo: {ammoModel.CurrentAmmo}");
-    }
-
-    private bool GetMouseWorldPositionOnGround(out Vector3 worldPosition)
-    {
-        // --- FIX: Read mouse position from the new Input System Action ---
-        Vector2 mouseScreenPosition = mousePositionAction.action.ReadValue<Vector2>();
-        
-        Ray ray = mainCamera.ScreenPointToRay(mouseScreenPosition);
-        
-        if (Physics.Raycast(ray, out RaycastHit hit, maxDistance * 2, groundMask)) 
-        {
-            worldPosition = hit.point;
-            return true;
-        }
-
-        worldPosition = Vector3.zero;
-        return false;
-    }
-    
-    private void HandleHit(GameObject hitObject, Vector3 hitPosition)
-    {
-        if (hitObject.TryGetComponent<EnemyHealthPC>(out var healthComponent))
-        {
-            healthComponent.TakeDamage(currentWeapon.WeaponDamage);
-            Debug.Log($"Damage dealt: {currentWeapon.WeaponDamage} to {hitObject.name}");
-        }    
-    }
-
-    private IEnumerator FireRateCooldown(float waitTime)
-    {
-        canShoot = false;
-        yield return new WaitForSeconds(waitTime);
-        canShoot = true;
     }
 
     private void OnAmmoChanged(int current, int max)
@@ -187,7 +112,4 @@ public class PlayerWeaponHandler : MonoBehaviour
     {
         Debug.LogWarning(message);
     }
-
-    public SO_WeaponType CurrentWeapon => currentWeapon;
-    public AmmoModel AmmoModel => ammoModel;
 }

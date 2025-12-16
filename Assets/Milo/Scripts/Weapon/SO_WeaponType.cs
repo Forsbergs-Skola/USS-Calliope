@@ -10,6 +10,7 @@ public class SO_WeaponType : ScriptableObject
     [SerializeField] private SO_AmmoType ammoType;
     [SerializeField] private float fireRate = 0.2f;
     [SerializeField] private bool isSemiAutomatic = false;
+    
 
     public string WeaponId => weaponId;
     public Sprite WeaponIcon => weaponIcon;
