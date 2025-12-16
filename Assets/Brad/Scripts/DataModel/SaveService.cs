@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
+using System;
 
 
 public interface IRuntimeData
@@ -14,12 +15,7 @@ public class StringListWrapper
 {
     public List<string> strings;
 }
-[System.Serializable] 
-public class SaveData
-// JSON friendly data store
-{
-    // TODO
-}
+
 
 
 [System.Serializable]
@@ -53,6 +49,16 @@ public static class DataTools
         wrappedStrings.strings = new List<string>(inList);
         return wrappedStrings;
     }
+
+    public static List<string> GetStringListFromJson(string inString)
+    {
+        List<string> outList = new List<string>();
+        if (string.IsNullOrEmpty(inString)) { return outList; }
+        StringListWrapper wrapper = JsonUtility.FromJson<StringListWrapper>(inString);
+        outList = wrapper.strings;
+        return outList;
+    }
+
 }
 
 public static class SaveService
@@ -70,7 +76,11 @@ public static class SaveService
     public static void Save(PlayerData playerData, InventoryData inventoryData, ProgressionData progressionData)
     {
         ClearSave();
-        SaveData newSD = GameDataToSaveData(playerData, inventoryData, progressionData);
+        GameData gData = new GameData();
+        gData.playerData = playerData;
+        gData.inventoryData = inventoryData;
+        gData.progressionData = progressionData;
+        SaveData newSD = GameDataToSaveData(gData);
         // TODO -- write newSD to disk
     }
     public static void Load()
@@ -89,36 +99,133 @@ public static class SaveService
         EventRelay.Instance.GameEvents.SavedGameLoadedEvent.TriggerEvent(gameData);
     }
 
-    //////////////////////
-    // Conversion Tools //
-    //////////////////////
-    
-    private static SaveData GameDataToSaveData(PlayerData playerData, InventoryData inventoryData, ProgressionData progressionData)
-    {
-        SaveData outData = new SaveData();
-        // TODO...
-        return outData;
-    }
     public static void ClearSave()
     {
         if (File.Exists(saveFilePath)) { File.Delete(saveFilePath); }
     }
+
+    //////////////////////
+    // Conversion Tools //
+    //////////////////////
+
+    private static SaveData GameDataToSaveData(GameData gameData)
+    {
+
+        PlayerData playerData = gameData.playerData;
+        InventoryData inventoryData = gameData.inventoryData;
+        ProgressionData progressionData = gameData.progressionData;
+        SaveData outData = new SaveData();
+
+        ////////////////
+        // PlayerData //
+        ////////////////
+        
+        // wrapperize lists
+        List<string> statusEffects = new List<string>();
+        foreach(EnumPlayerStatusEffect effect in playerData.GetActiveStatusEffects())
+        {
+            string effectStr = effect.ToString();
+            if (!statusEffects.Contains(effectStr)) { statusEffects.Add(effectStr); }
+        }
+        StringListWrapper statusEffectsWrapper = DataTools.GetWrapperizedStringList(statusEffects);
+        string activeStatusEffectsString = JsonUtility.ToJson(statusEffectsWrapper);
+
+        // write data to outData
+        outData.PLAYER_ActiveStatusEffectsString = activeStatusEffectsString;
+        outData.PLAYER_Health = playerData.Health;
+        outData.PLAYER_XP = playerData.XP;
+        outData.PLAYER_EquippedWeapon = playerData.EquippedWeapon.ToString();
+
+
+        ///////////////////
+        // InventoryData //
+        ///////////////////
+        
+        // wrapperize lists
+        // TODO...
+
+        // write to outData
+        // TODO...
+
+
+        /////////////////////
+        // ProgressionData //
+        /////////////////////
+
+        // wrapperize lists
+        List<string> defeatedEnemies = new List<string>();
+        foreach(string enemy in progressionData.GetDefeatedEnemies())
+        {
+            if (!defeatedEnemies.Contains(enemy)) { defeatedEnemies.Add(enemy); }
+        }
+        StringListWrapper defeatedEnemiesWrapper = DataTools.GetWrapperizedStringList(defeatedEnemies);
+        string defeatedEnemiesString = JsonUtility.ToJson(defeatedEnemiesWrapper);
+
+        // write to outData
+        outData.PROGRESSION_defeatedEnemiesString = defeatedEnemiesString;
+        outData.PROGRESSION_TalkedToBob = progressionData.TalkedToBob;
+        outData.PROGRESSION_TalkedToAlice = progressionData.TalkedToAlice;
+
+
+        // return outData
+        return outData;
+    }
+    
     private static PlayerData GetPlayerDataFromSaveData(SaveData saveData)
     {
-        PlayerData playerData = new PlayerData();
-        // TODO...
-        return playerData;
+        
+        PlayerData _playerData = new PlayerData(true); // use a sandbox instance to construct
+
+        // extract status effect list data
+        List<EnumPlayerStatusEffect> activeStatusEffects = new List<EnumPlayerStatusEffect>();
+        List<string> statusEffectsStringList = DataTools.GetStringListFromJson(saveData.PLAYER_ActiveStatusEffectsString);
+        foreach (string effectString in statusEffectsStringList)
+        {
+            if (Enum.TryParse(effectString, ignoreCase: true, out EnumPlayerStatusEffect theEffect))
+            {
+                activeStatusEffects.Add(theEffect);
+            }
+        }
+        foreach (EnumPlayerStatusEffect effect in activeStatusEffects)
+        {
+            _playerData.AddActiveStatusEffect(effect);
+        }
+
+        // parse the equpiied weapon string
+        EnumWeaponType equippedWeapon = EnumWeaponType.NONE;
+        // convert equipped weapon string to EnumWeaponType
+        if (Enum.TryParse(saveData.PLAYER_EquippedWeapon, ignoreCase: true, out EnumWeaponType theWeapon))
+        {
+            equippedWeapon = theWeapon;
+        }
+        _playerData.EquippedWeapon = equippedWeapon;
+
+        // do the easy stuff
+        _playerData.Health = saveData.PLAYER_Health;
+        _playerData.XP = saveData.PLAYER_XP;
+
+        return new PlayerData(_playerData);
     }
     private static InventoryData GetInventoryDataFromSaveData(SaveData saveData)
     {
-        InventoryData inventoryData = new InventoryData();
+        InventoryData _inventoryData = new InventoryData(true);
         // TODO...
-        return inventoryData;
+        return new InventoryData(_inventoryData);
     }
     private static ProgressionData GetProgressionDataFromSaveData(SaveData saveData)
     {
-        ProgressionData progressionData = new ProgressionData();
-        // TODO...
-        return progressionData;
+        ProgressionData _progressionData = new ProgressionData(true);
+
+        // construct defeated enemies list
+        List<string> savedDefeatedEnemies = DataTools.GetStringListFromJson(saveData.PROGRESSION_defeatedEnemiesString);
+        foreach(string enemy in savedDefeatedEnemies)
+        {
+            _progressionData.AddDefeatedEnemy(enemy);
+        }
+
+        return new ProgressionData(_progressionData);
     }
+
+    
+
 }
