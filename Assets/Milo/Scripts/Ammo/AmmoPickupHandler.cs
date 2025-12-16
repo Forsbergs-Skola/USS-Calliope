@@ -7,7 +7,6 @@ public class AmmoPickupHandler : PickupBase
 
     protected override void OnPickup(GameObject picker)
     {
-        // Get the PlayerWeaponHandler instead
         var weaponHandler = picker.GetComponent<PlayerWeaponHandler>();
         if (weaponHandler == null)
         {
