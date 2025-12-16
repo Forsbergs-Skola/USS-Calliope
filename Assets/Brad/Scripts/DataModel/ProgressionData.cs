@@ -8,6 +8,13 @@ public class ProgressionData : IRuntimeData
 {
     public bool IsSandbox { get; private set; }
 
+    private List<string> _defeatedEnemies;
+    private string _sceneName;
+
+
+    private bool _talkedToBob;
+    private bool _talkedToAlice;
+
     /////////////////
     // Data Fields //
     /////////////////
@@ -15,7 +22,7 @@ public class ProgressionData : IRuntimeData
     // TODO all the progression data fields
 
     // list fields
-    private List<string> _defeatedEnemies;
+
     public void AddDefeatedEnemy(string enemyID)
     {
         if (_defeatedEnemies.Contains(enemyID)) return;
@@ -39,7 +46,17 @@ public class ProgressionData : IRuntimeData
     }
 
     // atomic fields
-    private bool _talkedToBob;
+    
+    public string SceneName
+    {
+        get => _sceneName;
+        set
+        {
+            _sceneName = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+
     public bool TalkedToBob
     {
         get => _talkedToBob;
@@ -50,7 +67,7 @@ public class ProgressionData : IRuntimeData
         }
     }
 
-    private bool _talkedToAlice;
+    
     public bool TalkedToAlice
     {
         get => _talkedToAlice;
