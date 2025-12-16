@@ -79,5 +79,13 @@ public class ProgressionData : IRuntimeData
         TalkedToAlice = false;
         _defeatedEnemies = new List<string>();
     }
+
+    public ProgressionData(ProgressionData inData)
+    {
+        IsSandbox = false;
+        TalkedToBob = inData.TalkedToBob;
+        TalkedToAlice = inData.TalkedToAlice;
+        _defeatedEnemies = inData.GetDefeatedEnemies();
+    }
     public bool GetIsSandbox() { return IsSandbox; }
 }

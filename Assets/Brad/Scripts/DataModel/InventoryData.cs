@@ -24,5 +24,10 @@ public class InventoryData : IRuntimeData
     {
         IsSandbox = isSandbox;
     }
+    public InventoryData(InventoryData inData)
+    {
+        IsSandbox = false;
+    }
     public bool GetIsSandbox() { return IsSandbox; }
+
 }
