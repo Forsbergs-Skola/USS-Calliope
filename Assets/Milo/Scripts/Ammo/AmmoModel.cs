@@ -24,7 +24,6 @@
                 currentWeaponName = null;
                 maxAmmo = 0;
                 currentAmmo = 0;
-                OnError?.Invoke("AmmoModel: No weapon provided during initialization.");
                 return;
             }
 
@@ -36,17 +35,17 @@
             AmmoChanged?.Invoke(currentAmmo, maxAmmo);
         }
 
+        // TODO: When implementing the inventory system,
+        // this function must be refactored to check and update an 'ammoReserves' dictionary instead.
         public void AddAmmo(SO_AmmoType ammoType, int amount)
         {
+            
             if (currentAmmoType == null)
             {
-                OnError?.Invoke($"AmmoModel: No weapon equipped. Ammo pickup of {ammoType?.AmmoId ?? "null"} ignored.");
                 return;
             }
-
             if (ammoType != currentAmmoType)
             {
-                OnError?.Invoke($"AmmoModel: Cannot add ammo {ammoType.AmmoId}, does not match weapon {currentAmmoType.AmmoId}");
                 return;
             }
 
