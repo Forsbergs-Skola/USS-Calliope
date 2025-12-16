@@ -30,3 +30,5 @@ public class TestUI : MonoBehaviour
         Debug.Log($"Player XP: {xp}");
     }
 }
+
+

@@ -96,5 +96,14 @@ public class PlayerData : IRuntimeData
         EquippedWeapon = EnumWeaponType.NONE;
         _activeStatusEffects = new List<EnumPlayerStatusEffect>();
     }
+
+    public PlayerData(PlayerData inData)
+    {
+        IsSandbox = false;
+        Health = inData.Health;
+        XP = inData.XP;
+        EquippedWeapon = inData.EquippedWeapon;
+        _activeStatusEffects = inData.GetActiveStatusEffects();
+    }
     public bool GetIsSandbox() { return IsSandbox; }
 }

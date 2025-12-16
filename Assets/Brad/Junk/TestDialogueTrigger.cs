@@ -6,6 +6,9 @@ public class TestDialogueTrigger : MonoBehaviour
 
     [SerializeField] private string npcName = "Alice";
 
+
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
