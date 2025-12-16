@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class PlayerNoiseEmitter : MonoBehaviour
+public class NoiseEmitter : MonoBehaviour
 {
     public float walkRadius   = 5f;
     public float runRadius    = 9f;
     public float crouchRadius = 2f;
 
-    public LayerMask enemyMask;         
+    public LayerMask enemyMask;
     public ParticleSystem ringParticles;
 
     public void EmitWalk()
@@ -30,11 +30,11 @@ public class PlayerNoiseEmitter : MonoBehaviour
         if (ringParticles != null)
         {
             var main = ringParticles.main;
-            main.startSize = radius * 2f;   // diameter = 2 * radius
+            main.startSize = radius * 2f; // diameter
             ringParticles.Emit(1);
         }
 
-        // gameplay: alert enemies inside radius
+        // Alerts enemies inside radius
         Collider[] hits = Physics.OverlapSphere(transform.position, radius, enemyMask);
         foreach (var hit in hits)
         {

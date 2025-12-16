@@ -22,13 +22,17 @@ public class EnemyChase : MonoBehaviour
     public float loseSightDelay = 0.3f;
 
     [Header("Attack")]
-    public float attackDistance = 1.2f;   // how close before push
-    public float pushForce = 6f;          // strength of push
+    public float attackDistance = 1.2f;
+    public float pushForce = 6f;
 
     Vector3 startPos;
     Quaternion startRot;
     bool chasing;
     float lastTimeSeenPlayer = -999f;
+
+    // hearing / investigation
+    Vector3 investigatePos;
+    bool investigating;
 
     Rigidbody playerRb;
 
@@ -55,25 +59,30 @@ public class EnemyChase : MonoBehaviour
         bool canSee = CanSeePlayer();
 
         if (canSee)
-            lastTimeSeenPlayer = Time.time;
-
-        bool shouldChase = (Time.time - lastTimeSeenPlayer) <= loseSightDelay;
-
-        if (shouldChase && !chasing)
         {
+            lastTimeSeenPlayer = Time.time;
             chasing = true;
+            investigating = false;
+
             if (bodyRenderer != null)
                 bodyRenderer.material.color = alertColor;
         }
-        else if (!shouldChase && chasing)
+
+        bool shouldChase = (Time.time - lastTimeSeenPlayer) <= loseSightDelay;
+
+        if (!canSee && !shouldChase && chasing)
         {
+            // lost sight and memory expired
             chasing = false;
-            if (bodyRenderer != null)
+            if (!investigating && bodyRenderer != null)
                 bodyRenderer.material.color = idleColor;
         }
 
+        // decide behaviour
         if (chasing)
             ChasePlayer();
+        else if (investigating)
+            Investigate();
         else
             ReturnToStart();
     }
@@ -117,14 +126,12 @@ public class EnemyChase : MonoBehaviour
 
         if (dist > attackDistance)
         {
-            // move toward player
             transform.position = Vector3.MoveTowards(transform.position,
                                                      target,
                                                      moveSpeed * Time.deltaTime);
         }
         else
         {
-            // close enough: push player backwards
             if (playerRb != null)
             {
                 Vector3 pushDir = toPlayer.normalized;
@@ -134,6 +141,25 @@ public class EnemyChase : MonoBehaviour
         }
 
         transform.LookAt(target);
+    }
+
+    void Investigate()
+    {
+        Vector3 target = investigatePos;
+        target.y = transform.position.y;
+
+        transform.position = Vector3.MoveTowards(transform.position,
+                                                 target,
+                                                 moveSpeed * Time.deltaTime);
+        transform.LookAt(target);
+
+        if (Vector3.Distance(transform.position, target) < 0.1f)
+        {
+            // reached noise; if no player seen, go back to idle
+            investigating = false;
+            if (!chasing && bodyRenderer != null)
+                bodyRenderer.material.color = idleColor;
+        }
     }
 
     void ReturnToStart()
@@ -179,8 +205,10 @@ public class EnemyChase : MonoBehaviour
 
     public void HeardPlayer(Vector3 noisePosition)
     {
-        lastTimeSeenPlayer = Time.time;
-        chasing = true;
+        investigatePos = noisePosition;
+        investigating  = true;
+        chasing        = false;
+
         if (bodyRenderer != null)
             bodyRenderer.material.color = alertColor;
     }
