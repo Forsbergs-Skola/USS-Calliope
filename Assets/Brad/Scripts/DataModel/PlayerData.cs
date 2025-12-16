@@ -7,13 +7,18 @@ public class PlayerData : IRuntimeData
 {
     public bool IsSandbox { get; private set; }
 
-    /////////////////
-    // Data Fields //
-    /////////////////
+    private int _health;
+    private int _xp;
+    private EnumWeaponType _equippedWeapon;
+    private List<EnumPlayerStatusEffect> _activeStatusEffects;
+
+    ////////////////////////
+    // Public Data Fields //
+    ////////////////////////
 
     // LIST FIELDS
 
-    private List<EnumPlayerStatusEffect> _activeStatusEffects;
+
     public List<EnumPlayerStatusEffect> GetActiveStatusEffects()
     {
         return new List<EnumPlayerStatusEffect>(_activeStatusEffects);
@@ -39,7 +44,7 @@ public class PlayerData : IRuntimeData
 
     // ATOMIC FIELDS
 
-    private int _health;
+    
     public int Health
     {
         get => _health;
@@ -51,7 +56,7 @@ public class PlayerData : IRuntimeData
         }
     }
 
-    private EnumWeaponType _equippedWeapon;
+    
     public EnumWeaponType EquippedWeapon
     {
         get => _equippedWeapon;
@@ -63,7 +68,7 @@ public class PlayerData : IRuntimeData
         }
     }
 
-    private int _xp;
+    
     public int XP
     {
         get => _xp;
