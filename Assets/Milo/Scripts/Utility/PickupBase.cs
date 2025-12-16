@@ -7,5 +7,5 @@ public abstract class PickupBase : MonoBehaviour
         OnPickup(other.gameObject);
     }
 
-    public abstract void OnPickup(GameObject picker);
+    protected abstract void OnPickup(GameObject picker);
 }

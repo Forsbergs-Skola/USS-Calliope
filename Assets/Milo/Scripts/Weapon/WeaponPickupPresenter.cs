@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class WeaponPickup : PickupBase
+public class WeaponPickupPresenter : PickupBase
 {
     [SerializeField] private SO_WeaponType weapon;
 
-    [SerializeField] private Transform weaponSocket; 
+    [SerializeField] private Transform weaponSocket;
 
-    public override void OnPickup(GameObject picker)
+    protected override void OnPickup(GameObject picker)
     {
         if (!picker.TryGetComponent<PlayerWeaponHandler>(out var handler))
             return;

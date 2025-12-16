@@ -2,33 +2,37 @@ using UnityEngine;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] private AmmoModel ammoModel;
-
+    private AmmoModel ammoModel;
     private SO_WeaponType currentWeapon;
 
-    /// <summary>
-    /// Equip a new weapon. Ammo stays 0 until picked up.
-    /// </summary>
+    void Awake()
+    {
+        ammoModel = new AmmoModel();
+        ammoModel.AmmoChanged += OnAmmoChanged;
+        ammoModel.OnError += OnAmmoError;
+    }
+
     public void EquipWeapon(SO_WeaponType weapon)
     {
-        if (weapon == null)
-        {
-            Debug.LogWarning("PlayerWeaponHandler: Tried to equip null weapon.");
-            return;
-        }
-
-        if (weapon == currentWeapon)
+        if (weapon == null || weapon == currentWeapon)
             return;
 
         currentWeapon = weapon;
-
-        // Inform the AmmoModel of the equipped weapon type
-        if (ammoModel != null)
-            ammoModel.Initialize(weapon); // sets ammo type, keeps currentAmmo = 0
-
+        ammoModel.Initialize(weapon);
         Debug.Log($"Equipped weapon: {weapon.WeaponId}");
     }
 
+    private void OnAmmoChanged(int current, int max)
+    {
+        Debug.Log($"Ammo changed: {current}/{max}");
+        // Update UI here
+    }
+
+    private void OnAmmoError(string message)
+    {
+        Debug.LogWarning(message);
+    }
+
     public SO_WeaponType CurrentWeapon => currentWeapon;
+    public AmmoModel AmmoModel => ammoModel;
 }
