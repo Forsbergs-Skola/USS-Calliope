@@ -12,9 +12,9 @@ public class PlayerData : IRuntimeData
     private EnumWeaponType _equippedWeapon;
     private List<EnumPlayerStatusEffect> _activeStatusEffects;
 
-    ////////////////////////
-    // Public Data Fields //
-    ////////////////////////
+    ///////////////////
+    // Public Access //
+    ///////////////////
 
     // LIST FIELDS
 
