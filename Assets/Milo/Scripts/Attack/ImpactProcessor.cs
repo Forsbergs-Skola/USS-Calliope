@@ -3,11 +3,11 @@ using UnityEngine;
 public class ImpactProcessor : MonoBehaviour
 {
     [SerializeField] private LayerMask hitMask;
-    [SerializeField] private float fixedMaxDistance = 100f; 
-    
+    [SerializeField] private float fixedMaxDistance = 100f;
+
     private int currentWeaponDamage;
     public LayerMask HitMask => hitMask;
-    public float MaxDistance => fixedMaxDistance; 
+    public float MaxDistance => fixedMaxDistance;
 
     public void InitializeProcessor(SO_WeaponType weapon)
     {
@@ -21,6 +21,5 @@ public class ImpactProcessor : MonoBehaviour
         if (!hit.collider.gameObject.TryGetComponent<EnemyHealthPC>(out var healthComponent)) return;
         healthComponent.TakeDamage(currentWeaponDamage);
         Debug.Log($"Damage dealt: {currentWeaponDamage} to {hit.collider.name}");
-
     }
 }

@@ -3,18 +3,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
-    [SerializeField] private PlayerAimController aimController; 
+    [SerializeField] private PlayerAimController aimController;
     [SerializeField] private WeaponCooldown cooldown;
     [SerializeField] private ImpactProcessor impactProcessor;
     [SerializeField] private Transform firePoint;
-    
-    [Header("Input")]
-    [SerializeField] private InputActionReference shootAction; 
 
-    private AmmoModel ammoModel; // The Pure C# Model
-    private SO_WeaponType currentWeapon; 
-    
+    [Header("Input")] [SerializeField] private InputActionReference shootAction;
+
+    private AmmoModel ammoModel;
+    private SO_WeaponType currentWeapon;
+
     public AmmoModel AmmoModel => ammoModel;
+
     void Awake()
     {
         ammoModel = new AmmoModel();
@@ -24,7 +24,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         if (shootAction != null && shootAction.action != null)
         {
             shootAction.action.Enable();
-            shootAction.action.performed += OnShootInput; 
+            shootAction.action.performed += OnShootInput;
         }
     }
 
@@ -41,7 +41,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     {
         TryShoot();
     }
-    
+
     public void EquipWeapon(SO_WeaponType newWeapon)
     {
         if (newWeapon == null)
@@ -49,31 +49,31 @@ public class PlayerWeaponHandler : MonoBehaviour
             Debug.LogWarning("Attempted to equip null weapon.");
             return;
         }
-        
+
         if (newWeapon == currentWeapon)
             return;
-        
+
         currentWeapon = newWeapon;
         Debug.Log($"Equipped: {newWeapon.WeaponId}");
 
-        
-        ammoModel.Initialize(newWeapon); 
-        
+
+        ammoModel.Initialize(newWeapon);
+
         cooldown.InitializeCooldown(newWeapon.FireRate);
-        
-        impactProcessor.InitializeProcessor(newWeapon); 
+
+        impactProcessor.InitializeProcessor(newWeapon);
     }
 
     public void TryShoot()
     {
-        if (currentWeapon == null || firePoint == null) return; 
+        if (currentWeapon == null || firePoint == null) return;
 
         if (!cooldown.CanFire()) return;
-        
+
         const int ammoPerShot = 1;
         if (!ammoModel.UseAmmo(ammoPerShot))
         {
-            Debug.Log($"Click! {currentWeapon.WeaponId} out of ammo."); 
+            Debug.Log($"Click! {currentWeapon.WeaponId} out of ammo.");
             return;
         }
 
@@ -84,12 +84,12 @@ public class PlayerWeaponHandler : MonoBehaviour
     private void FireWeapon()
     {
         Vector3 origin = firePoint.position;
-        Vector3 finalDirection; 
+        Vector3 finalDirection;
 
         if (aimController.TryGetAimDirection(origin, out finalDirection))
         {
             RaycastHit hit;
-            
+
             if (Physics.Raycast(origin, finalDirection, out hit, impactProcessor.MaxDistance, impactProcessor.HitMask))
             {
                 impactProcessor.ProcessHit(hit);

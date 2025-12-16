@@ -3,9 +3,9 @@ using System.Collections;
 
 public class WeaponCooldown : MonoBehaviour
 {
-    private float currentFireRate; 
-    private bool canShoot = true; 
-    
+    private float currentFireRate;
+    private bool canShoot = true;
+
     // Initialization called by PlayerWeaponHandler.EquipWeapon
     public void InitializeCooldown(float fireRate)
     {
@@ -18,7 +18,7 @@ public class WeaponCooldown : MonoBehaviour
         return canShoot;
     }
 
-    public void StartCooldown(float fireRate) 
+    public void StartCooldown(float fireRate)
     {
         if (canShoot)
         {
