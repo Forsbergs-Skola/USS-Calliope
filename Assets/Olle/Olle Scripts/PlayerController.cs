@@ -5,15 +5,12 @@ namespace Olle.Scripts
 {
     public class PlayerController : MonoBehaviour
     {
-        [Header("Movement")] 
         public float moveSpeed = 5f;
         public float runMoveSpeed = 8f;
         public float crouchMoveSpeed = 2f;
-
-        [Header("Crouch")] 
+        
         public float crouchScaleY = 0.5f;
-
-        [Header("Noise")] 
+        
         public float walkStepInterval   = 0.4f;
         public float runStepInterval    = 0.25f;
         public float crouchStepInterval = 0.6f;
@@ -29,7 +26,9 @@ namespace Olle.Scripts
 
         NoiseEmitter _noise;
         float _noiseTimer;
-
+        
+        PlayerStamina _stamina;
+        
         void Awake()
         {
             _rb = GetComponent<Rigidbody>();
@@ -38,6 +37,10 @@ namespace Olle.Scripts
             _defaultMoveSpeed = moveSpeed;
 
             _noise = GetComponent<NoiseEmitter>();
+
+            
+            _stamina = GetComponent<PlayerStamina>();
+           
         }
         
         public void OnMove(InputAction.CallbackContext ctx)
@@ -67,12 +70,30 @@ namespace Olle.Scripts
 
             bool isMoving = _inputDir.sqrMagnitude > 0.01f;
             
-            if (!_isCrouching && _wantsToRun && isMoving)
-                moveSpeed = runMoveSpeed;
-            else if (_isCrouching)
+            bool canSprint = false;
+            if (_stamina != null)
+            {
+                _stamina.Tick(Time.deltaTime,
+                              _wantsToRun && isMoving && !_isCrouching,
+                              out canSprint);
+            }
+
+            if (_isCrouching)
+            {
                 moveSpeed = crouchMoveSpeed;
+            }
+            else if (canSprint)
+            {
+                moveSpeed = runMoveSpeed;
+            }
+            else if (_stamina != null && _stamina.isTired)
+            {
+                moveSpeed = 2f; // Tired Speed
+            }
             else
+            {
                 moveSpeed = _defaultMoveSpeed;
+            }
 
             // Noise
             if (isMoving && _noise != null)
