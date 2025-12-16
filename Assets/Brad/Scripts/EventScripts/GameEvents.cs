@@ -7,7 +7,10 @@ public class GameEvents : MonoBehaviour
     [SerializeField] private GameDataPayloadEvent savedGameLoadedEvent;
     [SerializeField] private EmptyPayloadEvent dataUpdatedEvent;
 
+    [SerializeField] private IRuntimeDataPayloadEvent runtimeDataUpdatedEvent;
+
     public EmptyPayloadEvent NewGameStartedEvent { get => newGameStartedEvent; }
     public GameDataPayloadEvent SavedGameLoadedEvent { get => savedGameLoadedEvent; }
     public EmptyPayloadEvent DataUpdatedEvent { get => dataUpdatedEvent; }
+    public IRuntimeDataPayloadEvent RuntimeDataUpdatedEvent { get => runtimeDataUpdatedEvent; }
 }

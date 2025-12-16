@@ -41,6 +41,7 @@ public static class DataTools
         if (data.GetIsSandbox()) return;
         if (EventRelay.Instance == null) return;
         EventRelay.Instance.GameEvents.DataUpdatedEvent.TriggerEvent();
+        EventRelay.Instance.GameEvents.RuntimeDataUpdatedEvent.TriggerEvent(data);
     }
 
     public static StringListWrapper GetWrapperizedStringList(List<string> inList)
@@ -163,6 +164,7 @@ public static class SaveService
 
         // write to outData
         outData.PROGRESSION_defeatedEnemiesString = defeatedEnemiesString;
+        outData.PROGRESSION_sceneName = progressionData.SceneName;
         outData.PROGRESSION_TalkedToBob = progressionData.TalkedToBob;
         outData.PROGRESSION_TalkedToAlice = progressionData.TalkedToAlice;
 
@@ -222,6 +224,7 @@ public static class SaveService
         {
             _progressionData.AddDefeatedEnemy(enemy);
         }
+        _progressionData.SceneName = saveData.PROGRESSION_sceneName;
 
         return new ProgressionData(_progressionData);
     }
