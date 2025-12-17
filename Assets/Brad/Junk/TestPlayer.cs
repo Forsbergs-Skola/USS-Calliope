@@ -21,13 +21,18 @@ public class TestPlayer : MonoBehaviour
 
     private System.Collections.IEnumerator TestRoutine()
     {
-        for (int i = 0; i< 10; i++)
+        for (int i = 0; i < 5; i++)
         {
-            yield return new WaitForSecondsRealtime(3f);
-            TakeDamage(2);
+            yield return new WaitForSecondsRealtime(1f);
+            TakeDamage(5);
             GainXP(1);
         }
     }
+
+
+
+
+
 
     /*
     private void Blah()
