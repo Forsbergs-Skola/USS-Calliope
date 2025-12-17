@@ -9,9 +9,10 @@ public class SO_WeaponType : ScriptableObject
     [SerializeField, Min(5)] private int magSize;
     [SerializeField] private SO_AmmoType ammoType;
     [SerializeField, Min((float)0.01)] private float fireRate = 0.2f;
-    [SerializeField] private bool isSemiAutomatic = false;
     [SerializeField, Min(1)] private float impactRange;
+    [SerializeField, Min(0)] private float spreadStandardDeviation;
     [SerializeField] private AnimationCurve damageOverDistance;
+    [SerializeField] private bool isSemiAutomatic = false;
     
     public string WeaponId => weaponId;
     public Sprite WeaponIcon => weaponIcon;
@@ -21,6 +22,7 @@ public class SO_WeaponType : ScriptableObject
     public float FireRate => fireRate;
     public bool IsSemiAutomatic => isSemiAutomatic;
     public float ImpactRange => impactRange;
+    public float SpreadStandardDeviation => spreadStandardDeviation;
     
     public int GetDamageAtDistance(float distance)
     {

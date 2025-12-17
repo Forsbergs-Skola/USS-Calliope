@@ -88,6 +88,8 @@ public class PlayerWeaponHandler : MonoBehaviour
 
         if (aimController.TryGetAimDirection(origin, out finalDirection))
         {
+            finalDirection = BallisticsUtility.GetGaussianSpread(finalDirection,currentWeapon.SpreadStandardDeviation);
+            
             RaycastHit hit;
 
             if (Physics.Raycast(origin, finalDirection, out hit, currentWeapon.ImpactRange, impactProcessor.HitMask))
