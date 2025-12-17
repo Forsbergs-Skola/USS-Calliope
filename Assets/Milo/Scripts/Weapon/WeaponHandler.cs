@@ -84,14 +84,17 @@ public class PlayerWeaponHandler : MonoBehaviour
     private void FireWeapon()
     {
         Vector3 origin = firePoint.position;
-        Vector3 finalDirection;
+        Vector3 aimDirection;
 
-        if (aimController.TryGetAimDirection(origin, out finalDirection))
+        if (!aimController.TryGetAimDirection(origin, out aimDirection)) return;
+        for (int i = 0; i < currentWeapon.PelletCount; i++)
         {
-            finalDirection = BallisticsUtility.GetGaussianSpread(finalDirection,currentWeapon.SpreadStandardDeviation);
-            
-            RaycastHit hit;
+            Vector3 finalDirection = BallisticsUtility.GetGaussianSpread(
+                aimDirection,
+                currentWeapon.SpreadStandardDeviation
+            );
 
+            RaycastHit hit;
             if (Physics.Raycast(origin, finalDirection, out hit, currentWeapon.ImpactRange, impactProcessor.HitMask))
             {
                 impactProcessor.ProcessHit(hit);
@@ -99,11 +102,11 @@ public class PlayerWeaponHandler : MonoBehaviour
             }
             else
             {
-                Debug.Log("Shot missed everything.");
                 Debug.DrawLine(origin, origin + finalDirection * currentWeapon.ImpactRange, Color.yellow, 0.1f);
             }
         }
     }
+
 
     private void OnAmmoChanged(int current, int max)
     {

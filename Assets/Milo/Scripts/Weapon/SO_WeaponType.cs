@@ -13,6 +13,7 @@ public class SO_WeaponType : ScriptableObject
     [SerializeField, Min(0)] private float spreadStandardDeviation;
     [SerializeField] private AnimationCurve damageOverDistance;
     [SerializeField] private bool isSemiAutomatic = false;
+    [SerializeField] private int pelletCount = 1;
     
     public string WeaponId => weaponId;
     public Sprite WeaponIcon => weaponIcon;
@@ -23,6 +24,7 @@ public class SO_WeaponType : ScriptableObject
     public bool IsSemiAutomatic => isSemiAutomatic;
     public float ImpactRange => impactRange;
     public float SpreadStandardDeviation => spreadStandardDeviation;
+    public int PelletCount => pelletCount;
     
     public int GetDamageAtDistance(float distance)
     {
