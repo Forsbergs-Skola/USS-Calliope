@@ -3,6 +3,7 @@ using UnityEngine;
 public class TestUI : MonoBehaviour
 // This is also set up in a sandbox scene
 {
+    /*
     private void OnEnable()
     {
         if (EventRelay.Instance != null)
@@ -29,6 +30,7 @@ public class TestUI : MonoBehaviour
         int xp = DataController.Instance.PlayerRuntimeData.Value.XP;
         Debug.Log($"Player XP: {xp}");
     }
+    */
 }
 
 

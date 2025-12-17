@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DataController : Singleton<DataController>
 // the DontDestroyOnLoad and self reference checking is in the parent class
@@ -17,11 +18,13 @@ public class DataController : Singleton<DataController>
     {
         EventRelay.Instance.GameEvents.NewGameStartedEvent.OnEventTriggered += InitializeRuntimeData;
         EventRelay.Instance.GameEvents.SavedGameLoadedEvent.OnEventTriggered += LoadSavedData;
+        SceneManager.sceneLoaded += HandleOnSceneLoaded;
     }
     private void OnDestroy()
     {
         EventRelay.Instance.GameEvents.NewGameStartedEvent.OnEventTriggered -= InitializeRuntimeData;
         EventRelay.Instance.GameEvents.SavedGameLoadedEvent.OnEventTriggered -= LoadSavedData;
+        SceneManager.sceneLoaded -= HandleOnSceneLoaded;
     }
 
     private void InitializeRuntimeData()
@@ -51,6 +54,12 @@ public class DataController : Singleton<DataController>
         playerRuntimeData.Value = null;
         inventoryRuntimeData.Value = null;
         progressionRuntimeData.Value = null;
+    }
+
+    private void HandleOnSceneLoaded(Scene _scene, LoadSceneMode _loadMode)
+    {
+        if (_scene.name == "Bootstrap") { return; }
+        progressionRuntimeData.Value.SceneName = _scene.name;
     }
 
 }

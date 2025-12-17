@@ -6,7 +6,7 @@ public class TestPlayer : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(TakeDamageTest());
+        StartCoroutine(TestRoutine());
     }
 
     public void TakeDamage(int damageAmount)
@@ -19,16 +19,22 @@ public class TestPlayer : MonoBehaviour
         playerData.Value.XP += xpAmount;
     }
 
-    private System.Collections.IEnumerator TakeDamageTest()
+    private System.Collections.IEnumerator TestRoutine()
     {
-        for (int i = 0; i< 10; i++)
+        for (int i = 0; i < 5; i++)
         {
-            yield return new WaitForSecondsRealtime(3f);
-            TakeDamage(2);
+            yield return new WaitForSecondsRealtime(1f);
+            TakeDamage(5);
             GainXP(1);
         }
     }
 
+
+
+
+
+
+    /*
     private void Blah()
     {
         /////////////////////////////////////////
@@ -53,5 +59,6 @@ public class TestPlayer : MonoBehaviour
         //////////////////////////////
         playerData.Value.ClearAllActiveStatusEffects();
     }
+    */
 
 }
