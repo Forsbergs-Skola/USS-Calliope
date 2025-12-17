@@ -18,8 +18,8 @@ MonoBehaviour:
   magSize: 8
   ammoType: {fileID: 11400000, guid: aa71757218043c24a88dd9653ea70395, type: 2}
   fireRate: 0.2
-  isSemiAutomatic: 1
   impactRange: 20
+  spreadStandardDeviation: 0.03
   damageOverDistance:
     serializedVersion: 2
     m_Curve:
@@ -53,3 +53,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  isSemiAutomatic: 1
