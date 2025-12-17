@@ -5199,7 +5199,7 @@ GameObject:
   - component: {fileID: 6932668856226913639}
   - component: {fileID: 8247722085686707074}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Milo_Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5562,8 +5562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ImpactProcessor
   hitMask:
     serializedVersion: 2
-    m_Bits: 2147483776
-  fixedMaxDistance: 100
+    m_Bits: 128
 --- !u!114 &8247722085686707074
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -90,7 +90,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         {
             RaycastHit hit;
 
-            if (Physics.Raycast(origin, finalDirection, out hit, impactProcessor.MaxDistance, impactProcessor.HitMask))
+            if (Physics.Raycast(origin, finalDirection, out hit, currentWeapon.ImpactRange, impactProcessor.HitMask))
             {
                 impactProcessor.ProcessHit(hit);
                 Debug.DrawLine(origin, hit.point, Color.red, 0.1f);
@@ -98,7 +98,7 @@ public class PlayerWeaponHandler : MonoBehaviour
             else
             {
                 Debug.Log("Shot missed everything.");
-                Debug.DrawLine(origin, origin + finalDirection * impactProcessor.MaxDistance, Color.yellow, 0.1f);
+                Debug.DrawLine(origin, origin + finalDirection * currentWeapon.ImpactRange, Color.yellow, 0.1f);
             }
         }
     }

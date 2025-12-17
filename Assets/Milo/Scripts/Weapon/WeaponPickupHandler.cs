@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class WeaponPickupHandler : PickupBase
 {
-    [SerializeField] private SO_WeaponType weapon;
+    [SerializeField] private WeaponView weaponView;
 
     [SerializeField] private Transform weaponSocket;
 
@@ -11,7 +11,7 @@ public class WeaponPickupHandler : PickupBase
         if (!picker.TryGetComponent<PlayerWeaponHandler>(out var handler))
             return;
 
-        handler.EquipWeapon(weapon);
+        handler.EquipWeapon(weaponView.WeaponType);
 
         if (weaponSocket == null) return;
         // Keep the world position (optional: or remove if it should snap to socket)
