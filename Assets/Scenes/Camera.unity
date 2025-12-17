@@ -1532,6 +1532,19 @@ MonoBehaviour:
   impactProcessor: {fileID: 1082008282}
   firePoint: {fileID: 1266060954}
   shootAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+--- !u!114 &1082008286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082008271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 696077fa4703af341bc2e25e91d9edd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDataHandler
+  runtimeData: {fileID: 11400000, guid: 196da1b0659886048a858bc4a1387987, type: 2}
 --- !u!1 &1192404236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1879,6 +1892,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5497897180659627025, guid: 444472023b12c4a4c94643ab46316298, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1082008282}
+    - targetCorrespondingSourceObject: {fileID: 5497897180659627025, guid: 444472023b12c4a4c94643ab46316298, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1082008286}
   m_SourcePrefab: {fileID: 100100000, guid: 444472023b12c4a4c94643ab46316298, type: 3}
 --- !u!1 &1632853610
 GameObject:
