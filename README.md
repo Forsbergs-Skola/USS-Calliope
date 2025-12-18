@@ -14,6 +14,14 @@ Level up system? stats increase?
 
 Animation system
 
+## Combat System
+
+Guns and gun types
+
+Melee system
+
+non-lethal
+
 
 ## Camera System
 
