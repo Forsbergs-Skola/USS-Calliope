@@ -34,6 +34,14 @@ Enemy types:
 
 Bosses:
 
+## Shop System
+
+what is currency?
+
+what do they sell?
+
+who are they?
+
 
 
 ## Level System
