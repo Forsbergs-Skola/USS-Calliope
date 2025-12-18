@@ -401,7 +401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &224792618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,7 +682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &285305282
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1086,7 +1086,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &778636115
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1767,6 +1767,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 558361b11e7b7bc459b9cf8ab3e1db6f, type: 3}
+--- !u!1 &1453819437 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9161830421190369938, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
+  m_PrefabInstance: {fileID: 394571815464978009}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1632853610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1891,6 +1896,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!4 &1643179213 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8815382605872448804, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
+  m_PrefabInstance: {fileID: 394571815464978009}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1700191801
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2829,6 +2839,10 @@ PrefabInstance:
       propertyPath: hitMask.m_Bits
       value: 2147483776
       objectReference: {fileID: 0}
+    - target: {fileID: 7729286904413520891, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
+      propertyPath: weaponFire
+      value: 
+      objectReference: {fileID: 7116462969216917732}
     - target: {fileID: 9161830421190369938, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2836,7 +2850,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9161830421190369938, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
+      insertIndex: 10
+      addedObject: {fileID: 7116462969216917732}
   m_SourcePrefab: {fileID: 100100000, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
 --- !u!1001 &3468295587910149444
 PrefabInstance:
@@ -2904,6 +2921,48 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5241758967720998466, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
   m_PrefabInstance: {fileID: 394571815464978009}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7116462969216917720 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6932668856226913639, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
+  m_PrefabInstance: {fileID: 394571815464978009}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453819437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22d321693552ac54ab6b5499e6574c83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ImpactProcessor
+--- !u!114 &7116462969216917721 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5896726476840213223, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
+  m_PrefabInstance: {fileID: 394571815464978009}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453819437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d87699535b407a4f8bdc3e956db72b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAimController
+--- !u!114 &7116462969216917732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453819437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3495f917302bb942b20953e6da982c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitscanWeaponFire
+  aimController: {fileID: 7116462969216917721}
+  impactProcessor: {fileID: 7116462969216917720}
+  firePoint: {fileID: 1643179213}
+  showDebugTrajectory: 1
+  debugLifetime: 0.1
+  hitColor: {r: 0.17078745, g: 1, b: 0, a: 1}
+  missColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  hitMarkerSize: 0.1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

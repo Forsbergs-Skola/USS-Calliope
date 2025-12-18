@@ -34,8 +34,7 @@
 
             AmmoChanged?.Invoke(currentAmmo, maxAmmo);
         }
-
-        // TODO: When implementing the inventory system,
+        
         // this function must be refactored to check and update an 'ammoReserves' dictionary instead.
         public void AddAmmo(SO_AmmoType ammoType, int amount)
         {

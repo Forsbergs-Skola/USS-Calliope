@@ -3,12 +3,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
-    [SerializeField] private PlayerAimController aimController;
     [SerializeField] private WeaponCooldown cooldown;
-    [SerializeField] private ImpactProcessor impactProcessor;
-    [SerializeField] private Transform firePoint;
-
-    [Header("Input")] [SerializeField] private InputActionReference shootAction;
+    [SerializeField] private HitscanWeaponFire weaponFire; 
+    [SerializeField] private InputActionReference shootAction;
 
     private AmmoModel ammoModel;
     private SO_WeaponType currentWeapon;
@@ -56,18 +53,15 @@ public class PlayerWeaponHandler : MonoBehaviour
         currentWeapon = newWeapon;
         Debug.Log($"Equipped: {newWeapon.WeaponId}");
 
-
         ammoModel.Initialize(newWeapon);
-
         cooldown.InitializeCooldown(newWeapon.FireRate);
 
-        impactProcessor.InitializeProcessor(newWeapon);
+        weaponFire.SetWeapon(newWeapon); 
     }
 
     public void TryShoot()
     {
-        if (currentWeapon == null || firePoint == null) return;
-
+        if (currentWeapon == null) return;
         if (!cooldown.CanFire()) return;
 
         const int ammoPerShot = 1;
@@ -77,36 +71,9 @@ public class PlayerWeaponHandler : MonoBehaviour
             return;
         }
 
-        FireWeapon();
+        weaponFire.Fire(); 
         cooldown.StartCooldown(currentWeapon.FireRate);
     }
-
-    private void FireWeapon()
-    {
-        Vector3 origin = firePoint.position;
-        Vector3 aimDirection;
-
-        if (!aimController.TryGetAimDirection(origin, out aimDirection)) return;
-        for (int i = 0; i < currentWeapon.PelletCount; i++)
-        {
-            Vector3 finalDirection = BallisticsUtility.GetGaussianSpread(
-                aimDirection,
-                currentWeapon.SpreadStandardDeviation
-            );
-
-            RaycastHit hit;
-            if (Physics.Raycast(origin, finalDirection, out hit, currentWeapon.ImpactRange, impactProcessor.HitMask))
-            {
-                impactProcessor.ProcessHit(hit);
-                Debug.DrawLine(origin, hit.point, Color.red, 0.1f);
-            }
-            else
-            {
-                Debug.DrawLine(origin, origin + finalDirection * currentWeapon.ImpactRange, Color.yellow, 0.1f);
-            }
-        }
-    }
-
 
     private void OnAmmoChanged(int current, int max)
     {
