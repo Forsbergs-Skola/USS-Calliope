@@ -26,6 +26,13 @@ public class SaveData
     public bool PROGRESSION_TalkedToBob;
     public bool PROGRESSION_TalkedToAlice;
 
+    ///////////////////
+    // InventoryData //
+    ///////////////////
+
+    public string INVENTORY_itemsString;
+    public string INVENTORY_resourcesString;
+
 
 
 }

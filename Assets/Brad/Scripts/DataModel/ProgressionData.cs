@@ -11,7 +11,7 @@ public class ProgressionData : IRuntimeData
     private List<string> _defeatedEnemies;
     private string _sceneName;
 
-
+    // temporary fields, for POC
     private bool _talkedToBob;
     private bool _talkedToAlice;
 

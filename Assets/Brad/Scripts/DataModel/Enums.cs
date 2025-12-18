@@ -21,3 +21,21 @@ public enum EnumWeaponType
     SHOTGUN
     // add/remove more as needed
 }
+
+public enum EnumInventoryItem
+{
+    FLASHLIGHT,
+    PISTOL,
+    SHOTGUN,
+    RIFLE
+    // add or remove more as needed
+}
+
+public enum EnumInventoryResource
+{
+    PISTOL_AMMO,
+    RIFLE_AMMO,
+    SHOTGUN_AMMO,
+    HEALTH_PACK
+    // add or remove more as needed
+}
