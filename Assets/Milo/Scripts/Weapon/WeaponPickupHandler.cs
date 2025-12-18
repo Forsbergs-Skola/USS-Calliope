@@ -14,7 +14,6 @@ public class WeaponPickupHandler : PickupBase
         handler.EquipWeapon(weaponView.WeaponType);
 
         if (weaponSocket == null) return;
-        // Keep the world position (optional: or remove if it should snap to socket)
         transform.SetParent(weaponSocket, worldPositionStays: false);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;

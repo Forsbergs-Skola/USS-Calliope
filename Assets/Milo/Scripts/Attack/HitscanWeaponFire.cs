@@ -8,14 +8,13 @@ public class HitscanWeaponFire : MonoBehaviour
     [SerializeField] private Transform firePoint;
 
     [Header("Debug")]
-    [SerializeField] private bool showDebugTrajectory = true; // toggle dev debug
-    [SerializeField] private float debugLifetime = 0.05f;     // seconds
-    [SerializeField] private Color hitColor = Color.red;
-    [SerializeField] private Color missColor = Color.yellow;
-    [SerializeField] private float hitMarkerSize = 0.1f;      // small sphere at hit point
+    [SerializeField] private bool showDebugTrajectory = true; 
+    [SerializeField] private float debugLifetime = 0.05f;     
+    [SerializeField] private Color debugColor = Color.red;    
+    [SerializeField] private float hitMarkerSize = 0.1f;      
 
     private SO_WeaponType weapon;
-
+    
     public void SetWeapon(SO_WeaponType weapon)
     {
         this.weapon = weapon;
@@ -40,10 +39,9 @@ public class HitscanWeaponFire : MonoBehaviour
             );
 
             Vector3 endPoint = origin + finalDirection * weapon.ImpactRange;
-            bool hit = false;
 
-            if (Physics.Raycast(origin, finalDirection, out RaycastHit hitInfo,
-                weapon.ImpactRange, impactProcessor.HitMask))
+            if (Physics.Raycast(origin, finalDirection, out RaycastHit hitInfo, 
+                    weapon.ImpactRange, impactProcessor.HitMask))
             {
                 try
                 {
@@ -55,20 +53,12 @@ public class HitscanWeaponFire : MonoBehaviour
                 }
 
                 endPoint = hitInfo.point;
-                hit = true;
             }
 
-            if (showDebugTrajectory)
-            {
-                Color lineColor = hit ? hitColor : missColor;
-                Debug.DrawLine(origin, endPoint, lineColor, debugLifetime);
-
-                if (hit)
-                {
-                    Debug.DrawRay(endPoint, Vector3.up * hitMarkerSize, lineColor, debugLifetime);
-                    Debug.DrawRay(endPoint, Vector3.right * hitMarkerSize, lineColor, debugLifetime);
-                }
-            }
+            if (!showDebugTrajectory) continue;
+            Debug.DrawLine(origin, endPoint, debugColor, debugLifetime);
+            Debug.DrawRay(endPoint, Vector3.up * hitMarkerSize, debugColor, debugLifetime);
+            Debug.DrawRay(endPoint, Vector3.right * hitMarkerSize, debugColor, debugLifetime);
         }
     }
 }
