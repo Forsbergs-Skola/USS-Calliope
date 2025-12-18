@@ -135,6 +135,7 @@ public static class SaveService
         outData.PLAYER_ActiveStatusEffectsString = activeStatusEffectsString;
         outData.PLAYER_Health = playerData.Health;
         outData.PLAYER_XP = playerData.XP;
+        outData.PLAYER_Stamina = playerData.Stamina;
         outData.PLAYER_EquippedWeapon = playerData.EquippedWeapon.ToString();
 
 
@@ -195,6 +196,7 @@ public static class SaveService
 
         // parse the equpiied weapon string
         EnumWeaponType equippedWeapon = EnumWeaponType.NONE;
+
         // convert equipped weapon string to EnumWeaponType
         if (Enum.TryParse(saveData.PLAYER_EquippedWeapon, ignoreCase: true, out EnumWeaponType theWeapon))
         {
@@ -205,6 +207,7 @@ public static class SaveService
         // do the easy stuff
         _playerData.Health = saveData.PLAYER_Health;
         _playerData.XP = saveData.PLAYER_XP;
+        _playerData.Stamina = saveData.PLAYER_Stamina;
 
         return new PlayerData(_playerData);
     }

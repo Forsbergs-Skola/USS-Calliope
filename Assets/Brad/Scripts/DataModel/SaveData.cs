@@ -14,6 +14,7 @@ public class SaveData
 
     public int PLAYER_Health;
     public int PLAYER_XP;
+    public int PLAYER_Stamina;
     public string PLAYER_EquippedWeapon;
 
 
