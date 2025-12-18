@@ -9,6 +9,7 @@ public class PlayerData : IRuntimeData
 
     private int _health;
     private int _xp;
+    private int _stamina;
     private EnumWeaponType _equippedWeapon;
     private List<EnumPlayerStatusEffect> _activeStatusEffects;
 
@@ -56,6 +57,16 @@ public class PlayerData : IRuntimeData
         }
     }
 
+    public int Stamina
+    {
+        get => _stamina;
+        set
+        {
+            if (_stamina == value) return;
+            _stamina = Mathf.Clamp(value, 0, Constants.MAX_PLAYER_STAMINA);
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
     
     public EnumWeaponType EquippedWeapon
     {
@@ -90,6 +101,7 @@ public class PlayerData : IRuntimeData
         IsSandbox = false;
         Health = Constants.MAX_PLAYER_HEALTH;
         XP = 0;
+        Stamina = Constants.MAX_PLAYER_STAMINA;
         EquippedWeapon = EnumWeaponType.NONE;
         _activeStatusEffects = new List<EnumPlayerStatusEffect>();
     }
@@ -98,6 +110,7 @@ public class PlayerData : IRuntimeData
         IsSandbox = isSandbox;
         Health = Constants.MAX_PLAYER_HEALTH;
         XP = 0;
+        Stamina = Constants.MAX_PLAYER_STAMINA;
         EquippedWeapon = EnumWeaponType.NONE;
         _activeStatusEffects = new List<EnumPlayerStatusEffect>();
     }
@@ -107,6 +120,7 @@ public class PlayerData : IRuntimeData
         IsSandbox = false;
         Health = inData.Health;
         XP = inData.XP;
+        Stamina = inData.Stamina;
         EquippedWeapon = inData.EquippedWeapon;
         _activeStatusEffects = inData.GetActiveStatusEffects();
     }

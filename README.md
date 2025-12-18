@@ -76,6 +76,10 @@ Shop NPC(s)
 
 Quest NPC(s)
 
+### Dialogue & Narration
+
+Do we want branching dialogue options (with or without real gameplay concequences), or is each conversation a linear and scripted sequence of lines?
+
 ### Enemy types:
 
 [Need to know what kind of NPCs we have, their mechanics and how to defeat them. So far we have just standard zombie-esque NPCs and an Invincible NPC that cannot move when the player is looking at it
@@ -313,6 +317,28 @@ Suit upgrades purchased from shop increase stats only when equipped. Bought with
 Killing enemies gets xp, get enough to permanently increase stats (like health)
 
 How else do we level up? Do we level up sneaking by sneaking? or is that TOO much to keep track off and just level it up with shop
+
+## Objective Tracking
+
+### Objective Properties
+
+**ID**: A string that uniquely identifies this objective to the game systems
+
+**Title**: The name of the objective
+
+**Description**: A brief description of the objective -- 2 or 3 sentences max
+
+**Status**: Each objective can be in *exactly* one of the following states:
+
+* *NOT_STARTED*: The entry criteria for the objective is not yet met. The objective does not appear in the UI
+* *STARTED*: The entry criteria for the objective has been met, but not the completion criteria. The objective is visible in the UI.
+* *FINISHED*: The completion criteria for the objective has been met. The objective is no longer visible in the UI.
+
+**Entry Criteria**: A list of conditions that must all be TRUE to move the objective from NOT_STARTED to STARTED.
+
+**Completion Criteria**: A list of conditions that must all be TRUE to move the objective from STARTED to FINISHED.
+
+**Rewards**: A list of things that you get when you finish this objective.
 
 
 ## UI / UX
