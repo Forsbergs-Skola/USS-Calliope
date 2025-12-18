@@ -41,7 +41,7 @@ Need to decide on the inventory system; are we doing weight limit? Or like a phy
 
 Ammo is limited, presumably with more ammo for the weaker guns? With an RE style inventory, guns and ammo all take up slots with everything else so taking ALL your guns and
 ammo can hurt you as you can't carry everything so adds some strategy. 
-Instead of only one standard ammo type per weapon we can also introduce compatible ammo types?, "Junk Ammo" ex. higher spread, less damage?
+ammo, instead of one ammo type per weapon we could have "junk ammo" with high spread low damage?, easy to implement but could be a stretch.
 
 ### Melee
 
