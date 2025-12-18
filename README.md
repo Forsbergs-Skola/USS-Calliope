@@ -76,9 +76,186 @@ Quest NPC(s)
 
 ### Enemy types:
 
-Need to know what kind of NPCs we have, their mechanics and how to defeat them. So far we have just standard zombie-esque NPCs and an Invincible NPC that cannot move when the player is looking at it
+[Need to know what kind of NPCs we have, their mechanics and how to defeat them. So far we have just standard zombie-esque NPCs and an Invincible NPC that cannot move when the player is looking at it
 
-Evolution mechanic
+Evolution mechanic]
+
+## **PHASE 1 - LATENT (0-49% INFECTION)**
+
+### **APPEARANCE:**
+- Humans with visible but recognizable symptoms
+- Dark veins around eyes and temples
+- Uncontrollable tremors
+- Profuse sweating
+- Glassy eyes but still with human consciousness
+
+### **BEHAVIOR:**
+- **Mental state:** Aware of their condition, terrified
+- **Movement:** Erratic walk, lean on walls
+- **Interaction:** Can speak brokenly ("Please... help me", "Something... wrong... inside")
+- **Reaction to player:**
+  - If they detect the player: They retreat, hide, beg
+  - 30% chance to scream and attract advanced infected
+  - 70% chance to flee silently
+
+### **DETECTION:**
+- **Vision:** 120° cone, 15 meter range (only normal light)
+- **Hearing:** Normal human sensitivity
+- **Smell/Bioelectric Sense:** Does not detect
+- **Alerts:** Startled by loud noises (gunshots, broken glass)
+
+### **DEFENSE/ATTACKS:**
+- **Does not actively attack**
+- If cornered: Weak struggle (1-2% *damage/second*?? if we have to press any button to block the attack?)
+- **Vulnerabilities:** Any weapon is effective
+- **Recommended strategy:** Ignore/lock up/isolate
+
+### **AUDIO:**
+- Low moans, sobs
+- Unintelligible murmurs
+- Broken breathing
+
+---
+
+## **PHASE 2 - ACTIVE (50-99% INFECTION)**
+
+### **APPEARANCE:**
+- Hunched posture, spasmodic movements
+- Skin with patches of grayish alien tissue
+- Completely black eyes or with bluish bio-luminescence (I prefer the last one)
+- Limbs with bone protrusions
+- Dislocated jaw
+
+### **BEHAVIOR:**
+- **Patrol:** Predefined routes between 3-5 points
+- **Investigation:** 15 seconds in alert position at noises
+- **Communication:** Emits low frequency clicks for basic coordination
+- **Pursuit:** Chases for 30 seconds before returning to patrol
+
+### **DETECTION:**
+- **Vision:** 90° cone, 10 meter range (includes basic infrared vision)
+- **Hearing:** 2x human sensitivity, detects:
+  - Normal walking: 8 meters
+  - Crouched walking: 3 meters
+  - Running: 20 meters
+- **Bioelectric:** 5 meter range (suit reduces to 1 meter - this is something I was thinking about, its like something to wear to avoid to be seen by the enemies like hiding the bioelectric signals of the player, but this is something we can skipped for now and do it if we have time for it)
+- **Thermal:** Detects differences >5°C at 7 meters
+
+### **ATTACKS:**
+1. **Quick charge:** 15% damage, knocks down player
+2. **Scratch:** 8% damage/second??
+3. **Alert scream:** Attracts 1-2 infected in 30m radius
+- **Rate of fire:** Attack every 2-3 seconds
+- **Preference:** Attacks from blind angles
+
+### **VULNERABILITIES:**
+- **Weak points:** Head (3x damage), spinal protrusions (2x) -(if we have time or if we want we can make like empty objects in the enemies and if we are capable to shoot them in that position we do a critical damage)
+- **Effective:** Melee weapon, precise shots
+- **Resistant:** Limb damage (0.5x) -> also if we have time for this or if we want to split the % damage in the body's enemies
+- **Distractions:** Loud sounds attract them for 45 seconds
+
+### **AUDIO:**
+- Regular clicks (every 5-7 seconds)
+- Low growls upon detecting movement
+- High-pitched screech when entering combat
+
+---
+
+## **PHASE 3 - ADVANCED (100% INFECTION)**
+(I suggest to have only one of this enemy at the same time, and if this enemy is defeated just create another one from those are infected and about to go to this stage/phase)
+
+### **APPEARANCE:**
+- Height: 2-2.5 meters, quadrupedal/bipedal posture (-> maybe this is to much?? and only have bipedal posture)
+- Skin: Replaced by alien flesh
+- Limbs: Elongated, additional joints
+- Head: Elongated, segmented jaw
+- Organs: Bioluminescent visible through skin
+
+### **BEHAVIOR:**
+- **Active hunter:** Actively searches for player in known areas
+- **Intelligent/Tactical:** Uses cover, ambushes (or other tactical movements)
+- **Persistent:** Pursues for 2 minutes or until losing trail
+- **Coordinates:** With other Phase 3 to flank (I think this is really to much, I suggest to have only one of this enemies but we can add more if we change the difficulty of the game??)
+
+### **DETECTION:**
+- **Vision:** 180° motion vision, 10m range
+- **Hearing:** 4x human sensitivity, discriminates sounds
+- **Bioelectric:** 15m range (suit reduces to 3m -> if we have the suit??)
+- **Thermal:** Detects differences >2°C at 15m
+- **Chemical:** Smells adrenaline at 10m (maybe this is too much as well, because we will need like another bar for adrenaline, but could be interesting if we have time for this to implement)
+
+### **ATTACKS:**
+1. **Ambush leap:** 25% damage, stun 1.5-3s (maybe it's not possible to move the character in this way, let's see if we are able to find some assets when we are at this point)
+2. **Claw combo:** 12% damage x 2 quick attacks
+3. **Acid throw:** 15% damage (this is so alien..., but maybe it's too much)
+4. **Pack scream:** Attracts ALL infected within 20m (maybe is better if we use room's like distance instead of meters, like the next 2 rooms instead 20m)
+- **Attack speed:** 1 attacks/second (maybe more depending on difficulty??)
+- **Behavior:** Alternates between melee and ranged attacks
+
+### **VULNERABILITIES:**
+- **Critical:** Bioluminescent organs (4x damage??)
+- **Effective:** Heavy weapons, explosives
+- **Resistant:** Light weapons (0.3x damage)
+- **Temporary blindness:** Bright lights stun them 10s (-> this could be interesting to avoid fighting with them and to try to escape and hide)
+- **Distractions:** Only respond to combat/explosion sounds
+
+### **SPECIAL MOBILITY:**
+- Jumps horizontally??
+
+### **AUDIO:**
+- Heavy, wet breathing
+- Irregular deep clicks
+- Bone cracks when moving
+- Gutural roar when attacking
+
+---
+
+## **PHASE 4 - CONVERGENCES and NON-HUMAN ENEMIES**
+
+### **TYPE A: FUSED ENGINEER**
+**Appearance:** Human fused with consoles, embedded cables, half face visible
+**Behavior:**
+- Stationary in control rooms
+- Controls doors, lighting, traps in its sector
+- Priority: Protect critical systems
+**Attacks:**
+- Electric discharges through wet floors (20% damage)
+- Activates environmental traps
+- Calls automatic reinforcements
+**Vulnerability:** Cooling system on the back
+
+### **TYPE B: SURGICAL MEDIC**
+**Appearance:** Fused with medical equipment, arms replaced by surgical instruments
+**Behavior:**
+- Wanders through laboratories and operating rooms
+- Attempts to "operate" on player if incapacitated
+- Creates "medical traps" (anesthetic gas, radiation fields)
+**Attacks:**
+- Paralyzing syringes (5% damage + immobilization 30s or player movements are slower)
+- Short-range defibrillator (25% damage)
+**Vulnerability:** Oxygen/gas tanks on its back
+
+
+### **INFECTED DRONES**
+
+**Behavior:**
+- Systematic patrols
+- Detects by EM, thermal and movement
+- Priority: Immobilize, not kill
+- Can unlock doors for infected
+
+**Vulnerability:**
+- EMP (disables for 60s)
+- Main sensors (in "head" - we can also create a empty game object in the drone's body and if we shoot at this part we do critical damage)
+- ~~Connection to charging station~~
+
+### **COMPROMISED STATION SYSTEMS**
+- **Doors:** Open/close randomly
+- **Ventilation:** Releases spores/toxins
+- **Lighting:** Flashing coordinated with attacks
+- **Elevator:** Trap player between floors -> we have to manually open the elevator and go throw the stairs
+
+---
 
 ### Bosses:
 
