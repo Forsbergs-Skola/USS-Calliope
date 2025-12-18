@@ -44,7 +44,7 @@ public class PlayerData : IRuntimeData
 
     // ATOMIC FIELDS
 
-    
+
     public int Health
     {
         get => _health;
