@@ -332,11 +332,11 @@ How else do we level up? Do we level up sneaking by sneaking? or is that TOO muc
 * *STARTED*: The entry criteria for the objective has been met, but not the completion criteria. The objective is visible in the UI.
 * *FINISHED*: The completion criteria for the objective has been met. The objective is no longer visible in the UI.
 
-* **Entry Criteria**: A list of conditions that must all be TRUE to move the objective from NOT_STARTED to STARTED.
+**Entry Criteria**: A list of conditions that must all be TRUE to move the objective from NOT_STARTED to STARTED.
 
-* **Completion Criteria**: A list of conditions that must all be TRUE to move the objective from STARTED to FINISHED.
+**Completion Criteria**: A list of conditions that must all be TRUE to move the objective from STARTED to FINISHED.
 
-* **Rewards**: A list of things that you get when you finish this objective.
+**Rewards**: A list of things that you get when you finish this objective.
 
 
 ## UI / UX
