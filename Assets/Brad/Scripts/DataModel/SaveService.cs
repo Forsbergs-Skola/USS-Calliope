@@ -211,7 +211,11 @@ public static class SaveService
     private static InventoryData GetInventoryDataFromSaveData(SaveData saveData)
     {
         InventoryData _inventoryData = new InventoryData(true);
-        // TODO...
+
+        // TODO extract the data...
+        // create list of items from saveData.INVENTORY_itemsString & add it to _inventoryData
+        // create a dictionary of resources from INVENTORY_resourcesString & add it to _inventoryData
+
         return new InventoryData(_inventoryData);
     }
     private static ProgressionData GetProgressionDataFromSaveData(SaveData saveData)
