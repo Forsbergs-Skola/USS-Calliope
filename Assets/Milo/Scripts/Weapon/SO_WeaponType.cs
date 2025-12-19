@@ -4,15 +4,20 @@ using UnityEngine;
 public class SO_WeaponType : ScriptableObject
 {
     [Header("General")]
-    [SerializeField] private string weaponName;
-    [SerializeField] private string weaponCategory;
-    [SerializeField] private Sprite weaponIcon;
+    [SerializeField] private string id;
+    [SerializeField] private string category;
+    [SerializeField] private Sprite icon;
     [TextArea(2, 7)] 
-    [SerializeField] private string weaponDescription;
+    [SerializeField] private string description;
+    
+    [Header("Visuals")]
+    [SerializeField] private GameObject weaponModelPrefab;
     
     [Header("Details")]
     [SerializeField, Min(5)] private int magSize;
     [SerializeField] private SO_AmmoType ammoType;
+    // Explore here
+    [SerializeField] private float reloadTime;
     
     [SerializeField, Min(0)] private int damage;
     [SerializeField, Min((float)0.01)] private float fireRate = 0.2f;
@@ -25,6 +30,7 @@ public class SO_WeaponType : ScriptableObject
     [SerializeField] private AnimationCurve damageOverDistance;
     [SerializeField, Min(1)] private int pelletCount = 1;
     
+    // ! Next Step Implement Recoil ! // 
     [Header("Recoil")]
     [SerializeField, Min(0f)] private float recoilPerShotMin;
     [SerializeField, Min(0f)] private float recoilPerShotMax;
@@ -39,10 +45,13 @@ public class SO_WeaponType : ScriptableObject
     [SerializeField, Range(0f, 0.5f)] private float accuracyGracePeriod = 0.15f;
     
     // General
-    public string WeaponId => weaponName;
-    public Sprite WeaponIcon => weaponIcon; 
-    public string WeaponDescription => weaponDescription;
-    public string WeaponCategory => weaponCategory;
+    public string WeaponId => id;
+    public Sprite WeaponIcon => icon; 
+    public string WeaponDescription => description;
+    public string WeaponCategory => category;
+    
+    // Visuals
+    public GameObject WeaponModelPrefab => weaponModelPrefab;
     
     // Details
     public int MagSize => magSize;
@@ -50,6 +59,7 @@ public class SO_WeaponType : ScriptableObject
     public int Damage => damage;
     public float FireRate => fireRate;
     public bool IsSemiAutomatic => isSemiAutomatic;
+    public float ReloadTime => reloadTime;
     
     // Ballistics
     public float ImpactRange => impactRange;
@@ -84,5 +94,4 @@ public class SO_WeaponType : ScriptableObject
 
         return spreadStandardDeviation;
     }
-    
 }

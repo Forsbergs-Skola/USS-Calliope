@@ -6,15 +6,25 @@ public class PlayerAimController : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float maxRaycastDistance = 200f;
 
-    [Header("Input")] [SerializeField] private InputActionReference mousePositionAction;
+    [Header("Input References")] 
+    [SerializeField] private InputActionReference mousePositionAction;
+    [SerializeField] private InputActionReference aimAction; 
 
     private Camera mainCamera;
 
+    // The "State" that other scripts (like WeaponHandler) will check
+    public bool IsAiming { get; private set; }
+
     private void Awake()
     {
-        if (mousePositionAction != null && mousePositionAction.action != null)
+        if (mousePositionAction?.action != null) mousePositionAction.action.Enable();
+        
+        if (aimAction?.action != null)
         {
-            mousePositionAction.action.Enable();
+            aimAction.action.Enable();
+            // Using Events instead of checking IsPressed in Update
+            aimAction.action.performed += _ => IsAiming = true;
+            aimAction.action.canceled += _ => IsAiming = false;
         }
     }
 
@@ -29,9 +39,37 @@ public class PlayerAimController : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (mousePositionAction != null && mousePositionAction.action != null)
+        if (mousePositionAction?.action != null) mousePositionAction.action.Disable();
+        
+        if (aimAction?.action != null)
         {
-            mousePositionAction.action.Disable();
+            aimAction.action.performed -= _ => IsAiming = true;
+            aimAction.action.canceled -= _ => IsAiming = false;
+            aimAction.action.Disable();
+        }
+    }
+
+    private void Update()
+    {
+        // Even with events for state, we rotate in Update so the player 
+        // tracks the mouse even if the mouse/player stops moving.
+        if (IsAiming)
+        {
+            HandleRotation();
+        }
+    }
+
+    private void HandleRotation()
+    {
+        if (GetMouseWorldPositionOnGround(out var targetPosition))
+        {
+            Vector3 lookDir = targetPosition - transform.position;
+            lookDir.y = 0; // Keep player upright
+
+            if (lookDir.sqrMagnitude > 0.01f)
+            {
+                transform.rotation = Quaternion.LookRotation(lookDir);
+            }
         }
     }
 
