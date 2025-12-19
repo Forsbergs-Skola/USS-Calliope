@@ -4,8 +4,17 @@ public enum EnumPlayerStatusEffect
 {
     BLEEDING,
     POISON,
-    IN_STEALTH
+    IN_STEALTH,
+    SPRINTING,
     // add/remove more as needed
+}
+
+public enum EnumPlayerArchetype
+{
+    NONE,
+    PACIFIST,
+    AGGRO,
+    // more as needed
 }
 
 public enum EnumAttackType
@@ -24,6 +33,7 @@ public enum EnumWeaponType
 
 public enum EnumInventoryItem
 {
+    NONE,
     FLASHLIGHT,
     PISTOL,
     SHOTGUN,
@@ -33,6 +43,7 @@ public enum EnumInventoryItem
 
 public enum EnumInventoryResource
 {
+    NONE,
     PISTOL_AMMO,
     RIFLE_AMMO,
     SHOTGUN_AMMO,
@@ -40,50 +51,3 @@ public enum EnumInventoryResource
     // add or remove more as needed
 }
 
-public enum EnumObjective
-{
-    //TALK_TO_BOB,
-    //TALK_TO_ALICE,
-    //DO_A_LITTLE_DANCE,
-    //MAKE_A_LITTLE_LOVE,
-    //GET_DOWN_TONIGHT
-    ENTER_THE_LAB,
-    TALK_TO_ALICE,
-    DEFEAT_ALICE,
-    DEFEAT_FOUR_ENEMIES
-}
-public enum EnumObjectiveStatus
-{
-    NOT_STARTED,
-    STARTED,
-    FINISHED
-}
-
-public enum EnumProgressionField
-{
-    TALKED_TO_ALICE, 
-    LAB_DISCOVERED,
-    //TALKED_TO_BOB,
-    DEFEATED_ENEMIES_COUNT,
-    DEFEATED_ENEMIES
-}
-
-public enum EnumValueComparison
-{
-    //IS_TRUE,
-    //IS_FALSE,
-    GREATER_OR_EQUAL,
-    LESS_OR_EQUAL,
-    EQUAL,
-    NOT_EQUAL,
-    CONTAINS
-}
-/*
-public enum EnumComparisonType
-{
-    BOOL,
-    INT,
-    FLOAT,
-    STRING_LIST
-}
-*/

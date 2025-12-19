@@ -10,25 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15815f44e6040db419e2c801825408e3, type: 3}
-  m_Name: DefeatAliceObj
+  m_Name: KillAliceObj
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveSO
-  objectiveID: 2
-  objectiveTitle: Kill Alice
-  objectiveDescription: Alice is beyond saving. Kill her.
+  objectiveID: 3
+  objectiveTitle: Kil Alice!
+  objectiveDescription: Blah blah blah Blah blah blah Blah blah blah Blah blah blah
   defaultStatus: 0
   entryCriteria:
   - progressionField: 0
-    comparisonValue: 2
+    progressionFieldType: 0
+    valueComparison: 2
     negate: 0
-    BoolTarget: 1
-    IntTarget: 0
-    FloatTarget: 0
-    StringTarget: 
+    boolTarget: 1
+    intTarget: 0
+    floatTarget: 0
+    stringTarget: fsgfdgf
   completionCriteria:
   - progressionField: 3
-    comparisonValue: 4
+    progressionFieldType: 4
+    valueComparison: 3
     negate: 0
-    BoolTarget: 0
-    IntTarget: 0
-    FloatTarget: 0
-    StringTarget: ALICE
+    boolTarget: 0
+    intTarget: 0
+    floatTarget: 0
+    stringTarget: ALICE
+  itemReward: 0
+  resourceReward: 0
+  resourceRewardQuantity: 0
+  xpReward: 0

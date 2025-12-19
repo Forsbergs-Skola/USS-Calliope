@@ -1,52 +1,102 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+public enum EnumObjective
+{
+    NONE,
+    ENTER_THE_LAB,
+    TALK_TO_ALICE,
+    DEFEAT_ALICE,
+    DEFEAT_FOUR_ENEMIES,
+    DO_A_LITTLE_DANCE,
+    MAKE_A_LITTLE_LOVE,
+    GET_DOWN_TONIGHT
+    // more as needed
+}
+public enum EnumProgressionField
+{
+    TALKED_TO_ALICE,
+    LAB_DISCOVERED,
+    DEFEATED_ENEMIES_COUNT,
+    DEFEATED_ENEMIES
+    // more as needed
+}
+public enum EnumValueComparison
+{
+    GREATER_OR_EQUAL,
+    LESS_OR_EQUAL,
+    EQUAL,
+    CONTAINS
+}
+public enum EnumObjectiveStatus
+{
+    NOT_STARTED,
+    STARTED,
+    FINISHED
+}
+public enum EnumProgressionFieldType
+{
+    BOOL,
+    INT,
+    FLOAT,
+    STRING,
+    STRING_LIST
+
+}
+
+[System.Serializable]
+public struct ObjectiveCriterion
+{
+    public EnumProgressionField progressionField;
+    public EnumProgressionFieldType progressionFieldType;
+    public EnumValueComparison valueComparison;
+
+    //[Header("Target Value")]
+    public bool negate;
+    public bool boolTarget;
+    public int intTarget;
+    public float floatTarget;
+    public string stringTarget;
+
+    // if progressionField's valueComparison relation to the appropriate target value is TRUE
+    // ...then the criterion is met
+}
+
 [CreateAssetMenu(fileName = "ObjectiveSO", menuName = "Objectives/ObjectiveSO")]
 public class ObjectiveSO : ScriptableObject
 {
 
     // Private //
-    [SerializeField] private EnumObjective objectiveID;
+    [SerializeField] private EnumObjective objectiveID = EnumObjective.NONE;
     [SerializeField] private string objectiveTitle = string.Empty;
-    [TextArea][SerializeField] private string objectiveDescription;
+    [TextArea][SerializeField] private string objectiveDescription = string.Empty;
     [SerializeField] private EnumObjectiveStatus defaultStatus = EnumObjectiveStatus.NOT_STARTED;
-    [SerializeField] private List<Structs.ObjectiveCriterion> entryCriteria;
-    [SerializeField] private List<Structs.ObjectiveCriterion> completionCriteria;
+    [SerializeField] private List<ObjectiveCriterion> entryCriteria = new List<ObjectiveCriterion>();
+    [SerializeField] private List<ObjectiveCriterion> completionCriteria= new List<ObjectiveCriterion>();
 
-    // entryCriteria:
-    //  - Should be a list of conditions that must all be TRUE for the objective
-    //    to move from NOT_STARTED to STARTED. These are stored in the Value
-    //    field of the ProgressionRuntimeData class
-    //
-    //  - Whenever a value changes in ProgressionRuntimeData.Value, it fires an event that an objective tracker
-    //    singleton can subscribe to, like so:
-    /*
-        private void HandleProgressionDataCHanged(IRuntimeData data)
-        {
-            if (!(data is ProgressionData)) return;
-            ProgressionData currentProgressionData = data as ProgressionData;
+    // EnumInventoryItem is defined in the inventory system
+    // "Item" is something that the inventory can contain no more than 1 of...
+    // Example: "EnumInventoryItem.FLASHLIGHT"
+    [SerializeField] private EnumInventoryItem itemReward = EnumInventoryItem.NONE;
 
-            // example -- has the player talked to Alice yet?
-            bool talkedToAlice = currentProgressionData.TalkedToAlice;
-            //...
-        }
-        */
+    // EnumInventoryResource is defined in the inventory system
+    // "Resource" is something that the inventory can contain any
+    // natural number of...
+    // Example: EnumInventoryResource.PISTOL_AMMO
+    [SerializeField] private EnumInventoryResource resourceReward = EnumInventoryResource.NONE;
+    [SerializeField] private int resourceRewardQuantity = 0;
 
-    // completionCriteria:
-    //  - Should be a list of conditions that must all be true for the objective
-    //    to move from STARTED to FINISHED. See above...
-
-
+    // XP is kept in PlayerData.XP
+    [SerializeField] private int xpReward = 0;
 
     // Public Getters//
     public EnumObjective ObjectiveID { get => objectiveID; }
     public string ObjectiveTitle { get => objectiveTitle; }
     public string ObjectiveDescription { get => objectiveDescription; }
     public EnumObjectiveStatus DefaultStatus { get => defaultStatus; }
-
-    // also public getters for EntryCriteria and CompletionCriteria
-
-
-
-
+    public List<ObjectiveCriterion> EntryCriteria { get => entryCriteria; }
+    public List<ObjectiveCriterion> CompletionCriteria { get => completionCriteria; }
+    public EnumInventoryItem ItemReward { get => itemReward; }
+    public EnumInventoryResource ResourceReward { get => resourceReward; }
+    public int ResourceRewardQuantiny { get => resourceRewardQuantity; }
 }
