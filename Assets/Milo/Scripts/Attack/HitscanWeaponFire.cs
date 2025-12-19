@@ -1,64 +1,103 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HitscanWeaponFire : MonoBehaviour
 {
-    [Header("References")]
+    
+    [Header("Input Action Reference")]
+    [SerializeField] private InputActionReference moveAction;
+    [SerializeField] private InputActionReference sprintAction;
+    
+    [Header("Dependencies")]
     [SerializeField] private PlayerAimController aimController;
     [SerializeField] private ImpactProcessor impactProcessor;
     [SerializeField] private Transform firePoint;
-
-    [Header("Debug")]
-    [SerializeField] private bool showDebugTrajectory = true; 
-    [SerializeField] private float debugLifetime = 0.05f;     
-    [SerializeField] private Color debugColor = Color.red;    
-    [SerializeField] private float hitMarkerSize = 0.1f;      
-
-    private SO_WeaponType weapon;
     
+    [Header("Debug")]
+    [SerializeField] private bool showDebugTrajectory = true;
+    [SerializeField] private float debugLifetime = 0.05f;
+    [SerializeField] private Color debugColor = Color.red;
+    
+    private float movementTimer;
+    private SO_WeaponType weapon;
+
+    private void Update()
+    {
+        UpdateMovementTracking();
+    }
+
+    private void UpdateMovementTracking()
+    {
+        // If the movement input vector is non-zero, we are moving
+        if (moveAction.action.ReadValue<Vector2>().sqrMagnitude > 0.01f)
+        {
+            movementTimer += Time.deltaTime;
+        }
+        else
+        {
+            movementTimer = 0f;
+        }
+    }
+
     public void SetWeapon(SO_WeaponType weapon)
     {
         this.weapon = weapon;
+        
+        movementTimer = 0f; 
+        
         impactProcessor.InitializeProcessor(weapon);
     }
-
+    
     public void Fire()
     {
-        if (weapon == null || firePoint == null)
-            return;
-
-        Vector3 origin = firePoint.position;
-
-        if (!aimController.TryGetAimDirection(origin, out Vector3 aimDirection))
-            return;
-
+        if (!CanFire(out Vector3 aimDirection)) return;
+    
         for (int i = 0; i < weapon.PelletCount; i++)
         {
-            Vector3 finalDirection = BallisticsUtility.GetGaussianSpread(
-                aimDirection,
-                weapon.SpreadStandardDeviation
-            );
-
-            Vector3 endPoint = origin + finalDirection * weapon.ImpactRange;
-
-            if (Physics.Raycast(origin, finalDirection, out RaycastHit hitInfo, 
-                    weapon.ImpactRange, impactProcessor.HitMask))
-            {
-                try
-                {
-                    impactProcessor.ProcessHit(hitInfo);
-                }
-                catch (System.Exception e)
-                {
-                    Debug.LogError($"Error processing hit on {hitInfo.collider.name}: {e}");
-                }
-
-                endPoint = hitInfo.point;
-            }
-
-            if (!showDebugTrajectory) continue;
-            Debug.DrawLine(origin, endPoint, debugColor, debugLifetime);
-            Debug.DrawRay(endPoint, Vector3.up * hitMarkerSize, debugColor, debugLifetime);
-            Debug.DrawRay(endPoint, Vector3.right * hitMarkerSize, debugColor, debugLifetime);
+            PerformPelletShot(aimDirection);
         }
+    }
+    
+    private bool CanFire(out Vector3 aimDirection)
+    {
+        aimDirection = Vector3.zero;
+        if (weapon == null || firePoint == null) return false;
+        
+        return aimController.TryGetAimDirection(firePoint.position, out aimDirection);
+    }
+    
+    private void PerformPelletShot(Vector3 aimDirection)
+    {
+        float standardDeviation = CalculateSpreadIntensity(); 
+        Vector3 finalDirection = BallisticsUtility.GetGaussianSpread(aimDirection, standardDeviation);
+    
+        Vector3 origin = firePoint.position;
+        Vector3 endPoint = origin + finalDirection * weapon.ImpactRange;
+    
+        if (Physics.Raycast(origin, finalDirection, out RaycastHit hitInfo, weapon.ImpactRange, impactProcessor.HitMask))
+        {
+            ProcessHitSafely(hitInfo);
+            endPoint = hitInfo.point;
+        }
+
+        if (showDebugTrajectory) 
+        {
+            Debug.DrawLine(origin, endPoint, debugColor, debugLifetime);
+        }
+    }
+
+    private float CalculateSpreadIntensity()
+    {
+        if (weapon == null) return 0f;
+        
+        var isSprinting = sprintAction.action.IsPressed();
+    
+        return weapon.GetBaseSpreadIntensity(movementTimer, isSprinting);
+    }
+
+    private void ProcessHitSafely(RaycastHit hit)
+    {
+        try { impactProcessor.ProcessHit(hit); }
+        catch (System.Exception e) { Debug.LogError($"Hit Error on {hit.collider.name}: {e}"); }
     }
 }

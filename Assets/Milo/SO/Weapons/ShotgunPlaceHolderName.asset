@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SO_WeaponType
   weaponId: ???
   weaponIcon: {fileID: 0}
-  weaponDamage: 50
+  description: 
   magSize: 8
   ammoType: {fileID: 11400000, guid: aa71757218043c24a88dd9653ea70395, type: 2}
+  damage: 0
   fireRate: 0.2
+  isSemiAutomatic: 1
   impactRange: 20
   spreadStandardDeviation: 0.03
   damageOverDistance:
@@ -53,5 +55,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  isSemiAutomatic: 1
   pelletCount: 5
+  recoilPerShotMin: 0
+  recoilPerShotMax: 0
+  recoilRecoverySpeed: 0
+  movementInaccuracyMultiplier: 1.2
+  sprintInaccuracyMultiplier: 2
+  accuracyGracePeriod: 0.25

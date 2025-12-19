@@ -39,24 +39,24 @@ public class PlayerWeaponHandler : MonoBehaviour
         TryShoot();
     }
 
-    public void EquipWeapon(SO_WeaponType newWeapon)
+    public void EquipWeapon(SO_WeaponType equippedWeapon)
     {
-        if (newWeapon == null)
+        if (equippedWeapon == null)
         {
             Debug.LogWarning("Attempted to equip null weapon.");
             return;
         }
 
-        if (newWeapon == currentWeapon)
+        if (equippedWeapon == currentWeapon)
             return;
 
-        currentWeapon = newWeapon;
-        Debug.Log($"Equipped: {newWeapon.WeaponId}");
+        currentWeapon = equippedWeapon;
+        Debug.Log($"Equipped: {equippedWeapon.WeaponId}");
 
-        ammoModel.Initialize(newWeapon);
-        cooldown.InitializeCooldown(newWeapon.FireRate);
+        ammoModel.Initialize(equippedWeapon);
+        cooldown.InitializeCooldown(equippedWeapon.FireRate);
 
-        weaponFire.SetWeapon(newWeapon); 
+        weaponFire.SetWeapon(equippedWeapon); 
     }
 
     public void TryShoot()

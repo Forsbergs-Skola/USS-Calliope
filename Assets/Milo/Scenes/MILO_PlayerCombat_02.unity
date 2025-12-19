@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 6666949036979188213, guid: 46e5b86ae589fc948a91363e2a9ee404, type: 3}
+      propertyPath: m_Radius
+      value: 0.55
+      objectReference: {fileID: 0}
     - target: {fileID: 7650259560162845007, guid: 46e5b86ae589fc948a91363e2a9ee404, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.1838849
@@ -2955,13 +2959,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3495f917302bb942b20953e6da982c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitscanWeaponFire
+  moveAction: {fileID: 6531606723557171274, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
+  sprintAction: {fileID: -3730138691951497943, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   aimController: {fileID: 7116462969216917721}
   impactProcessor: {fileID: 7116462969216917720}
   firePoint: {fileID: 1643179213}
   showDebugTrajectory: 1
-  debugLifetime: 0.1
-  debugColor: {r: 1, g: 0, b: 0.8365736, a: 1}
-  hitMarkerSize: 0.1
+  debugLifetime: 0.05
+  debugColor: {r: 0, g: 0.9281702, b: 1, a: 1}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
