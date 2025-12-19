@@ -4,7 +4,7 @@
 
 Walking and Sprinting
 
-Sneaking
+Sneaking and Noise System
 
 Stamina bar and system
 
@@ -37,12 +37,7 @@ Pistol, Shotgun, ???
 Limited ammo throughout game. Maybe a super powerful gun (rpg, grenade launcher, BFG). This super powerful gun you could find ammo for it before finding the gun
 to like push the player to go find it.
 
-Need to decide on the inventory system; are we doing weight limit? Or like a physical, RE style inventory? 
-
-Ammo is limited, presumably with more ammo for the weaker guns? With an RE style inventory, guns and ammo all take up slots with everything else so taking ALL your guns and
-ammo can hurt you as you can't carry everything so adds some strategy. 
-
-Recoil?
+Recoil
 
 ### Melee
 
@@ -52,9 +47,9 @@ Melee combat should feel weighty, but can't be too strong. Maybe the enemies get
 
 ### Non-Lethal
 
-Taser?
+Taser - Recharge at scientist station
 
-Do we have non-lethal weapons OR do we focus on luring/trapping enemies as the Non-Letal
+Luring/Trapping
 
 
 ## Camera System
@@ -78,13 +73,10 @@ Quest NPC(s)
 
 ### Dialogue & Narration
 
-Do we want branching dialogue options (with or without real gameplay concequences), or is each conversation a linear and scripted sequence of lines?
+Linear and scripted sequence of lines and a little choice at the end
 
 ### Enemy types:
 
-[Need to know what kind of NPCs we have, their mechanics and how to defeat them. So far we have just standard zombie-esque NPCs and an Invincible NPC that cannot move when the player is looking at it
-
-Evolution mechanic]
 
 ## **PHASE 1 - LATENT (0-49% INFECTION)**
 
@@ -265,19 +257,17 @@ Evolution mechanic]
 
 ### Bosses:
 
-Just one boss? Final Boss?
+The final boss is the quest npc who experiments on himself
+
+Gives every player the chance to do some blasting
 
 ## Shop System
 
-what is currency?
+what is currency? Blood and Ammo
 
-what do they sell?
+what do they sell? Consumables, permanant stat increases, keys for doors, etc
 
 who are they?
-
-Player buys items/armour/suit upgrades that increase stats. Pay with blood and lose health? Pay with ammo and lose ammo?
-
-Suit upgrade limit slots? (requires UI)
 
 
 ## Level System
@@ -288,7 +278,7 @@ Level layout
 
 Checkpoints/Respawn?
 
-Environmental hazards: list here
+Environmental hazards: Steam pipes, traps
 
 Collectibles/Pickups
 
@@ -298,12 +288,11 @@ Interactables (doors, switches)
 
 ## Inventory System
 
-
 Item types (weapons, consumables, quest items)
 
 Ammo is stackable? Health pickups stackable?
 
-Weight / capacity limits: either weight limit or physical inventory (slots like resident evil)
+Capacity limit - Certain amount of slots
 
 Ammo is limited, presumably with more ammo for the weaker guns? With an RE style inventory, guns and ammo all take up slots with everything else so taking ALL your guns and
 ammo can hurt you as you can't carry everything so adds some strategy. 
@@ -312,11 +301,14 @@ Should be like some home bases/chests where you can access a global inventory. C
 
 ## Stats/LevelUp System
 
-Suit upgrades purchased from shop increase stats only when equipped. Bought with health (which permanently decreases health bar) and ammo
+Alice and Bob - have different starting equipment and stats?
 
-Killing enemies gets xp, get enough to permanently increase stats (like health)
+Infection system - cuts off health (infected health)
 
-How else do we level up? Do we level up sneaking by sneaking? or is that TOO much to keep track off and just level it up with shop
+Stats:
+
+Health, Stamina, Aiming, Sneaking, Strength, Tech, Barter, Agility
+
 
 ## Objective Tracking
 
@@ -565,17 +557,9 @@ As immersive and unintrusive as possible
 
 Jumpscares?
 
-QTE?
+QTEs - getting grabbed, hiding, holding breath
 
-Holding Breath?
+junk
 
-Passive player progression ideas:
-
--Shop: spend currency to increase your non-lethal/stealth/stamina. Requires currency system; ammo, money, food. How do we find the currency? What is the shop/upgrades? Maybe the shop ONLY has stealth/non-lethal while killing ONLY has dmg/stamina?
-
--Crafting: Find resources to make the items yourself. I hate crafting mechanics so maybe don't let me talk about this. Basically a glorified shop system. You need multiple "currencies" to "buy" this item. This will require a looting system and crafting interface. Can be done interestingly, but we gotta ask ourselves "is it fun?" and especially "is this immersive?"
-
--Stat increase by doing (idk the word): If we gain xp by killing, so we can kill better, we can gain xp by sneaking, to sneak better? Longer time spent sneaking around enemies makes your detection range smaller. If we doing stress mechanic (stress can lower vision range, make a heartbeat sound so you can't hear enemy), being near enemies makes you less stressed. Succesfully running away makes your stamina better?
-
--Exploration rewards: Can learn the enemies patterns and locations. Trapping/luring them might unlock a door or something. Maybe you lock them up so the scientist can study them and you get a reward 
+looting bodies
 
