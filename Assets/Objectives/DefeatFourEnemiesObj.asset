@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15815f44e6040db419e2c801825408e3, type: 3}
+  m_Name: DefeatFourEnemiesObj
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectiveSO
+  objectiveID: 3
+  objectiveTitle: Defeat 4 Enemies
+  objectiveDescription: Defeat at least four of your former friends
+  defaultStatus: 0
+  entryCriteria:
+  - progressionField: 1
+    comparisonValue: 2
+    negate: 0
+    BoolTarget: 1
+    IntTarget: 0
+    FloatTarget: 0
+    StringTarget: 
+  completionCriteria:
+  - progressionField: 2
+    comparisonValue: 0
+    negate: 0
+    BoolTarget: 0
+    IntTarget: 4
+    FloatTarget: 0
+    StringTarget: 
