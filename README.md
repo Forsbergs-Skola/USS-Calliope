@@ -44,6 +44,8 @@ ammo can hurt you as you can't carry everything so adds some strategy.
 
 ammo, instead of one ammo type per weapon we could have "junk ammo" with high spread low damage?, easy to implement but could be a stretch.
 
+Recoil?
+
 ### Melee
 
 What are the melee weapons? 
