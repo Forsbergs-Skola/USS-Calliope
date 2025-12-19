@@ -560,3 +560,22 @@ Make sure it fits screen size
 As immersive and unintrusive as possible
 
 ## Backend System
+
+## Misc
+
+Jumpscares?
+
+QTE?
+
+Holding Breath?
+
+Passive player progression ideas:
+
+-Shop: spend currency to increase your non-lethal/stealth/stamina. Requires currency system; ammo, money, food. How do we find the currency? What is the shop/upgrades? Maybe the shop ONLY has stealth/non-lethal while killing ONLY has dmg/stamina?
+
+-Crafting: Find resources to make the items yourself. I hate crafting mechanics so maybe don't let me talk about this. Basically a glorified shop system. You need multiple "currencies" to "buy" this item. This will require a looting system and crafting interface. Can be done interestingly, but we gotta ask ourselves "is it fun?" and especially "is this immersive?"
+
+-Stat increase by doing (idk the word): If we gain xp by killing, so we can kill better, we can gain xp by sneaking, to sneak better? Longer time spent sneaking around enemies makes your detection range smaller. If we doing stress mechanic (stress can lower vision range, make a heartbeat sound so you can't hear enemy), being near enemies makes you less stressed. Succesfully running away makes your stamina better?
+
+-Exploration rewards: Can learn the enemies patterns and locations. Trapping/luring them might unlock a door or something. Maybe you lock them up so the scientist can study them and you get a reward 
+
