@@ -15,10 +15,14 @@ MonoBehaviour:
   id: Rattlesnake V
   category: Shotgun
   icon: {fileID: 0}
-  description: 
+  description: "The MK7 handles the silence, but the Rattlesnake V handles the riot.
+    A gas-operated, mag-fed workhorse designed for 'aggressive de-escalation' in
+    the E-M Consortium\u2019s high-risk sectors."
+  weaponModelPrefab: {fileID: 0}
   magSize: 8
   ammoType: {fileID: 11400000, guid: aa71757218043c24a88dd9653ea70395, type: 2}
-  damage: 0
+  reloadTime: 0
+  damage: 50
   fireRate: 0.2
   isSemiAutomatic: 1
   impactRange: 15

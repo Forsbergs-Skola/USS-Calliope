@@ -10,9 +10,6 @@ public class SO_WeaponType : ScriptableObject
     [TextArea(2, 7)] 
     [SerializeField] private string description;
     
-    [Header("Visuals")]
-    [SerializeField] private GameObject weaponModelPrefab;
-    
     [Header("Details")]
     [SerializeField, Min(5)] private int magSize;
     [SerializeField] private SO_AmmoType ammoType;
@@ -44,14 +41,23 @@ public class SO_WeaponType : ScriptableObject
     [Tooltip("Pistol 0.20s, rifle 0.10s,  shotgun 0.25s")]
     [SerializeField, Range(0f, 0.5f)] private float accuracyGracePeriod = 0.15f;
     
+    [Header("Visuals")]
+    [SerializeField] private GameObject weaponModelPrefab;
+    
+    [Header("Audio")]
+    [SerializeField] private AudioClip[] fireSounds;
+    [SerializeField] private AudioClip reloadSound;
+    [SerializeField] private AudioClip dryFireSound;
+    
+    //         //
+    // GETTERS //
+    //         //
+    
     // General
     public string WeaponId => id;
     public Sprite WeaponIcon => icon; 
     public string WeaponDescription => description;
     public string WeaponCategory => category;
-    
-    // Visuals
-    public GameObject WeaponModelPrefab => weaponModelPrefab;
     
     // Details
     public int MagSize => magSize;
@@ -65,7 +71,7 @@ public class SO_WeaponType : ScriptableObject
     public float ImpactRange => impactRange;
     public int PelletCount => pelletCount;
     
-    // This function calculates the final damage to apply in a hit
+    // Calculates the final damage to apply in a hit
     public int GetDamageAtDistance(float distance)
     {
         float t = Mathf.Clamp01(distance / impactRange);
@@ -80,8 +86,7 @@ public class SO_WeaponType : ScriptableObject
     public float RecoilPerShotMax => recoilPerShotMax;
     public float RecoilRecoverySpeed => recoilRecoverySpeed;
     
-    // Tactical 
-    
+   
     // This function calculates the final spread value depending on the parameters 
     public float GetBaseSpreadIntensity(float movementTimer, bool isSprinting)
     {
@@ -94,4 +99,13 @@ public class SO_WeaponType : ScriptableObject
 
         return spreadStandardDeviation;
     }
+    
+    // Visuals
+    public GameObject WeaponModelPrefab => weaponModelPrefab;
+    
+    // Audio
+    
+    public  AudioClip[] FireSounds => fireSounds;
+    public  AudioClip ReloadSounds => reloadSound;
+    public  AudioClip DryFireSounds => dryFireSound;
 }

@@ -16,8 +16,10 @@ MonoBehaviour:
   category: Test
   icon: {fileID: 0}
   description: Test
+  weaponModelPrefab: {fileID: 3760273594104162667, guid: ea24788948c3e6d4588d8464ee6c25fe, type: 3}
   magSize: 20
   ammoType: {fileID: 11400000, guid: 691fdfec37c81b043a98ea330a08e097, type: 2}
+  reloadTime: 0
   damage: 35
   fireRate: 0.2
   isSemiAutomatic: 1
