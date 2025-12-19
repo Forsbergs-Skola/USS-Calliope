@@ -16,20 +16,25 @@ public class Scratch : MonoBehaviour
     private void Start()
     {
         InitializeFruitDict();
-
-        
     }
 
     private void InitializeFruitDict()
     {
+        /*
         foreach(EnumFruit fruit in System.Enum.GetValues(typeof(EnumFruit)))
         {
             fruitDict[fruit] = 0;
         }
 
-        Debug.Log(fruitDict[EnumFruit.APPLE]);
-        Debug.Log(fruitDict[EnumFruit.ORANGE]);
-        Debug.Log(fruitDict[EnumFruit.BANANA]);
+        Debug.Log(fruitDict[EnumFruit.APPLE].ToString());
+        Debug.Log(fruitDict[EnumFruit.ORANGE].ToString());
+        Debug.Log(fruitDict[EnumFruit.BANANA].ToString());
+        */
+
+        foreach (string fruitName in System.Enum.GetNames(typeof(EnumFruit)))
+        {
+            Debug.Log(fruitName);
+        }
 
     }
 }

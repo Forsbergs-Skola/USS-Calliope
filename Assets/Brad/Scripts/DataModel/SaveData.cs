@@ -21,11 +21,13 @@ public class SaveData
     /////////////////////
     // ProgressionData //
     /////////////////////
+    /*
     public string PROGRESSION_defeatedEnemiesString;
     public string PROGRESSION_sceneName;
 
     public bool PROGRESSION_TalkedToBob;
     public bool PROGRESSION_TalkedToAlice;
+    */
 
     ///////////////////
     // InventoryData //

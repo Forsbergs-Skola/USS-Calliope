@@ -9,6 +9,14 @@ public enum EnumPlayerStatusEffect
     // add/remove more as needed
 }
 
+/*
+public enum EnumEnemies
+{
+    ALICE,
+    BOB
+}
+*/
+
 public enum EnumPlayerArchetype
 {
     NONE,

@@ -89,6 +89,8 @@ public class ObjectiveSO : ScriptableObject
     // XP is kept in PlayerData.XP
     [SerializeField] private int xpReward = 0;
 
+    private EnumObjectiveStatus currentStatus = EnumObjectiveStatus.NOT_STARTED;
+
     // Public Getters//
     public EnumObjective ObjectiveID { get => objectiveID; }
     public string ObjectiveTitle { get => objectiveTitle; }

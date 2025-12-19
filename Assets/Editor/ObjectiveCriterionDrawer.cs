@@ -66,23 +66,43 @@ public class ObjectiveCriterionDrawer: PropertyDrawer
         // Constrain comparisons
         if (fieldType == EnumProgressionFieldType.BOOL)
         {
-            // only "EQUAL", comparison...
+            if (comparison != EnumValueComparison.EQUAL)
+            {
+                EditorGUI.HelpBox(line, "EQUAL is the only valid comparison for the BOOL value type", MessageType.Error);
+                line.y += EditorGUIUtility.singleLineHeight + LINE_SPACING;
+            }
         }
         if (fieldType == EnumProgressionFieldType.INT)
         {
-            // Disallow "CONTAINS"...
+            if (comparison == EnumValueComparison.CONTAINS)
+            {
+                EditorGUI.HelpBox(line, "CONTAINS is not a valid comparison for the INT value type", MessageType.Error);
+                line.y += EditorGUIUtility.singleLineHeight + LINE_SPACING;
+            }
         }
         if (fieldType == EnumProgressionFieldType.FLOAT)
         {
-            // Disallow "CONTAINS"...
+            if (comparison == EnumValueComparison.CONTAINS)
+            {
+                EditorGUI.HelpBox(line, "CONTAINS is not a valid comparison for the FLOAT value type", MessageType.Error);
+                line.y += EditorGUIUtility.singleLineHeight + LINE_SPACING;
+            }
         }
         if (fieldType == EnumProgressionFieldType.STRING)
         {
-            // only "EQUAL", disallow everything else
+            if (comparison != EnumValueComparison.EQUAL)
+            {
+                EditorGUI.HelpBox(line, "EQUAL is the only valid comparison for the STRING value type", MessageType.Error);
+                line.y += EditorGUIUtility.singleLineHeight + LINE_SPACING;
+            }
         }
         if (fieldType == EnumProgressionFieldType.STRING_LIST)
         {
-            // only "CONTAINS"...
+            if (comparison != EnumValueComparison.CONTAINS)
+            {
+                EditorGUI.HelpBox(line, "CONTAINS is the only valid comparison for the STRING_LIST value type", MessageType.Error);
+                line.y += EditorGUIUtility.singleLineHeight + LINE_SPACING;
+            }
         }
 
 
@@ -95,7 +115,7 @@ public class ObjectiveCriterionDrawer: PropertyDrawer
         if (showBool)
         {
             EditorGUI.PropertyField(line, boolTargetProp, new GUIContent("Bool Target"));
-            line.y += EditorGUIUtility.singleLineHeight + LINE_SPACING;
+            line.y += EditorGUIUtility.singleLineHeight + LINE_SPACING * 2f;
         }
         if (showInt)
         {
