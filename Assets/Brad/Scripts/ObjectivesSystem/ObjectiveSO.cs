@@ -1,24 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public enum EnumObjective
-{
-    NONE,
-    ENTER_THE_LAB,
-    TALK_TO_ALICE,
-    DEFEAT_ALICE,
-    DEFEAT_FOUR_ENEMIES,
-    DO_A_LITTLE_DANCE,
-    MAKE_A_LITTLE_LOVE,
-    GET_DOWN_TONIGHT
-    // more as needed
-}
+
 public enum EnumProgressionField
 {
-    TALKED_TO_ALICE,
-    LAB_DISCOVERED,
     DEFEATED_ENEMIES_COUNT,
-    DEFEATED_ENEMIES
+    DEFEATED_ENEMIES,
+    FINISHED_OBJECTIVES
     // more as needed
 }
 public enum EnumValueComparison
@@ -89,7 +77,7 @@ public class ObjectiveSO : ScriptableObject
     // XP is kept in PlayerData.XP
     [SerializeField] private int xpReward = 0;
 
-    private EnumObjectiveStatus currentStatus = EnumObjectiveStatus.NOT_STARTED;
+    //private EnumObjectiveStatus currentStatus = EnumObjectiveStatus.NOT_STARTED;
 
     // Public Getters//
     public EnumObjective ObjectiveID { get => objectiveID; }
@@ -101,4 +89,6 @@ public class ObjectiveSO : ScriptableObject
     public EnumInventoryItem ItemReward { get => itemReward; }
     public EnumInventoryResource ResourceReward { get => resourceReward; }
     public int ResourceRewardQuantiny { get => resourceRewardQuantity; }
+    public int XPReward { get => xpReward; }
+    //public EnumObjectiveStatus CurrentStatus { }
 }
