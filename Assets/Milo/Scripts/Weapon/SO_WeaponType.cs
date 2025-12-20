@@ -27,8 +27,6 @@ public class SO_WeaponType : ScriptableObject
     [SerializeField] private AnimationCurve damageOverDistance;
     [SerializeField, Min(1)] private int pelletCount = 1;
     
-    // ! Next Step Implement Recoil ! // 
-    [Header("Recoil")]
     [SerializeField, Min(0f)] private float recoilPerShotMin;
     [SerializeField, Min(0f)] private float recoilPerShotMax;
     [SerializeField, Min(0f)] private float recoilRecoverySpeed;
@@ -70,6 +68,9 @@ public class SO_WeaponType : ScriptableObject
     // Ballistics
     public float ImpactRange => impactRange;
     public int PelletCount => pelletCount;
+    public float RecoilPerShotMin => recoilPerShotMin;
+    public float RecoilPerShotMax => recoilPerShotMax;
+    public float RecoilRecoverySpeed => recoilRecoverySpeed;
     
     // Calculates the final damage to apply in a hit
     public int GetDamageAtDistance(float distance)
@@ -80,12 +81,6 @@ public class SO_WeaponType : ScriptableObject
         
         return Mathf.RoundToInt(damage * factor);
     }
-    
-    // Recoil
-    public float RecoilPerShotMin => recoilPerShotMin;
-    public float RecoilPerShotMax => recoilPerShotMax;
-    public float RecoilRecoverySpeed => recoilRecoverySpeed;
-    
    
     // This function calculates the final spread value depending on the parameters 
     public float GetBaseSpreadIntensity(float movementTimer, bool isSprinting)

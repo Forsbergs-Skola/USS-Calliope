@@ -12,7 +12,6 @@ public class PlayerAimController : MonoBehaviour
 
     private Camera mainCamera;
 
-    // The "State" that other scripts (like WeaponHandler) will check
     public bool IsAiming { get; private set; }
 
     private void Awake()
@@ -87,7 +86,7 @@ public class PlayerAimController : MonoBehaviour
 
     private bool GetMouseWorldPositionOnGround(out Vector3 worldPosition)
     {
-        if (mainCamera == null)
+        if (!mainCamera)
         {
             worldPosition = Vector3.zero;
             return false;
