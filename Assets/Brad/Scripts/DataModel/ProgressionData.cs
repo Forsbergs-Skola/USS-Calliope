@@ -7,46 +7,24 @@ public class ProgressionData : IRuntimeData
 // All the save-worthy progression information
 {
     public bool IsSandbox { get; private set; }
-
-    private List<string> _defeatedEnemies;
-    private string _sceneName;
-
-    // temporary fields, for POC
-    private bool _talkedToBob;
-    private bool _talkedToAlice;
-
-    /////////////////
-    // Data Fields //
-    /////////////////
-
-    // TODO all the progression data fields
-
-    // list fields
-
-    public void AddDefeatedEnemy(string enemyID)
-    {
-        if (_defeatedEnemies.Contains(enemyID)) return;
-        _defeatedEnemies.Add(enemyID);
-        DataTools.HandleOnDataChanged(this);
-    }
-    public void RemoveDefeatedEnemy(string enemyID)
-    {
-        if (!_defeatedEnemies.Contains(enemyID)) return;
-        _defeatedEnemies.Remove(enemyID);
-        DataTools.HandleOnDataChanged(this);
-    }
-    public void ResetDefeatedEnemies()
-    {
-        _defeatedEnemies.Clear();
-        _defeatedEnemies = new List<string>();
-    }
-    public List<string> GetDefeatedEnemies()
-    {
-        return new List<string>(_defeatedEnemies);
-    }
-
-    // atomic fields
     
+    ////////////////////
+    // Backing Fields //
+    ////////////////////
+
+    private string _sceneName;
+    private List<string> _defeatedEnemiesList;
+    private List<EnumObjective> _notStartedObjectives;
+    private List<EnumObjective> _startedObjectives;
+    private List<EnumObjective> _finishedObjectives;
+
+
+    ///////////////////
+    // Public Access //
+    ///////////////////
+
+    // Atomic Fields //
+
     public string SceneName
     {
         get => _sceneName;
@@ -57,26 +35,86 @@ public class ProgressionData : IRuntimeData
         }
     }
 
-    public bool TalkedToBob
+    // Lists //
+
+    // Objectives
+    public List<EnumObjective> GetNotStartedObjectivesList()
     {
-        get => _talkedToBob;
-        set
-        {
-            _talkedToBob = value;
-            DataTools.HandleOnDataChanged(this);
-        }
+        if (_notStartedObjectives == null) return null;
+        return new List<EnumObjective>(_notStartedObjectives);
+    }
+    public List<EnumObjective> GetStartedObjectivesList()
+    {
+        if (_startedObjectives == null) return null;
+        return new List<EnumObjective>(_startedObjectives);
+    }
+    public List<EnumObjective> GetFinishedObjectivesList()
+    {
+        if (_finishedObjectives == null) return null;
+        return new List<EnumObjective>(_finishedObjectives);
+    }
+    public void StartObjective(EnumObjective objective)
+    {
+        if (_finishedObjectives.Contains(objective)) return;
+        if (_startedObjectives.Contains(objective)) return;
+        if (!_notStartedObjectives.Contains(objective)) return;
+        _notStartedObjectives.Remove(objective);
+        _startedObjectives.Add(objective);
+        DataTools.HandleOnDataChanged(this);
+    }
+    public void FinishObjective(EnumObjective objective)
+    {
+        if (_notStartedObjectives.Contains(objective)) return;
+        if (_finishedObjectives.Contains(objective)) return;
+        if (!_startedObjectives.Contains(objective)) return;
+        _startedObjectives.Remove(objective);
+        _finishedObjectives.Add(objective);
+        DataTools.HandleOnDataChanged(this);
+    }
+    public void NotStartObjective(EnumObjective objective)
+    {
+        if (_startedObjectives.Contains(objective)) { _startedObjectives.Remove(objective); }
+        if (_finishedObjectives.Contains(objective)) { _finishedObjectives.Remove(objective); }
+        if (_notStartedObjectives.Contains(objective)) return;
+        _notStartedObjectives.Add(objective);
+        DataTools.HandleOnDataChanged(this);
+    }
+    public void ClearObjectivesData()
+    {
+        _startedObjectives = new List<EnumObjective>();
+        _notStartedObjectives = new List<EnumObjective>();
+        _finishedObjectives = new List<EnumObjective>();
     }
 
-    
-    public bool TalkedToAlice
+    // Defeated Enemies
+    public List<string> GetDefeatedEnemiesList()
     {
-        get => _talkedToAlice;
-        set
-        {
-            _talkedToAlice = value;
-            DataTools.HandleOnDataChanged(this);
-        }
+        return new List<string>(_defeatedEnemiesList);
     }
+    public void DefeatEnemy(string enemyName)
+    {
+        if (_defeatedEnemiesList.Contains(enemyName)) return;
+        _defeatedEnemiesList.Add(enemyName);
+        DataTools.HandleOnDataChanged(this);
+    }
+
+    public void InitializeObjective(EnumObjective objective, EnumObjectiveStatus defaultStatus)
+    {
+        switch (defaultStatus)
+        {
+            case EnumObjectiveStatus.NOT_STARTED:
+                if (!_notStartedObjectives.Contains(objective)) { _notStartedObjectives.Add(objective); }
+                break;
+            case EnumObjectiveStatus.STARTED:
+                if (!_startedObjectives.Contains(objective)) { _startedObjectives.Add(objective); }
+                break;
+            case EnumObjectiveStatus.FINISHED:
+                if(!_finishedObjectives.Contains(objective)) { _finishedObjectives.Add(objective); }
+                break;
+        }
+        DataTools.HandleOnDataChanged(this);
+    }
+
 
 
     //////////////////
@@ -85,24 +123,30 @@ public class ProgressionData : IRuntimeData
     public ProgressionData()
     {
         IsSandbox = false;
-        TalkedToBob = false;
-        TalkedToAlice = false;
-        _defeatedEnemies = new List<string>();
+        SceneName = "Bootstrap";
+        _notStartedObjectives = new List<EnumObjective>();
+        _startedObjectives = new List<EnumObjective>();
+        _finishedObjectives = new List<EnumObjective>();
+        _defeatedEnemiesList = new List<string>();
     }
     public ProgressionData(bool isSandBox)
     {
         IsSandbox = isSandBox;
-        TalkedToBob = false;
-        TalkedToAlice = false;
-        _defeatedEnemies = new List<string>();
+        SceneName = "Bootstrap";
+        _notStartedObjectives = new List<EnumObjective>();
+        _startedObjectives = new List<EnumObjective>();
+        _finishedObjectives = new List<EnumObjective>();
+        _defeatedEnemiesList = new List<string>();
     }
 
     public ProgressionData(ProgressionData inData)
     {
         IsSandbox = false;
-        TalkedToBob = inData.TalkedToBob;
-        TalkedToAlice = inData.TalkedToAlice;
-        _defeatedEnemies = inData.GetDefeatedEnemies();
+        SceneName = inData.SceneName;
+        _notStartedObjectives = inData.GetNotStartedObjectivesList();
+        _startedObjectives = inData.GetStartedObjectivesList();
+        _finishedObjectives = inData.GetFinishedObjectivesList();
+        _defeatedEnemiesList = inData.GetDefeatedEnemiesList();
     }
     public bool GetIsSandbox() { return IsSandbox; }
 }
