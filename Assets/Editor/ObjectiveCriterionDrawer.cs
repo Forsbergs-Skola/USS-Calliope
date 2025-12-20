@@ -22,6 +22,7 @@ public class ObjectiveCriterionDrawer: PropertyDrawer
         var intTargetProp       = property.FindPropertyRelative("intTarget");
         var floatTargetProp     = property.FindPropertyRelative("floatTarget");
         var stringTargetProp    = property.FindPropertyRelative("stringTarget");
+        var finishedObjProp     = property.FindPropertyRelative("finishedObjective");
 
         var line = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
 
@@ -43,6 +44,7 @@ public class ObjectiveCriterionDrawer: PropertyDrawer
         bool showInt    = false;
         bool showFloat  = false;
         bool showString = false;
+        bool showFinishedObj = false;
 
         switch (fieldType)
         {
@@ -60,6 +62,9 @@ public class ObjectiveCriterionDrawer: PropertyDrawer
                 break;
             case EnumProgressionFieldType.STRING_LIST:
                 showString = true;
+                break;
+            case EnumProgressionFieldType.FINISHED_OBJECTIVES_LIST:
+                showFinishedObj = true;
                 break;
         }
 
@@ -104,6 +109,14 @@ public class ObjectiveCriterionDrawer: PropertyDrawer
                 line.y += EditorGUIUtility.singleLineHeight + LINE_SPACING;
             }
         }
+        if (fieldType == EnumProgressionFieldType.FINISHED_OBJECTIVES_LIST)
+        {
+            if (comparison != EnumValueComparison.CONTAINS)
+            {
+                EditorGUI.HelpBox(line, "CONTAINS is the only valid comparison for the OBJECTIVES_LIST value type", MessageType.Error);
+                line.y += EditorGUIUtility.singleLineHeight + LINE_SPACING;
+            }
+        }
 
 
         // Negate toggle
@@ -130,6 +143,11 @@ public class ObjectiveCriterionDrawer: PropertyDrawer
         if (showString)
         {
             EditorGUI.PropertyField(line, stringTargetProp, new GUIContent("String Target"));
+            line.y += EditorGUIUtility.singleLineHeight + LINE_SPACING;
+        }
+        if (showFinishedObj)
+        {
+            EditorGUI.PropertyField(line, finishedObjProp, new GUIContent("Finished Objective"));
             line.y += EditorGUIUtility.singleLineHeight + LINE_SPACING;
         }
         EditorGUI.EndProperty();

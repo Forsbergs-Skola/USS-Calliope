@@ -10,14 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15815f44e6040db419e2c801825408e3, type: 3}
-  m_Name: KillAliceObj
+  m_Name: KillBobObj
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveSO
-  objectiveID: 1
-  objectiveTitle: Kill Alice!
-  objectiveDescription: Alice needs to be dead, so kill her by pushing the "KillAlice"
-    button
-  defaultStatus: 1
-  entryCriteria: []
+  objectiveID: 2
+  objectiveTitle: Kill Bob!
+  objectiveDescription: Now that Alice is taken care of, it's time to kill Bob
+  defaultStatus: 0
+  entryCriteria:
+  - progressionField: 2
+    progressionFieldType: 5
+    valueComparison: 3
+    negate: 0
+    boolTarget: 0
+    intTarget: 0
+    floatTarget: 0
+    stringTarget: 
+    finishedObjective: 1
   completionCriteria:
   - progressionField: 1
     progressionFieldType: 4
@@ -26,7 +34,7 @@ MonoBehaviour:
     boolTarget: 0
     intTarget: 0
     floatTarget: 0
-    stringTarget: ALICE
+    stringTarget: BOB
     finishedObjective: 0
   itemReward: 0
   resourceReward: 0

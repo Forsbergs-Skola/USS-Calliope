@@ -28,7 +28,8 @@ public enum EnumProgressionFieldType
     INT,
     FLOAT,
     STRING,
-    STRING_LIST
+    STRING_LIST,
+    FINISHED_OBJECTIVES_LIST
 
 }
 
@@ -45,6 +46,7 @@ public struct ObjectiveCriterion
     public int intTarget;
     public float floatTarget;
     public string stringTarget;
+    public EnumObjective finishedObjective;
 
     // if progressionField's valueComparison relation to the appropriate target value is TRUE
     // ...then the criterion is met
