@@ -13,8 +13,11 @@ public struct StructStatusEffectIcon
     public GameObject iconPrefab;
 }
 
-public class Hud : MonoBehaviour
+public class Hud : MonoBehaviour, ICanvasUI
 {
+
+    
+
     [SerializeField] private IRuntimeDataPayloadEvent runtimeDataUpdatedEvent;
     [SerializeField] private Slider healthSlider;
     [SerializeField] private GridLayoutGroup statusEffectsGrid;
@@ -133,7 +136,27 @@ public class Hud : MonoBehaviour
     }
 
 
+    // Interface Methods //
 
+    public EnumCanvasUIName GetCanvasName()
+    {
+        return EnumCanvasUIName.HUD;
+    }
+    public Canvas GetCanvas()
+    {
+        return GetComponent<Canvas>();
+    }
+    public void ForegroundCanvas(bool foregrounded)
+    {
+        if (foregrounded) { GetComponent<Canvas>().sortingOrder = 10; }
+        else { GetComponent<Canvas>().sortingOrder = 0; }
+    }
+    public int GetSortingOrder()
+    {
+        return GetComponent<Canvas>().sortingOrder;
+    }
+
+    /*
     private enum EnumFruit
     {
         APPLE,
@@ -157,6 +180,7 @@ public class Hud : MonoBehaviour
         Debug.Log(bothListsHaveTheSameItems);
 
     }
+    */
 
 
 

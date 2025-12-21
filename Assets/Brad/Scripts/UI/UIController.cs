@@ -1,6 +1,33 @@
 using UnityEngine;
 using Events;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+
+
+public interface ICanvasUI
+{
+    public EnumCanvasUIName GetCanvasName();
+    public Canvas GetCanvas();
+    public void ForegroundCanvas(bool foregrounded);
+    public int GetSortingOrder();
+}
+public enum EnumCanvasUIName
+{
+    MAIN_MENU,
+    HUD,
+    DIALOGUE,
+    TRANSITION_SCREEN,
+    PAUSE,
+    OBJECTIVES,
+    INVENTORY
+}
+[System.Serializable]
+public struct StructCanvasUIPrefab
+{
+    public EnumCanvasUIName canvasName;
+    public GameObject canvasPrefab;
+}
+
 public class UIController : Singleton<UIController>
 {
 
@@ -9,71 +36,29 @@ public class UIController : Singleton<UIController>
     [SerializeField] private EmptyPayloadEvent newGamePressedEvent;
 
     [Header("Prefabs")]
-    [SerializeField] private GameObject mainMenuPrefab;
-    [SerializeField] private GameObject hudPrefab;
+    [SerializeField] private List<StructCanvasUIPrefab> canvasPrefabs;
+
+
+    //private List<EnumCanvasUIName> activeCanvases = new List<EnumCanvasUIName>();
+    private List<ICanvasUI> activeCanvases = new List<ICanvasUI>();
+
+    public const int FOREGROUND_SORT_ORDER = 10;
+    public const int BACKGROUND_SORT_ORDER = 0;
 
     private void Start()
     {
-        // show logo splash
-        // then show main menu
-
-        GameObject mainObj = Instantiate(mainMenuPrefab);
-
+        ShowCanvas(EnumCanvasUIName.MAIN_MENU);
     }
 
 
     private void OnEnable()
     {
-        runtimeDataUpdatedEvent.OnEventTriggered += HandleOnRuntimeDataUpdated;
         newGamePressedEvent.OnEventTriggered += HandleNewGamePressedEvent;
-
-        SceneManager.sceneLoaded += HandleOnSceneLoaded;
     }
 
     private void OnDisable()
     {
-        runtimeDataUpdatedEvent.OnEventTriggered -= HandleOnRuntimeDataUpdated;
         newGamePressedEvent.OnEventTriggered -= HandleNewGamePressedEvent;
-
-        SceneManager.sceneLoaded += HandleOnSceneLoaded;
-    }
-
-    
-
-    private void HandleOnRuntimeDataUpdated(IRuntimeData data)
-    {
-        switch (data)
-        {
-            case PlayerData:
-                IngestNewPlayerData(data as PlayerData);
-                break;
-            case InventoryData:
-                IngestNewInventoryData(data as InventoryData);
-                break;
-            case ProgressionData:
-                IngestNewProgressionData(data as ProgressionData);
-                break;
-        }
-    }
-
-    private void IngestNewPlayerData(PlayerData playerData)
-    {
-        int health = playerData.Health;
-        int xp = playerData.XP;
-        Debug.Log($"HEALTH: {health} / XP: {xp}");
-        // refresh the HUD
-    }
-    private void IngestNewInventoryData(InventoryData inventoryData)
-    {
-
-    }
-    private void IngestNewProgressionData(ProgressionData progressionData)
-    {
-        //string sceneName = progressionData.SceneName;
-        //if (sceneName != null)
-        //{
-        //    Debug.Log(sceneName);
-        //}
     }
 
     private void HandleNewGamePressedEvent()
@@ -88,16 +73,74 @@ public class UIController : Singleton<UIController>
         SceneManager.LoadScene(DataController.Instance.ProgressionRuntimeData.Value.SceneName);
     }
 
-    private void HandleOnSceneLoaded(Scene _scene, LoadSceneMode _loadMode)
+    
+    
+    private bool GetIsCanvasActive(EnumCanvasUIName canvName)
     {
-        
-        if (_scene.name != "Bootstrap")
+        foreach (ICanvasUI canvasUI in activeCanvases)
         {
-            GameObject hudObj = Instantiate(hudPrefab);
+            if (canvasUI.GetCanvasName() == canvName) { return true; }
         }
-        
-        
+        return false;
     }
 
+    private GameObject? GetCanvasPrefab(EnumCanvasUIName canvasName)
+    {
+        foreach(StructCanvasUIPrefab prefab in canvasPrefabs)
+        {
+            if (prefab.canvasName == canvasName) { return prefab.canvasPrefab; }
+        }
+        return null;
+    }
+    private ICanvasUI? GetActiveCanvas(EnumCanvasUIName canvasName)
+    {
+        if (!GetIsCanvasActive(canvasName)) { Debug.LogError($"{canvasName.ToString()} is not active"); return null; }
+        ICanvasUI canvasUI = activeCanvases.Find(canv => canv.GetCanvasName() == canvasName);
+        return canvasUI;
+    }
 
+    /////////
+    // API //
+    /////////
+    public void ShowCanvas(EnumCanvasUIName canvasName)
+    {
+        if (GetIsCanvasActive(canvasName)) { Debug.LogWarning($"{canvasName.ToString()} is already active"); return; }
+        if (GetCanvasPrefab(canvasName) == null) { Debug.LogError($"No prefab for canvas: {canvasName.ToString()}"); return; }
+        GameObject canvasObj = GetCanvasPrefab(canvasName);
+        Instantiate(canvasObj);
+        activeCanvases.Add(canvasObj.GetComponent<ICanvasUI>());
+        ForegroundCanvas(canvasName);
+    }
+    public void ForegroundCanvas(EnumCanvasUIName canvasName)
+    {
+        if (!GetIsCanvasActive(canvasName)) { Debug.LogError($"Cannot foreground. {canvasName.ToString()} is not active"); return; }
+        foreach (ICanvasUI canvasUI in activeCanvases)
+        {
+            //Canvas canv = canvasUI.GetCanvas();
+            if (canvasUI.GetCanvasName() == canvasName) { canvasUI.ForegroundCanvas(true); }
+            else { canvasUI.ForegroundCanvas(false); }
+        }
+    }
+    public void RemoveCanvas(EnumCanvasUIName canvasName)
+    {
+        ICanvasUI canvasUI = GetActiveCanvas(canvasName);
+        if (canvasUI == null) { Debug.LogError($"Cannot remove {canvasName.ToString()} is not active"); return; }
+        activeCanvases.Remove(canvasUI);
+        Destroy(canvasUI.GetCanvas().gameObject);
+
+        if (activeCanvases.Count <= 0) return;
+
+        // if no canvas is foregrounded, foreground the top one
+        bool oneIsForegrounded = false;
+        foreach(ICanvasUI _canvasUI in activeCanvases)
+        {
+            if (_canvasUI.GetSortingOrder() >= FOREGROUND_SORT_ORDER) { oneIsForegrounded = true; }
+        }
+        if (!oneIsForegrounded)
+        {
+            ForegroundCanvas(activeCanvases[activeCanvases.Count - 1].GetCanvasName());
+        }
+
+
+    }
 }

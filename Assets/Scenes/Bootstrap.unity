@@ -645,6 +645,22 @@ PrefabInstance:
       propertyPath: runtimeDataUpdatedEvent
       value: 
       objectReference: {fileID: 11400000, guid: 6b779f64bb55c6e49915b0fd1a3f6549, type: 2}
+    - target: {fileID: 3443378974484893375, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
+      propertyPath: canvasPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443378974484893375, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
+      propertyPath: canvasPrefabs.Array.data[1].canvasName
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443378974484893375, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
+      propertyPath: canvasPrefabs.Array.data[0].canvasPrefab
+      value: 
+      objectReference: {fileID: 9113829976406634048, guid: 2c500bb962a6eb143b9c092b12f20d00, type: 3}
+    - target: {fileID: 3443378974484893375, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
+      propertyPath: canvasPrefabs.Array.data[1].canvasPrefab
+      value: 
+      objectReference: {fileID: 3659260318971491279, guid: 210750f9b2b26c542bfcbf393f98207d, type: 3}
     - target: {fileID: 4848263659970045447, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
