@@ -33,8 +33,8 @@ public class MainMenu : MonoBehaviour, ICanvasUI
     }
     public void ForegroundCanvas(bool foregrounded)
     {
-        if (foregrounded) { GetComponent<Canvas>().sortingOrder = 10; }
-        else { GetComponent<Canvas>().sortingOrder = 0; }
+        if (foregrounded) { GetComponent<Canvas>().sortingOrder = UIController.FOREGROUND_SORT_ORDER; }
+        else { GetComponent<Canvas>().sortingOrder = UIController.BACKGROUND_SORT_ORDER; }
     }
     public int GetSortingOrder()
     {

@@ -6,10 +6,9 @@ public class SceneUIHandler : MonoBehaviour
 
     private void Start()
     {
-        if (showHudOnLoad)
+        if (showHudOnLoad && UIController.Instance != null)
         {
             UIController.Instance.ShowCanvas(EnumCanvasUIName.HUD);
         }
     }
-
 }
