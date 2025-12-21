@@ -7,24 +7,34 @@ public class Bootstrapper : Singleton<Bootstrapper>
     [SerializeField] private string defaultGameSceneName = "TestScene";
     [SerializeField] private EmptyPayloadEvent newGamePressedEvent;
     [SerializeField] private EmptyPayloadEvent loadGamePressedEvent;
+    [SerializeField] private EmptyPayloadEvent logoSplashFinishedEvent;
 
     //public string DefaultGameSceneName { get => defaultGameSceneName; }
 
 
     private void Start()
     {
-        UIController.Instance.ShowCanvas(EnumCanvasUIName.MAIN_MENU);
+        //UIController.Instance.ShowCanvas(EnumCanvasUIName.MAIN_MENU);
+        UIController.Instance.ShowCanvas(EnumCanvasUIName.LOGO_SPLASH);
     }
 
     private void OnEnable()
     {
         newGamePressedEvent.OnEventTriggered += HandleNewGamePressedEvent;
         loadGamePressedEvent.OnEventTriggered += HandleLoadGamePressedEvent;
+        logoSplashFinishedEvent.OnEventTriggered += HandleOnLogoSplashFinished;
     }
     private void OnDisable()
     {
         newGamePressedEvent.OnEventTriggered -= HandleNewGamePressedEvent;
         loadGamePressedEvent.OnEventTriggered -= HandleLoadGamePressedEvent;
+        logoSplashFinishedEvent.OnEventTriggered -= HandleOnLogoSplashFinished;
+    }
+
+    private void HandleOnLogoSplashFinished()
+    {
+        UIController.Instance.ClearCanvases();
+        UIController.Instance.ShowCanvas(EnumCanvasUIName.MAIN_MENU);
     }
 
     private void HandleNewGamePressedEvent()
