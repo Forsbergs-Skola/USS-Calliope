@@ -7,6 +7,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     [SerializeField] private PlayerAimController aimController;
     [SerializeField] private HitscanWeaponFire weaponFire;
     [SerializeField] private WeaponCooldown cooldown;
+    [SerializeField] private AudioSource audioSource;
 
     [Header("Input References")]
     [SerializeField] private InputActionReference shootAction;
@@ -73,6 +74,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         if (!ammoModel.UseAmmo(1))
         {
             Debug.Log($"Click! {currentWeapon.WeaponId} out of ammo.");
+            audioSource.PlayOneShot(currentWeapon.DryFireSounds);
             return;
         }
 

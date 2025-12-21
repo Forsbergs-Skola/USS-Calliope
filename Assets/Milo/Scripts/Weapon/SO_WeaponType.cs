@@ -43,7 +43,8 @@ public class SO_WeaponType : ScriptableObject
     [SerializeField] private GameObject weaponModelPrefab;
     
     [Header("Audio")]
-    [SerializeField] private AudioClip[] fireSounds;
+    // Change to array after prototype for variation
+    [SerializeField] private AudioClip fireSound;
     [SerializeField] private AudioClip reloadSound;
     [SerializeField] private AudioClip dryFireSound;
     
@@ -100,7 +101,7 @@ public class SO_WeaponType : ScriptableObject
     
     // Audio
     
-    public  AudioClip[] FireSounds => fireSounds;
+    public  AudioClip FireSound => fireSound;
     public  AudioClip ReloadSounds => reloadSound;
     public  AudioClip DryFireSounds => dryFireSound;
 }

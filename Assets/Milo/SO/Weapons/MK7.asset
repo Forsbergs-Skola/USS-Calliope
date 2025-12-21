@@ -20,6 +20,7 @@ MonoBehaviour:
     Reliable, but don't let them get too close.
   magSize: 20
   ammoType: {fileID: 11400000, guid: 691fdfec37c81b043a98ea330a08e097, type: 2}
+  reloadTime: 0
   damage: 35
   fireRate: 0.2
   isSemiAutomatic: 1
@@ -62,6 +63,10 @@ MonoBehaviour:
   recoilPerShotMin: 0
   recoilPerShotMax: 0
   recoilRecoverySpeed: 0
-  movementInaccuracyMultiplier: 1.5
-  sprintInaccuracyMultiplier: 3
+  movementInaccuracyMultiplier: 3
+  sprintInaccuracyMultiplier: 5
   accuracyGracePeriod: 0.2
+  weaponModelPrefab: {fileID: 0}
+  fireSound: {fileID: 8300000, guid: 7fcf55f120862cc46b19c9c4af6c1fb5, type: 3}
+  reloadSound: {fileID: 0}
+  dryFireSound: {fileID: 8300000, guid: 3c3dbb52f662e784a9ad204ef59e0f83, type: 3}

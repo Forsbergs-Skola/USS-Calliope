@@ -5,6 +5,7 @@ public class PlayerAimController : MonoBehaviour
 {
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float maxRaycastDistance = 200f;
+    [SerializeField] private float aimHeightOffset = 1.2f; 
 
     [Header("Input References")] 
     [SerializeField] private InputActionReference mousePositionAction;
@@ -50,8 +51,7 @@ public class PlayerAimController : MonoBehaviour
 
     private void Update()
     {
-        // Even with events for state, we rotate in Update so the player 
-        // tracks the mouse even if the mouse/player stops moving.
+        
         if (IsAiming)
         {
             HandleRotation();
@@ -60,7 +60,7 @@ public class PlayerAimController : MonoBehaviour
 
     private void HandleRotation()
     {
-        if (GetMouseWorldPositionOnGround(out var targetPosition))
+        if (GetMouseWorldPositionOnAimPlane(out var targetPosition))
         {
             Vector3 lookDir = targetPosition - transform.position;
             lookDir.y = 0; // Keep player upright
@@ -74,7 +74,7 @@ public class PlayerAimController : MonoBehaviour
 
     public bool TryGetAimDirection(Vector3 origin, out Vector3 direction)
     {
-        if (GetMouseWorldPositionOnGround(out var targetPosition))
+        if (GetMouseWorldPositionOnAimPlane(out var targetPosition))
         {
             direction = (targetPosition - origin).normalized;
             return true;
@@ -84,7 +84,7 @@ public class PlayerAimController : MonoBehaviour
         return false;
     }
 
-    private bool GetMouseWorldPositionOnGround(out Vector3 worldPosition)
+    private bool GetMouseWorldPositionOnAimPlane(out Vector3 worldPosition)
     {
         if (!mainCamera)
         {
@@ -92,16 +92,20 @@ public class PlayerAimController : MonoBehaviour
             return false;
         }
 
-        var mouseScreenPosition = mousePositionAction.action.ReadValue<Vector2>();
-        var ray = mainCamera.ScreenPointToRay(mouseScreenPosition);
+        Vector2 mouseScreenPosition = mousePositionAction.action.ReadValue<Vector2>();
+        Ray ray = mainCamera.ScreenPointToRay(mouseScreenPosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, maxRaycastDistance, groundMask))
+        float aimPlaneHeight = transform.position.y + aimHeightOffset;
+        Plane aimPlane = new Plane(Vector3.up, new Vector3(0f, aimPlaneHeight, 0f));
+
+        if (aimPlane.Raycast(ray, out float enter))
         {
-            worldPosition = hit.point;
+            worldPosition = ray.GetPoint(enter);
             return true;
         }
 
         worldPosition = Vector3.zero;
         return false;
     }
+
 }

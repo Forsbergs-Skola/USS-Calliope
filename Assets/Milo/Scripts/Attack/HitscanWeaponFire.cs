@@ -12,6 +12,7 @@ public class HitscanWeaponFire : MonoBehaviour
     [SerializeField] private PlayerAimController aimController;
     [SerializeField] private ImpactProcessor impactProcessor;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private AudioSource audioSource;
     
     [Header("Debug")]
     [SerializeField] private bool showDebugTrajectory = true;
@@ -51,6 +52,8 @@ public class HitscanWeaponFire : MonoBehaviour
     public void Fire()
     {
         if (!CanFire(out Vector3 aimDirection)) return;
+        
+        audioSource.PlayOneShot(weapon.FireSound);
     
         for (int i = 0; i < weapon.PelletCount; i++)
         {

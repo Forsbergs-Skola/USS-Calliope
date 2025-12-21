@@ -18,12 +18,11 @@ MonoBehaviour:
   description: "The MK7 handles the silence, but the Rattlesnake V handles the riot.
     A gas-operated, mag-fed workhorse designed for 'aggressive de-escalation' in
     the E-M Consortium\u2019s high-risk sectors."
-  weaponModelPrefab: {fileID: 0}
   magSize: 8
   ammoType: {fileID: 11400000, guid: aa71757218043c24a88dd9653ea70395, type: 2}
   reloadTime: 0
   damage: 50
-  fireRate: 0.2
+  fireRate: 1
   isSemiAutomatic: 1
   impactRange: 15
   spreadStandardDeviation: 0.03
@@ -67,3 +66,7 @@ MonoBehaviour:
   movementInaccuracyMultiplier: 1.2
   sprintInaccuracyMultiplier: 2
   accuracyGracePeriod: 0.25
+  weaponModelPrefab: {fileID: 0}
+  fireSound: {fileID: 8300000, guid: af875e30643823c4b91a010fb22247fe, type: 3}
+  reloadSound: {fileID: 0}
+  dryFireSound: {fileID: 0}
