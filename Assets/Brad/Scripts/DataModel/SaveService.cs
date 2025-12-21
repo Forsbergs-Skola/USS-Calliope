@@ -153,7 +153,7 @@ public static class SaveService
         /////////////////////
         // ProgressionData //
         /////////////////////
-
+        /*
         // wrapperize lists
         List<string> defeatedEnemies = new List<string>();
         foreach(string enemy in progressionData.GetDefeatedEnemies())
@@ -168,7 +168,7 @@ public static class SaveService
         outData.PROGRESSION_sceneName = progressionData.SceneName;
         outData.PROGRESSION_TalkedToBob = progressionData.TalkedToBob;
         outData.PROGRESSION_TalkedToAlice = progressionData.TalkedToAlice;
-
+        */
 
         // return outData
         return outData;
@@ -225,6 +225,7 @@ public static class SaveService
     {
         ProgressionData _progressionData = new ProgressionData(true);
 
+        /*
         // construct defeated enemies list
         List<string> savedDefeatedEnemies = DataTools.GetStringListFromJson(saveData.PROGRESSION_defeatedEnemiesString);
         foreach(string enemy in savedDefeatedEnemies)
@@ -232,8 +233,9 @@ public static class SaveService
             _progressionData.AddDefeatedEnemy(enemy);
         }
         _progressionData.SceneName = saveData.PROGRESSION_sceneName;
-
+        */
         return new ProgressionData(_progressionData);
+        
     }
 
     

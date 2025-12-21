@@ -4,8 +4,25 @@ public enum EnumPlayerStatusEffect
 {
     BLEEDING,
     POISON,
-    IN_STEALTH
+    IN_STEALTH,
+    SPRINTING,
     // add/remove more as needed
+}
+
+/*
+public enum EnumEnemies
+{
+    ALICE,
+    BOB
+}
+*/
+
+public enum EnumPlayerArchetype
+{
+    NONE,
+    PACIFIST,
+    AGGRO,
+    // more as needed
 }
 
 public enum EnumAttackType
@@ -24,6 +41,7 @@ public enum EnumWeaponType
 
 public enum EnumInventoryItem
 {
+    NONE,
     FLASHLIGHT,
     PISTOL,
     SHOTGUN,
@@ -33,9 +51,11 @@ public enum EnumInventoryItem
 
 public enum EnumInventoryResource
 {
+    NONE,
     PISTOL_AMMO,
     RIFLE_AMMO,
     SHOTGUN_AMMO,
     HEALTH_PACK
     // add or remove more as needed
 }
+

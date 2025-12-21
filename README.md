@@ -1,90 +1,197 @@
-## Player System
+# GAME DESIGN DOCUMENT (GDD)
 
-### Movement:
+---
 
-Walking and Sprinting
+## 1. Game Overview
 
-Sneaking
+### 1.1 High Concept
 
-Stamina bar and system
+An isometric narrative-focused survival horror game with RPG elements. The player explores an overrun spacestation full of their infected friends and have to balance combat, stealth and resource management
+to find and destroy the source of the infection.
 
-### Combat: 
+### 1.2 Genre
 
-melee and ranged and non lethal (see below)
+- Primary: Survival Horror
 
-Health Bar
+- Secondary: Stealth, Narrative, Sci-Fi
 
-### Stats
+### 1.3 Target Platform(s)
 
-Two ways to get stronger:
+- Platform: PC  
+- Input Method: Keyboard & Mouse
 
-Shop - Buy items for your suit to increase stats.
+### 1.4 Target Audience
+
+18+?
+
+### 1.5 Player Fantasy
+
+The player is someone who:
+- Explores a hostile, collapsing space station
+- Survives through careful planning
+- Makes difficult decisions about combat, stealth, and when to use their limited resources
+
+---
+
+## 2. Core Pillars
+
+### 2.1 Core Gameplay Loop
+
+### 2.2 Design Goals
+
+---
+
+## 3. Player Systems
+
+### 3.1 Player Character(s)
+
+#### 3.1.1 Playable Characters
+- Alice  
+- Bob  
+
+#### 3.1.2 Starting Stats & Equipment
+
+Alice and Bob - have different starting equipment and stats?
+
+---
+
+### 3.2 Movement System
+
+- Walking  
+- Sprinting  
+- Sneaking  
+- Noise System  
+- Stamina System  
+
+---
+
+### 3.3 Combat Overview
+
+- Melee  
+- Ranged  
+- Non-Lethal  
+
+#### 3.3.1 Health System
+
+Infection system - cuts off health (infected health)
+---
+
+### 3.4 Player Progression
+
+#### 3.4.1 Stats
+- Health  
+- Stamina  
+- Aiming  
+- Sneaking  
+- Strength  
+- Tech  
+- Barter  
+- Agility  
+
+#### 3.4.2 Level-Up System
 
 Kill enemies and get xp 
 
-### Animations/Aesthetic
+Shop - Buy items for your suit to increase stats.
 
-Spacesuit? Infected?
+#### 3.4.3 Infection System
 
-## Combat System
+Infection levels up as you gain xp, turning your health yellow to prevent you from spending it
 
-### Ranged
+---
 
-#### Guns
+### 3.5 Animations & Visual Identity
 
-Pistol, Shotgun, ???
+- Player Silhouette  
+- Spacesuit Design  
+- Infection Visual States  
+
+---
+
+## 4. Combat System
+
+### 4.1 Ranged Combat
+
+#### 4.1.1 Weapons
+- Pistols  
+- Shotguns  
+- Special Weapons  
+
+#### 4.1.2 Ammo Economy
 
 Limited ammo throughout game. Maybe a super powerful gun (rpg, grenade launcher, BFG). This super powerful gun you could find ammo for it before finding the gun
 to like push the player to go find it.
 
-Need to decide on the inventory system; are we doing weight limit? Or like a physical, RE style inventory? 
+#### 4.1.3 Weapon Handling
+- Recoil  
+- Accuracy  
 
-Ammo is limited, presumably with more ammo for the weaker guns? With an RE style inventory, guns and ammo all take up slots with everything else so taking ALL your guns and
-ammo can hurt you as you can't carry everything so adds some strategy. 
+---
 
-ammo, instead of one ammo type per weapon we could have "junk ammo" with high spread low damage?, easy to implement but could be a stretch.
+### 4.2 Melee Combat
 
-### Melee
+- Weapon Types  
+- Impact & Feedback  - stunned/knocked over
+- Enemy Reactions  
 
-What are the melee weapons? 
+---
 
-Melee combat should feel weighty, but can't be too strong. Maybe the enemies get stunned/knocked over, or it takes some difficulty to kill enemies with it
+### 4.3 Non-Lethal Combat
 
-### Non-Lethal
+- Taser  - Recharge at scientist station
+- Luring  
+- Trapping  
 
-Taser?
+---
 
-Do we have non-lethal weapons OR do we focus on luring/trapping enemies as the Non-Letal
+## 5. Camera System
 
+### 5.1 Camera Modes
+- Isometric Gameplay  
+- Shop Camera  
+- Cutscene Camera  
 
-## Camera System
+### 5.2 Camera Effects
+- Fade Shader  
+- Obstruction Handling  
 
+### 5.3 Aiming & Crosshair System
 
-Camera modes: isometric for player, can switch to other modes for shop/cutscenes
+---
 
-Fade shader: fades objects blocking the player
+## 6. NPCs & AI
 
-Crosshair/aiming system?
+### 6.1 Friendly NPCs
 
-## NPCs & AI
+#### 6.1.1 Shop NPCs
+
+#### 6.1.2 Quest NPCs
+
+#### 6.1.3 Reputation / Consequences System
 
 NPCs are your friends, punish the player by killing too many
 
-### Friendly NPC types:
+---
 
-Shop NPC(s)
+### 6.2 Dialogue & Narration
 
-Quest NPC(s)
+- Dialogue Structure - linear 
+- Player Choice at the end
 
-### Dialogue & Narration
+---
 
-Do we want branching dialogue options (with or without real gameplay concequences), or is each conversation a linear and scripted sequence of lines?
+### 6.3 Enemy AI Overview
+
+---
+
+## 7. Enemy Design
+
+### 7.1 Infection Phases
+
+---
 
 ### Enemy types:
 
-[Need to know what kind of NPCs we have, their mechanics and how to defeat them. So far we have just standard zombie-esque NPCs and an Invincible NPC that cannot move when the player is looking at it
-
-Evolution mechanic]
 
 ## **PHASE 1 - LATENT (0-49% INFECTION)**
 
@@ -263,62 +370,84 @@ Evolution mechanic]
 
 ---
 
-### Bosses:
 
-Just one boss? Final Boss?
+## 8. Bosses
 
-## Shop System
+### 8.1 Boss Design Philosophy
 
-what is currency?
+### 8.2 Final Boss
 
-what do they sell?
+**Identity:**
+The final boss is the former shopkeeper/npc who experiments on himself using all the blood samples you gave him. He has turned into a raging monster
 
-who are they?
+Gives every player the chance to do some blasting? but how if they havent blasted they gonna have low shooting stat
 
-Player buys items/armour/suit upgrades that increase stats. Pay with blood and lose health? Pay with ammo and lose ammo?
+---
 
-Suit upgrade limit slots? (requires UI)
+## 9. Level Design
 
+### 9.1 Level Aesthetics
 
-## Level System
+### 9.2 Level Layout Philosophy
 
-Aesthetics
+### 9.3 Environmental Hazards
+- Steam  
+- Traps  
 
-Level layout
+### 9.4 Interactables
+- Doors  
+- Switches  
+- Elevators
+- Recharge station?
 
-Checkpoints/Respawn?
+### 9.5 Checkpoints & Respawn
 
-Environmental hazards: list here
+### 9.6 Collectibles & Pickups
 
-Collectibles/Pickups
+---
 
-Interactables (doors, switches)
+## 10. Inventory System
 
+### 10.1 Item Types
+- Weapons  
+- Consumables  
+- Quest Items  
 
+### 10.2 Inventory Rules
+- Slot System  
+- Capacity Limits
+- Quick access slots
 
-## Inventory System
-
-
-Item types (weapons, consumables, quest items)
-
-Ammo is stackable? Health pickups stackable?
-
-Weight / capacity limits: either weight limit or physical inventory (slots like resident evil)
+### 10.3 Ammo Handling
 
 Ammo is limited, presumably with more ammo for the weaker guns? With an RE style inventory, guns and ammo all take up slots with everything else so taking ALL your guns and
-ammo can hurt you as you can't carry everything so adds some strategy. 
+ammo can hurt you as you can't carry everything so adds some strategy. Ammo is stackable? Health pickups stackable?
+
+### 10.4 Storage & Safe Areas
 
 Should be like some home bases/chests where you can access a global inventory. Could be one place or multiple
 
-## Stats/LevelUp System
+---
 
-Suit upgrades purchased from shop increase stats only when equipped. Bought with health (which permanently decreases health bar) and ammo
+## 11. Shop System
 
-Killing enemies gets xp, get enough to permanently increase stats (like health)
+### 11.1 Currency
 
-How else do we level up? Do we level up sneaking by sneaking? or is that TOO much to keep track off and just level it up with shop
+Blood and Ammo
 
-## Objective Tracking
+### 11.2 Items for Sale
+
+Consumables, permanant stat increases, keys for doors, etc
+
+### 11.3 Shop NPCs
+
+who are they?
+
+---
+
+## 12. Objective & Quest System
+
+### 12.1 Objective Tracking
 
 ### Objective Properties
 
@@ -340,6 +469,28 @@ How else do we level up? Do we level up sneaking by sneaking? or is that TOO muc
 
 **Rewards**: A list of things that you get when you finish this objective.
 
+---
+
+## 13. UI / UX
+
+### 13.1 Design Principles
+
+Make sure it fits screen size
+
+As immersive and unintrusive as possible
+
+### 13.2 Screens
+- Main Menu  
+- HUD  
+- Inventory  
+- Pause Menu  
+- Settings  
+
+### 13.3 Accessibility & Scaling
+
+---
+
+## 14. Narrative & Lore
 
 ## UI / UX
 
@@ -543,20 +694,30 @@ There is **no extermination order**.
 
 Only information.
 
-Screens:
+---
 
-Main menu
+## 15. Audio Design
 
-HUD
+### 15.1 Ambient Audio
 
-Inventory screen
+### 15.2 Enemy Audio
 
-Pause menu
+### 15.3 UI & Feedback Sounds
 
-Settings
+---
 
-Make sure it fits screen size
+## 16. Backend / Technical Systems
 
-As immersive and unintrusive as possible
+---
 
-## Backend System
+## 17. Miscellaneous Systems
+
+### 17.1 Jumpscares
+
+### 17.2 QTEs
+
+### 17.3 Looting Bodies & Junk
+
+---
+
+## 18. Open Questions / To Be Decided

@@ -11,6 +11,7 @@ public class TestDialogueTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        /*
         if (!other.CompareTag("Player")) return;
         if (DataController.Instance == null) return;
 
@@ -76,7 +77,7 @@ public class TestDialogueTrigger : MonoBehaviour
         // CLEAR ALL STATUS EFFECTS //
         //////////////////////////////
         DataController.Instance.PlayerRuntimeData.Value.ClearAllActiveStatusEffects();
-
+        */
 
     }
 }

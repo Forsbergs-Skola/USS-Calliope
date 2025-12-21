@@ -554,7 +554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6974186712806693136, guid: c8f9b0d3d4e483f47b4d188a1cf94cac, type: 3}
       propertyPath: objectives.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6974186712806693136, guid: c8f9b0d3d4e483f47b4d188a1cf94cac, type: 3}
       propertyPath: 'objectives.Array.data[0]'
@@ -567,7 +567,7 @@ PrefabInstance:
     - target: {fileID: 6974186712806693136, guid: c8f9b0d3d4e483f47b4d188a1cf94cac, type: 3}
       propertyPath: 'objectives.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: 2b0442052fc2ede40a184bdc5d5e6a10, type: 2}
+      objectReference: {fileID: 11400000, guid: 3e1cffbb3284ab548801dc704a0b2dac, type: 2}
     - target: {fileID: 6974186712806693136, guid: c8f9b0d3d4e483f47b4d188a1cf94cac, type: 3}
       propertyPath: 'objectives.Array.data[3]'
       value: 
@@ -801,7 +801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
       propertyPath: defaultGameSceneName
-      value: Camera
+      value: TestScene
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

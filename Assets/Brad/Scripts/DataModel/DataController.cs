@@ -29,14 +29,17 @@ public class DataController : Singleton<DataController>
 
     private void InitializeRuntimeData()
     {
+        if (ObjectivesTracker.Instance == null) return;
 
         Debug.Log("Initializing Game Data");
+
 
         SaveService.ClearSave();
         WipeData();
         playerRuntimeData.Value = new PlayerData();
         inventoryRuntimeData.Value = new InventoryData();
         progressionRuntimeData.Value = new ProgressionData();
+        ObjectivesTracker.Instance.ResetObjectives();
         EventRelay.Instance.GameEvents.DataUpdatedEvent.TriggerEvent();
     }
 
