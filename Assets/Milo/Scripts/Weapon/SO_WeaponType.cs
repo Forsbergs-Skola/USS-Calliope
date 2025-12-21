@@ -3,61 +3,92 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SO_WeaponType", menuName = "Player Combat/SO_WeaponType")]
 public class SO_WeaponType : ScriptableObject
 {
+    //
+    // ENUMS
+    //
+    public enum AttackCategory
+    {
+        Hitscan,
+        Taser,
+        Melee,  
+    }
+
+    //
+    // GENERAL
+    //
     [Header("General")]
     [SerializeField] private string id;
-    [SerializeField] private string category;
+    [SerializeField] private string weaponCategory;
+    [SerializeField] private string ammoCategory;
     [SerializeField] private Sprite icon;
-    [TextArea(2, 7)] 
-    [SerializeField] private string description;
-    
+    [TextArea(2, 7)] [SerializeField] private string description;
+
+    //
+    // DETAILS
+    //
     [Header("Details")]
     [SerializeField, Min(5)] private int magSize;
     [SerializeField] private SO_AmmoType ammoType;
-    // Explore here
     [SerializeField] private float reloadTime;
-    
+    [SerializeField] private AttackCategory attackCategory; // Gameplay logic type
     [SerializeField, Min(0)] private int damage;
-    [SerializeField, Min((float)0.01)] private float fireRate = 0.2f;
+    [SerializeField, Min(0.01f)] private float fireRate = 0.2f;
     [SerializeField] private bool isSemiAutomatic;
-    
+
+    //
+    // BALLISTICS
+    //
     [Header("Ballistics")]
     [SerializeField, Min(1f)] private float impactRange;
     [Tooltip("0.05+ for shotguns, 0.01+ for rifles & pistols")]
     [SerializeField, Range(0f, 0.1f)] private float spreadStandardDeviation;
     [SerializeField] private AnimationCurve damageOverDistance;
     [SerializeField, Min(1)] private int pelletCount = 1;
-    
     [SerializeField, Min(0f)] private float recoilPerShotMin;
     [SerializeField, Min(0f)] private float recoilPerShotMax;
     [SerializeField, Min(0f)] private float recoilRecoverySpeed;
 
-    [Header("Movement Inaccuracy")] 
+    //
+    // MOVEMENT INACCURACY
+    //
+    [Header("Movement Inaccuracy")]
     [Tooltip("Pistol 1.5, Rifle 2.5, Shotgun 1.2")]
     [SerializeField, Min(0f)] private float movementInaccuracyMultiplier;
     [Tooltip("Pistol 3.0, rifle 5.0, shotgun 2.0")]
     [SerializeField, Min(0f)] private float sprintInaccuracyMultiplier;
-    [Tooltip("Pistol 0.20s, rifle 0.10s,  shotgun 0.25s")]
+    [Tooltip("Pistol 0.20s, rifle 0.10s, shotgun 0.25s")]
     [SerializeField, Range(0f, 0.5f)] private float accuracyGracePeriod = 0.15f;
+
+    //
+    // TASER DATA
+    //
     
+    [Header("Taser")]
+    [SerializeField, Min(0)] private float stunEffectTime;
+    
+    //
+    // VISUALS
+    //
     [Header("Visuals")]
     [SerializeField] private GameObject weaponModelPrefab;
-    
+
+    //
+    // AUDIO
+    //
     [Header("Audio")]
-    // Change to array after prototype for variation
     [SerializeField] private AudioClip fireSound;
     [SerializeField] private AudioClip reloadSound;
     [SerializeField] private AudioClip dryFireSound;
     
-    //         //
-    // GETTERS //
-    //         //
-    
+
     // General
     public string WeaponId => id;
-    public Sprite WeaponIcon => icon; 
+    public string WeaponCategory => weaponCategory;
+    public string AmmoCategory => ammoCategory;
+    public Sprite WeaponIcon => icon;
     public string WeaponDescription => description;
-    public string WeaponCategory => category;
-    
+    public AttackCategory Category => attackCategory; 
+
     // Details
     public int MagSize => magSize;
     public SO_AmmoType AmmoType => ammoType;
@@ -65,43 +96,41 @@ public class SO_WeaponType : ScriptableObject
     public float FireRate => fireRate;
     public bool IsSemiAutomatic => isSemiAutomatic;
     public float ReloadTime => reloadTime;
-    
+
     // Ballistics
     public float ImpactRange => impactRange;
     public int PelletCount => pelletCount;
     public float RecoilPerShotMin => recoilPerShotMin;
     public float RecoilPerShotMax => recoilPerShotMax;
     public float RecoilRecoverySpeed => recoilRecoverySpeed;
-    
-    // Calculates the final damage to apply in a hit
+
     public int GetDamageAtDistance(float distance)
     {
         float t = Mathf.Clamp01(distance / impactRange);
-        
         float factor = damageOverDistance.Evaluate(t);
-        
         return Mathf.RoundToInt(damage * factor);
     }
-   
-    // This function calculates the final spread value depending on the parameters 
+
     public float GetBaseSpreadIntensity(float movementTimer, bool isSprinting)
     {
-        if (isSprinting) return spreadStandardDeviation * sprintInaccuracyMultiplier;
+        if (isSprinting)
+            return spreadStandardDeviation * sprintInaccuracyMultiplier;
 
         if (movementTimer > accuracyGracePeriod)
-        {
             return spreadStandardDeviation * movementInaccuracyMultiplier;
-        }
 
         return spreadStandardDeviation;
     }
     
+    // Stun 
+    
+    public float StunEffectTime => stunEffectTime;
+
     // Visuals
     public GameObject WeaponModelPrefab => weaponModelPrefab;
-    
+
     // Audio
-    
-    public  AudioClip FireSound => fireSound;
-    public  AudioClip ReloadSounds => reloadSound;
-    public  AudioClip DryFireSounds => dryFireSound;
+    public AudioClip FireSound => fireSound;
+    public AudioClip ReloadSounds => reloadSound;
+    public AudioClip DryFireSounds => dryFireSound;
 }

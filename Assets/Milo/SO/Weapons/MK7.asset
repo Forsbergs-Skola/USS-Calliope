@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: MK7
   m_EditorClassIdentifier: Assembly-CSharp::SO_WeaponType
   id: 'MK7 '
-  category: Pistol
+  weaponCategory: Pistol
+  ammoCategory: 9mm
   icon: {fileID: 0}
-  description: Standard issue for E-M consortium security officers. The low-caliber
-    'thwip' is often the only sound heard in the silent corridors of the station.
-    Reliable, but don't let them get too close.
+  description: Standard issue for E-M consortium security officers. Reliable, but
+    don't let them get too close.
   magSize: 20
   ammoType: {fileID: 11400000, guid: 691fdfec37c81b043a98ea330a08e097, type: 2}
   reloadTime: 0
+  attackCategory: 0
   damage: 35
   fireRate: 0.2
   isSemiAutomatic: 1
@@ -66,6 +67,7 @@ MonoBehaviour:
   movementInaccuracyMultiplier: 3
   sprintInaccuracyMultiplier: 5
   accuracyGracePeriod: 0.2
+  stunEffectTime: 0
   weaponModelPrefab: {fileID: 0}
   fireSound: {fileID: 8300000, guid: 7fcf55f120862cc46b19c9c4af6c1fb5, type: 3}
   reloadSound: {fileID: 0}
