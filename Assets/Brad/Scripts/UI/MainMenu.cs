@@ -5,11 +5,13 @@ using Events;
 public class MainMenu : MonoBehaviour, ICanvasUI
 {
     [SerializeField] private Button newGameButton;
+    [SerializeField] private Button quitButton;
     [SerializeField] private EmptyPayloadEvent newGamePressedEvent;
 
     private void OnEnable()
     {
         newGameButton.onClick.AddListener(HandleNewGamePressed);
+        quitButton.onClick.AddListener(HandleQuit);
     }
     private void OnDisable()
     {
@@ -19,6 +21,11 @@ public class MainMenu : MonoBehaviour, ICanvasUI
     private void HandleNewGamePressed()
     {
         newGamePressedEvent.TriggerEvent();
+    }
+
+    private void HandleQuit()
+    {
+        Application.Quit();
     }
 
     // Interface Methods //
