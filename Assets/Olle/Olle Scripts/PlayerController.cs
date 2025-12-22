@@ -28,6 +28,15 @@ namespace Olle.Scripts
         float _noiseTimer;
         
         PlayerStamina _stamina;
+
+        // Expose crouch state to abilities
+        public bool IsCrouching => _isCrouching;
+
+        // Let abilities tell controller it's currently dashing
+        public bool IsDashing { get; set; }
+
+        // Abilities can subscribe to this
+        public System.Action<Vector2> OnMoveEvent;
         
         void Awake()
         {
@@ -36,16 +45,19 @@ namespace Olle.Scripts
             _defaultScaleY    = transform.localScale.y;
             _defaultMoveSpeed = moveSpeed;
 
-            _noise = GetComponent<NoiseEmitter>();
-
-            
+            _noise   = GetComponent<NoiseEmitter>();
             _stamina = GetComponent<PlayerStamina>();
-           
         }
         
+        // ==== INPUT CALLS (NEW INPUT SYSTEM) ====
+
         public void OnMove(InputAction.CallbackContext ctx)
         {
             _moveInput = ctx.ReadValue<Vector2>();
+            Debug.Log($"PlayerController.OnMove input = {_moveInput}");
+
+            // Notify dash ability etc.
+            OnMoveEvent?.Invoke(_moveInput);
         }
 
         public void OnRun(InputAction.CallbackContext ctx)
@@ -61,6 +73,28 @@ namespace Olle.Scripts
                 ApplyCrouchState();
             }
         }
+
+        public void OnInteract(InputAction.CallbackContext ctx)
+        {
+            if (!ctx.performed)
+                return;
+            
+            float interactRadius = 1.5f;
+            Vector3 origin = transform.position + transform.forward * 1f;
+
+            Collider[] hits = Physics.OverlapSphere(origin, interactRadius);
+            foreach (Collider hit in hits)
+            {
+                var interactable = hit.GetComponent<Interactable>();
+                if (interactable != null)
+                {
+                    interactable.Trigger(this);
+                    break;
+                }
+            }
+        }
+
+        // ==== UPDATE / MOVEMENT ====
 
         void Update()
         {
@@ -82,17 +116,20 @@ namespace Olle.Scripts
             {
                 moveSpeed = crouchMoveSpeed;
             }
-            else if (canSprint)
+            else if (!IsDashing) // do not overwrite dash speed
             {
-                moveSpeed = runMoveSpeed;
-            }
-            else if (_stamina != null && _stamina.isTired)
-            {
-                moveSpeed = 2f; // Tired Speed
-            }
-            else
-            {
-                moveSpeed = _defaultMoveSpeed;
+                if (canSprint)
+                {
+                    moveSpeed = runMoveSpeed;
+                }
+                else if (_stamina != null && _stamina.isTired)
+                {
+                    moveSpeed = 2f; // Tired Speed
+                }
+                else
+                {
+                    moveSpeed = _defaultMoveSpeed;
+                }
             }
 
             // Noise
@@ -160,26 +197,6 @@ namespace Olle.Scripts
             }
         }
         
-        public void OnInteract(InputAction.CallbackContext ctx)
-        {
-            if (!ctx.performed)
-                return;
-            
-            float interactRadius = 1.5f;
-            Vector3 origin = transform.position + transform.forward * 1f;
-
-            Collider[] hits = Physics.OverlapSphere(origin, interactRadius);
-            foreach (Collider hit in hits)
-            {
-                var interactable = hit.GetComponent<Interactable>();
-                if (interactable != null)
-                {
-                    interactable.Trigger(this);
-                    break;
-                }
-            }
-        }
-
         void ApplyCrouchState()
         {
             Vector3 scale = transform.localScale;
