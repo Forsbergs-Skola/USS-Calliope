@@ -431,13 +431,27 @@ Should be like some home bases/chests where you can access a global inventory. C
 
 ## 11. Shop System
 
+The shop system acts as a way to increase the players stats, alongside the xp system. The stats that can be increased via the shop come with a trade off of costing the players health.
+
 ### 11.1 Currency
 
-Blood and Ammo
+There are two types of currency used; the players health bar (blood) and the players ammo. The player gives a permanent amount of their health bar to the npc to buy permanent stat upgrades.
 
 ### 11.2 Items for Sale
 
-Consumables, permanant stat increases, keys for doors, etc
+- Consumables:
+  Adrenaline
+  Medkits
+
+- Key items:
+  Keycards
+  Keys
+
+-Stat Upgrades:
+  Suit Modules (consumable)
+  Injections (consumable)
+
+  
 
 ### 11.3 Shop NPCs
 
