@@ -531,6 +531,10 @@ PrefabInstance:
       propertyPath: runtimeDataUpdatedEvent
       value: 
       objectReference: {fileID: 11400000, guid: 6b779f64bb55c6e49915b0fd1a3f6549, type: 2}
+    - target: {fileID: 8254038539238072472, guid: 6a98ae3bb1860824cad6f97df5b536cb, type: 3}
+      propertyPath: logoSplashFinishedEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 02ffb04a5b0c40742b8ddc58b8d15ed0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -647,11 +651,23 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 6b779f64bb55c6e49915b0fd1a3f6549, type: 2}
     - target: {fileID: 3443378974484893375, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
       propertyPath: canvasPrefabs.Array.size
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3443378974484893375, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
       propertyPath: canvasPrefabs.Array.data[1].canvasName
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443378974484893375, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
+      propertyPath: canvasPrefabs.Array.data[2].canvasName
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443378974484893375, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
+      propertyPath: canvasPrefabs.Array.data[3].canvasName
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443378974484893375, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
+      propertyPath: canvasPrefabs.Array.data[4].canvasName
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3443378974484893375, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
       propertyPath: canvasPrefabs.Array.data[0].canvasPrefab
@@ -661,6 +677,18 @@ PrefabInstance:
       propertyPath: canvasPrefabs.Array.data[1].canvasPrefab
       value: 
       objectReference: {fileID: 3659260318971491279, guid: 210750f9b2b26c542bfcbf393f98207d, type: 3}
+    - target: {fileID: 3443378974484893375, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
+      propertyPath: canvasPrefabs.Array.data[2].canvasPrefab
+      value: 
+      objectReference: {fileID: 6024062831941411842, guid: 644cd3375e874d24aad0b744a009f5d6, type: 3}
+    - target: {fileID: 3443378974484893375, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
+      propertyPath: canvasPrefabs.Array.data[3].canvasPrefab
+      value: 
+      objectReference: {fileID: 1006973109153305494, guid: a24d9eb01a7c21d44af3d4e9e5a4d952, type: 3}
+    - target: {fileID: 3443378974484893375, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
+      propertyPath: canvasPrefabs.Array.data[4].canvasPrefab
+      value: 
+      objectReference: {fileID: 6104168054730122124, guid: 592552f6166d9ea4a8d4a68320e973a0, type: 3}
     - target: {fileID: 4848263659970045447, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -827,6 +855,10 @@ PrefabInstance:
       propertyPath: loadGamePressedEvent
       value: 
       objectReference: {fileID: 11400000, guid: b1e6591e25d97734b81fdc01f4f0fd7d, type: 2}
+    - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
+      propertyPath: logoSplashFinishedEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 02ffb04a5b0c40742b8ddc58b8d15ed0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

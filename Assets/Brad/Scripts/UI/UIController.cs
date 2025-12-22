@@ -16,10 +16,11 @@ public enum EnumCanvasUIName
     MAIN_MENU,
     HUD,
     DIALOGUE,
-    TRANSITION_SCREEN,
+    //TRANSITION_SCREEN,
     PAUSE,
-    OBJECTIVES,
-    INVENTORY
+    LOGO_SPLASH,
+    //OBJECTIVES,
+    //INVENTORY
 }
 [System.Serializable]
 public struct StructCanvasUIPrefab
