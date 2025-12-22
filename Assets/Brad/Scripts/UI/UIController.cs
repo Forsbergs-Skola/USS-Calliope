@@ -16,11 +16,8 @@ public enum EnumCanvasUIName
     MAIN_MENU,
     HUD,
     DIALOGUE,
-    //TRANSITION_SCREEN,
     PAUSE,
     LOGO_SPLASH,
-    //OBJECTIVES,
-    //INVENTORY
 }
 [System.Serializable]
 public struct StructCanvasUIPrefab
@@ -120,6 +117,11 @@ public class UIController : Singleton<UIController>
         {
             ForegroundCanvas(canvases[canvases.Count - 1].GetCanvasName());
         }
+    }
+
+    public bool GetIsCanvasUp(EnumCanvasUIName canvasName)
+    {
+        return GetIsCanvasActive(canvasName);
     }
     public void ClearCanvases()
     {

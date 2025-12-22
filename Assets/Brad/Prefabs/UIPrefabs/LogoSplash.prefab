@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bac22e98fbecd7d47af0040d974c9c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LogoSplashCanvas
+  mainText: {fileID: 2943605096354651741}
   staySeconds: 2
   fadeDuration: 2
   frontPanel: {fileID: 2185580856962396292}
@@ -367,6 +368,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a36ae53cd758f0e449c3707ac4e7ab4d, type: 3}
+--- !u!114 &2943605096354651741 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 232885194533041194, guid: a36ae53cd758f0e449c3707ac4e7ab4d, type: 3}
+  m_PrefabInstance: {fileID: 3162255796556360311}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!224 &6846219318936578431 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8421800392513864456, guid: a36ae53cd758f0e449c3707ac4e7ab4d, type: 3}

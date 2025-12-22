@@ -2,6 +2,22 @@ using UnityEngine;
 
 public class DialogueCanvas : MonoBehaviour, ICanvasUI
 {
+    private void OnEnable()
+    {
+        if (Bootstrapper.Instance != null)
+        {
+            Bootstrapper.Instance.PauseGame(true);
+        }
+    }
+    private void OnDisable()
+    {
+        if (Bootstrapper.Instance != null)
+        {
+            Bootstrapper.Instance.PauseGame(false);
+        }
+    }
+
+    // Interface Methods //
     public EnumCanvasUIName GetCanvasName()
     {
         return EnumCanvasUIName.DIALOGUE;
