@@ -1,16 +1,9 @@
 using UnityEngine;
+using Events;
 
 public class UIEvents : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private EmptyPayloadEvent logoSplashFinishedEvent;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public EmptyPayloadEvent LogoSplashFinishedEvent { get => logoSplashFinishedEvent; }
 }
