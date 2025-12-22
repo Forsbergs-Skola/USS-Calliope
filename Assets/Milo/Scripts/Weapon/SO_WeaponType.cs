@@ -94,7 +94,7 @@ public class SO_WeaponType : ScriptableObject
     public int MagSize => magSize;
     public SO_AmmoType AmmoType => ammoType;
     public int Damage => damage;
-    public float FireRate => fireRate;
+    public float FireRate => fireRate; // FireRate in seconds per shot
     public bool IsSemiAutomatic => isSemiAutomatic;
     public float ReloadTime => reloadTime;
 

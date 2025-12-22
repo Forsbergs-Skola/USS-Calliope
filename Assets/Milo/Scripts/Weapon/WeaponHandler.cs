@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerWeaponHandler : MonoBehaviour
@@ -9,10 +10,11 @@ public class PlayerWeaponHandler : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     
     private AttackInput attackInput;
-
     private AmmoModel ammoModel;
     private SO_WeaponType currentWeapon;
     private Transform currentMuzzle;
+    private bool isHoldingTrigger;
+    private Coroutine firingCoroutine;
 
     public AmmoModel AmmoModel => ammoModel;
 
@@ -31,16 +33,18 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private void Start()
     {
-        attackInput.FireRequested += OnFireRequested;
-        attackInput.AimStarted += OnAimStarted;
-        attackInput.AimStopped += OnAimStopped;
+        attackInput.FireStarted += OnFireStarted;
+        attackInput.FireStopped += OnFireStopped;
+        attackInput.AimStarted  += OnAimStarted;
+        attackInput.AimStopped  += OnAimStopped;
     }
 
     private void OnDisable()
     {
-        attackInput.FireRequested -= OnFireRequested;
-        attackInput.AimStarted -= OnAimStarted;
-        attackInput.AimStopped -= OnAimStopped;
+        attackInput.FireStarted -= OnFireStarted;
+        attackInput.FireStopped -= OnFireStopped;
+        attackInput.AimStarted  -= OnAimStarted;
+        attackInput.AimStopped  -= OnAimStopped;
     }
 
     // nput event callbacks 
@@ -54,13 +58,46 @@ public class PlayerWeaponHandler : MonoBehaviour
         // reset crosshair or camera
     }
 
-    private void OnFireRequested()
+    private void OnFireStarted()
     {
-        if (!aimController.IsAiming)
+        if (!aimController.IsAiming || currentWeapon == null)
             return;
 
-        TryShoot();
+        if (!currentWeapon.IsSemiAutomatic)
+        {
+            if (firingCoroutine == null)
+            {
+                isHoldingTrigger = true; // important!
+                firingCoroutine = StartCoroutine(AutomaticFire());
+            }
+        }
+        else
+        {
+            TryShoot(); // single fire
+        }
     }
+
+    private void OnFireStopped()
+    {
+        isHoldingTrigger = false; // stop the loop
+        if (firingCoroutine != null)
+        {
+            StopCoroutine(firingCoroutine);
+            firingCoroutine = null;
+        }
+    }
+    
+    private IEnumerator AutomaticFire()
+    {
+        while (isHoldingTrigger)
+        {
+            TryShoot();
+            yield return new WaitForSeconds(currentWeapon.FireRate);
+        }
+    }
+
+
+
 
     // Weapon 
     private void TryShoot()

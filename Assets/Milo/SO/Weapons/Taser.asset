@@ -23,7 +23,7 @@ MonoBehaviour:
   attackCategory: 1
   damage: 0
   fireRate: 10
-  isSemiAutomatic: 0
+  isSemiAutomatic: 1
   impactRange: 1
   spreadStandardDeviation: 0
   damageOverDistance:
@@ -41,6 +41,7 @@ MonoBehaviour:
   accuracyGracePeriod: 0
   stunEffectTime: 10
   weaponModelPrefab: {fileID: 0}
-  fireSound: {fileID: 0}
+  muzzleFlashPrefab: {fileID: 0}
+  fireSound: {fileID: 8300000, guid: 006415bd78628c14f8dca47de6d4ffed, type: 3}
   reloadSound: {fileID: 0}
   dryFireSound: {fileID: 0}

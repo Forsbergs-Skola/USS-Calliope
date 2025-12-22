@@ -2,39 +2,31 @@ using UnityEngine;
 
 public class EnemyHealthPC : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 50; 
-    
-    public int CurrentHealth { get; private set; }
+    [SerializeField] private int maxHealth = 50;
 
-    public int MaxHealth => maxHealth;
+    private int currentHealth;
+    private Collider col;
 
     void Awake()
     {
-        CurrentHealth = maxHealth;
+        currentHealth = maxHealth;
+        col = GetComponent<Collider>();
     }
 
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage(int damage)
     {
-        if (CurrentHealth <= 0) 
+        if (currentHealth <= 0)
             return;
 
-        CurrentHealth = Mathf.Max(CurrentHealth - damageAmount, 0);
-        
-        if (CurrentHealth <= 0)
-        {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
             Die();
-        }
     }
 
     private void Die()
     {
-        GetComponent<Collider>().enabled = false; 
-        
-        if (TryGetComponent<MeshRenderer>(out var meshRenderer))
-        {
-            meshRenderer.enabled = false;
-        }
-
-        Destroy(gameObject, 2f); 
+        if (col) col.enabled = false;
+        Destroy(gameObject);
     }
 }

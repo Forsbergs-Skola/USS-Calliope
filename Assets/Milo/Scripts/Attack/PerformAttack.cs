@@ -22,7 +22,7 @@ public class PerformAttack : MonoBehaviour
     
     private float movementTimer;
     private SO_WeaponType weapon;
-    private Transform currentMuzzle; // Stores the muzzle of the equipped gun
+    private Transform currentMuzzle; 
 
     private void Update()
     {
@@ -44,7 +44,7 @@ public class PerformAttack : MonoBehaviour
     public void SetWeapon(SO_WeaponType weapon, Transform muzzle)
     {
         this.weapon = weapon;
-        this.currentMuzzle = muzzle; // Store the specific gun's muzzle
+        this.currentMuzzle = muzzle; 
     
         movementTimer = 0f; 
         impactProcessor.InitializeProcessor(weapon);
@@ -60,7 +60,7 @@ public class PerformAttack : MonoBehaviour
                 FireHitscan(aimDirection);
                 break;
             case SO_WeaponType.AttackCategory.Taser:
-                TurnOnTaser(aimDirection);
+                TaserAttack(aimDirection);
                 break;
             case SO_WeaponType.AttackCategory.Melee:
                 MeleeAttack(aimDirection);
@@ -73,9 +73,9 @@ public class PerformAttack : MonoBehaviour
     private bool CanFire(out Vector3 aimDirection)
     {
         aimDirection = Vector3.zero;
-        if (weapon == null || firePoint == null) return false;
+        if (!weapon || !firePoint) return false;
         
-        return aimController.TryGetAimDirection(firePoint.position, out aimDirection);
+        return aimController.TryGetAimDirection(currentMuzzle.position, out aimDirection);
     }
     
     private void PerformPelletShot(Vector3 aimDirection)
@@ -88,7 +88,7 @@ public class PerformAttack : MonoBehaviour
     
         if (Physics.Raycast(origin, finalDirection, out RaycastHit hitInfo, weapon.ImpactRange, impactProcessor.HitMask))
         {
-            ProcessHitSafely(hitInfo);
+            impactProcessor.ProcessHit(hitInfo);
             endPoint = hitInfo.point;
         }
 
@@ -100,19 +100,13 @@ public class PerformAttack : MonoBehaviour
 
     private float CalculateSpreadIntensity()
     {
-        if (weapon == null) return 0f;
+        if (!weapon) return 0f;
         
         var isSprinting = sprintAction.action.IsPressed();
     
         return weapon.GetBaseSpreadIntensity(movementTimer, isSprinting);
     }
-
-    private void ProcessHitSafely(RaycastHit hit)
-    {
-        try { impactProcessor.ProcessHit(hit); }
-        catch (System.Exception e) { Debug.LogError($"Hit Error on {hit.collider.name}: {e}"); }
-    }
-
+    
     private void FireHitscan(Vector3 aimDirection)
     {
         audioSource.PlayOneShot(weapon.FireSound);
@@ -128,8 +122,9 @@ public class PerformAttack : MonoBehaviour
         
     }
 
-    private void TurnOnTaser(Vector3 aimDirection)
+    private void TaserAttack(Vector3 aimDirection)
     {
-        
-    }
+        audioSource.PlayOneShot(weapon.FireSound);
+        PerformPelletShot(aimDirection);
+    }   
 }

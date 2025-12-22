@@ -15,14 +15,12 @@ public class ImpactProcessor : MonoBehaviour
 
     public void ProcessHit(RaycastHit hit)
     {
-        if (currentWeapon == null) return;
+        if (!currentWeapon) return;
 
         var calculatedDamage = currentWeapon.GetDamageAtDistance(hit.distance);
 
         Debug.Log($"Hit: {hit.collider.name} at {hit.point} | Dist: {hit.distance:F2}m");
-
         if (!hit.collider.gameObject.TryGetComponent<EnemyHealthPC>(out var healthComponent)) return;
         healthComponent.TakeDamage(calculatedDamage);
-        Debug.Log($"Damage dealt: {calculatedDamage} (Falloff applied) to {hit.collider.name}");
     }
 }

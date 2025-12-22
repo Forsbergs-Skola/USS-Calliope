@@ -12,7 +12,8 @@ public class AttackInput : MonoBehaviour
     public event Action<Vector2> MouseMoved;
     public event Action AimStarted;
     public event Action AimStopped;
-    public event Action FireRequested;
+    public event Action FireStarted;
+    public event Action FireStopped;
 
     private void Awake()
     {
@@ -22,14 +23,14 @@ public class AttackInput : MonoBehaviour
 
         if (aimAction?.action != null)
         {
-            Debug.Log("Aiming");
             aimAction.action.started += OnAimPerformed;
-            aimAction.action.canceled  += OnAimCanceled;
+            aimAction.action.canceled += OnAimCanceled;
         }
 
         if (shootAction?.action != null)
         {
-            shootAction.action.performed += OnShootPerformed;
+            shootAction.action.started += OnShootStarted;
+            shootAction.action.canceled += OnShootCanceled;
         }
     }
 
@@ -38,12 +39,13 @@ public class AttackInput : MonoBehaviour
         if (aimAction?.action != null)
         {
             aimAction.action.started -= OnAimPerformed;
-            aimAction.action.canceled  -= OnAimCanceled;
+            aimAction.action.canceled -= OnAimCanceled;
         }
 
         if (shootAction?.action != null)
         {
-            shootAction.action.performed -= OnShootPerformed;
+            shootAction.action.started -= OnShootStarted;
+            shootAction.action.canceled -= OnShootCanceled;
         }
 
         Disable(mousePosAction);
@@ -85,9 +87,13 @@ public class AttackInput : MonoBehaviour
         AimStopped?.Invoke();
     }
 
-    private void OnShootPerformed(InputAction.CallbackContext ctx)
+    private void OnShootStarted(InputAction.CallbackContext ctx)
     {
-        
-        FireRequested?.Invoke();
+        FireStarted?.Invoke();
+    }
+
+    private void OnShootCanceled(InputAction.CallbackContext ctx)
+    {
+        FireStopped?.Invoke();
     }
 }
