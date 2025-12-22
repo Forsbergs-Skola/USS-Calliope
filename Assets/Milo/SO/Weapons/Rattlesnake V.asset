@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: Rattlesnake V
   m_EditorClassIdentifier: Assembly-CSharp::SO_WeaponType
   id: Rattlesnake V
-  category: Shotgun
+  weaponCategory: 
+  ammoCategory: 
   icon: {fileID: 0}
   description: "A gas-operated, mag-fed workhorse designed for 'aggressive de-escalation'
     in the E-M Consortium\u2019s high-risk sectors."
   magSize: 8
   ammoType: {fileID: 11400000, guid: aa71757218043c24a88dd9653ea70395, type: 2}
   reloadTime: 0
+  attackCategory: 0
   damage: 50
   fireRate: 1
   isSemiAutomatic: 1
@@ -65,7 +67,11 @@ MonoBehaviour:
   movementInaccuracyMultiplier: 1.2
   sprintInaccuracyMultiplier: 2
   accuracyGracePeriod: 0.25
+  stunEffectTime: 0
   weaponModelPrefab: {fileID: 0}
+  muzzleFlashPrefab: {fileID: 0}
+  muzzleFlashColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  lightIntensity: 5
   fireSound: {fileID: 8300000, guid: af875e30643823c4b91a010fb22247fe, type: 3}
   reloadSound: {fileID: 0}
-  dryFireSound: {fileID: 0}
+  dryFireSound: {fileID: 8300000, guid: cad00319a49c5dd489159e26d426a190, type: 3}

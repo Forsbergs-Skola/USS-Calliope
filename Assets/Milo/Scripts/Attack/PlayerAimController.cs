@@ -1,57 +1,41 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerAimController : MonoBehaviour
 {
     [SerializeField] private LayerMask groundMask;
-    [SerializeField] private float maxRaycastDistance = 200f;
-    [SerializeField] private float aimHeightOffset = 1.2f; 
-
-    [Header("Input References")] 
-    [SerializeField] private InputActionReference mousePositionAction;
-    [SerializeField] private InputActionReference aimAction; 
+    [SerializeField] private float aimHeightOffset = 1.2f;
+    [SerializeField] private AttackInput attackInput;
 
     private Camera mainCamera;
-
     public bool IsAiming { get; private set; }
+    private Vector2 lastMousePos;
 
     private void Awake()
     {
-        if (mousePositionAction?.action != null) mousePositionAction.action.Enable();
-        
-        if (aimAction?.action != null)
-        {
-            aimAction.action.Enable();
-            // Using Events instead of checking IsPressed in Update
-            aimAction.action.performed += _ => IsAiming = true;
-            aimAction.action.canceled += _ => IsAiming = false;
-        }
-    }
-
-    private void Start()
-    {
         mainCamera = Camera.main;
-        if (mainCamera == null)
-        {
-            Debug.LogError("FATAL: Main Camera tag not found. Aiming will fail.");
-        }
+        if (!mainCamera) Debug.LogError("Main camera not found!");
     }
 
-    private void OnDestroy()
+    private void OnEnable()
     {
-        if (mousePositionAction?.action != null) mousePositionAction.action.Disable();
-        
-        if (aimAction?.action != null)
-        {
-            aimAction.action.performed -= _ => IsAiming = true;
-            aimAction.action.canceled -= _ => IsAiming = false;
-            aimAction.action.Disable();
-        }
+        attackInput.AimStarted += OnAimStarted;
+        attackInput.AimStopped += OnAimStopped;
+        attackInput.MouseMoved += OnMouseMoved;
     }
 
-    private void Update()
+    private void OnDisable()
     {
-        
+        attackInput.AimStarted -= OnAimStarted;
+        attackInput.AimStopped -= OnAimStopped;
+        attackInput.MouseMoved -= OnMouseMoved;
+    }
+
+    private void OnAimStarted() => IsAiming = true;
+    private void OnAimStopped()  => IsAiming = false;
+
+    private void OnMouseMoved(Vector2 mousePos)
+    {
+        lastMousePos = mousePos;
         if (IsAiming)
         {
             HandleRotation();
@@ -60,52 +44,35 @@ public class PlayerAimController : MonoBehaviour
 
     private void HandleRotation()
     {
-        if (GetMouseWorldPositionOnAimPlane(out var targetPosition))
+        if (!mainCamera) return;
+
+        Ray ray = mainCamera.ScreenPointToRay(lastMousePos);
+        Plane aimPlane = new Plane(Vector3.up, transform.position + Vector3.up * aimHeightOffset);
+
+        if (aimPlane.Raycast(ray, out float enter))
         {
+            Vector3 targetPosition = ray.GetPoint(enter);
             Vector3 lookDir = targetPosition - transform.position;
-            lookDir.y = 0; // Keep player upright
+            lookDir.y = 0;
 
             if (lookDir.sqrMagnitude > 0.01f)
-            {
                 transform.rotation = Quaternion.LookRotation(lookDir);
-            }
         }
     }
 
     public bool TryGetAimDirection(Vector3 origin, out Vector3 direction)
     {
-        if (GetMouseWorldPositionOnAimPlane(out var targetPosition))
+        Ray ray = mainCamera.ScreenPointToRay(lastMousePos);
+        Plane aimPlane = new Plane(Vector3.up, transform.position + Vector3.up * aimHeightOffset);
+
+        if (aimPlane.Raycast(ray, out float enter))
         {
-            direction = (targetPosition - origin).normalized;
+            Vector3 target = ray.GetPoint(enter);
+            direction = (target - origin).normalized;
             return true;
         }
 
         direction = transform.forward;
         return false;
     }
-
-    private bool GetMouseWorldPositionOnAimPlane(out Vector3 worldPosition)
-    {
-        if (!mainCamera)
-        {
-            worldPosition = Vector3.zero;
-            return false;
-        }
-
-        Vector2 mouseScreenPosition = mousePositionAction.action.ReadValue<Vector2>();
-        Ray ray = mainCamera.ScreenPointToRay(mouseScreenPosition);
-
-        float aimPlaneHeight = transform.position.y + aimHeightOffset;
-        Plane aimPlane = new Plane(Vector3.up, new Vector3(0f, aimPlaneHeight, 0f));
-
-        if (aimPlane.Raycast(ray, out float enter))
-        {
-            worldPosition = ray.GetPoint(enter);
-            return true;
-        }
-
-        worldPosition = Vector3.zero;
-        return false;
-    }
-
 }

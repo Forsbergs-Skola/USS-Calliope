@@ -1249,7 +1249,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &778636115
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3152,6 +3152,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -5968461157856933420, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
     - target: {fileID: 5896726476840213223, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
+      propertyPath: attackInput
+      value: 
+      objectReference: {fileID: 7116462969216917758}
+    - target: {fileID: 5896726476840213223, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
       propertyPath: aimHeightOffset
       value: 0.56
       objectReference: {fileID: 0}
@@ -3166,7 +3170,11 @@ PrefabInstance:
     - target: {fileID: 7729286904413520891, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
       propertyPath: weaponFire
       value: 
-      objectReference: {fileID: 7116462969216917732}
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729286904413520891, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
+      propertyPath: attackInput
+      value: 
+      objectReference: {fileID: 7116462969216917758}
     - target: {fileID: 7729286904413520891, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
       propertyPath: audioSource
       value: 
@@ -3175,6 +3183,10 @@ PrefabInstance:
       propertyPath: shootAction
       value: 
       objectReference: {fileID: 3034809152121054921, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
+    - target: {fileID: 7729286904413520891, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
+      propertyPath: performAttack
+      value: 
+      objectReference: {fileID: 7116462969216917759}
     - target: {fileID: 9161830421190369938, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3184,11 +3196,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 9161830421190369938, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
-      insertIndex: 10
-      addedObject: {fileID: 7116462969216917732}
+      insertIndex: 13
+      addedObject: {fileID: 7116462969216917759}
+    - targetCorrespondingSourceObject: {fileID: 9161830421190369938, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
+      insertIndex: 15
+      addedObject: {fileID: 7116462969216917758}
     - targetCorrespondingSourceObject: {fileID: 9161830421190369938, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7116462969216917745}
+    - targetCorrespondingSourceObject: {fileID: 9161830421190369938, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7116462969216917760}
   m_SourcePrefab: {fileID: 100100000, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
 --- !u!1001 &1350009421661032281
 PrefabInstance:
@@ -3366,27 +3384,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d87699535b407a4f8bdc3e956db72b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAimController
---- !u!114 &7116462969216917732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1453819437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3495f917302bb942b20953e6da982c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HitscanWeaponFire
-  moveAction: {fileID: 6531606723557171274, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
-  sprintAction: {fileID: -3730138691951497943, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
-  aimController: {fileID: 7116462969216917721}
-  impactProcessor: {fileID: 7116462969216917720}
-  firePoint: {fileID: 1643179213}
-  audioSource: {fileID: 7116462969216917745}
-  showDebugTrajectory: 1
-  debugLifetime: 0.05
-  debugColor: {r: 0, g: 0.9281702, b: 1, a: 1}
 --- !u!82 &7116462969216917745
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3484,6 +3481,56 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7116462969216917758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453819437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c4b04d975d2ded4db092d75ce1f9d2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackInput
+  mousePosAction: {fileID: -318039564575867876, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  aimAction: {fileID: -5968461157856933420, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
+  shootAction: {fileID: 3034809152121054921, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
+--- !u!114 &7116462969216917759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453819437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e8125c85f4fb5649a0e46250b39acd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PerformAttack
+  moveAction: {fileID: 6531606723557171274, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
+  sprintAction: {fileID: -3730138691951497943, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
+  aimController: {fileID: 7116462969216917721}
+  impactProcessor: {fileID: 7116462969216917720}
+  firePoint: {fileID: 1643179213}
+  audioSource: {fileID: 7116462969216917745}
+  flashHandler: {fileID: 7116462969216917760}
+  showDebugTrajectory: 1
+  debugLifetime: 0.05
+  debugColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &7116462969216917760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453819437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a574e2d48f297146a0d319d3aea0b51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MuzzleFlashHandler
+  randomizeRotation: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

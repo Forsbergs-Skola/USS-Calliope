@@ -71,7 +71,8 @@ public class SO_WeaponType : ScriptableObject
     //
     [Header("Visuals")]
     [SerializeField] private GameObject weaponModelPrefab;
-
+    [SerializeField] private ParticleSystem muzzleFlashPrefab; // The VFX prefab
+    
     //
     // AUDIO
     //
@@ -87,7 +88,7 @@ public class SO_WeaponType : ScriptableObject
     public string AmmoCategory => ammoCategory;
     public Sprite WeaponIcon => icon;
     public string WeaponDescription => description;
-    public AttackCategory Category => attackCategory; 
+    public AttackCategory AttackCategories => attackCategory; 
 
     // Details
     public int MagSize => magSize;
@@ -128,6 +129,8 @@ public class SO_WeaponType : ScriptableObject
 
     // Visuals
     public GameObject WeaponModelPrefab => weaponModelPrefab;
+    public ParticleSystem  MuzzleFlashPrefab => muzzleFlashPrefab;
+   
 
     // Audio
     public AudioClip FireSound => fireSound;

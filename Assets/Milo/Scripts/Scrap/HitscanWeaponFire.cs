@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,6 +23,7 @@ public class HitscanWeaponFire : MonoBehaviour
     
     private float movementTimer;
     private SO_WeaponType weapon;
+    
 
     private void Update()
     {
@@ -29,7 +32,6 @@ public class HitscanWeaponFire : MonoBehaviour
 
     private void UpdateMovementTracking()
     {
-        // If the movement input vector is non-zero, we are moving
         if (moveAction.action.ReadValue<Vector2>().sqrMagnitude > 0.01f)
         {
             movementTimer += Time.deltaTime;
@@ -52,12 +54,20 @@ public class HitscanWeaponFire : MonoBehaviour
     public void Fire()
     {
         if (!CanFire(out Vector3 aimDirection)) return;
-        
-        audioSource.PlayOneShot(weapon.FireSound);
-    
-        for (int i = 0; i < weapon.PelletCount; i++)
+
+        switch (weapon.AttackCategories)
         {
-            PerformPelletShot(aimDirection);
+            case SO_WeaponType.AttackCategory.Hitscan:
+                FireHitscan(aimDirection);
+                break;
+            case SO_WeaponType.AttackCategory.Taser:
+                TurnOnTaser();
+                break;
+            case SO_WeaponType.AttackCategory.Melee:
+                PerformMelee();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
     
@@ -103,4 +113,24 @@ public class HitscanWeaponFire : MonoBehaviour
         try { impactProcessor.ProcessHit(hit); }
         catch (System.Exception e) { Debug.LogError($"Hit Error on {hit.collider.name}: {e}"); }
     }
+
+    private void FireHitscan(Vector3 aimDirection)
+    {
+        audioSource.PlayOneShot(weapon.FireSound);
+        for (int i = 0; i < weapon.PelletCount; i++)
+        {
+             PerformPelletShot(aimDirection);
+        }
+    }
+
+    private void TurnOnTaser()
+    {
+        
+    }
+
+    private void PerformMelee()
+    {
+        
+    }
+    
 }

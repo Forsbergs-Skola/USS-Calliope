@@ -1,115 +1,106 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
     [Header("Dependencies")]
     [SerializeField] private PlayerAimController aimController;
-    [SerializeField] private HitscanWeaponFire weaponFire;
+    [SerializeField] private PerformAttack performAttack;
     [SerializeField] private WeaponCooldown cooldown;
     [SerializeField] private AudioSource audioSource;
-
-    [Header("Input References")]
-    [SerializeField] private InputActionReference shootAction;
-    [SerializeField] private InputActionReference aimAction;
+    
+    private AttackInput attackInput;
 
     private AmmoModel ammoModel;
     private SO_WeaponType currentWeapon;
-
-    private bool isAiming;
+    private Transform currentMuzzle;
 
     public AmmoModel AmmoModel => ammoModel;
 
     private void Awake()
     {
+        if (attackInput == null)
+            attackInput = GetComponent<AttackInput>();
+        
         if (aimController == null)
             aimController = GetComponent<PlayerAimController>();
 
         ammoModel = new AmmoModel();
         ammoModel.AmmoChanged += OnAmmoChanged;
         ammoModel.OnError += OnAmmoError;
-
-        // Aim Input
-        if (aimAction?.action != null)
-        {
-            aimAction.action.Enable();
-            aimAction.action.performed += OnAimStarted;
-            aimAction.action.canceled += OnAimStopped;
-        }
-
-        // Shoot Input (ALWAYS enabled)
-        if (shootAction?.action != null)
-        {
-            shootAction.action.Enable();
-            shootAction.action.performed += OnShootInput;
-        }
     }
 
-    private void OnAimStarted(InputAction.CallbackContext context)
+    private void Start()
     {
-        isAiming = true;
+        attackInput.FireRequested += OnFireRequested;
+        attackInput.AimStarted += OnAimStarted;
+        attackInput.AimStopped += OnAimStopped;
     }
 
-    private void OnAimStopped(InputAction.CallbackContext context)
+    private void OnDisable()
     {
-        isAiming = false;
+        attackInput.FireRequested -= OnFireRequested;
+        attackInput.AimStarted -= OnAimStarted;
+        attackInput.AimStopped -= OnAimStopped;
     }
 
-    private void OnShootInput(InputAction.CallbackContext context)
+    // nput event callbacks 
+    private void OnAimStarted()
     {
-        if (!isAiming)
+        // trigger crosshair or camera zoom
+    }
+
+    private void OnAimStopped()
+    {
+        // reset crosshair or camera
+    }
+
+    private void OnFireRequested()
+    {
+        if (!aimController.IsAiming)
             return;
 
         TryShoot();
     }
 
-    public void TryShoot()
+    // Weapon 
+    private void TryShoot()
     {
-        if (currentWeapon == null)
-            return;
+        if (currentWeapon == null || currentMuzzle == null) return;
+        if (!cooldown.CanFire()) return;
 
-        if (!cooldown.CanFire())
-            return;
+        int ammoCost = currentWeapon.AttackCategories switch
+        {
+            SO_WeaponType.AttackCategory.Hitscan => 1,
+            SO_WeaponType.AttackCategory.Taser => 1,
+            SO_WeaponType.AttackCategory.Melee => 0,
+            _ => 0
+        };
 
-        if (!ammoModel.UseAmmo(1))
+        if (ammoCost > 0 && !ammoModel.UseAmmo(ammoCost))
         {
             Debug.Log($"Click! {currentWeapon.WeaponId} out of ammo.");
             audioSource.PlayOneShot(currentWeapon.DryFireSounds);
             return;
         }
 
-        weaponFire.Fire();
+        performAttack.Fire();
         cooldown.StartCooldown(currentWeapon.FireRate);
     }
 
-    public void EquipWeapon(SO_WeaponType equippedWeapon)
+    public void EquipWeapon(SO_WeaponType equippedWeapon, Transform muzzle)
     {
-        if (equippedWeapon == null || equippedWeapon == currentWeapon)
-            return;
+        if (equippedWeapon == null) return; 
 
         currentWeapon = equippedWeapon;
+        currentMuzzle = muzzle; 
 
         ammoModel.Initialize(equippedWeapon);
         cooldown.InitializeCooldown(equippedWeapon.FireRate);
-        weaponFire.SetWeapon(equippedWeapon);
+    
+        performAttack.SetWeapon(equippedWeapon, muzzle);
     }
 
-    private void OnDestroy()
-    {
-        if (aimAction?.action != null)
-        {
-            aimAction.action.performed -= OnAimStarted;
-            aimAction.action.canceled -= OnAimStopped;
-            aimAction.action.Disable();
-        }
-
-        if (shootAction?.action != null)
-        {
-            shootAction.action.performed -= OnShootInput;
-            shootAction.action.Disable();
-        }
-    }
-
+    // Ammo  
     private void OnAmmoChanged(int current, int max)
     {
         Debug.Log($"Ammo: {current}/{max}");
