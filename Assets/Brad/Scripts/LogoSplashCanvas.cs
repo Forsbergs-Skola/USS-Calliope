@@ -2,9 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using Tweens;
 using Events;
+using TMPro;
 
 public class LogoSplashCanvas : MonoBehaviour, ICanvasUI
 {
+    [SerializeField] private TMP_Text mainText;
+    [SerializeField] private TMP_Text subText;
     [SerializeField] private float staySeconds = 2f;
     [SerializeField] private float fadeDuration = 2f;
     [SerializeField] private Image frontPanel;
@@ -12,6 +15,8 @@ public class LogoSplashCanvas : MonoBehaviour, ICanvasUI
 
     private void Start()
     {
+        mainText.fontMaterial.SetFloat(TMProProperties.LIGHT_ANGLE, 0.0f);
+        subText.fontMaterial.SetFloat(TMProProperties.LIGHT_ANGLE, 0.0f);
         frontPanel.color = new Color(0f, 0f, 0f, 1f);
         FadeIn();
     }
@@ -20,6 +25,17 @@ public class LogoSplashCanvas : MonoBehaviour, ICanvasUI
     {
         Tween fadeTween = TweenService.GetFloatTween(gameObject, 1.0f, 0.0f, fadeDuration, EnumTweenEase.QUART, EnumTweenDirection.IN);
         fadeTween.StartTween();
+
+        Tween lightingTween = TweenService.GetFloatTween(gameObject, 0.0f, 6.0f, (fadeDuration*0.99f));
+        lightingTween.StartTween();
+
+        lightingTween.OnValueUpdated += (value) =>
+        {
+            mainText.fontMaterial.SetFloat(TMProProperties.LIGHT_ANGLE, value.x);
+            subText.fontMaterial.SetFloat(TMProProperties.LIGHT_ANGLE, value.x);
+        };
+        
+        
         fadeTween.OnValueUpdated += (value) =>
         {
             Color newColor = new Color(0f, 0f, 0f, value.x);
@@ -29,6 +45,11 @@ public class LogoSplashCanvas : MonoBehaviour, ICanvasUI
         {
             StartCoroutine(WaitThenContinue());
         };
+
+
+
+
+
     }
 
     System.Collections.IEnumerator WaitThenContinue()
