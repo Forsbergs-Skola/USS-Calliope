@@ -25,7 +25,6 @@ public class PerformAttack : MonoBehaviour
         attackInput = GetComponent<AttackInput>();
         aimController = GetComponent<PlayerAimController>();
         impactProcessor = GetComponent<ImpactProcessor>();
-        
     }
     
     private void Update()

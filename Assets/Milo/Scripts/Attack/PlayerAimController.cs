@@ -17,10 +17,10 @@ public class PlayerAimController : MonoBehaviour
     [SerializeField] private float smoothSpeed = 3f;     
 
     [Header("References")]
-    [SerializeField] private AttackInput attackInput;
     [SerializeField] private Transform crosshairTransform;
-    [SerializeField] private CinemachineCamera vCam;
+    [SerializeField] private CinemachineCamera Cam;
     
+    private AttackInput attackInput;
     private CinemachineCameraOffset offsetExtension;
     private Camera mainCamera;
     private Vector2 lastMousePos;
@@ -35,14 +35,17 @@ public class PlayerAimController : MonoBehaviour
 
     private void Awake()
     {
+        
+        attackInput = GetComponent<AttackInput>();
+        
         mainCamera = Camera.main;
         if (!mainCamera) Debug.LogError("Main camera not found!");
         
-        if (vCam != null)
+        if (Cam != null)
         {
-            offsetExtension = vCam.GetComponent<CinemachineCameraOffset>();
+            offsetExtension = Cam.GetComponent<CinemachineCameraOffset>();
             if (offsetExtension == null)
-                offsetExtension = vCam.gameObject.AddComponent<CinemachineCameraOffset>();
+                offsetExtension = Cam.gameObject.AddComponent<CinemachineCameraOffset>();
         }
 
         Cursor.visible = false;
@@ -68,19 +71,11 @@ public class PlayerAimController : MonoBehaviour
 
     private void OnAimInputStopped()
     {
-        if (isHoldingButton && holdTimer < holdThreshold)
-        {
-            PerformQuickClickAction();
-        }
-
+        if (isHoldingButton && holdTimer < holdThreshold) return;
+        
         isHoldingButton = false;
         IsAiming = false;
         holdTimer = 0f;
-    }
-
-    private void PerformQuickClickAction()
-    {
-        Debug.Log("Zomboid Quick Click: Opening Interaction Menu...");
     }
 
     private void Update()

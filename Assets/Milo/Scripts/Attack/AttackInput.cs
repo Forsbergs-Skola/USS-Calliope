@@ -9,7 +9,7 @@ public class AttackInput : MonoBehaviour
     [SerializeField] private InputActionReference aimAction;
     [SerializeField] private InputActionReference shootAction;
     
-    [Header("Extras, merge into a Player Input script")]
+    [Header("Extras, later make full PlayerInput script")]
     // for the movement inaccuracy
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference sprintAction;

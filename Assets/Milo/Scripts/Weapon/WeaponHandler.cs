@@ -3,11 +3,7 @@ using UnityEngine;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
-    [Header("Dependencies")] [SerializeField]
-    private PlayerAimController aimController;
-
-    [SerializeField] private PerformAttack performAttack;
-    [SerializeField] private WeaponCooldown cooldown;
+    
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Transform firePoint;
 
@@ -15,16 +11,19 @@ public class PlayerWeaponHandler : MonoBehaviour
     private SO_WeaponType currentWeapon;
     private bool isHoldingTrigger;
     private Coroutine firingCoroutine;
+    private PerformAttack performAttack;
+    private PlayerAimController aimController;
+    private WeaponCooldown weaponCooldown;
+
 
     public AmmoModel AmmoModel { get; private set; }
 
     private void Awake()
     {
-        if (attackInput == null)
-            attackInput = GetComponent<AttackInput>();
-
-        if (aimController == null)
-            aimController = GetComponent<PlayerAimController>();
+        weaponCooldown = GetComponent<WeaponCooldown>();
+        attackInput = GetComponent<AttackInput>();
+        aimController = GetComponent<PlayerAimController>();
+        performAttack = GetComponent<PerformAttack>();
 
         AmmoModel = new AmmoModel();
         AmmoModel.AmmoChanged += OnAmmoChanged;
@@ -97,7 +96,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     private void TryShoot()
     {
         if (!currentWeapon || !firePoint) return;
-        if (!cooldown.CanFire()) return;
+        if (!weaponCooldown.CanFire()) return;
 
         var ammoCost = currentWeapon.AttackCategories switch
         {
@@ -115,7 +114,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         }
 
         performAttack.Execute();
-        cooldown.StartCooldown(currentWeapon.FireRate);
+        weaponCooldown.StartCooldown(currentWeapon.FireRate);
     }
 
     public void EquipWeapon(SO_WeaponType equippedWeapon)
@@ -125,7 +124,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         currentWeapon = equippedWeapon;
 
         AmmoModel.Initialize(equippedWeapon);
-        cooldown.InitializeCooldown(equippedWeapon.FireRate);
+        weaponCooldown.InitializeCooldown(equippedWeapon.FireRate);
 
         performAttack.SetWeapon(equippedWeapon);
     }
