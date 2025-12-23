@@ -5,14 +5,13 @@ public class WeaponPickupHandler : PickupBase
     [SerializeField] private WeaponView weaponView;
     [SerializeField] private Transform weaponSocket;
 
-    [SerializeField] private Transform muzzlePoint; 
 
     protected override void OnPickup(GameObject picker)
     {
         if (!picker.TryGetComponent<PlayerWeaponHandler>(out var handler))
             return;
 
-        handler.EquipWeapon(weaponView.WeaponType, muzzlePoint);
+        handler.EquipWeapon(weaponView.WeaponType);
 
         if (weaponSocket == null) return;
         

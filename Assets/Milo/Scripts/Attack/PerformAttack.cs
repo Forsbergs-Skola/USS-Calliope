@@ -2,28 +2,32 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class PerformAttack : MonoBehaviour
 {
     
-    [Header("Input Action Reference")]
-    [SerializeField] private InputActionReference moveAction;
-    [SerializeField] private InputActionReference sprintAction;
-    
-    [Header("Dependencies")]
-    [SerializeField] private PlayerAimController aimController;
-    [SerializeField] private ImpactProcessor impactProcessor;
     [SerializeField] private Transform firePoint;
     [SerializeField] private AudioSource audioSource;
     
-    [Header("Debug")]
     [SerializeField] private bool showDebugTrajectory = true;
-    [SerializeField] private float debugLifetime = 0.05f;
-    [SerializeField] private Color debugColor = Color.red;
-    
+
+    private const float DebugLifetime = 0.05f;
+    private readonly Color debugColor = Color.green;
+
     private float movementTimer;
     private SO_WeaponType weapon;
-    private Transform currentMuzzle; 
+    private AttackInput attackInput;
+    private PlayerAimController aimController;
+    private ImpactProcessor impactProcessor;
 
+    private void Awake()
+    {
+        attackInput = GetComponent<AttackInput>();
+        aimController = GetComponent<PlayerAimController>();
+        impactProcessor = GetComponent<ImpactProcessor>();
+        
+    }
+    
     private void Update()
     {
         UpdateMovementTracking();
@@ -31,7 +35,7 @@ public class PerformAttack : MonoBehaviour
 
     private void UpdateMovementTracking()
     {
-        if (moveAction.action.ReadValue<Vector2>().sqrMagnitude > 0.01f)
+        if (attackInput.MoveAction.action.ReadValue<Vector2>().sqrMagnitude > 0.01f)
         {
             movementTimer += Time.deltaTime;
         }
@@ -41,18 +45,17 @@ public class PerformAttack : MonoBehaviour
         }
     }
 
-    public void SetWeapon(SO_WeaponType weapon, Transform muzzle)
+    public void SetWeapon(SO_WeaponType weapon)
     {
         this.weapon = weapon;
-        this.currentMuzzle = muzzle; 
     
         movementTimer = 0f; 
         impactProcessor.InitializeProcessor(weapon);
     }
     
-    public void Fire()
+    public void Execute()
     {
-        if (!CanFire(out Vector3 aimDirection)) return;
+        if (!CanAttack(out Vector3 aimDirection)) return;
 
         switch (weapon.AttackCategories)
         {
@@ -70,39 +73,36 @@ public class PerformAttack : MonoBehaviour
         }
     }
     
-    private bool CanFire(out Vector3 aimDirection)
+    private bool CanAttack(out Vector3 aimDirection)
     {
         aimDirection = Vector3.zero;
         if (!weapon || !firePoint) return false;
         
-        return aimController.TryGetAimDirection(currentMuzzle.position, out aimDirection);
+        return aimController.TryGetAimDirection(firePoint.position, out aimDirection);
     }
-    
-    private void PerformPelletShot(Vector3 aimDirection)
+
+    private void PerformRaycastShot(Vector3 aimDirection, Action<RaycastHit> onHit)
     {
-        float standardDeviation = CalculateSpreadIntensity(); 
-        Vector3 finalDirection = BallisticsUtility.GetGaussianSpread(aimDirection, standardDeviation);
-    
-        Vector3 origin = firePoint.position;
-        Vector3 endPoint = origin + finalDirection * weapon.ImpactRange;
-    
-        if (Physics.Raycast(origin, finalDirection, out RaycastHit hitInfo, weapon.ImpactRange, impactProcessor.HitMask))
+        var standardDeviation = CalculateSpreadIntensity();
+        var finalDirection = BallisticsUtility.GetGaussianSpread(aimDirection, standardDeviation);
+
+        var origin = firePoint.position;
+        var endPoint = origin + finalDirection * weapon.ImpactRange;
+
+        if (Physics.Raycast(origin, finalDirection, out var hitInfo, weapon.ImpactRange, impactProcessor.HitMask))
         {
-            impactProcessor.ProcessHit(hitInfo);
+            onHit?.Invoke(hitInfo);
             endPoint = hitInfo.point;
         }
 
-        if (showDebugTrajectory) 
-        {
-            Debug.DrawLine(origin, endPoint, debugColor, debugLifetime);
-        }
+        if (showDebugTrajectory) Debug.DrawLine(origin, endPoint, debugColor, DebugLifetime);
     }
-
+    
     private float CalculateSpreadIntensity()
     {
         if (!weapon) return 0f;
         
-        var isSprinting = sprintAction.action.IsPressed();
+        var isSprinting = attackInput.SprintAction.action.IsPressed();
     
         return weapon.GetBaseSpreadIntensity(movementTimer, isSprinting);
     }
@@ -113,18 +113,18 @@ public class PerformAttack : MonoBehaviour
 
         for (int i = 0; i < weapon.PelletCount; i++)
         {
-            PerformPelletShot(aimDirection);
+            PerformRaycastShot(aimDirection, impactProcessor.ProcessHit);
         }
     }
 
     private void MeleeAttack(Vector3 aimDirection)
     {
-        
+        PerformRaycastShot(aimDirection, impactProcessor.ProcessMeleeHit);
     }
 
     private void TaserAttack(Vector3 aimDirection)
     {
         audioSource.PlayOneShot(weapon.FireSound);
-        PerformPelletShot(aimDirection);
-    }   
+        PerformRaycastShot(aimDirection, impactProcessor.ProcessTase);
+    }
 }

@@ -9,6 +9,14 @@ public class AttackInput : MonoBehaviour
     [SerializeField] private InputActionReference aimAction;
     [SerializeField] private InputActionReference shootAction;
     
+    [Header("Extras, merge into a Player Input script")]
+    // for the movement inaccuracy
+    [SerializeField] private InputActionReference moveAction;
+    [SerializeField] private InputActionReference sprintAction;
+
+    public InputActionReference MoveAction => moveAction;
+    public InputActionReference SprintAction => sprintAction;
+    
     public event Action<Vector2> MouseMoved;
     public event Action AimStarted;
     public event Action AimStopped;
@@ -64,17 +72,16 @@ public class AttackInput : MonoBehaviour
 
     private static void Enable(InputActionReference reference)
     {
-        if (reference?.action != null && !reference.action.enabled)
+        if (reference?.action is { enabled: false })
             reference.action.Enable();
     }
 
     private static void Disable(InputActionReference reference)
     {
-        if (reference?.action != null && reference.action.enabled)
+        if (reference?.action is { enabled: true })
             reference.action.Disable();
     }
     
-    // ── Callbacks ───────────────────────────────
     private void OnAimPerformed(InputAction.CallbackContext ctx)
     {
         

@@ -68,7 +68,6 @@ public class PlayerAimController : MonoBehaviour
 
     private void OnAimInputStopped()
     {
-        // If they released the button before the threshold, it's a Click
         if (isHoldingButton && holdTimer < holdThreshold)
         {
             PerformQuickClickAction();
@@ -81,13 +80,11 @@ public class PlayerAimController : MonoBehaviour
 
     private void PerformQuickClickAction()
     {
-        // This is where you'd trigger your Zomboid-style Context Menu
         Debug.Log("Zomboid Quick Click: Opening Interaction Menu...");
     }
 
     private void Update()
     {
-        // 1. Determine if we have held long enough to be 'Aiming'
         if (isHoldingButton)
         {
             holdTimer += Time.deltaTime;
@@ -97,7 +94,6 @@ public class PlayerAimController : MonoBehaviour
             }
         }
 
-        // 2. Transition the weight (0 to 1) for a smooth 'stance' delay
         float targetWeight = IsAiming ? 1f : 0f;
         currentAimWeight = Mathf.MoveTowards(currentAimWeight, targetWeight, Time.deltaTime * transitionSpeed);
 
@@ -119,21 +115,17 @@ public class PlayerAimController : MonoBehaviour
             
             if (IsAiming)
             {
-                // Rotate Player towards target
                 Vector3 lookDir = targetPosition - transform.position;
                 lookDir.y = 0f;
                 if (lookDir.sqrMagnitude > 0.01f)
                     transform.rotation = Quaternion.LookRotation(lookDir);
                 
-                // Calculate the 'Pull' vector from player to mouse
                 Vector3 pullVector = targetPosition - transform.position;
                 pullVector.y = 0;
 
-                // Move camera toward mouse, scaled by our current stance weight
                 desiredOffset = Vector3.ClampMagnitude(pullVector * 0.5f, cameraOffsetDistance) * currentAimWeight;
             }
 
-            // Update Crosshair position
             if (crosshairTransform)
             {
                 crosshairTransform.position = targetPosition + Vector3.up * 0.05f; 
@@ -141,10 +133,8 @@ public class PlayerAimController : MonoBehaviour
             }
         }
 
-        // 3. Apply the final offset to Cinemachine
         if (offsetExtension != null)
         {
-            // Ensure CinemachineCameraOffset is set to 'World Space' in Inspector
             currentTargetOffset = Vector3.Lerp(currentTargetOffset, desiredOffset, Time.deltaTime * smoothSpeed);
             offsetExtension.Offset = currentTargetOffset;
         }

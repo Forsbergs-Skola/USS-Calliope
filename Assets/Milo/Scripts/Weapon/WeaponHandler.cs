@@ -3,59 +3,57 @@ using UnityEngine;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
-    [Header("Dependencies")]
-    [SerializeField] private PlayerAimController aimController;
+    [Header("Dependencies")] [SerializeField]
+    private PlayerAimController aimController;
+
     [SerializeField] private PerformAttack performAttack;
     [SerializeField] private WeaponCooldown cooldown;
     [SerializeField] private AudioSource audioSource;
-    
+    [SerializeField] private Transform firePoint;
+
     private AttackInput attackInput;
-    private AmmoModel ammoModel;
     private SO_WeaponType currentWeapon;
-    private Transform currentMuzzle;
     private bool isHoldingTrigger;
     private Coroutine firingCoroutine;
 
-    public AmmoModel AmmoModel => ammoModel;
+    public AmmoModel AmmoModel { get; private set; }
 
     private void Awake()
     {
         if (attackInput == null)
             attackInput = GetComponent<AttackInput>();
-        
+
         if (aimController == null)
             aimController = GetComponent<PlayerAimController>();
 
-        ammoModel = new AmmoModel();
-        ammoModel.AmmoChanged += OnAmmoChanged;
-        ammoModel.OnError += OnAmmoError;
+        AmmoModel = new AmmoModel();
+        AmmoModel.AmmoChanged += OnAmmoChanged;
+        AmmoModel.OnError += OnAmmoError;
     }
 
     private void Start()
     {
         attackInput.FireStarted += OnFireStarted;
         attackInput.FireStopped += OnFireStopped;
-        attackInput.AimStarted  += OnAimStarted;
-        attackInput.AimStopped  += OnAimStopped;
+        attackInput.AimStarted += OnAimStarted;
+        attackInput.AimStopped += OnAimStopped;
     }
 
     private void OnDisable()
     {
         attackInput.FireStarted -= OnFireStarted;
         attackInput.FireStopped -= OnFireStopped;
-        attackInput.AimStarted  -= OnAimStarted;
-        attackInput.AimStopped  -= OnAimStopped;
+        attackInput.AimStarted -= OnAimStarted;
+        attackInput.AimStopped -= OnAimStopped;
     }
 
-    // nput event callbacks 
+
     private void OnAimStarted()
     {
-        // trigger crosshair or camera zoom
     }
 
     private void OnAimStopped()
     {
-        // reset crosshair or camera
     }
 
     private void OnFireStarted()
@@ -86,7 +84,7 @@ public class PlayerWeaponHandler : MonoBehaviour
             firingCoroutine = null;
         }
     }
-    
+
     private IEnumerator AutomaticFire()
     {
         while (isHoldingTrigger)
@@ -96,16 +94,12 @@ public class PlayerWeaponHandler : MonoBehaviour
         }
     }
 
-
-
-
-    // Weapon 
     private void TryShoot()
     {
-        if (currentWeapon == null || currentMuzzle == null) return;
+        if (!currentWeapon || !firePoint) return;
         if (!cooldown.CanFire()) return;
 
-        int ammoCost = currentWeapon.AttackCategories switch
+        var ammoCost = currentWeapon.AttackCategories switch
         {
             SO_WeaponType.AttackCategory.Hitscan => 1,
             SO_WeaponType.AttackCategory.Taser => 1,
@@ -113,31 +107,29 @@ public class PlayerWeaponHandler : MonoBehaviour
             _ => 0
         };
 
-        if (ammoCost > 0 && !ammoModel.UseAmmo(ammoCost))
+        if (ammoCost > 0 && !AmmoModel.UseAmmo(ammoCost))
         {
             Debug.Log($"Click! {currentWeapon.WeaponId} out of ammo.");
             audioSource.PlayOneShot(currentWeapon.DryFireSounds);
             return;
         }
 
-        performAttack.Fire();
+        performAttack.Execute();
         cooldown.StartCooldown(currentWeapon.FireRate);
     }
 
-    public void EquipWeapon(SO_WeaponType equippedWeapon, Transform muzzle)
+    public void EquipWeapon(SO_WeaponType equippedWeapon)
     {
-        if (equippedWeapon == null) return; 
+        if (!equippedWeapon) return;
 
         currentWeapon = equippedWeapon;
-        currentMuzzle = muzzle; 
 
-        ammoModel.Initialize(equippedWeapon);
+        AmmoModel.Initialize(equippedWeapon);
         cooldown.InitializeCooldown(equippedWeapon.FireRate);
-    
-        performAttack.SetWeapon(equippedWeapon, muzzle);
+
+        performAttack.SetWeapon(equippedWeapon);
     }
 
-    // Ammo  
     private void OnAmmoChanged(int current, int max)
     {
         Debug.Log($"Ammo: {current}/{max}");
