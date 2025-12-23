@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb81a4a5ddbd41e469fd7f1c2fed558c, type: 3}
+  m_Name: PhaseActive
+  m_EditorClassIdentifier: Assembly-CSharp::InfectionPhaseData
+  phaseName: PhaseActive
+  minInfection: 50
+  maxInfection: 99
+  moveSpeedMultiplier: 1
+  perceptionMultiplier: 1
+  attackCooldown: 1.5
+  availableAttacks:
+  - {fileID: 11400000, guid: ce564d776dd5e0e479461fd34db4a34c, type: 2}
+  idleClip: {fileID: 0}
+  alertClip: {fileID: 0}

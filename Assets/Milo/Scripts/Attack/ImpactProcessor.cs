@@ -18,8 +18,13 @@ public class ImpactProcessor : MonoBehaviour
     {
         Debug.Log($"Hit: {hit.collider.name} at {hit.point} | Dist: {hit.distance:F2}m");
 
-        if (!hit.collider.gameObject.TryGetComponent<EnemyHealthPC>(out var healthComponent)) return;
-        healthComponent.TakeDamage(currentWeaponDamage);
+        //if (!hit.collider.gameObject.TryGetComponent<EnemyHealthPC>(out var healthComponent)) return;
+        //healthComponent.TakeDamage(currentWeaponDamage);
+        var damageable = hit.collider.GetComponentInParent<IDamageable>();
+        if (damageable != null)
+        {
+            damageable.TakeDamage(currentWeaponDamage);
+        }
         Debug.Log($"Damage dealt: {currentWeaponDamage} to {hit.collider.name}");
     }
 }
