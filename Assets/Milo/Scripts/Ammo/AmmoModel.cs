@@ -5,63 +5,56 @@
         private int currentAmmo;
         private int maxAmmo;
         private SO_AmmoType currentAmmoType;
-        private string currentWeaponName;
 
         public int CurrentAmmo => currentAmmo;
         public int MaxAmmo => maxAmmo;
-        public string WeaponName => currentWeaponName;
         public SO_AmmoType CurrentAmmoType => currentAmmoType;
-
-        public event Action<int, int> AmmoChanged;
-
-        public event Action<string> OnError;
-
-        public void Initialize(SO_WeaponType weapon)
+        
+        public void Initialize(SO_WeaponType currentWeapon)
         {
-            if (weapon == null)
+            if (!currentWeapon)
             {
                 currentAmmoType = null;
-                currentWeaponName = null;
                 maxAmmo = 0;
                 currentAmmo = 0;
                 return;
             }
 
-            currentAmmoType = weapon.AmmoType;
-            currentWeaponName = weapon.WeaponId;
-            maxAmmo = weapon.MagSize;
+            currentAmmoType = currentWeapon.AmmoType;
+            maxAmmo = currentWeapon.MagSize;
             currentAmmo = 0;
-
-            AmmoChanged?.Invoke(currentAmmo, maxAmmo);
         }
         
-        // this function must be refactored to check and update an 'ammoReserves' dictionary instead.
-        public void AddAmmo(SO_AmmoType ammoType, int amount)
+        public enum AmmoDestination
         {
-            
-            if (currentAmmoType == null)
-            {
-                return;
-            }
-            if (ammoType != currentAmmoType)
-            {
-                return;
-            }
-
-            currentAmmo = Math.Min(currentAmmo + amount, maxAmmo);
-            AmmoChanged?.Invoke(currentAmmo, maxAmmo);
+            Weapon,
+            Inventory
         }
 
+        public void AddAmmo(SO_AmmoType ammoType, int amount, AmmoDestination destination)
+        {
+            // Determine if ammo should go to inventory
+            var destinationIsInventory = destination == AmmoDestination.Inventory;
+            var currentWeaponCannotAcceptAmmo = !currentAmmoType || ammoType != currentAmmoType || currentAmmo >= maxAmmo;
+
+            if (destinationIsInventory || currentWeaponCannotAcceptAmmo)
+            {
+                // Send to inventory
+                return;
+            }
+
+            // Add ammo to weapon
+            currentAmmo = Math.Min(currentAmmo + amount, maxAmmo);
+        }
+        
         public bool UseAmmo(int amount)
         {
             if (currentAmmo < amount)
             {
-                OnError?.Invoke($"AmmoModel: Not enough ammo to use {amount}. Current: {currentAmmo}");
                 return false;
             }
 
             currentAmmo -= amount;
-            AmmoChanged?.Invoke(currentAmmo, maxAmmo);
             return true;
         }
     }

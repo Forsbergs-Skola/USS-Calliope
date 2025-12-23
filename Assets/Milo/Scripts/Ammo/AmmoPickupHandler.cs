@@ -15,7 +15,7 @@ public class AmmoPickupHandler : PickupBase
         }
 
         var ammoModel = weaponHandler.AmmoModel;
-        ammoModel.AddAmmo(view.AmmoType, view.AmmoAmount);
+        ammoModel.AddAmmo(view.AmmoType, view.AmmoAmount, AmmoModel.AmmoDestination.Weapon);
 
         Destroy(gameObject);
     }

@@ -3,42 +3,33 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SO_WeaponType", menuName = "Player Combat/SO_WeaponType")]
 public class SO_WeaponType : ScriptableObject
 {
-    //
-    // ENUMS
-    //
+    //// ENUMS
     public enum AttackCategory
     {
         Hitscan,
         Taser,
-        Melee,  
+        Melee,
     }
 
-    //
-    // GENERAL
-    //
-    [Header("General")]
+    [Header("General Info")]
     [SerializeField] private string id;
     [SerializeField] private string weaponCategory;
     [SerializeField] private string ammoCategory;
     [SerializeField] private Sprite icon;
     [TextArea(2, 7)] [SerializeField] private string description;
 
-    //
-    // DETAILS
-    //
-    [Header("Details")]
+    [Header("Weapon Stats")]
+    [SerializeField, Min(0)] private int damage;                  
+    [SerializeField, Min(0.01f)] private float fireRate = 0.2f;   // Shots per second
+    [SerializeField] private bool isSemiAutomatic;
+    [SerializeField] private AttackCategory attackCategory;
+    [SerializeField] private bool hasAmmo;
     [SerializeField, Min(5)] private int magSize;
     [SerializeField] private SO_AmmoType ammoType;
     [SerializeField] private float reloadTime;
-    [SerializeField] private AttackCategory attackCategory; // Gameplay logic type
-    [SerializeField, Min(0)] private int damage;
-    [SerializeField, Min(0.01f)] private float fireRate = 0.2f;
-    [SerializeField] private bool isSemiAutomatic;
 
-    //
-    // BALLISTICS
-    //
-    [Header("Ballistics")]
+    [Header("Ballistics Settings")]
+    [SerializeField] private bool hasBallistics;
     [SerializeField, Min(1f)] private float impactRange;
     [Tooltip("0.05+ for shotguns, 0.01+ for rifles & pistols")]
     [SerializeField, Range(0f, 0.1f)] private float spreadStandardDeviation;
@@ -48,63 +39,71 @@ public class SO_WeaponType : ScriptableObject
     [SerializeField, Min(0f)] private float recoilPerShotMax;
     [SerializeField, Min(0f)] private float recoilRecoverySpeed;
 
-    //
-    // MOVEMENT INACCURACY
-    //
-    [Header("Movement Inaccuracy")]
+    [Header("Accuracy & Movement")]
     [Tooltip("Pistol 1.5, Rifle 2.5, Shotgun 1.2")]
     [SerializeField, Min(0f)] private float movementInaccuracyMultiplier;
-    [Tooltip("Pistol 3.0, rifle 5.0, shotgun 2.0")]
+    [Tooltip("Pistol 3.0, Rifle 5.0, Shotgun 2.0")]
     [SerializeField, Min(0f)] private float sprintInaccuracyMultiplier;
-    [Tooltip("Pistol 0.20s, rifle 0.10s, shotgun 0.25s")]
+    [Tooltip("Pistol 0.20s, Rifle 0.10s, Shotgun 0.25s")]
     [SerializeField, Range(0f, 0.5f)] private float accuracyGracePeriod = 0.15f;
 
-    //
-    // TASER DATA
-    //
-    
-    [Header("Taser")]
+    [Header("Taser Settings")]
     [SerializeField, Min(0)] private float stunEffectTime;
-    
-    //
-    // VISUALS
-    //
+
+    [Header("Melee Settings")]
+    [SerializeField, Min(0.1f)] private float meleeHitRadius;
+
+    //// VISUALS
     [Header("Visuals")]
     [SerializeField] private GameObject weaponModelPrefab;
-    [SerializeField] private ParticleSystem muzzleFlashPrefab; // The VFX prefab
-    
-    //
-    // AUDIO
-    //
+    [SerializeField] private ParticleSystem muzzleFlashPrefab;
+
+    //// AUDIO
     [Header("Audio")]
-    [SerializeField] private AudioClip fireSound;
+    [SerializeField] private AudioClip attackSound;
     [SerializeField] private AudioClip reloadSound;
     [SerializeField] private AudioClip dryFireSound;
-    
 
-    // General
+    //// PROPERTIES
     public string WeaponId => id;
     public string WeaponCategory => weaponCategory;
     public string AmmoCategory => ammoCategory;
     public Sprite WeaponIcon => icon;
     public string WeaponDescription => description;
-    public AttackCategory AttackCategories => attackCategory; 
+    public AttackCategory AttackCategories => attackCategory;
 
-    // Details
+    public int Damage => damage;
+    public float FireRate => fireRate;
+    public bool IsSemiAutomatic => isSemiAutomatic;
+    public bool HasAmmo => hasAmmo;
     public int MagSize => magSize;
     public SO_AmmoType AmmoType => ammoType;
-    public int Damage => damage;
-    public float FireRate => fireRate; // FireRate in seconds per shot
-    public bool IsSemiAutomatic => isSemiAutomatic;
     public float ReloadTime => reloadTime;
 
-    // Ballistics
+    public bool HasBallistics => hasBallistics;
     public float ImpactRange => impactRange;
+    public float SpreadStandardDeviation => spreadStandardDeviation;
+    public AnimationCurve DamageOverDistance => damageOverDistance;
     public int PelletCount => pelletCount;
     public float RecoilPerShotMin => recoilPerShotMin;
     public float RecoilPerShotMax => recoilPerShotMax;
     public float RecoilRecoverySpeed => recoilRecoverySpeed;
 
+    public float MovementInaccuracyMultiplier => movementInaccuracyMultiplier;
+    public float SprintInaccuracyMultiplier => sprintInaccuracyMultiplier;
+    public float AccuracyGracePeriod => accuracyGracePeriod;
+
+    public float StunEffectTime => stunEffectTime;
+    public float MeleeHitRadius => meleeHitRadius;
+
+    public GameObject WeaponModelPrefab => weaponModelPrefab;
+    public ParticleSystem MuzzleFlashPrefab => muzzleFlashPrefab;
+
+    public AudioClip AttackSound => attackSound;
+    public AudioClip ReloadSound => reloadSound;
+    public AudioClip DryFireSound => dryFireSound;
+
+    //// METHODS
     public int GetDamageAtDistance(float distance)
     {
         float t = Mathf.Clamp01(distance / impactRange);
@@ -116,24 +115,13 @@ public class SO_WeaponType : ScriptableObject
     {
         if (isSprinting)
             return spreadStandardDeviation * sprintInaccuracyMultiplier;
-
         if (movementTimer > accuracyGracePeriod)
             return spreadStandardDeviation * movementInaccuracyMultiplier;
-
         return spreadStandardDeviation;
     }
     
-    // Stun 
-    
-    public float StunEffectTime => stunEffectTime;
-
-    // Visuals
-    public GameObject WeaponModelPrefab => weaponModelPrefab;
-    public ParticleSystem  MuzzleFlashPrefab => muzzleFlashPrefab;
-   
-
-    // Audio
-    public AudioClip FireSound => fireSound;
-    public AudioClip ReloadSounds => reloadSound;
-    public AudioClip DryFireSounds => dryFireSound;
+    public bool ShouldTrackMovement()
+    {
+        return attackCategory == AttackCategory.Hitscan;
+    }
 }

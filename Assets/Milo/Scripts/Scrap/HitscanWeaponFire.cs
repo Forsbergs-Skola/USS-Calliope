@@ -116,7 +116,7 @@ public class HitscanWeaponFire : MonoBehaviour
 
     private void FireHitscan(Vector3 aimDirection)
     {
-        audioSource.PlayOneShot(weapon.FireSound);
+        audioSource.PlayOneShot(weapon.AttackSound);
         for (int i = 0; i < weapon.PelletCount; i++)
         {
              PerformPelletShot(aimDirection);

@@ -18,13 +18,15 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: Standard issue for E-M consortium security officers. Reliable, but
     don't let them get too close.
-  magSize: 12
-  ammoType: {fileID: 11400000, guid: 691fdfec37c81b043a98ea330a08e097, type: 2}
-  reloadTime: 0
-  attackCategory: 0
   damage: 35
   fireRate: 0.25
   isSemiAutomatic: 1
+  attackCategory: 0
+  hasAmmo: 1
+  magSize: 12
+  ammoType: {fileID: 11400000, guid: 691fdfec37c81b043a98ea330a08e097, type: 2}
+  reloadTime: 2
+  hasBallistics: 1
   impactRange: 55
   spreadStandardDeviation: 0.01
   damageOverDistance:
@@ -68,8 +70,9 @@ MonoBehaviour:
   sprintInaccuracyMultiplier: 5
   accuracyGracePeriod: 0.2
   stunEffectTime: 0
+  meleeHitRadius: 0.5
   weaponModelPrefab: {fileID: 0}
   muzzleFlashPrefab: {fileID: 19800006, guid: c888f0c922d622147bbdbe2ca794142b, type: 3}
-  fireSound: {fileID: 8300000, guid: 7fcf55f120862cc46b19c9c4af6c1fb5, type: 3}
+  attackSound: {fileID: 8300000, guid: 7fcf55f120862cc46b19c9c4af6c1fb5, type: 3}
   reloadSound: {fileID: 0}
   dryFireSound: {fileID: 8300000, guid: 3c3dbb52f662e784a9ad204ef59e0f83, type: 3}

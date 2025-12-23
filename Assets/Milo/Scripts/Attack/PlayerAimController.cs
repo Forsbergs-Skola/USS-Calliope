@@ -1,15 +1,15 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerAimController : MonoBehaviour
 {
-    [Header("Settings")]
+    [Header("Aim Settings")]
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float aimHeightOffset = 1.2f;
     [SerializeField] private float cameraOffsetDistance = 5f;
     
-    [Header("Timing & Delay")]
-    [Tooltip("How long to hold RMB before camera starts pulling (Click vs Hold)")]
+    [Header("Aim Camera Settings")]
     [SerializeField] private float holdThreshold = 0.2f; 
     [Tooltip("How fast the player enters the combat stance")]
     [SerializeField] private float transitionSpeed = 5f; 
@@ -18,7 +18,7 @@ public class PlayerAimController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform crosshairTransform;
-    [SerializeField] private CinemachineCamera Cam;
+    [SerializeField] private CinemachineCamera cam;
     
     private AttackInput attackInput;
     private CinemachineCameraOffset offsetExtension;
@@ -41,11 +41,11 @@ public class PlayerAimController : MonoBehaviour
         mainCamera = Camera.main;
         if (!mainCamera) Debug.LogError("Main camera not found!");
         
-        if (Cam != null)
+        if (cam)
         {
-            offsetExtension = Cam.GetComponent<CinemachineCameraOffset>();
-            if (offsetExtension == null)
-                offsetExtension = Cam.gameObject.AddComponent<CinemachineCameraOffset>();
+            offsetExtension = cam.GetComponent<CinemachineCameraOffset>();
+            if (!offsetExtension)
+                offsetExtension = cam.gameObject.AddComponent<CinemachineCameraOffset>();
         }
 
         Cursor.visible = false;
@@ -54,7 +54,7 @@ public class PlayerAimController : MonoBehaviour
 
     private void OnEnable()
     {
-        if (attackInput == null) return;
+        if (!attackInput) return;
         attackInput.AimStarted += OnAimInputStarted;
         attackInput.AimStopped += OnAimInputStopped;
         attackInput.MouseMoved += (pos) => lastMousePos = pos;
@@ -62,7 +62,7 @@ public class PlayerAimController : MonoBehaviour
 
     private void OnDisable()
     {
-        if (attackInput == null) return;
+        if (!attackInput) return;
         attackInput.AimStarted -= OnAimInputStarted;
         attackInput.AimStopped -= OnAimInputStopped;
     }
@@ -95,18 +95,20 @@ public class PlayerAimController : MonoBehaviour
         UpdateAimLogic();
     }
 
+    // Refactor this spaghetti
+    
     private void UpdateAimLogic()
     {
         if (!mainCamera) return;
 
-        Ray ray = mainCamera.ScreenPointToRay(lastMousePos);
-        Plane aimPlane = new Plane(Vector3.up, transform.position + Vector3.up * aimHeightOffset);
+        var ray = mainCamera.ScreenPointToRay(lastMousePos);
+        var aimPlane = new Plane(Vector3.up, transform.position + Vector3.up * aimHeightOffset);
 
-        Vector3 desiredOffset = Vector3.zero;
+        var desiredOffset = Vector3.zero;
 
-        if (aimPlane.Raycast(ray, out float enter))
+        if (aimPlane.Raycast(ray, out var enter))
         {
-            Vector3 targetPosition = ray.GetPoint(enter);
+            var targetPosition = ray.GetPoint(enter);
             
             if (IsAiming)
             {
@@ -128,16 +130,14 @@ public class PlayerAimController : MonoBehaviour
             }
         }
 
-        if (offsetExtension != null)
-        {
-            currentTargetOffset = Vector3.Lerp(currentTargetOffset, desiredOffset, Time.deltaTime * smoothSpeed);
-            offsetExtension.Offset = currentTargetOffset;
-        }
+        if (!offsetExtension) return;
+        currentTargetOffset = Vector3.Lerp(currentTargetOffset, desiredOffset, Time.deltaTime * smoothSpeed);
+        offsetExtension.Offset = currentTargetOffset;
     }
 
     public bool TryGetAimDirection(Vector3 origin, out Vector3 direction)
     {
-        Ray ray = mainCamera.ScreenPointToRay(lastMousePos);
+        var ray = mainCamera.ScreenPointToRay(lastMousePos);
         Plane aimPlane = new Plane(Vector3.up, transform.position + Vector3.up * aimHeightOffset);
 
         if (aimPlane.Raycast(ray, out float enter))

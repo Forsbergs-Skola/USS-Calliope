@@ -2,20 +2,17 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 public class PerformAttack : MonoBehaviour
 {
-    
     [SerializeField] private Transform firePoint;
     [SerializeField] private AudioSource audioSource;
-    
     [SerializeField] private bool showDebugTrajectory = true;
 
     private const float DebugLifetime = 0.05f;
     private readonly Color debugColor = Color.green;
 
     private float movementTimer;
-    private SO_WeaponType weapon;
+    private SO_WeaponType currentWeapon;
     private AttackInput attackInput;
     private PlayerAimController aimController;
     private ImpactProcessor impactProcessor;
@@ -26,12 +23,88 @@ public class PerformAttack : MonoBehaviour
         aimController = GetComponent<PlayerAimController>();
         impactProcessor = GetComponent<ImpactProcessor>();
     }
-    
+
     private void Update()
     {
-        UpdateMovementTracking();
+        if (currentWeapon && currentWeapon.ShouldTrackMovement())
+            UpdateMovementTracking();    
     }
 
+    public void SetCurrentWeapon(SO_WeaponType equippedWeapon)
+    {
+        currentWeapon = equippedWeapon;
+        movementTimer = 0f;
+        impactProcessor.InitializeProcessor(equippedWeapon);
+    }
+
+    public void Execute()
+    {
+        if (!CanAttack(out Vector3 aimDirection)) return;
+
+        switch (currentWeapon.AttackCategories)
+        {
+            case SO_WeaponType.AttackCategory.Hitscan:
+                GunAttack(aimDirection);
+                break;
+            case SO_WeaponType.AttackCategory.Taser:
+                TaserAttack(aimDirection);
+                break;
+            case SO_WeaponType.AttackCategory.Melee:
+                MeleeAttack(aimDirection);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    //// ATTACK TYPES
+    private void GunAttack(Vector3 aimDirection)
+    {
+        PlayAttackSound();
+        for (int i = 0; i < currentWeapon.PelletCount; i++)
+        {
+            PerformRaycastShot(aimDirection, impactProcessor.ProcessHit);
+        }
+    }
+
+    private void TaserAttack(Vector3 aimDirection)
+    {
+        PlayAttackSound();
+        PerformRaycastShot(aimDirection, impactProcessor.ProcessTase);
+    }
+
+    private void MeleeAttack(Vector3 aimDirection)
+    {
+        // To be implemented
+    }
+
+    //// HELPERS
+    private bool CanAttack(out Vector3 aimDirection)
+    {
+        aimDirection = Vector3.zero;
+        if (!currentWeapon || !firePoint) return false;
+        return aimController.TryGetAimDirection(firePoint.position, out aimDirection);
+    }
+
+    private void PerformRaycastShot(Vector3 aimDirection, Action<RaycastHit> onHit)
+    {
+        var finalDirection = currentWeapon.HasBallistics
+            ? BallisticsUtility.GetGaussianSpread(aimDirection, CalculateSpreadIntensity())
+            : aimDirection;
+
+        var origin = firePoint.position;
+        var endPoint = origin + finalDirection * currentWeapon.ImpactRange;
+
+        if (Physics.Raycast(origin, finalDirection, out var hitInfo, currentWeapon.ImpactRange, impactProcessor.HitMask))
+        {
+            onHit?.Invoke(hitInfo);
+            endPoint = hitInfo.point;
+        }
+
+        if (showDebugTrajectory) Debug.DrawLine(origin, endPoint, debugColor, DebugLifetime);
+    }
+    
+    // Refactor to another script
     private void UpdateMovementTracking()
     {
         if (attackInput.MoveAction.action.ReadValue<Vector2>().sqrMagnitude > 0.01f)
@@ -44,86 +117,15 @@ public class PerformAttack : MonoBehaviour
         }
     }
 
-    public void SetWeapon(SO_WeaponType weapon)
-    {
-        this.weapon = weapon;
-    
-        movementTimer = 0f; 
-        impactProcessor.InitializeProcessor(weapon);
-    }
-    
-    public void Execute()
-    {
-        if (!CanAttack(out Vector3 aimDirection)) return;
-
-        switch (weapon.AttackCategories)
-        {
-            case SO_WeaponType.AttackCategory.Hitscan:
-                FireHitscan(aimDirection);
-                break;
-            case SO_WeaponType.AttackCategory.Taser:
-                TaserAttack(aimDirection);
-                break;
-            case SO_WeaponType.AttackCategory.Melee:
-                MeleeAttack(aimDirection);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-    }
-    
-    private bool CanAttack(out Vector3 aimDirection)
-    {
-        aimDirection = Vector3.zero;
-        if (!weapon || !firePoint) return false;
-        
-        return aimController.TryGetAimDirection(firePoint.position, out aimDirection);
-    }
-
-    private void PerformRaycastShot(Vector3 aimDirection, Action<RaycastHit> onHit)
-    {
-        var standardDeviation = CalculateSpreadIntensity();
-        var finalDirection = BallisticsUtility.GetGaussianSpread(aimDirection, standardDeviation);
-
-        var origin = firePoint.position;
-        var endPoint = origin + finalDirection * weapon.ImpactRange;
-
-        if (Physics.Raycast(origin, finalDirection, out var hitInfo, weapon.ImpactRange, impactProcessor.HitMask))
-        {
-            onHit?.Invoke(hitInfo);
-            endPoint = hitInfo.point;
-        }
-
-        if (showDebugTrajectory) Debug.DrawLine(origin, endPoint, debugColor, DebugLifetime);
-    }
-    
     private float CalculateSpreadIntensity()
     {
-        if (!weapon) return 0f;
-        
+        if (!currentWeapon) return 0f;
         var isSprinting = attackInput.SprintAction.action.IsPressed();
-    
-        return weapon.GetBaseSpreadIntensity(movementTimer, isSprinting);
-    }
-    
-    private void FireHitscan(Vector3 aimDirection)
-    {
-        audioSource.PlayOneShot(weapon.FireSound);
-
-        for (int i = 0; i < weapon.PelletCount; i++)
-        {
-            PerformRaycastShot(aimDirection, impactProcessor.ProcessHit);
-        }
+        return currentWeapon.GetBaseSpreadIntensity(movementTimer, isSprinting);
     }
 
-    private void MeleeAttack(Vector3 aimDirection)
+    private void PlayAttackSound()
     {
-        PerformRaycastShot(aimDirection, impactProcessor.ProcessMeleeHit);
-    }
-
-    private void TaserAttack(Vector3 aimDirection)
-    {
-        audioSource.PlayOneShot(weapon.FireSound);
-        PerformRaycastShot(aimDirection, impactProcessor.ProcessTase);
+        audioSource.PlayOneShot(currentWeapon.AttackSound);
     }
 }

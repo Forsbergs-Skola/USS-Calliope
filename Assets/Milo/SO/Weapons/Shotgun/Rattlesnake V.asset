@@ -25,6 +25,7 @@ MonoBehaviour:
   damage: 50
   fireRate: 1
   isSemiAutomatic: 1
+  hasAmmo: 1
   impactRange: 15
   spreadStandardDeviation: 0.03
   damageOverDistance:
@@ -70,8 +71,6 @@ MonoBehaviour:
   stunEffectTime: 0
   weaponModelPrefab: {fileID: 0}
   muzzleFlashPrefab: {fileID: 0}
-  muzzleFlashColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  lightIntensity: 5
   fireSound: {fileID: 8300000, guid: af875e30643823c4b91a010fb22247fe, type: 3}
   reloadSound: {fileID: 0}
   dryFireSound: {fileID: 8300000, guid: cad00319a49c5dd489159e26d426a190, type: 3}

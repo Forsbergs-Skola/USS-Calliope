@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
-    
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Transform firePoint;
 
@@ -15,9 +14,9 @@ public class PlayerWeaponHandler : MonoBehaviour
     private PlayerAimController aimController;
     private WeaponCooldown weaponCooldown;
 
-
     public AmmoModel AmmoModel { get; private set; }
 
+    //// UNITY LIFECYCLE
     private void Awake()
     {
         weaponCooldown = GetComponent<WeaponCooldown>();
@@ -26,8 +25,6 @@ public class PlayerWeaponHandler : MonoBehaviour
         performAttack = GetComponent<PerformAttack>();
 
         AmmoModel = new AmmoModel();
-        AmmoModel.AmmoChanged += OnAmmoChanged;
-        AmmoModel.OnError += OnAmmoError;
     }
 
     private void Start()
@@ -46,6 +43,44 @@ public class PlayerWeaponHandler : MonoBehaviour
         attackInput.AimStopped -= OnAimStopped;
     }
 
+    //// PUBLIC METHODS
+    public void EquipWeapon(SO_WeaponType equippedWeapon)
+    {
+        if (!equippedWeapon) return;
+
+        currentWeapon = equippedWeapon;
+
+        AmmoModel.Initialize(equippedWeapon);
+        weaponCooldown.InitializeCooldown(equippedWeapon.FireRate);
+
+        performAttack.SetCurrentWeapon(equippedWeapon);
+    }
+
+    //// INPUT CALLBACKS
+    private void OnFireStarted()
+    {
+        if (!aimController.IsAiming || !currentWeapon)
+            return;
+
+        if (!currentWeapon.IsSemiAutomatic)
+        {
+            if (firingCoroutine != null) return;
+            isHoldingTrigger = true; 
+            firingCoroutine = StartCoroutine(AutomaticFire());
+        }
+        else
+        {
+            TryShoot(); 
+        }
+    }
+
+    private void OnFireStopped()
+    {
+        isHoldingTrigger = false;
+        if (firingCoroutine == null) return;
+        StopCoroutine(firingCoroutine);
+        firingCoroutine = null;
+    }
 
     private void OnAimStarted()
     {
@@ -55,44 +90,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     {
     }
 
-    private void OnFireStarted()
-    {
-        if (!aimController.IsAiming || currentWeapon == null)
-            return;
-
-        if (!currentWeapon.IsSemiAutomatic)
-        {
-            if (firingCoroutine == null)
-            {
-                isHoldingTrigger = true; // important!
-                firingCoroutine = StartCoroutine(AutomaticFire());
-            }
-        }
-        else
-        {
-            TryShoot(); // single fire
-        }
-    }
-
-    private void OnFireStopped()
-    {
-        isHoldingTrigger = false; // stop the loop
-        if (firingCoroutine != null)
-        {
-            StopCoroutine(firingCoroutine);
-            firingCoroutine = null;
-        }
-    }
-
-    private IEnumerator AutomaticFire()
-    {
-        while (isHoldingTrigger)
-        {
-            TryShoot();
-            yield return new WaitForSeconds(currentWeapon.FireRate);
-        }
-    }
-
+    //// CORE FUNCTIONALITY
     private void TryShoot()
     {
         if (!currentWeapon || !firePoint) return;
@@ -108,8 +106,7 @@ public class PlayerWeaponHandler : MonoBehaviour
 
         if (ammoCost > 0 && !AmmoModel.UseAmmo(ammoCost))
         {
-            Debug.Log($"Click! {currentWeapon.WeaponId} out of ammo.");
-            audioSource.PlayOneShot(currentWeapon.DryFireSounds);
+            audioSource.PlayOneShot(currentWeapon.DryFireSound);
             return;
         }
 
@@ -117,18 +114,16 @@ public class PlayerWeaponHandler : MonoBehaviour
         weaponCooldown.StartCooldown(currentWeapon.FireRate);
     }
 
-    public void EquipWeapon(SO_WeaponType equippedWeapon)
+    private IEnumerator AutomaticFire()
     {
-        if (!equippedWeapon) return;
-
-        currentWeapon = equippedWeapon;
-
-        AmmoModel.Initialize(equippedWeapon);
-        weaponCooldown.InitializeCooldown(equippedWeapon.FireRate);
-
-        performAttack.SetWeapon(equippedWeapon);
+        while (isHoldingTrigger)
+        {
+            TryShoot();
+            yield return new WaitForSeconds(currentWeapon.FireRate);
+        }
     }
 
+    //// AMMO EVENTS
     private void OnAmmoChanged(int current, int max)
     {
         Debug.Log($"Ammo: {current}/{max}");
