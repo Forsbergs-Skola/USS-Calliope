@@ -1,7 +1,11 @@
 using UnityEngine;
+using TMPro;
 
 public class DialogueCanvas : MonoBehaviour, ICanvasUI
 {
+
+    [SerializeField] TMP_Text testText;
+
     private void OnEnable()
     {
         if (Bootstrapper.Instance != null)
@@ -15,6 +19,26 @@ public class DialogueCanvas : MonoBehaviour, ICanvasUI
         {
             Bootstrapper.Instance.PauseGame(false);
         }
+    }
+
+    /////////
+    // API //
+    /////////
+    
+    public void LaunchConversation(DialogueConversationSO convo)
+    {
+
+        string testStr = "";
+
+        // TODO: replace with actual UI presentation logic...
+        foreach (DialogueLineSO line in convo.Lines)
+        {
+            string thisLine = $"{line.SpeakerName} says: {line.LineText}";
+            testStr += $"- {thisLine}\n\n";
+            
+            //Debug.Log($"{line.SpeakerName} says: {line.LineText}");
+        }
+        testText.text = testStr;
     }
 
     // Interface Methods //
