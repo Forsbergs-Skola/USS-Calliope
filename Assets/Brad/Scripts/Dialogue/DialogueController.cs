@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class DialogueController : Singleton<DialogueController>
 {
-    [SerializeField] private List<DialogueConversationSO> conversations;
+    //[SerializeField] private List<DialogueConversationSO> conversations;
+    [SerializeField] private ConversationCatalogSO conversations;
 
     private void Start()
     {
@@ -52,7 +53,9 @@ public class DialogueController : Singleton<DialogueController>
 
     public void StartConvoWithID(string convoID)
     {
-        DialogueConversationSO convo = conversations.Find(conv => conv.ConvoID == convoID);
+
+        //DialogueConversationSO convo = conversations.Find(conv => conv.ConvoID == convoID);
+        DialogueConversationSO convo = conversations.Conversations.Find(conv => conv.ConvoID == convoID);
         if (convo != null)
         {
             UIController.Instance.ShowCanvas(EnumCanvasUIName.DIALOGUE);
@@ -63,6 +66,11 @@ public class DialogueController : Singleton<DialogueController>
             }
 
         }
+        else
+        {
+            Debug.LogError($"No conversation with ID: {convoID}");
+        }
+        
     }
 
 

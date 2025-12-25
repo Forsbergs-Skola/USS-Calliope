@@ -39,6 +39,7 @@ public enum EnumWeaponType
     // add/remove more as needed
 }
 
+/*
 public enum EnumInventoryItem
 {
     NONE,
@@ -48,7 +49,9 @@ public enum EnumInventoryItem
     RIFLE
     // add or remove more as needed
 }
+*/
 
+/*
 public enum EnumInventoryResource
 {
     NONE,
@@ -58,4 +61,5 @@ public enum EnumInventoryResource
     HEALTH_PACK
     // add or remove more as needed
 }
+*/
 

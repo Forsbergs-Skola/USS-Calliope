@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+
+
+
 public enum EnumObjective
 {
     NONE,
@@ -15,6 +18,8 @@ public enum EnumObjective
     GET_DOWN_TONIGHT
     // more as needed
 }
+
+
 
 
 public static class CriteriaEvaluator

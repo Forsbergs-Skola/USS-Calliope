@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79fed5b152ae51c4faa10ae46dea3141, type: 3}
+  m_Name: ItemCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::ItemCatalogSO
+  allQuestItems:
+  - {fileID: 11400000, guid: 947a4e1871e21f145bf5f51807bc5562, type: 2}
+  - {fileID: 11400000, guid: 9369cfd8989780140b348ac902b0e3e9, type: 2}
+  allWeaponItems:
+  - {fileID: 11400000, guid: 95cd39be19b404149827cf37a43a9793, type: 2}
+  - {fileID: 11400000, guid: 73e93a395cb440d40bf5d0c635dbdb7a, type: 2}
+  - {fileID: 11400000, guid: 355698e4c8ecdcd469805888f508ef4d, type: 2}
+  allConsumableItems:
+  - {fileID: 11400000, guid: a6fac905a39f5ad46a6c6116729821bf, type: 2}
+  - {fileID: 11400000, guid: 893dbc28c5f133643a2a3c1bcd67d448, type: 2}

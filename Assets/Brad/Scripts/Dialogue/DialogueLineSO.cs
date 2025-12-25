@@ -24,7 +24,6 @@ public class DialogueLineSO : ScriptableObject
     {
         if (string.IsNullOrEmpty(lineID))
         {
-            Debug.Log("FOO");
             lineID = System.Guid.NewGuid().ToString();
 #if UNITY_EDITOR
             UnityEditor.EditorUtility.SetDirty(this);
