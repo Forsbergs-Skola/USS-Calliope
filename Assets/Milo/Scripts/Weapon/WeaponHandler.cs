@@ -13,6 +13,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     private PerformAttack performAttack;
     private PlayerAimController aimController;
     private WeaponCooldown weaponCooldown;
+    private GameObject currentWeaponGO;
 
     public AmmoModel AmmoModel { get; private set; }
 
@@ -44,17 +45,29 @@ public class PlayerWeaponHandler : MonoBehaviour
     }
 
     //// PUBLIC METHODS
-    public void EquipWeapon(SO_WeaponType equippedWeapon)
+    public void EquipWeapon(SO_WeaponType equippedWeapon, GameObject weaponGO = null)
     {
         if (!equippedWeapon) return;
 
+        if (currentWeaponGO)
+            Destroy(currentWeaponGO);
+
         currentWeapon = equippedWeapon;
+        currentWeaponGO = weaponGO;
 
         AmmoModel.Initialize(equippedWeapon);
         weaponCooldown.InitializeCooldown(equippedWeapon.FireRate);
 
         performAttack.SetCurrentWeapon(equippedWeapon);
+
+        if (!currentWeaponGO || !firePoint) return;
+        currentWeaponGO.transform.SetParent(firePoint.parent, worldPositionStays: false);
+        currentWeaponGO.transform.localPosition = Vector3.zero;
+        currentWeaponGO.transform.localRotation = Quaternion.identity;
+        currentWeaponGO.transform.localScale = Vector3.one; 
+
     }
+
 
     //// INPUT CALLBACKS
     private void OnFireStarted()
@@ -65,12 +78,12 @@ public class PlayerWeaponHandler : MonoBehaviour
         if (!currentWeapon.IsSemiAutomatic)
         {
             if (firingCoroutine != null) return;
-            isHoldingTrigger = true; 
+            isHoldingTrigger = true;
             firingCoroutine = StartCoroutine(AutomaticFire());
         }
         else
         {
-            TryShoot(); 
+            TryShoot();
         }
     }
 

@@ -18,14 +18,15 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: "A gas-operated, mag-fed workhorse designed for 'aggressive de-escalation'
     in the E-M Consortium\u2019s high-risk sectors."
-  magSize: 8
-  ammoType: {fileID: 11400000, guid: aa71757218043c24a88dd9653ea70395, type: 2}
-  reloadTime: 0
-  attackCategory: 0
   damage: 50
   fireRate: 1
   isSemiAutomatic: 1
+  attackCategory: 0
   hasAmmo: 1
+  magSize: 8
+  ammoType: {fileID: 11400000, guid: aa71757218043c24a88dd9653ea70395, type: 2}
+  reloadTime: 0
+  hasBallistics: 0
   impactRange: 15
   spreadStandardDeviation: 0.03
   damageOverDistance:
@@ -69,8 +70,9 @@ MonoBehaviour:
   sprintInaccuracyMultiplier: 2
   accuracyGracePeriod: 0.25
   stunEffectTime: 0
+  meleeHitRadius: 0
   weaponModelPrefab: {fileID: 0}
   muzzleFlashPrefab: {fileID: 0}
-  fireSound: {fileID: 8300000, guid: af875e30643823c4b91a010fb22247fe, type: 3}
+  attackSound: {fileID: 8300000, guid: 0911c4d0d6a92434da45ab411647d6f3, type: 3}
   reloadSound: {fileID: 0}
   dryFireSound: {fileID: 8300000, guid: cad00319a49c5dd489159e26d426a190, type: 3}

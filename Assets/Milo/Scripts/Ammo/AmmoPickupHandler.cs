@@ -1,21 +1,20 @@
-using System;
 using UnityEngine;
 
 public class AmmoPickupHandler : PickupBase
 {
-    [SerializeField] private AmmoPickUpView view;
+    [SerializeField] private SO_AmmoType ammoType;
+    [SerializeField] private int amount = 10;
 
     protected override void OnPickup(GameObject picker)
     {
-        var weaponHandler = picker.GetComponent<PlayerWeaponHandler>();
-        if (weaponHandler == null)
-        {
-            Debug.LogWarning("AmmoPickup: Player has no PlayerWeaponHandler!");
+        if (!picker.TryGetComponent<PlayerWeaponHandler>(out var handler))
             return;
-        }
 
-        var ammoModel = weaponHandler.AmmoModel;
-        ammoModel.AddAmmo(view.AmmoType, view.AmmoAmount, AmmoModel.AmmoDestination.Weapon);
+        handler.AmmoModel.AddAmmo(
+            ammoType,
+            amount,
+            AmmoModel.AmmoDestination.Weapon    
+        );
 
         Destroy(gameObject);
     }
