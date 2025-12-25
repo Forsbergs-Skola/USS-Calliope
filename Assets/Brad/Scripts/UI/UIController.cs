@@ -134,4 +134,11 @@ public class UIController : Singleton<UIController>
             }
         }
     }
+
+    public ICanvasUI GetReferenceToCanvas(EnumCanvasUIName canvasName)
+    {
+        ICanvasUI canv = null;
+        canv = GetActiveCanvas(canvasName);
+        return canv;
+    }
 }
