@@ -56,6 +56,9 @@ public struct ObjectiveCriterion
 public class ObjectiveSO : ScriptableObject
 {
 
+
+    //[SerializeField] private string 
+
     // Private //
     [SerializeField] private EnumObjective objectiveID = EnumObjective.NONE;
     [SerializeField] private string objectiveTitle = string.Empty;
@@ -67,14 +70,14 @@ public class ObjectiveSO : ScriptableObject
     // EnumInventoryItem is defined in the inventory system
     // "Item" is something that the inventory can contain no more than 1 of...
     // Example: "EnumInventoryItem.FLASHLIGHT"
-    [SerializeField] private EnumInventoryItem itemReward = EnumInventoryItem.NONE;
+    //[SerializeField] private EnumInventoryItem itemReward = EnumInventoryItem.NONE;
 
     // EnumInventoryResource is defined in the inventory system
     // "Resource" is something that the inventory can contain any
     // natural number of...
     // Example: EnumInventoryResource.PISTOL_AMMO
-    [SerializeField] private EnumInventoryResource resourceReward = EnumInventoryResource.NONE;
-    [SerializeField] private int resourceRewardQuantity = 0;
+    //[SerializeField] private EnumInventoryResource resourceReward = EnumInventoryResource.NONE;
+    //[SerializeField] private int resourceRewardQuantity = 0;
 
     // XP is kept in PlayerData.XP
     [SerializeField] private int xpReward = 0;
@@ -88,9 +91,17 @@ public class ObjectiveSO : ScriptableObject
     public EnumObjectiveStatus DefaultStatus { get => defaultStatus; }
     public List<ObjectiveCriterion> EntryCriteria { get => entryCriteria; }
     public List<ObjectiveCriterion> CompletionCriteria { get => completionCriteria; }
-    public EnumInventoryItem ItemReward { get => itemReward; }
-    public EnumInventoryResource ResourceReward { get => resourceReward; }
-    public int ResourceRewardQuantiny { get => resourceRewardQuantity; }
+    //public EnumInventoryItem ItemReward { get => itemReward; }
+    //public EnumInventoryResource ResourceReward { get => resourceReward; }
+    //public int ResourceRewardQuantiny { get => resourceRewardQuantity; }
     public int XPReward { get => xpReward; }
     //public EnumObjectiveStatus CurrentStatus { }
+
+
+
+
+    private void OnValidate()
+    {
+        
+    }
 }
