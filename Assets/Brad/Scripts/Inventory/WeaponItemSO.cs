@@ -5,9 +5,11 @@ public class WeaponItemSO : ScriptableObject, IInventoryItem
 {
     [SerializeField] private string itemID = string.Empty;
     [SerializeField] private string displayName = string.Empty;
+    [SerializeField] private string iconTexturePath = string.Empty;
 
     public string ItemID { get => itemID; }
     public string DisplayName { get => displayName; }
+    public string IconTexturePath { get => iconTexturePath; }
 
 
 

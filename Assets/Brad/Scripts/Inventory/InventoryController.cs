@@ -67,13 +67,17 @@ public class InventoryController : Singleton<InventoryController>
         }
         EventRelay.Instance.GameEvents.ItemPickupEvent.TriggerEvent(itemID);
     }
+    public void RemoveItemFromInventory(string itemID)
+    {
+        // TODO
+    }
 
 
     ///////////////////////////////////////////
     // Getting data from the Inventory model //
     ///////////////////////////////////////////
     
-    private  List<WeaponItemSO> GetWeaponInventoryData()
+    public List<WeaponItemSO> GetWeaponInventoryData()
     {
         if (DataController.Instance == null) return null;
 
@@ -85,7 +89,7 @@ public class InventoryController : Singleton<InventoryController>
         }
         return weaponList;
     }
-    private List<QuestItemSO> GetQuestItemInventoryData()
+    public List<QuestItemSO> GetQuestItemInventoryData()
     {
         if (DataController.Instance == null) return null;
 
@@ -97,7 +101,7 @@ public class InventoryController : Singleton<InventoryController>
         }
         return questItemList;
     }
-    private List<ConsumableItemSO> GetConsumableInventoryData()
+    public List<ConsumableItemSO> GetConsumableInventoryData()
     {
         if (DataController.Instance == null) return null;
 
@@ -109,7 +113,7 @@ public class InventoryController : Singleton<InventoryController>
         }
         return consumablesList;
     }
-    private int GetConsumableQuantity(string consumableID)
+    public int GetConsumableQuantity(string consumableID)
     {
         if (DataController.Instance == null) return -1;
         Dictionary<string, int> consumablesDict = DataController.Instance.InventoryRuntimeData.Value.GetConsumableIDsAndQuantities();
@@ -122,31 +126,31 @@ public class InventoryController : Singleton<InventoryController>
     // Getting data from the catalog //
     ///////////////////////////////////
     
-    private WeaponItemSO GetWeaponDataWithID(string weaponID)
+    public WeaponItemSO GetWeaponDataWithID(string weaponID)
     {
         WeaponItemSO weaponData = itemCatalog.AllWeaponItems.Find(weap => weap.ItemID == weaponID);
         return weaponData;
     }
-    private QuestItemSO GetQuestItemDataWithID(string questItemID)
+    public QuestItemSO GetQuestItemDataWithID(string questItemID)
     {
         QuestItemSO questItemData = itemCatalog.AllQuestItems.Find(qu => qu.ItemID == questItemID);
         return questItemData;
     }
-    private ConsumableItemSO GetConsumableItemData(string consumableID)
+    public ConsumableItemSO GetConsumableItemData(string consumableID)
     {
         ConsumableItemSO consumableData = itemCatalog.AllConsumableItems.Find(cons => cons.ItemID == consumableID);
         return consumableData;
     }
 
     
-    private EnumInventoryItemType GetItemTypeByID(string itemID)
+    public EnumInventoryItemType GetItemTypeByID(string itemID)
     {
         IInventoryItem item = itemCatalog.AllInventoryItems.Find(ite => ite.GetItemID() == itemID);
         if (item == null) return EnumInventoryItemType.CONSUMABLE;
         return (item.GetItemType());
     }
 
-    private IInventoryItem GetInterfaceByID(string itemID)
+    public IInventoryItem GetInterfaceByID(string itemID)
     {
         return itemCatalog.AllInventoryItems.Find(ite => ite.GetItemID() == itemID);
     }
@@ -155,7 +159,7 @@ public class InventoryController : Singleton<InventoryController>
     
     private void HandleItemPickupEvent(string itemID)
     {
-        DebugInventoryData();
+        //DebugInventoryData();
     }
 
     private void DebugInventoryData()
