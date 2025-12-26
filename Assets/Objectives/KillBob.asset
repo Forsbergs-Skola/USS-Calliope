@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15815f44e6040db419e2c801825408e3, type: 3}
+  m_Name: KillBob
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectiveSO
+  objectiveID: 6e8d84e1-83ee-4411-9227-034f42554d93
+  objectiveTitle: Kill Bob!
+  objectiveDescription: Bob needs to be dead too
+  defaultStatus: 0
+  xpReward: 0
+  prerequisiteObjectiveIDs:
+  - 69dbaaf0-264f-4bdb-bcd8-739712e53ebc
+  completionCriteria: {fileID: 11400000, guid: 269cf1fc54dc41e479a0631cc0379c44, type: 2}

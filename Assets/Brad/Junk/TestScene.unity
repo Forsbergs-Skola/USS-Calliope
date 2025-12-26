@@ -1020,7 +1020,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &310995795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1036,9 +1036,8 @@ MonoBehaviour:
   killAliceButton: {fileID: 982801057}
   killBobButton: {fileID: 1129338435}
   killCharlieButton: {fileID: 1255424407}
-  startedObjectives: {fileID: 799897054}
-  finishedObjectives: {fileID: 1342659165}
-  uiPrefab: {fileID: 8781075287641904709, guid: b66fc9ce133a16b458fdba5a9e0e1bd4, type: 3}
+  killAliceObjectiveID: 69dbaaf0-264f-4bdb-bcd8-739712e53ebc
+  killBobObjectiveID: 6e8d84e1-83ee-4411-9227-034f42554d93
 --- !u!4 &310995796
 Transform:
   m_ObjectHideFlags: 0
@@ -2107,7 +2106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &982801056
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2840,7 +2839,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1129338434
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2961,7 +2960,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1255424406
 RectTransform:
   m_ObjectHideFlags: 0

@@ -9,8 +9,6 @@ public class ObjectivesPanel : MonoBehaviour
     private void OnEnable()
     {
         progressionData = progressionRuntimeData.Value;
-        List<EnumObjective> startedObjectives = progressionData.GetNotStartedObjectivesList();
-        
     }
 
     

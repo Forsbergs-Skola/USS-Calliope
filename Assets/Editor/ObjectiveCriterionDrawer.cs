@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEditor;
-
+/*
 [CustomPropertyDrawer(typeof(ObjectiveCriterion))]
 public class ObjectiveCriterionDrawer: PropertyDrawer
 {
@@ -158,3 +158,4 @@ public class ObjectiveCriterionDrawer: PropertyDrawer
         return EditorGUIUtility.singleLineHeight * LINE_HEIGHT;
     }
 }
+*/

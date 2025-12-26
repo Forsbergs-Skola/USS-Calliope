@@ -10,24 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15815f44e6040db419e2c801825408e3, type: 3}
-  m_Name: KillTwoEnemiesObj
+  m_Name: KillAlice
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveSO
-  objectiveID: 3
-  objectiveTitle: Kill 2 Enemies
-  objectiveDescription: Kill any 2 enemies.
+  objectiveID: 69dbaaf0-264f-4bdb-bcd8-739712e53ebc
+  objectiveTitle: Kill Alice!
+  objectiveDescription: Alice needs to be dead. You need to kill her.
   defaultStatus: 1
-  entryCriteria: []
-  completionCriteria:
-  - progressionField: 0
-    progressionFieldType: 1
-    valueComparison: 0
-    negate: 0
-    boolTarget: 0
-    intTarget: 2
-    floatTarget: 0
-    stringTarget: 
-    finishedObjective: 0
-  itemReward: 0
-  resourceReward: 0
-  resourceRewardQuantity: 0
   xpReward: 0
+  prerequisiteObjectiveIDs: []
+  completionCriteria: {fileID: 11400000, guid: 8454efd59f9b9aa4db3f7215200d2ca0, type: 2}
