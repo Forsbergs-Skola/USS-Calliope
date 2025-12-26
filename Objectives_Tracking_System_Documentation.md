@@ -82,6 +82,8 @@ Abstract base class for defining completion conditions.
 
 **Extensibility**: New completion criteria can be created by inheriting from `CompletionCriteriaSO` and implementing `IsCriteriaMet()`. Each implementation can query any game state through `DataController.Instance.ProgressionRuntimeData.Value`.
 
+**Note on Multiple Conditions**: While each `ObjectiveSO` references a single `CompletionCriteriaSO`, that criteria object's `IsCriteriaMet()` method can implement any complex boolean logic needed - checking multiple conditions, combining them with AND/OR operators, etc. The single reference is a structural design choice, not a functional limitation.
+
 ### 2. Controller: `ObjectivesTracker`
 
 **Location**: `Assets/Brad/Scripts/ObjectivesSystem/ObjectivesTracker.cs`
@@ -363,7 +365,6 @@ The system is designed with extensibility in mind:
 1. **UI Implementation**: Objectives panel UI is not fully implemented
 2. **XP Distribution**: XP rewards are defined but not distributed
 3. **Event Emission**: No events emitted when objectives start/finish (placeholders exist)
-4. **Multiple Criteria**: Only one completion criteria per objective
-5. **Editor Scripts**: Commented-out editor script suggests a different criteria approach was considered
-6. **Performance**: All STARTED objectives are evaluated on every data change (could be optimized)
+4. **Editor Scripts**: Commented-out editor script suggests a different criteria approach was considered
+5. **Performance**: All STARTED objectives are evaluated on every data change (could be optimized)
 
