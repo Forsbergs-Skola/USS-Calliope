@@ -19,7 +19,7 @@ namespace Olle.Scripts
         Vector3 _inputDir;
         Vector2 _moveInput;
         bool _wantsToRun;
-        bool _isCrouching;
+        public bool _isCrouching;
 
         float _defaultScaleY;
         float _defaultMoveSpeed;
@@ -28,11 +28,12 @@ namespace Olle.Scripts
         float _noiseTimer;
         
         PlayerStamina _stamina;
-
+        CrouchInvisibility _crouchInvis; 
+        
         // Expose crouch state to abilities
         public bool IsCrouching => _isCrouching;
 
-        // Let abilities tell controller it's currently dashing
+        // For Dashability
         public bool IsDashing { get; set; }
 
         // Abilities can subscribe to this
@@ -45,26 +46,27 @@ namespace Olle.Scripts
             _defaultScaleY    = transform.localScale.y;
             _defaultMoveSpeed = moveSpeed;
 
-            _noise   = GetComponent<NoiseEmitter>();
-            _stamina = GetComponent<PlayerStamina>();
+            _noise        = GetComponent<NoiseEmitter>();
+            _stamina      = GetComponent<PlayerStamina>();
+            _crouchInvis  = GetComponent<CrouchInvisibility>();
         }
-        
-        // ==== INPUT CALLS (NEW INPUT SYSTEM) ====
 
+        //Move inputs
         public void OnMove(InputAction.CallbackContext ctx)
         {
             _moveInput = ctx.ReadValue<Vector2>();
-            Debug.Log($"PlayerController.OnMove input = {_moveInput}");
 
             // Notify dash ability etc.
             OnMoveEvent?.Invoke(_moveInput);
         }
-
+        
+        //Run
         public void OnRun(InputAction.CallbackContext ctx)
         {
             _wantsToRun = ctx.ReadValue<float>() > 0.5f;
         }
 
+        //Crouch
         public void OnCrouch(InputAction.CallbackContext ctx)
         {
             if (ctx.performed)
@@ -74,6 +76,7 @@ namespace Olle.Scripts
             }
         }
 
+        //Interact
         public void OnInteract(InputAction.CallbackContext ctx)
         {
             if (!ctx.performed)
@@ -93,9 +96,7 @@ namespace Olle.Scripts
                 }
             }
         }
-
-        // ==== UPDATE / MOVEMENT ====
-
+        
         void Update()
         {
             Vector3 move = new Vector3(_moveInput.x, 0f, _moveInput.y);
@@ -107,8 +108,10 @@ namespace Olle.Scripts
             bool canSprint = false;
             if (_stamina != null)
             {
+                bool blockRegen = _crouchInvis != null && _crouchInvis.IsInvisible; 
                 _stamina.Tick(Time.deltaTime,
                               _wantsToRun && isMoving && !_isCrouching,
+                              blockRegen, 
                               out canSprint);
             }
 
@@ -197,6 +200,7 @@ namespace Olle.Scripts
             }
         }
         
+        //Crouch scale, will change when assets are used
         void ApplyCrouchState()
         {
             Vector3 scale = transform.localScale;
