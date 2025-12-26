@@ -17,7 +17,7 @@ public class ProgressionData : IRuntimeData
     private List<EnumObjective> _notStartedObjectives;
     private List<EnumObjective> _startedObjectives;
     private List<EnumObjective> _finishedObjectives;
-
+    
 
     ///////////////////
     // Public Access //
