@@ -642,6 +642,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6974186712806693136, guid: c8f9b0d3d4e483f47b4d188a1cf94cac, type: 3}
+      propertyPath: devMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6974186712806693136, guid: c8f9b0d3d4e483f47b4d188a1cf94cac, type: 3}
       propertyPath: objectivesCatalog
       value: 
       objectReference: {fileID: 11400000, guid: 418cbc6d59766fc4fa2c3adbfff1597c, type: 2}

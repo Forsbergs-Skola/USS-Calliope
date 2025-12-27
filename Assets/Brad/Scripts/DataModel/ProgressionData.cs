@@ -15,6 +15,7 @@ public class ProgressionData : IRuntimeData
     private string _sceneName;
     private List<string> _defeatedEnemiesList;
     private Dictionary<string, EnumObjectiveStatus> _objectivesAndStatusesDict;
+    private bool _aliceAndBobFuneralHeld = false;
 
    
 
@@ -23,12 +24,23 @@ public class ProgressionData : IRuntimeData
     ///////////////////
 
 
+
     public string SceneName
     {
         get => _sceneName;
         set
         {
             _sceneName = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+    public bool AliceAndBobFuneralHeld
+    {
+        get => _aliceAndBobFuneralHeld;
+        set
+        {
+            if (value == _aliceAndBobFuneralHeld) return;
+            _aliceAndBobFuneralHeld = value;
             DataTools.HandleOnDataChanged(this);
         }
     }
@@ -70,6 +82,7 @@ public class ProgressionData : IRuntimeData
         SceneName = "Bootstrap";
         _defeatedEnemiesList = new List<string>();
         _objectivesAndStatusesDict = new Dictionary<string, EnumObjectiveStatus>();
+        AliceAndBobFuneralHeld = false;
     }
     public ProgressionData(bool isSandBox)
     {
@@ -77,6 +90,7 @@ public class ProgressionData : IRuntimeData
         SceneName = "Bootstrap";
         _defeatedEnemiesList = new List<string>();
         _objectivesAndStatusesDict = new Dictionary<string, EnumObjectiveStatus>();
+        AliceAndBobFuneralHeld = false;
     }
     
     public ProgressionData(ProgressionData inData)
@@ -86,6 +100,7 @@ public class ProgressionData : IRuntimeData
         SceneName = inData.SceneName;
         _defeatedEnemiesList = new List<string>(inData.GetDefeatedEnemiesList());
         _objectivesAndStatusesDict = new Dictionary<string, EnumObjectiveStatus>(inData.ObjectivesAndStatusesDict);
+        AliceAndBobFuneralHeld = inData.AliceAndBobFuneralHeld;
     }
     public bool GetIsSandbox() { return IsSandbox; }
 }
