@@ -153,22 +153,8 @@ public static class SaveService
         /////////////////////
         // ProgressionData //
         /////////////////////
-        /*
-        // wrapperize lists
-        List<string> defeatedEnemies = new List<string>();
-        foreach(string enemy in progressionData.GetDefeatedEnemies())
-        {
-            if (!defeatedEnemies.Contains(enemy)) { defeatedEnemies.Add(enemy); }
-        }
-        StringListWrapper defeatedEnemiesWrapper = DataTools.GetWrapperizedStringList(defeatedEnemies);
-        string defeatedEnemiesString = JsonUtility.ToJson(defeatedEnemiesWrapper);
-
-        // write to outData
-        outData.PROGRESSION_defeatedEnemiesString = defeatedEnemiesString;
-        outData.PROGRESSION_sceneName = progressionData.SceneName;
-        outData.PROGRESSION_TalkedToBob = progressionData.TalkedToBob;
-        outData.PROGRESSION_TalkedToAlice = progressionData.TalkedToAlice;
-        */
+        
+        // TODO
 
         // return outData
         return outData;
@@ -225,15 +211,8 @@ public static class SaveService
     {
         ProgressionData _progressionData = new ProgressionData(true);
 
-        /*
-        // construct defeated enemies list
-        List<string> savedDefeatedEnemies = DataTools.GetStringListFromJson(saveData.PROGRESSION_defeatedEnemiesString);
-        foreach(string enemy in savedDefeatedEnemies)
-        {
-            _progressionData.AddDefeatedEnemy(enemy);
-        }
-        _progressionData.SceneName = saveData.PROGRESSION_sceneName;
-        */
+        // TODO
+
         return new ProgressionData(_progressionData);
         
     }

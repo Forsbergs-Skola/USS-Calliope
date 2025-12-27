@@ -1,249 +1,143 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using Events;
 
-
-
-
-public enum EnumObjective
+public enum EnumObjectiveStatus
 {
-    NONE,
-    //ENTER_THE_LAB,
-    //TALK_TO_ALICE,
-    DEFEAT_ALICE,
-    DEFEAT_BOB,
-    KILL_TWO_ENEMIES,
-    //DEFEAT_FOUR_ENEMIES,
-    DO_A_LITTLE_DANCE,
-    MAKE_A_LITTLE_LOVE,
-    GET_DOWN_TONIGHT
-    // more as needed
-}
-
-
-
-
-public static class CriteriaEvaluator
-{
-    public static bool EvaluateDefeatedEnemies(ObjectiveCriterion criterion)
-    {
-        if (DataController.Instance == null) return false;
-        List<string> defeatedEnemies = DataController.Instance.ProgressionRuntimeData.Value.GetDefeatedEnemiesList();
-        string enemyString = criterion.stringTarget;
-        return (defeatedEnemies.Contains(enemyString));
-    }
-
-    public static bool EvaluateFinishedObjectives(ObjectiveCriterion criterion)
-    {
-        if (DataController.Instance == null) return false;
-        List<EnumObjective> finishedObjectives = DataController.Instance.ProgressionRuntimeData.Value.GetFinishedObjectivesList();
-        EnumObjective targetObj = criterion.finishedObjective;
-        return (finishedObjectives.Contains(targetObj));
-    }
-
-    public static bool EvaluateDefeatedEnemiesCount(ObjectiveCriterion criterion)
-    {
-        if (DataController.Instance == null) return false;
-        int defeatedEnemies = DataController.Instance.ProgressionRuntimeData.Value.GetDefeatedEnemiesList().Count;
-        int targetInt = criterion.intTarget;
-        
-        switch (criterion.valueComparison)
-        {
-            case EnumValueComparison.GREATER_OR_EQUAL:
-                return defeatedEnemies >= targetInt;
-            //...and so on
-            default: return false;
-        }
-    }
+    NOT_STARTED,
+    STARTED,
+    FINISHED
 }
 
 public class ObjectivesTracker : Singleton<ObjectivesTracker>
 {
-    [SerializeField] private List<ObjectiveSO> objectives;
+
+    [SerializeField] private ObjectivesCatalogSO objectivesCatalog;
+    [SerializeField] private IRuntimeDataPayloadEvent runtimeDataUpdatedEvent;
+    [SerializeField] private bool devMode = true;
 
 
-    private void Start()
+    private void OnEnable()
     {
-        if (EventRelay.Instance != null)
-        {
-            EventRelay.Instance.GameEvents.RuntimeDataUpdatedEvent.OnEventTriggered += HandleProgressionDataUpdate;
-        }
+        runtimeDataUpdatedEvent.OnEventTriggered += IngestRuntimeDataUpdate;
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
-        if (EventRelay.Instance != null)
-        {
-            EventRelay.Instance.GameEvents.RuntimeDataUpdatedEvent.OnEventTriggered -= HandleProgressionDataUpdate;
-        }
+        runtimeDataUpdatedEvent.OnEventTriggered -= IngestRuntimeDataUpdate;
     }
 
     public void ResetObjectives()
     {
-        DataController dc = DataController.Instance;
-        dc.ProgressionRuntimeData.Value.ClearObjectivesData();
-        foreach (ObjectiveSO objective in objectives)
-        {
-            switch (objective.DefaultStatus)
-            {
-                case EnumObjectiveStatus.NOT_STARTED:
-                    dc.ProgressionRuntimeData.Value.InitializeObjective(objective.ObjectiveID, EnumObjectiveStatus.NOT_STARTED);
-                    break;
-                case EnumObjectiveStatus.STARTED:
-                    dc.ProgressionRuntimeData.Value.InitializeObjective(objective.ObjectiveID, EnumObjectiveStatus.STARTED);
-                    break;
-                case EnumObjectiveStatus.FINISHED:
-                    dc.ProgressionRuntimeData.Value.InitializeObjective(objective.ObjectiveID, EnumObjectiveStatus.FINISHED);
-                    break;
-            }
-        }
-    }
+        ProgressionData progressionData = DataController.Instance.ProgressionRuntimeData.Value;
+        Dictionary<string, EnumObjectiveStatus> newStatusDict = new Dictionary<string, EnumObjectiveStatus>();
 
-    private void HandleProgressionDataUpdate(IRuntimeData data)
-    {
-        if (!(data is ProgressionData)) return;
-        ProgressionData progData = data as ProgressionData;
-        GroomObjectives(progData);
-        /*
-        if (progData.GetNotStartedObjectivesList() != null)
+        foreach(ObjectiveSO objectiveData in objectivesCatalog.Objectives)
         {
             
 
-            PromoteNewFinishedObjectives(progData);
-            PromoteNewStartedObjectives(progData);
+            string objID = objectiveData.ObjectiveID;
+            EnumObjectiveStatus defaultStatus = objectiveData.DefaultStatus;
+            if (!newStatusDict.Keys.ToList<string>().Contains(objID))
+            {
+                Debug.Log($"Adding {objectiveData.ObjectiveTitle}");
+                newStatusDict[objID] = defaultStatus;
+            }
         }
-        */
+        progressionData.UpdateObjectivesAndStatuses(newStatusDict);
+    }
+    public ObjectiveSO GetObjectiveWithID(string objID)
+    {
+        return objectivesCatalog.Objectives.Find(obj => obj.ObjectiveID == objID);
     }
 
-    private void GroomObjectives(ProgressionData progData)
+    public void StartObjectiveWithID(string objID)
     {
-        if (progData.GetStartedObjectivesList() != null)
+        ProgressionData progressionData = DataController.Instance.ProgressionRuntimeData.Value;
+        Dictionary<string, EnumObjectiveStatus> statusDict = new Dictionary<string, EnumObjectiveStatus>(progressionData.ObjectivesAndStatusesDict);
+        if (!statusDict.Keys.ToList<string>().Contains(objID)) { Debug.LogError($"Invalid objective id: {objID}"); return; }
+        if (statusDict[objID] != EnumObjectiveStatus.NOT_STARTED) { Debug.LogWarning($"{objID} must be in the NOT_STARTED state to start"); return; }
+
+        statusDict[objID] = EnumObjectiveStatus.STARTED;
+        progressionData.UpdateObjectivesAndStatuses(statusDict);
+    }
+    public void FinishObjectiveWithID(string objID)
+    {
+        ProgressionData progressionData = DataController.Instance.ProgressionRuntimeData.Value;
+        Dictionary<string, EnumObjectiveStatus> statusDict = new Dictionary<string, EnumObjectiveStatus>(progressionData.ObjectivesAndStatusesDict);
+        if (!statusDict.Keys.ToList<string>().Contains(objID)) { Debug.LogError($"Invalid objective id: {objID}"); return; }
+        if (statusDict[objID] != EnumObjectiveStatus.STARTED) { Debug.LogWarning($"{objID} must be in the STARTED state to finish"); return; }
+
+        statusDict[objID] = EnumObjectiveStatus.FINISHED;
+        progressionData.UpdateObjectivesAndStatuses(statusDict);
+        GroomObjectives(objID);
+    }
+
+    private void GroomObjectives(string finishedObjectiveID)
+    {
+        ProgressionData progressionData = DataController.Instance.ProgressionRuntimeData.Value;
+        Dictionary<string, EnumObjectiveStatus> statusDict = new Dictionary<string, EnumObjectiveStatus>(progressionData.ObjectivesAndStatusesDict);
+        List<string> objIDs = statusDict.Keys.ToList<string>();
+        List<ObjectiveSO> objectivesToEvaluate = new List<ObjectiveSO>();
+
+        foreach(string _id in objIDs)
         {
-            List<ObjectiveSO> startedObjSOs = GetObjectiveSOsByStatus(EnumObjectiveStatus.STARTED);
-            if (startedObjSOs.Count > 0)
+            if (_id != finishedObjectiveID && statusDict[_id] == EnumObjectiveStatus.NOT_STARTED)
             {
-                foreach(ObjectiveSO startedObjSO in startedObjSOs)
+                objectivesToEvaluate.Add(GetObjectiveWithID(_id));
+            }
+        }
+        foreach(ObjectiveSO objective in objectivesToEvaluate)
+        {
+            bool goodToStart = true;
+            List<string> prerequisiteIDs = objective.PrerequisiteObjectiveIDs;
+            foreach(string prereqID in prerequisiteIDs)
+            {
+                if (statusDict[prereqID] != EnumObjectiveStatus.FINISHED) { goodToStart = false; break; }
+            }
+            if (goodToStart) { StartObjectiveWithID(objective.ObjectiveID); }
+        }
+    }
+
+    private void IngestRuntimeDataUpdate(IRuntimeData _data)
+    {
+
+        if (!(_data is ProgressionData)) return;
+        ProgressionData progressionData = _data as ProgressionData;
+        if (progressionData.ObjectivesAndStatusesDict == null) return;
+
+        List<ObjectiveSO> startedObjectives = new List<ObjectiveSO>();
+        Dictionary<string, EnumObjectiveStatus> statusDict = new Dictionary<string, EnumObjectiveStatus>(progressionData.ObjectivesAndStatusesDict);
+        foreach(string objID in statusDict.Keys.ToList<string>())
+        {
+            if(statusDict[objID] == EnumObjectiveStatus.STARTED) { startedObjectives.Add(GetObjectiveWithID(objID)); }
+        }
+
+        if (startedObjectives.Count > 0)
+        {
+            foreach (ObjectiveSO startedObj in startedObjectives)
+            {
+                CompletionCriteriaSO criteria = startedObj.CompletionCriteria;
+                if (criteria.IsCriteriaMet())
                 {
-                    bool isMet = IsCriteriaMet(startedObjSO.CompletionCriteria);
-                    if (isMet) { progData.FinishObjective(startedObjSO.ObjectiveID); }
+                    Debug.Log($"{startedObj.ObjectiveTitle} is complete!!!");
+                    FinishObjectiveWithID(startedObj.ObjectiveID);
                 }
             }
         }
-        if (progData.GetNotStartedObjectivesList() != null)
-        {
-            List<ObjectiveSO> notStartedObjSOs = GetObjectiveSOsByStatus(EnumObjectiveStatus.NOT_STARTED);
-            if (notStartedObjSOs.Count > 0)
-            {
-                foreach(ObjectiveSO notStartedObjSO in notStartedObjSOs)
-                {
-                    bool isMet = IsCriteriaMet(notStartedObjSO.EntryCriteria);
-                    if (isMet) { progData.StartObjective(notStartedObjSO.ObjectiveID); }
-                }
-            }
-        }
-        
+        if (devMode) { DebugIncomingData(progressionData); }
+        else { /*TODO: UI stuff...*/ }
     }
 
-    private List<ObjectiveSO> GetObjectiveSOsByStatus(EnumObjectiveStatus status)
+    private void DebugIncomingData(ProgressionData progData)
     {
-        
-        List<ObjectiveSO> objList = new List<ObjectiveSO>();
-        if (DataController.Instance == null) return objList;
-
-        List<EnumObjective> compareList = new List<EnumObjective>();
-
-        switch (status)
+        Dictionary<string, EnumObjectiveStatus> statusDict = new Dictionary<string, EnumObjectiveStatus>(progData.ObjectivesAndStatusesDict);
+        foreach(string objID in statusDict.Keys.ToList<string>())
         {
-            case EnumObjectiveStatus.NOT_STARTED:
-                compareList = DataController.Instance.ProgressionRuntimeData.Value.GetNotStartedObjectivesList();
-                break;
-            case EnumObjectiveStatus.STARTED:
-                compareList = DataController.Instance.ProgressionRuntimeData.Value.GetStartedObjectivesList();
-                break;
-            case EnumObjectiveStatus.FINISHED:
-                compareList = DataController.Instance.ProgressionRuntimeData.Value.GetFinishedObjectivesList();
-                break;
-        }
-        if (compareList.Count <= 0) return objList;
-        foreach (ObjectiveSO obj in objectives)
-        {
-            if ( (compareList.Contains(obj.ObjectiveID)) && (!objList.Contains(obj))) { objList.Add(obj); }
-        }
-
-        return objList;
-    }
-
-    /*
-    private void PromoteNewFinishedObjectives(ProgressionData progData)
-    {
-        foreach (ObjectiveSO obj in objectives)
-        {
-            if (progData.GetStartedObjectivesList().Contains(obj.ObjectiveID))
-            {
-                bool isMet = IsCriteriaMet(obj.CompletionCriteria);
-                if (isMet) { progData.StartObjective(obj.ObjectiveID); }
-            }
+            ObjectiveSO thisObj = GetObjectiveWithID(objID);
+            Debug.Log($"{thisObj.ObjectiveTitle}: {statusDict[objID].ToString()}");
         }
     }
 
-    private void PromoteNewStartedObjectives(ProgressionData progData)
-    {
-        foreach (ObjectiveSO obj in objectives)
-        {
-            if (progData.GetNotStartedObjectivesList().Contains(obj.ObjectiveID))
-            {
-                bool isMet = IsCriteriaMet(obj.EntryCriteria);
-                if (isMet) { progData.StartObjective(obj.ObjectiveID); }
-            }
-        }
-    }
-    */
-    
-
-    private bool IsCriteriaMet(List<ObjectiveCriterion> completionCriteria)
-    {
-
-        bool isMet = true;
-
-        foreach(ObjectiveCriterion criterion in completionCriteria)
-        {
-            EnumProgressionField field = criterion.progressionField;
-            EnumProgressionFieldType fieldType = criterion.progressionFieldType;
-            EnumValueComparison comparison = criterion.valueComparison;
-
-            switch (field)
-            {
-                case EnumProgressionField.FINISHED_OBJECTIVES:
-                    if (!CriteriaEvaluator.EvaluateFinishedObjectives(criterion)) { return false; }
-                    break;
-                case EnumProgressionField.DEFEATED_ENEMIES:
-                    if (!CriteriaEvaluator.EvaluateDefeatedEnemies(criterion)) { return false; }
-                    break;
-                case EnumProgressionField.DEFEATED_ENEMIES_COUNT:
-                    if (!CriteriaEvaluator.EvaluateDefeatedEnemiesCount(criterion)) { return false; }
-                    break;
-            }
-        }
-        return true;
-    }
-
-    public ObjectiveSO? GetObjectiveSOByID(EnumObjective objID)
-    {
-        foreach(ObjectiveSO obj in objectives)
-        {
-            if (obj.ObjectiveID == objID) { return obj; }
-        }
-
-        return null;
-    }
-
-    /*
-    private bool GetIsCriteriaListMet(List<ObjectiveCriterion> criteriaList)
-    {
-        bool isMet = true;
-
-
-
-        return isMet;
-    }
-    */
 
 }

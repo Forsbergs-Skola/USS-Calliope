@@ -14,16 +14,16 @@ public class ProgressionData : IRuntimeData
 
     private string _sceneName;
     private List<string> _defeatedEnemiesList;
-    private List<EnumObjective> _notStartedObjectives;
-    private List<EnumObjective> _startedObjectives;
-    private List<EnumObjective> _finishedObjectives;
+    private Dictionary<string, EnumObjectiveStatus> _objectivesAndStatusesDict;
+    private bool _aliceAndBobFuneralHeld = false;
 
+   
 
     ///////////////////
     // Public Access //
     ///////////////////
 
-    // Atomic Fields //
+
 
     public string SceneName
     {
@@ -34,56 +34,30 @@ public class ProgressionData : IRuntimeData
             DataTools.HandleOnDataChanged(this);
         }
     }
+    public bool AliceAndBobFuneralHeld
+    {
+        get => _aliceAndBobFuneralHeld;
+        set
+        {
+            if (value == _aliceAndBobFuneralHeld) return;
+            _aliceAndBobFuneralHeld = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
 
-    // Lists //
+    public IReadOnlyDictionary<string, EnumObjectiveStatus> ObjectivesAndStatusesDict
+    {
+        get
+        {
+            return _objectivesAndStatusesDict;
+        }
+    }
 
     // Objectives
-    public List<EnumObjective> GetNotStartedObjectivesList()
+    public void UpdateObjectivesAndStatuses(Dictionary<string, EnumObjectiveStatus> inDict)
     {
-        if (_notStartedObjectives == null) return null;
-        return new List<EnumObjective>(_notStartedObjectives);
-    }
-    public List<EnumObjective> GetStartedObjectivesList()
-    {
-        if (_startedObjectives == null) return null;
-        return new List<EnumObjective>(_startedObjectives);
-    }
-    public List<EnumObjective> GetFinishedObjectivesList()
-    {
-        if (_finishedObjectives == null) return null;
-        return new List<EnumObjective>(_finishedObjectives);
-    }
-    public void StartObjective(EnumObjective objective)
-    {
-        if (_finishedObjectives.Contains(objective)) return;
-        if (_startedObjectives.Contains(objective)) return;
-        if (!_notStartedObjectives.Contains(objective)) return;
-        _notStartedObjectives.Remove(objective);
-        _startedObjectives.Add(objective);
+        _objectivesAndStatusesDict = new Dictionary<string, EnumObjectiveStatus>(inDict);
         DataTools.HandleOnDataChanged(this);
-    }
-    public void FinishObjective(EnumObjective objective)
-    {
-        if (_notStartedObjectives.Contains(objective)) return;
-        if (_finishedObjectives.Contains(objective)) return;
-        if (!_startedObjectives.Contains(objective)) return;
-        _startedObjectives.Remove(objective);
-        _finishedObjectives.Add(objective);
-        DataTools.HandleOnDataChanged(this);
-    }
-    public void NotStartObjective(EnumObjective objective)
-    {
-        if (_startedObjectives.Contains(objective)) { _startedObjectives.Remove(objective); }
-        if (_finishedObjectives.Contains(objective)) { _finishedObjectives.Remove(objective); }
-        if (_notStartedObjectives.Contains(objective)) return;
-        _notStartedObjectives.Add(objective);
-        DataTools.HandleOnDataChanged(this);
-    }
-    public void ClearObjectivesData()
-    {
-        _startedObjectives = new List<EnumObjective>();
-        _notStartedObjectives = new List<EnumObjective>();
-        _finishedObjectives = new List<EnumObjective>();
     }
 
     // Defeated Enemies
@@ -98,24 +72,6 @@ public class ProgressionData : IRuntimeData
         DataTools.HandleOnDataChanged(this);
     }
 
-    public void InitializeObjective(EnumObjective objective, EnumObjectiveStatus defaultStatus)
-    {
-        switch (defaultStatus)
-        {
-            case EnumObjectiveStatus.NOT_STARTED:
-                if (!_notStartedObjectives.Contains(objective)) { _notStartedObjectives.Add(objective); }
-                break;
-            case EnumObjectiveStatus.STARTED:
-                if (!_startedObjectives.Contains(objective)) { _startedObjectives.Add(objective); }
-                break;
-            case EnumObjectiveStatus.FINISHED:
-                if(!_finishedObjectives.Contains(objective)) { _finishedObjectives.Add(objective); }
-                break;
-        }
-        DataTools.HandleOnDataChanged(this);
-    }
-
-
 
     //////////////////
     // Constructors //
@@ -124,29 +80,27 @@ public class ProgressionData : IRuntimeData
     {
         IsSandbox = false;
         SceneName = "Bootstrap";
-        _notStartedObjectives = new List<EnumObjective>();
-        _startedObjectives = new List<EnumObjective>();
-        _finishedObjectives = new List<EnumObjective>();
         _defeatedEnemiesList = new List<string>();
+        _objectivesAndStatusesDict = new Dictionary<string, EnumObjectiveStatus>();
+        AliceAndBobFuneralHeld = false;
     }
     public ProgressionData(bool isSandBox)
     {
         IsSandbox = isSandBox;
         SceneName = "Bootstrap";
-        _notStartedObjectives = new List<EnumObjective>();
-        _startedObjectives = new List<EnumObjective>();
-        _finishedObjectives = new List<EnumObjective>();
         _defeatedEnemiesList = new List<string>();
+        _objectivesAndStatusesDict = new Dictionary<string, EnumObjectiveStatus>();
+        AliceAndBobFuneralHeld = false;
     }
-
+    
     public ProgressionData(ProgressionData inData)
+    // use this constructor when loading a saved game
     {
         IsSandbox = false;
         SceneName = inData.SceneName;
-        _notStartedObjectives = inData.GetNotStartedObjectivesList();
-        _startedObjectives = inData.GetStartedObjectivesList();
-        _finishedObjectives = inData.GetFinishedObjectivesList();
-        _defeatedEnemiesList = inData.GetDefeatedEnemiesList();
+        _defeatedEnemiesList = new List<string>(inData.GetDefeatedEnemiesList());
+        _objectivesAndStatusesDict = new Dictionary<string, EnumObjectiveStatus>(inData.ObjectivesAndStatusesDict);
+        AliceAndBobFuneralHeld = inData.AliceAndBobFuneralHeld;
     }
     public bool GetIsSandbox() { return IsSandbox; }
 }
