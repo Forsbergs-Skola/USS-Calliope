@@ -15,7 +15,21 @@ public class ProgressionData : IRuntimeData
     private string _sceneName;
     private List<string> _defeatedEnemiesList;
     private Dictionary<string, EnumObjectiveStatus> _objectivesAndStatusesDict;
+
+    private bool _dataDelivered = false;
+    private bool _centralCorridorDiscovered;
+    
+    
+    
+    
+    
+    
+    
+    
+    
     private bool _aliceAndBobFuneralHeld = false;
+
+
 
    
 
@@ -23,7 +37,26 @@ public class ProgressionData : IRuntimeData
     // Public Access //
     ///////////////////
 
-
+    public bool DataDelivered
+    {
+        get => _dataDelivered;
+        set
+        {
+            if (value == _dataDelivered) return;
+            _dataDelivered = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+    public bool CentralCorridorDiscovered
+    {
+        get => _centralCorridorDiscovered;
+        set
+        {
+            if (value == _centralCorridorDiscovered) return;
+            _centralCorridorDiscovered = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
 
     public string SceneName
     {
@@ -82,6 +115,11 @@ public class ProgressionData : IRuntimeData
         SceneName = "Bootstrap";
         _defeatedEnemiesList = new List<string>();
         _objectivesAndStatusesDict = new Dictionary<string, EnumObjectiveStatus>();
+
+        _dataDelivered = false;
+        _centralCorridorDiscovered = false;
+
+
         AliceAndBobFuneralHeld = false;
     }
     public ProgressionData(bool isSandBox)
@@ -90,6 +128,11 @@ public class ProgressionData : IRuntimeData
         SceneName = "Bootstrap";
         _defeatedEnemiesList = new List<string>();
         _objectivesAndStatusesDict = new Dictionary<string, EnumObjectiveStatus>();
+
+
+        _dataDelivered = false;
+        _centralCorridorDiscovered = false;
+
         AliceAndBobFuneralHeld = false;
     }
     
@@ -100,7 +143,17 @@ public class ProgressionData : IRuntimeData
         SceneName = inData.SceneName;
         _defeatedEnemiesList = new List<string>(inData.GetDefeatedEnemiesList());
         _objectivesAndStatusesDict = new Dictionary<string, EnumObjectiveStatus>(inData.ObjectivesAndStatusesDict);
+
+
+        _dataDelivered = inData.DataDelivered;
+        _centralCorridorDiscovered = inData.CentralCorridorDiscovered;
+
+
         AliceAndBobFuneralHeld = inData.AliceAndBobFuneralHeld;
     }
     public bool GetIsSandbox() { return IsSandbox; }
+
+
+
+
 }

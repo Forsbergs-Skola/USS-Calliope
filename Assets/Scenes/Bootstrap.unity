@@ -1014,12 +1014,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
+      propertyPath: skipSplash
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
       propertyPath: newGamePressedEvent
       value: 
       objectReference: {fileID: 11400000, guid: c069b11bc30bb0c4a9b4afde452373a1, type: 2}
     - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
       propertyPath: defaultGameSceneName
-      value: TestScene
+      value: _ObjectivesStaging
       objectReference: {fileID: 0}
     - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
       propertyPath: loadGamePressedEvent

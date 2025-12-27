@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff8ed796d1f3be4db854ba62bf38bd2, type: 3}
+  m_Name: QuestItemCrewQuartersKey
+  m_EditorClassIdentifier: Assembly-CSharp::QuestItemSO
+  itemID: 3d92ec05-bb06-4964-b865-815664154bda
+  displayName: Bridge Key
+  iconTexturePath: InventoryItemTextures/Key

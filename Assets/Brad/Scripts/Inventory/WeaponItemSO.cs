@@ -5,7 +5,7 @@ public class WeaponItemSO : ScriptableObject, IInventoryItem
 {
     [SerializeField] private string itemID = string.Empty;
     [SerializeField] private string displayName = string.Empty;
-    [SerializeField] private string iconTexturePath = string.Empty;
+    [SerializeField] private string iconTexturePath = $"{Constants.INVENTORY_TEXTURE_FOLDER}/";
 
     public string ItemID { get => itemID; }
     public string DisplayName { get => displayName; }

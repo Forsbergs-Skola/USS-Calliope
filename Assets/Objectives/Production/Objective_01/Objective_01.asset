@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15815f44e6040db419e2c801825408e3, type: 3}
+  m_Name: Objective_01
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectiveSO
+  objectiveID: e58ad942-7804-4300-96a0-9d491166dc4f
+  objectiveTitle: Find a Light Source
+  objectiveDescription: The station is completely dark. Find something to illuminate
+    your path.
+  defaultStatus: 1
+  xpReward: 0
+  prerequisiteObjectiveIDs: []
+  completionCriteria: {fileID: 11400000, guid: 5a3e5f039b38f4445bad2c9f42c74f04, type: 2}
+  devNotes: 'Flashlight ID: 6d81adca-c9f4-44bd-8523-ce3f820faa19
+
+'
