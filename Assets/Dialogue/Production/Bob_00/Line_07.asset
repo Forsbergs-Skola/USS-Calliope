@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2074b53732d54f94ca78a40d54b933ba, type: 3}
+  m_Name: Line_07
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueLineSO
+  lineID: fcc86f2e-dc27-4567-a132-f3c12f296383
+  speakerName: Bob
+  lineText: I need a sample of your blood, and a sample from one of the infected
+    crew.
+  characterRevealInterval: 0.002
+  portraitTexturePath: DialoguePortraitTextures/FP_00
