@@ -9,14 +9,14 @@ public static class IDConstants
     // QUEST ITEMS //
     public const string FLASHLIGHT_INV_ID = "6d81adca-c9f4-44bd-8523-ce3f820faa19";
     public const string CREW_QUARTERS_KEY = "3d92ec05-bb06-4964-b865-815664154bda";
-    public const string INFECTED_SAMPLE = "ABC123";
+    public const string INFECTED_SAMPLE = "66603036-9a3d-4d39-9ee4-1539d00cbb6b";
 
     // WEAPONS //
     public const string PISTOL = "e0d787fd-841a-4d18-80aa-a714d392ec94";
 
     // CONSUMABLES //
     public const string PISTOL_AMMO = "a9f38ca3-34f0-4319-82e1-0e8588736d51";
-    public const string HEALTH_PACK = "ABC123";
+    //public const string HEALTH_PACK = "ABC123";
 
 
 
@@ -36,6 +36,7 @@ public static class IDConstants
     ///////////////////
 
     public const string CONVERSATION_BOB_00 = "50791dc5-7571-4ef8-930c-08a63d7ebec5";
+    public const string CONVERSATION_BOB_01 = "1fe47f51-40fc-4ef2-b03f-b6d2208e927c";
 
 
 }

@@ -13,8 +13,10 @@ public class WalkThrough : MonoBehaviour
     [SerializeField] private Button investigateMedBayButton;
     [SerializeField] private Button pistolButton;
     [SerializeField] private Button pistolAmmoPickup01;
-
     [SerializeField] private Button killEnemy01Button;
+    [SerializeField] private Button infectedSampleButton;
+
+    [SerializeField] private Button returnToBobButton;
 
 
 
@@ -43,14 +45,12 @@ public class WalkThrough : MonoBehaviour
 
         flashlightButton.onClick.AddListener(GetFlashlight);
         discoverCentralCorridorButton.onClick.AddListener(EnterCentralCorridor);
-        crewQuartersKeyButton.onClick.AddListener(GetCrewQuartersKey);
         investigateMedBayButton.onClick.AddListener(InvestigateMedBay);
         pistolButton.onClick.AddListener(GetPistol);
         pistolAmmoPickup01.onClick.AddListener(PistolAmmoPickup01);
-
         killEnemy01Button.onClick.AddListener(KillEnemy01);
-        
-
+        infectedSampleButton.onClick.AddListener(GetInfectedSample);
+        returnToBobButton.onClick.AddListener(ReturnToBob);
 
 
         crewQuartersKeyButton.gameObject.SetActive(false); // <-- temp
@@ -68,6 +68,9 @@ public class WalkThrough : MonoBehaviour
         pistolButton.onClick.RemoveAllListeners();
         pistolAmmoPickup01.onClick.RemoveAllListeners();
         killEnemy01Button.onClick.RemoveAllListeners();
+        infectedSampleButton.onClick.RemoveAllListeners();
+        returnToBobButton.onClick.RemoveAllListeners();
+
     }
 
 
@@ -104,38 +107,35 @@ public class WalkThrough : MonoBehaviour
     }
     private void KillEnemy01()
     {
-
         bool canKill = (invData.GetWeaponItemIDs().Contains(IDConstants.PISTOL) && consumablesDict.Keys.ToList<string>().Contains(IDConstants.PISTOL_AMMO));
         if (canKill)
         {
-            Debug.Log("BANG!!!"); return;
+            progData.DefeatEnemy("Charlie");
         }
         else
         {
             Debug.Log("CLIKKK"); return;
         }
-
-
-
     }
-
+    private void GetInfectedSample()
+    {
+        invData.AddQuestItem(IDConstants.INFECTED_SAMPLE);
+    }
+    private void ReturnToBob()
+    {
+        DialogueController.Instance.StartConvoWithID(IDConstants.CONVERSATION_BOB_01);
+    }
 
     private void FixButtons()
     {
         flashlightButton.gameObject.SetActive(statusDict[IDConstants.OBJECTIVE_01_ID] == EnumObjectiveStatus.STARTED);
-
         discoverCentralCorridorButton.gameObject.SetActive(statusDict[IDConstants.OBJECTIVE_02_ID] == EnumObjectiveStatus.STARTED);
         investigateMedBayButton.gameObject.SetActive(statusDict[IDConstants.OBJECTIVE_04_ID] == EnumObjectiveStatus.STARTED);
         pistolButton.gameObject.SetActive(progData.BobContacted == true && !invData.GetWeaponItemIDs().Contains(IDConstants.PISTOL));
         pistolAmmoPickup01.gameObject.SetActive(progData.BobContacted == true && !consumablesDict.Keys.ToList<string>().Contains(IDConstants.PISTOL_AMMO));
-        killEnemy01Button.gameObject.SetActive(statusDict[IDConstants.OBJECTIVE_05_ID] == EnumObjectiveStatus.STARTED);
-      
-
+        killEnemy01Button.gameObject.SetActive(statusDict[IDConstants.OBJECTIVE_05_ID] == EnumObjectiveStatus.STARTED && !progData.GetDefeatedEnemiesList().Contains("Charlie"));
+        infectedSampleButton.gameObject.SetActive(progData.GetDefeatedEnemiesList().Contains("Charlie")  && !invData.GetQuestItemIDs().Contains(IDConstants.INFECTED_SAMPLE) && !invData.GetQuestItemIDs().Contains(IDConstants.CREW_QUARTERS_KEY));
+        returnToBobButton.gameObject.SetActive(invData.GetQuestItemIDs().Contains(IDConstants.INFECTED_SAMPLE) );
     }
-
-
-
-
-
 
 }
