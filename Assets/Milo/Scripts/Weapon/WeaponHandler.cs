@@ -13,11 +13,10 @@ public class PlayerWeaponHandler : MonoBehaviour
     private PerformAttack performAttack;
     private PlayerAimController aimController;
     private WeaponCooldown weaponCooldown;
-    private GameObject currentWeaponGO;
+    private GameObject currentWeaponPrefab;
 
     public AmmoModel AmmoModel { get; private set; }
-
-    //// UNITY LIFECYCLE
+    
     private void Awake()
     {
         weaponCooldown = GetComponent<WeaponCooldown>();
@@ -43,37 +42,50 @@ public class PlayerWeaponHandler : MonoBehaviour
         attackInput.AimStarted -= OnAimStarted;
         attackInput.AimStopped -= OnAimStopped;
     }
-
-    //// PUBLIC METHODS
-    public void EquipWeapon(SO_WeaponType equippedWeapon, GameObject weaponGO = null)
+    
+    public void EquipWeapon(SO_WeaponType equippedWeapon, GameObject weaponPrefab = null)
     {
-        if (!equippedWeapon) return;
+        if (!equippedWeapon)
+            return;
 
-        if (currentWeaponGO)
-            Destroy(currentWeaponGO);
+        if (weaponPrefab && !firePoint)
+        {
+            Debug.LogError("WeaponHandler.cs: Tried to equip weapon but firePoint is missing");
+            return;
+        }
 
+        if (currentWeaponPrefab)
+            Destroy(currentWeaponPrefab);
+        
         currentWeapon = equippedWeapon;
-        currentWeaponGO = weaponGO;
+        currentWeaponPrefab = weaponPrefab;
 
-        AmmoModel.Initialize(equippedWeapon);
+        AmmoModel.InitializeAmmo(equippedWeapon);
         weaponCooldown.InitializeCooldown(equippedWeapon.FireRate);
-
         performAttack.SetCurrentWeapon(equippedWeapon);
+        
+        if (!currentWeaponPrefab)
+            return;
 
-        if (!currentWeaponGO || !firePoint) return;
-        currentWeaponGO.transform.SetParent(firePoint.parent, worldPositionStays: false);
-        currentWeaponGO.transform.localPosition = Vector3.zero;
-        currentWeaponGO.transform.localRotation = Quaternion.identity;
-        currentWeaponGO.transform.localScale = Vector3.one; 
-
+        currentWeaponPrefab.transform.SetParent(firePoint.parent, false);
+        currentWeaponPrefab.transform.localPosition = Vector3.zero;
+        currentWeaponPrefab.transform.localRotation = Quaternion.identity;
+        currentWeaponPrefab.transform.localScale = Vector3.one;
     }
-
-
-    //// INPUT CALLBACKS
+    
     private void OnFireStarted()
     {
-        if (!aimController.IsAiming || !currentWeapon)
+        if (!currentWeapon) return;
+
+        // Melee logic: Usually allowed even if not aiming
+        if (currentWeapon.AttackCategories == SO_WeaponType.AttackCategory.Melee)
+        {
+            TryMeleeAttack();
             return;
+        }
+
+        // Gun logic: Requires aiming
+        if (!aimController.IsAiming) return;
 
         if (!currentWeapon.IsSemiAutomatic)
         {
@@ -83,7 +95,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         }
         else
         {
-            TryShoot();
+            TryHitScanAttack();
         }
     }
 
@@ -103,21 +115,12 @@ public class PlayerWeaponHandler : MonoBehaviour
     {
     }
 
-    //// CORE FUNCTIONALITY
-    private void TryShoot()
+    private void TryHitScanAttack()
     {
         if (!currentWeapon || !firePoint) return;
-        if (!weaponCooldown.CanFire()) return;
+        if (!weaponCooldown.CanFire() || !currentWeapon.HasAmmo) return;
 
-        var ammoCost = currentWeapon.AttackCategories switch
-        {
-            SO_WeaponType.AttackCategory.Hitscan => 1,
-            SO_WeaponType.AttackCategory.Taser => 1,
-            SO_WeaponType.AttackCategory.Melee => 0,
-            _ => 0
-        };
-
-        if (ammoCost > 0 && !AmmoModel.UseAmmo(ammoCost))
+        if (!AmmoModel.UseAmmo(1))
         {
             audioSource.PlayOneShot(currentWeapon.DryFireSound);
             return;
@@ -126,24 +129,27 @@ public class PlayerWeaponHandler : MonoBehaviour
         performAttack.Execute();
         weaponCooldown.StartCooldown(currentWeapon.FireRate);
     }
+    
+    private void TryMeleeAttack()
+    {
+        // Melee doesn't need to check for firePoint or Ammo
+        if (!weaponCooldown.CanFire())
+            return;
+
+        Debug.Log("[WeaponHandler] Executing Melee Attack");
+    
+        performAttack.Execute();
+    
+        // Use the weapon's fireRate as the "swing speed" cooldown
+        weaponCooldown.StartCooldown(currentWeapon.FireRate);
+    }
 
     private IEnumerator AutomaticFire()
     {
         while (isHoldingTrigger)
         {
-            TryShoot();
+            TryHitScanAttack();
             yield return new WaitForSeconds(currentWeapon.FireRate);
         }
-    }
-
-    //// AMMO EVENTS
-    private void OnAmmoChanged(int current, int max)
-    {
-        Debug.Log($"Ammo: {current}/{max}");
-    }
-
-    private void OnAmmoError(string message)
-    {
-        Debug.LogWarning(message);
     }
 }

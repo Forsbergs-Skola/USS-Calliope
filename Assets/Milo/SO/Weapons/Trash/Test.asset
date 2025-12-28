@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fdc3a13b5fc81042b83285e787e264b, type: 3}
-  m_Name: Taser
+  m_Name: Test
   m_EditorClassIdentifier: Assembly-CSharp::SO_WeaponType
-  id: Taser
-  weaponCategory: 
-  ammoCategory: 
+  id: Gun Name
+  weaponCategory: 'Rifle '
+  ammoCategory: 'Super good ammo '
   icon: {fileID: 0}
-  description: 
+  description: 'Pew Pew gun gun '
   damage: 0
-  fireRate: 10
+  fireRate: 0.2
   isSemiAutomatic: 0
-  attackCategory: 1
-  hasAmmo: 1
-  magSize: 5
-  ammoType: {fileID: 11400000, guid: d8acd3d48e0a7774a9d87713b7198846, type: 2}
-  reloadTime: 20
+  attackCategory: 0
+  hasAmmo: 0
+  magSize: 0
+  ammoType: {fileID: 0}
+  reloadTime: 0
   hasBallistics: 0
-  impactRange: 1
+  impactRange: 0
   spreadStandardDeviation: 0
   damageOverDistance:
     serializedVersion: 2
@@ -41,13 +41,13 @@ MonoBehaviour:
   movementInaccuracyMultiplier: 0
   sprintInaccuracyMultiplier: 0
   accuracyGracePeriod: 0
-  stunEffectTime: 10
+  stunEffectTime: 0
   isMelee: 0
   meleeReach: 0
   meleeHitRadius: 0
   meleeHitForce: 0
   weaponModelPrefab: {fileID: 0}
   muzzleFlashPrefab: {fileID: 0}
-  attackSound: {fileID: 8300000, guid: 5fe4ec4c4ef636e4997f5fd6644779e2, type: 3}
+  attackSound: {fileID: 0}
   reloadSound: {fileID: 0}
   dryFireSound: {fileID: 0}

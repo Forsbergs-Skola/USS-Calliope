@@ -16,32 +16,9 @@ public class WeaponPickupHandler : PickupBase
 
         handler.EquipWeapon(weaponView.WeaponType, weaponView.gameObject);
 
-        if (giveStartingAmmo && weaponView.WeaponType.AmmoType)
-        {
-            handler.AmmoModel.AddAmmo(
-                weaponView.WeaponType.AmmoType,
-                startingAmmoAmount,
-                AmmoModel.AmmoDestination.Weapon
-            );
-        }
+        if (!giveStartingAmmo && !weaponView.WeaponType.AmmoType) return;
+        handler.AmmoModel.AddAmmo(weaponView.WeaponType.AmmoType, startingAmmoAmount);
 
-        var col = GetComponent<Collider>();
-        if (col) col.enabled = false;
-    }
-
-
-    private void AttachToSocket()
-    {
-        if (!weaponSocket) return;
-
-        transform.SetParent(weaponSocket, worldPositionStays: false);
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
-        transform.localScale = Vector3.one;
-    }
-
-    private void DisablePickup()
-    {
         var col = GetComponent<Collider>();
         if (col) col.enabled = false;
     }

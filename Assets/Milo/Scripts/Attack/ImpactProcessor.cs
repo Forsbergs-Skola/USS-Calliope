@@ -25,7 +25,7 @@ public class ImpactProcessor : MonoBehaviour
     
     public void ProcessTase(RaycastHit hit)
     {
-        if (!currentWeapon || currentWeapon.AttackCategories != SO_WeaponType.AttackCategory.Taser)
+        if (!currentWeapon || currentWeapon.AttackCategories != SO_WeaponType.AttackCategory.NonLethal)
         {
             return;
         }
@@ -36,8 +36,20 @@ public class ImpactProcessor : MonoBehaviour
         // stunEffect.GetStunned(stunTime);
     }
 
-    public void ProcessMeleeHit(RaycastHit hit)
+    public void ProcessMeleeHit(RaycastHit hit, Vector3 attackDirection, float force)
     {
-        
+        if (!currentWeapon) return;
+
+        if (hit.collider.TryGetComponent<EnemyHealthPC>(out var health))
+        {
+            health.TakeDamage(currentWeapon.Damage);
+        }
+
+        if (hit.collider.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.AddForceAtPosition(attackDirection.normalized * force, hit.point, ForceMode.Impulse);
+        }
     }
+
+
 }

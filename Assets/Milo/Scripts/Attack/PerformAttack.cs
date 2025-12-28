@@ -33,6 +33,7 @@ public class PerformAttack : MonoBehaviour
     public void SetCurrentWeapon(SO_WeaponType equippedWeapon)
     {
         currentWeapon = equippedWeapon;
+        Debug.Log($"Current Weapon set to: {currentWeapon?.name}");
         movementTimer = 0f;
         impactProcessor.InitializeProcessor(equippedWeapon);
     }
@@ -46,7 +47,7 @@ public class PerformAttack : MonoBehaviour
             case SO_WeaponType.AttackCategory.Hitscan:
                 GunAttack(aimDirection);
                 break;
-            case SO_WeaponType.AttackCategory.Taser:
+            case SO_WeaponType.AttackCategory.NonLethal:
                 TaserAttack(aimDirection);
                 break;
             case SO_WeaponType.AttackCategory.Melee:
@@ -75,15 +76,50 @@ public class PerformAttack : MonoBehaviour
 
     private void MeleeAttack(Vector3 aimDirection)
     {
-        // To be implemented
+        Debug.Log("MeleeAttack Called");
+        PlayAttackSound();
+        if (aimDirection == Vector3.zero) aimDirection = transform.forward;
+
+        var radius = currentWeapon.MeleeHitRadius;
+        var reach = currentWeapon.MeleeReach; 
+    
+        Vector3 origin = firePoint.position;
+        RaycastHit[] hits = Physics.SphereCastAll(origin, radius, aimDirection, reach, impactProcessor.HitMask);
+        
+        foreach (var hit in hits)
+        {
+            if (hit.collider.transform.root == transform.root) continue;
+
+            impactProcessor.ProcessMeleeHit(hit, aimDirection, currentWeapon.MeleeHitForce);
+        }
+        if (showDebugTrajectory)
+        {
+            Debug.DrawRay(origin, aimDirection * reach, Color.red, 0.5f);
+        }
     }
 
-    //// HELPERS
+    
     private bool CanAttack(out Vector3 aimDirection)
     {
         aimDirection = Vector3.zero;
-        if (!currentWeapon || !firePoint) return false;
-        return aimController.TryGetAimDirection(firePoint.position, out aimDirection);
+
+        if (!currentWeapon || !firePoint) 
+        {
+            return false;
+        }
+
+        var hasAim = aimController.TryGetAimDirection(firePoint.position, out aimDirection);
+    
+        if (currentWeapon.AttackCategories != SO_WeaponType.AttackCategory.Melee) 
+        {
+            return hasAim;
+        }
+
+        if (!hasAim)
+        {
+            aimDirection = transform.forward;
+        }
+        return true; 
     }
 
     private void PerformRaycastShot(Vector3 aimDirection, Action<RaycastHit> onHit)

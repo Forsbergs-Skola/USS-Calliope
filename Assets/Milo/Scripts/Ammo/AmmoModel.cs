@@ -10,7 +10,7 @@ public class AmmoModel
     public int MaxAmmo => maxAmmo;
     public SO_AmmoType CurrentAmmoType => currentAmmoType;
 
-    public void Initialize(SO_WeaponType currentWeapon)
+    public void InitializeAmmo(SO_WeaponType currentWeapon)
     {
         if (!currentWeapon || !currentWeapon.HasAmmo)
         {
@@ -30,30 +30,20 @@ public class AmmoModel
         currentAmmo = 0;
     }
 
-    public enum AmmoDestination
+    public void AddAmmo(SO_AmmoType ammoType, int amount)
     {
-        Weapon,
-        Inventory
-    }
-
-    public void AddAmmo(SO_AmmoType ammoType, int amount, AmmoDestination destination)
-    {
-        // Explicit inventory routing (store pickups, overflow, etc.)
-        if (destination == AmmoDestination.Inventory)
-        {
-            SendToInventory(ammoType, amount);
-            return;
-        }
-
-        // Weapon cannot accept ammo
         if (!CanAcceptAmmo(ammoType))
         {
-            SendToInventory(ammoType, amount);
+            AddAmmoToInventory(ammoType, amount);
             return;
         }
 
-        // Add ammo to weapon
         currentAmmo = Math.Min(currentAmmo + amount, maxAmmo);
+    }
+    
+    public void AddAmmoToInventory(SO_AmmoType ammoType, int amount)
+    {
+        
     }
 
     private bool CanAcceptAmmo(SO_AmmoType ammoType)
@@ -64,16 +54,7 @@ public class AmmoModel
         if (ammoType != currentAmmoType)
             return false;
 
-        if (currentAmmo >= maxAmmo)
-            return false;
-
-        return true;
-    }
-
-    private void SendToInventory(SO_AmmoType ammoType, int amount)
-    {
-        // Inventory system hooks here later
-        // Inventory.AddAmmo(ammoType, amount);
+        return currentAmmo < maxAmmo;
     }
 
     public bool UseAmmo(int amount)

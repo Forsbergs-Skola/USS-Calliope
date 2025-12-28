@@ -7,7 +7,7 @@ public class PlayerAimController : MonoBehaviour
     [Header("Aim Settings")]
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float aimHeightOffset = 1.2f;
-    [SerializeField] private float cameraOffsetDistance = 5f;
+    [SerializeField] private float cameraOffsetDistance = 10f;
     
     [Header("Aim Camera Settings")]
     [SerializeField] private float holdThreshold = 0.2f; 

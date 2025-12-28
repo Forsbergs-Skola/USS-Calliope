@@ -7,7 +7,7 @@ public class SO_WeaponType : ScriptableObject
     public enum AttackCategory
     {
         Hitscan,
-        Taser,
+        NonLethal,
         Melee,
     }
 
@@ -50,8 +50,11 @@ public class SO_WeaponType : ScriptableObject
     [Header("Taser Settings")]
     [SerializeField, Min(0)] private float stunEffectTime;
 
-    [Header("Melee Settings")]
+    [Header("Melee Settings")] 
+    [SerializeField] private bool isMelee;
+    [SerializeField, Min(0.1f)] private float meleeReach;
     [SerializeField, Min(0.1f)] private float meleeHitRadius;
+    [SerializeField] private float meleeHitForce;
 
     //// VISUALS
     [Header("Visuals")]
@@ -94,7 +97,10 @@ public class SO_WeaponType : ScriptableObject
     public float AccuracyGracePeriod => accuracyGracePeriod;
 
     public float StunEffectTime => stunEffectTime;
+    public bool IsMelee => isMelee;
+    public float MeleeReach => meleeReach;
     public float MeleeHitRadius => meleeHitRadius;
+    public float MeleeHitForce => meleeHitForce;
 
     public GameObject WeaponModelPrefab => weaponModelPrefab;
     public ParticleSystem MuzzleFlashPrefab => muzzleFlashPrefab;

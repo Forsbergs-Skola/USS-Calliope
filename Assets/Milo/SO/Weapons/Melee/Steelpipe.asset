@@ -17,7 +17,7 @@ MonoBehaviour:
   ammoCategory: None
   icon: {fileID: 0}
   description: 
-  damage: 0
+  damage: 50
   fireRate: 1
   isSemiAutomatic: 1
   attackCategory: 2
@@ -42,9 +42,12 @@ MonoBehaviour:
   sprintInaccuracyMultiplier: 0
   accuracyGracePeriod: 0.15
   stunEffectTime: 0
-  meleeHitRadius: 0.1
+  isMelee: 1
+  meleeReach: 0
+  meleeHitRadius: 3
+  meleeHitForce: 2
   weaponModelPrefab: {fileID: 0}
   muzzleFlashPrefab: {fileID: 0}
-  attackSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 908a71387dd4ace4da5f8dac7fea9bf0, type: 3}
   reloadSound: {fileID: 0}
   dryFireSound: {fileID: 0}

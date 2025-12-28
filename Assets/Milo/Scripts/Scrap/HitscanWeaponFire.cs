@@ -60,7 +60,7 @@ public class HitscanWeaponFire : MonoBehaviour
             case SO_WeaponType.AttackCategory.Hitscan:
                 FireHitscan(aimDirection);
                 break;
-            case SO_WeaponType.AttackCategory.Taser:
+            case SO_WeaponType.AttackCategory.NonLethal:
                 TurnOnTaser();
                 break;
             case SO_WeaponType.AttackCategory.Melee:
