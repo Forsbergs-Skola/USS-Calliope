@@ -8,8 +8,8 @@ namespace Olle.Scripts
         public float invisibleDuration = 10f;
         public Renderer[] rendersToHide;
         
-        public float staminaTickAmount = 30f;      // drain 30
-        public float staminaTickInterval = 2f;     // every 2s
+        public float staminaTickAmount = 30f;      
+        public float staminaTickInterval = 2f;     
 
         PlayerController _controller;
         PlayerStamina _stamina;
@@ -22,8 +22,7 @@ namespace Olle.Scripts
         bool _invisUsedThisCrouch;
 
         public bool IsInvisible => _isInvisible;
-
-        // Setup
+        
         void Awake()
         {
             _controller = GetComponent<PlayerController>();
@@ -32,14 +31,12 @@ namespace Olle.Scripts
             if (rendersToHide == null || rendersToHide.Length == 0)
                 rendersToHide = GetComponentsInChildren<Renderer>();
         }
-
-        // Main update
+        
         void Update()
         {
             if (_controller == null)
                 return;
-
-            // ===== ENTER INVISIBILITY ONCE PER CROUCH =====
+            
             if (_controller.IsCrouching)
             {
                 _crouchTimer += Time.deltaTime;
@@ -59,15 +56,13 @@ namespace Olle.Scripts
             }
             else
             {
-                // Standing up: reset and force visible
                 _crouchTimer = 0f;
                 _invisUsedThisCrouch = false;
 
                 if (_isInvisible)
                     SetInvisible(false);
             }
-
-            // ===== WHILE INVISIBLE =====
+            
             if (_isInvisible)
             {
                 _invisibleTimer += Time.deltaTime;
@@ -80,8 +75,7 @@ namespace Olle.Scripts
                 HandleStaminaDrain();
             }
         }
-
-        // Drain stamina
+        
         void HandleStaminaDrain()
         {
             if (_stamina == null)
@@ -93,8 +87,7 @@ namespace Olle.Scripts
                 return;
 
             _staminaTickTimer = 0f;
-
-            // If already 0, force off and tired
+            
             if (_stamina.currentStamina <= 0f)
             {
                 Debug.Log("Invis drain: stamina already 0, off + tired");
@@ -116,23 +109,21 @@ namespace Olle.Scripts
                 SetInvisible(false);
             }
         }
-
-        // Mark tired
+        
         void MakeTiredFromStealth()
         {
             if (_stamina == null)
                 return;
 
             _stamina.isTired = true;
-            // Regen delay should start from now
+          
             var type = typeof(PlayerStamina);
             var lastUseField = type.GetField("_lastUseTime",
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             if (lastUseField != null)
                 lastUseField.SetValue(_stamina, Time.time);
         }
-
-        // Toggle invis
+        
         void SetInvisible(bool value)
         {
             _isInvisible = value;
@@ -142,8 +133,7 @@ namespace Olle.Scripts
             Debug.Log($"SetInvisible({value}) called");
             UpdateTransparency();
         }
-
-        // Change alpha
+        
         void UpdateTransparency()
         {
             float targetAlpha = _isInvisible ? 0.25f : 1f;

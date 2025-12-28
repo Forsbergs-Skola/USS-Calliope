@@ -30,13 +30,10 @@ namespace Olle.Scripts
         PlayerStamina _stamina;
         CrouchInvisibility _crouchInvis; 
         
-        // Expose crouch state to abilities
         public bool IsCrouching => _isCrouching;
-
-        // For Dashability
+        
         public bool IsDashing { get; set; }
-
-        // Abilities can subscribe to this
+        
         public System.Action<Vector2> OnMoveEvent;
         
         void Awake()
@@ -119,7 +116,7 @@ namespace Olle.Scripts
             {
                 moveSpeed = crouchMoveSpeed;
             }
-            else if (!IsDashing) // do not overwrite dash speed
+            else if (!IsDashing)
             {
                 if (canSprint)
                 {
@@ -173,15 +170,13 @@ namespace Olle.Scripts
 
         void FixedUpdate()
         {
-            // Movement
             if (_inputDir.sqrMagnitude > 0.0001f)
             {
                 float step = moveSpeed * Time.fixedDeltaTime;
                 Vector3 targetPos = _rb.position + _inputDir * step;
                 _rb.MovePosition(targetPos);
             }
-
-            // Face mouse
+            
             if (Camera.main == null || Mouse.current == null)
                 return;
 
@@ -200,7 +195,6 @@ namespace Olle.Scripts
             }
         }
         
-        //Crouch scale, will change when assets are used
         void ApplyCrouchState()
         {
             Vector3 scale = transform.localScale;

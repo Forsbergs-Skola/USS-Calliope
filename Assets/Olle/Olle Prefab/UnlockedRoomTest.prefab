@@ -639,7 +639,9 @@ MonoBehaviour:
   doorTransform: {fileID: 0}
   openOffset: {x: 5, y: 0, z: 0}
   openCloseSpeed: 8
+  lockType: 0
   isLocked: 0
+  keyId: 1
 --- !u!1 &8599887334870921450
 GameObject:
   m_ObjectHideFlags: 0

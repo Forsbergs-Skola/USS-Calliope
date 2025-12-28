@@ -26,27 +26,23 @@ namespace Olle.Scripts
 
         Vector2 _lastTapDir;
         float _lastTapTime;
-
-        // Setup
+        
         void Awake()
         {
             _controller = GetComponent<PlayerController>();
             _stamina    = GetComponent<PlayerStamina>();
         }
-
-        // Enable input
+        
         void OnEnable()
         {
             _controller.OnMoveEvent += HandleMoveInput;
         }
-
-        // Disable input
+        
         void OnDisable()
         {
             _controller.OnMoveEvent -= HandleMoveInput;
         }
         
-        // Handle input
         void HandleMoveInput(Vector2 moveInput)
         {
             if (!_isKeyDown && moveInput != Vector2.zero)
@@ -65,8 +61,7 @@ namespace Olle.Scripts
                 _currentDir = Vector2.zero;
             }
         }
-
-        // Tap check
+        
         void RegisterTap(Vector2 dir)
         {
             float now = Time.time;
@@ -80,8 +75,7 @@ namespace Olle.Scripts
             _lastTapDir = dir;
             _lastTapTime = now;
         }
-
-        // Direction
+        
         Vector2 GetCardinalDirection(Vector2 input)
         {
             if (input.sqrMagnitude < 0.1f)
@@ -92,8 +86,7 @@ namespace Olle.Scripts
             else
                 return new Vector2(0f, Mathf.Sign(input.y));
         }
-
-        // Dash start
+        
         void TryStartDash(Vector2 dashDir)
         {
             if (_isDashing || _controller == null || _stamina == null)
@@ -113,8 +106,7 @@ namespace Olle.Scripts
 
             Debug.Log("DASH START dir=" + dashDir);
         }
-
-        // Update dash
+        
         void Update()
         {
             if (!_isDashing)

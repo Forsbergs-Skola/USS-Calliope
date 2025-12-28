@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class Terminal : MonoBehaviour
 {
     [Header("Input")]
-    public InputActionAsset inputActionsAsset;   // drag PlayerInputActions here in Inspector
+    public InputActionAsset inputActionsAsset;
 
     [Header("Door + Indicator")]
     public SlidingDoor lockedDoor;
@@ -27,7 +27,6 @@ public class Terminal : MonoBehaviour
             return;
         }
 
-        // Try "Player/Interact" first; if null, try just "Interact"
         interactAction = actionsAsset.FindAction("Player/Interact", throwIfNotFound: false);
         if (interactAction == null)
             interactAction = actionsAsset.FindAction("Interact", throwIfNotFound: false);
@@ -66,9 +65,11 @@ public class Terminal : MonoBehaviour
             lockIndicator.material.color = unlockedColor;
 
         if (lockedDoor != null)
-            lockedDoor.UnlockDoor();
+        {
+            lockedDoor.UnlockAndBecomeFreeDoor();
+        }
 
-        Debug.Log("Terminal activated! Door unlocked.");
+        Debug.Log("Terminal activated! Door unlocked and behaves like a normal door.");
     }
 
     void OnTriggerEnter(Collider other)

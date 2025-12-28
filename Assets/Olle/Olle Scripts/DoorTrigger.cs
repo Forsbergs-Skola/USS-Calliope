@@ -6,19 +6,33 @@ public class DoorTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player") || door == null) return;
+        
+        if (door.lockType == DoorLockType.None)
         {
-            if (door != null)
-                door.SetOpen(true);
+            door.SetOpen(true);
+            return;
         }
+        
+        if (door.lockType == DoorLockType.Keycard)
+        {
+            var keycards = other.GetComponent<PlayerKeycards>();
+            if (keycards != null)
+            {
+                keycards.TryUseKeycardForDoor(door);
+            }
+            return;
+        }
+        
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player") || door == null) return;
+        
+        if (!door.isLocked)
         {
-            if (door != null)
-                door.SetOpen(false);
+            door.SetOpen(false);
         }
     }
 }
