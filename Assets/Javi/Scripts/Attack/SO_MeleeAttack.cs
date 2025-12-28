@@ -18,7 +18,6 @@ public class SO_MeleeAttack : EnemyAttackSOClass
 
     public override void Execute(EnemyAttackContext context)
     {
-        Debug.Log("Melee Execute CALLED");
         var damageable = context.player.GetComponent<IDamageable>();
         if (damageable == null)
         {
@@ -27,6 +26,6 @@ public class SO_MeleeAttack : EnemyAttackSOClass
         }
 
         damageable.TakeDamage(damage);
-        Debug.Log("Melee attack hit the player");
+        //Debug.Log("Melee attack hit the player");
     }
 }

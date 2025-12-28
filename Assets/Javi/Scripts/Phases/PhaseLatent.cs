@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class PhaseLatent : MonoBehaviour, IPhaseBehavior
 {
-    public void OnEnterPhase()
+    public void OnEnterPhase(SO_InfectionPhaseData data)
     {
-        // Human still conscious: avoids player
-        GetComponent<EnemyAttackController>().enabled = false;
+        var attackController = GetComponent<EnemyAttackController>();
+        attackController.enabled = true;
+
+        attackController.SetAttacks(data.availableAttacks);
+        Debug.Log("[PhaseActive] Attacks set from phase data");
     }
 
     public void Tick()

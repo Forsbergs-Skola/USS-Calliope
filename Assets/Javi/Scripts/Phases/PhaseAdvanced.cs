@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class PhaseAdvanced : MonoBehaviour, IPhaseBehavior
 {
-    public void OnEnterPhase()
+    public void OnEnterPhase(SO_InfectionPhaseData data)
     {
-        // Smart hunter behavior
-        //GetComponent<EnemyAlertSystem>().RaiseGlobalAlert();
+        var attackController = GetComponent<EnemyAttackController>();
+        attackController.enabled = true;
+
+        attackController.SetAttacks(data.availableAttacks);
+        Debug.Log("[PhaseAdvanced] Advanced attacks set");
     }
 
     public void Tick()

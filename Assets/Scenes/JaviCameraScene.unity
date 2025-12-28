@@ -797,6 +797,9 @@ GameObject:
   - component: {fileID: 350374210}
   - component: {fileID: 350374209}
   - component: {fileID: 350374208}
+  - component: {fileID: 350374221}
+  - component: {fileID: 350374220}
+  - component: {fileID: 350374219}
   m_Layer: 7
   m_Name: Enemy (3)
   m_TagString: Untagged
@@ -817,7 +820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackController
   playerTag: Player
-  availableAttacks: []
+  currentAttacks: []
 --- !u!114 &350374209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -863,7 +866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 915d12c1416e97b428b8e37f28c27b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InfectionController
-  infectionPercentage: 70
+  infectionPercentage: 30
   showDebugGizmos: 1
   OnInfectionChanged:
     m_PersistentCalls:
@@ -920,7 +923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyFollowPlayer
   playerTarget: {fileID: 7116462969216917717}
   moveSpeed: 2
-  followPlayer: 0
+  followPlayer: 1
 --- !u!136 &350374215
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1016,6 +1019,42 @@ Transform:
   - {fileID: 471422518}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &350374219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350374207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830a181bd894c024a9748a2bfa4dd8c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhaseLatent
+--- !u!114 &350374220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350374207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b32e9b5245071242ae31c922c460e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhaseAdvanced
+--- !u!114 &350374221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350374207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f334ba9dcedb9c94f96adc448e0244b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhaseActive
 --- !u!1 &471422517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1974,6 +2013,9 @@ GameObject:
   - component: {fileID: 1205656839}
   - component: {fileID: 1205656838}
   - component: {fileID: 1205656841}
+  - component: {fileID: 1205656844}
+  - component: {fileID: 1205656843}
+  - component: {fileID: 1205656842}
   m_Layer: 7
   m_Name: Enemy (2)
   m_TagString: Untagged
@@ -2030,7 +2072,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyFollowPlayer
   playerTarget: {fileID: 7116462969216917717}
   moveSpeed: 2
-  followPlayer: 1
+  followPlayer: 0
 --- !u!136 &1205656834
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2171,7 +2213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 915d12c1416e97b428b8e37f28c27b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InfectionController
-  infectionPercentage: 30
+  infectionPercentage: 70
   showDebugGizmos: 1
   OnInfectionChanged:
     m_PersistentCalls:
@@ -2192,8 +2234,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackController
   playerTag: Player
-  availableAttacks:
-  - {fileID: 11400000, guid: ce564d776dd5e0e479461fd34db4a34c, type: 2}
+  currentAttacks: []
+--- !u!114 &1205656842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205656830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830a181bd894c024a9748a2bfa4dd8c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhaseLatent
+--- !u!114 &1205656843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205656830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b32e9b5245071242ae31c922c460e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhaseAdvanced
+--- !u!114 &1205656844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205656830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f334ba9dcedb9c94f96adc448e0244b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhaseActive
 --- !u!1 &1332616831
 GameObject:
   m_ObjectHideFlags: 0
