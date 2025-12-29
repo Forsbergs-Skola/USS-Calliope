@@ -63,11 +63,9 @@ public class AttackInput : MonoBehaviour
 
     private void Update()
     {
-        if (mousePosAction?.action != null)
-        {
-            Vector2 mousePos = mousePosAction.action.ReadValue<Vector2>();
-            MouseMoved?.Invoke(mousePos);
-        }
+        if (mousePosAction?.action == null) return;
+        Vector2 mousePos = mousePosAction.action.ReadValue<Vector2>();
+        MouseMoved?.Invoke(mousePos);
     }
 
     private static void Enable(InputActionReference reference)

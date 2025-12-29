@@ -54,6 +54,4 @@ public class ImpactProcessor : MonoBehaviour
             rb.AddForceAtPosition(attackDirection.normalized * force, hit.point, ForceMode.Impulse);
         }
     }
-
-
 }
