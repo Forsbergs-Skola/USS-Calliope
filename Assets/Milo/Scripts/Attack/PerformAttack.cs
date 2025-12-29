@@ -76,15 +76,14 @@ public class PerformAttack : MonoBehaviour
 
     private void MeleeAttack(Vector3 aimDirection)
     {
-        Debug.Log("MeleeAttack Called");
         PlayAttackSound();
         if (aimDirection == Vector3.zero) aimDirection = transform.forward;
 
         var radius = currentWeapon.MeleeHitRadius;
         var reach = currentWeapon.MeleeReach; 
     
-        Vector3 origin = firePoint.position;
-        RaycastHit[] hits = Physics.SphereCastAll(origin, radius, aimDirection, reach, impactProcessor.HitMask);
+        var origin = firePoint.position;
+        var hits = Physics.SphereCastAll(origin, radius, aimDirection, reach, impactProcessor.HitMask);
         
         foreach (var hit in hits)
         {
