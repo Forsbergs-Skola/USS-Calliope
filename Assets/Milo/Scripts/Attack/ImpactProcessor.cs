@@ -17,12 +17,14 @@ public class ImpactProcessor : MonoBehaviour
     {
         if (!currentWeapon) return;
 
-        var calculatedDamage = currentWeapon.GetDamageAtDistance(hit.distance);
-
+        float calculatedDamage = currentWeapon.GetDamageAtDistance(hit.distance);
         
-        // Add IDamagable
-        if (!hit.collider.gameObject.TryGetComponent<EnemyHealthPC>(out var healthComponent)) return;
-        healthComponent.TakeDamage(calculatedDamage);
+        var damageable = hit.collider.GetComponentInParent<IDamageable>();
+        if (damageable != null)
+        {
+            damageable.TakeDamage(calculatedDamage);
+        }
+        Debug.Log($"Damage dealt: {calculatedDamage} to {hit.collider.name}");
     }
     
     public void ProcessTase(RaycastHit hit)
@@ -42,9 +44,9 @@ public class ImpactProcessor : MonoBehaviour
     {
         if (!currentWeapon) return;
 
-        if (hit.collider.TryGetComponent<EnemyHealthPC>(out var health))
+        if (hit.collider.TryGetComponent<IDamageable>(out var damageable))
         {
-            health.TakeDamage(currentWeapon.Damage);
+            damageable.TakeDamage(currentWeapon.Damage);
         }
 
         if (hit.collider.TryGetComponent<Rigidbody>(out var rb))
