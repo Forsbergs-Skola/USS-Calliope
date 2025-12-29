@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: LeapAttack
   m_EditorClassIdentifier: Assembly-CSharp::SO_LeapAttack
   cooldown: 1.5
-  leapDistance: 3
-  leapSpeed: 8
+  startRunDistance: 6
+  headbuttDistance: 1.2
+  runSpeed: 6
+  windUpTime: 0.3
   damage: 20
   maxProbability: 1

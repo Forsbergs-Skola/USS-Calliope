@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class PhaseActive : MonoBehaviour, IPhaseBehavior
 {
-    public void OnEnterPhase()
+    public void OnEnterPhase(SO_InfectionPhaseData data)
     {
-        GetComponent<EnemyAttackController>().enabled = true;
+        var attackController = GetComponent<EnemyAttackController>();
+        attackController.enabled = true;
+
+        attackController.SetAttacks(data.availableAttacks);
+        Debug.Log("[PhaseActive] Attacks set from phase data");
     }
 
     public void Tick()
