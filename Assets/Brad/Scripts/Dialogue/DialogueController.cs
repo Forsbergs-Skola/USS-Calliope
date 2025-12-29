@@ -7,8 +7,15 @@ public class DialogueController : Singleton<DialogueController>
     //[SerializeField] private List<DialogueConversationSO> conversations;
     [SerializeField] private ConversationCatalogSO conversations;
 
+
+    DialogueEventHandler dialogueEventHandler = null;
+
+
+
     private void Start()
     {
+        dialogueEventHandler = GetComponent<DialogueEventHandler>();
+
         EventRelay.Instance.UIEvents.DialogueConvoStartedEVent.OnEventTriggered += HandleConvoStartedEvent;
         EventRelay.Instance.UIEvents.DialogueConvoFinishedEvent.OnEventTriggered += HandleConvoEndedEvent;
         EventRelay.Instance.UIEvents.DialogueLineStartedEVent.OnEventTriggered += HandleLineStartedEvent;
@@ -35,7 +42,7 @@ public class DialogueController : Singleton<DialogueController>
     {
         if (!UIController.Instance.GetIsCanvasUp(EnumCanvasUIName.DIALOGUE)) return;
         UIController.Instance.RemoveCanvas(EnumCanvasUIName.DIALOGUE);
-
+        dialogueEventHandler.HandleConversationFinished(convoID);
     }
     private void HandleLineStartedEvent(string lineID)
     {
