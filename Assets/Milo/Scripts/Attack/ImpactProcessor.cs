@@ -19,6 +19,8 @@ public class ImpactProcessor : MonoBehaviour
 
         var calculatedDamage = currentWeapon.GetDamageAtDistance(hit.distance);
 
+        
+        // Add IDamagable
         if (!hit.collider.gameObject.TryGetComponent<EnemyHealthPC>(out var healthComponent)) return;
         healthComponent.TakeDamage(calculatedDamage);
     }
