@@ -71,7 +71,7 @@ public class SO_LeapAttack : EnemyAttackSOClass
         float timer = 0f;
         while (timer < crouchRunDuration)
         {
-            // Si llega a distancia de impacto antes → golpea
+            // If we are close -> hit
             if (Vector3.Distance(enemy.position, player.position) <= headbuttDistance)
                 break;
 
@@ -79,8 +79,8 @@ public class SO_LeapAttack : EnemyAttackSOClass
             yield return null;
         }
 
-        // 2️⃣ Stop & hit
-        movement.FollowPlayer = false;
+        // Stop & hit
+        //movement.FollowPlayer = false;
 
         if (Vector3.Distance(enemy.position, player.position) <= headbuttDistance)
         {
@@ -96,7 +96,7 @@ public class SO_LeapAttack : EnemyAttackSOClass
             Debug.Log("[Leap] Failed (player escaped)");
         }
 
-        // 3️⃣ Restore movement
+        // Restore movement
         movement.MoveSpeed = originalSpeed;
     }
 }
