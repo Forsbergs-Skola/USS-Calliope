@@ -7,6 +7,6 @@ public class HasFlashlightCriteriaSO : CompletionCriteriaSO
     {
         if (DataController.Instance == null) return false;
         InventoryData data = DataController.Instance.InventoryRuntimeData.Value;
-        return data.GetQuestItemIDs().Contains("6d81adca-c9f4-44bd-8523-ce3f820faa19");
+        return data.GetQuestItemIDs().Contains(IDConstants.FLASHLIGHT_INV_ID);
     }
 }

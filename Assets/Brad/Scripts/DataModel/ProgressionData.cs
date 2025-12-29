@@ -19,6 +19,7 @@ public class ProgressionData : IRuntimeData
     private bool _dataDelivered = false;
     private bool _centralCorridorDiscovered;
     private bool _bobContacted = false;
+    private bool _crewQuartersUnlocked = false;
     
     
     
@@ -65,6 +66,16 @@ public class ProgressionData : IRuntimeData
         {
             if (value == _bobContacted) return;
             _bobContacted = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+    public bool CrewQuartersUnlocked
+    {
+        get => _crewQuartersUnlocked;
+        set
+        {
+            if (value == _crewQuartersUnlocked) return;
+            _crewQuartersUnlocked = value;
             DataTools.HandleOnDataChanged(this);
         }
     }
@@ -130,6 +141,7 @@ public class ProgressionData : IRuntimeData
         _dataDelivered = false;
         _centralCorridorDiscovered = false;
         _bobContacted = false;
+        _crewQuartersUnlocked = false;
 
 
         AliceAndBobFuneralHeld = false;
@@ -145,6 +157,7 @@ public class ProgressionData : IRuntimeData
         _dataDelivered = false;
         _centralCorridorDiscovered = false;
         _bobContacted = false;
+        _crewQuartersUnlocked = false;
 
         AliceAndBobFuneralHeld = false;
     }
@@ -161,6 +174,7 @@ public class ProgressionData : IRuntimeData
         _dataDelivered = inData.DataDelivered;
         _centralCorridorDiscovered = inData.CentralCorridorDiscovered;
         _bobContacted = inData.BobContacted;
+        _crewQuartersUnlocked = inData.CrewQuartersUnlocked;
 
 
         AliceAndBobFuneralHeld = inData.AliceAndBobFuneralHeld;
