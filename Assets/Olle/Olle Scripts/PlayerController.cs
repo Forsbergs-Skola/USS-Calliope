@@ -19,7 +19,7 @@ namespace Olle.Scripts
         Vector3 _inputDir;
         Vector2 _moveInput;
         bool _wantsToRun;
-        bool _isCrouching;
+        public bool _isCrouching;
 
         float _defaultScaleY;
         float _defaultMoveSpeed;
@@ -28,6 +28,13 @@ namespace Olle.Scripts
         float _noiseTimer;
         
         PlayerStamina _stamina;
+        CrouchInvisibility _crouchInvis; 
+        
+        public bool IsCrouching => _isCrouching;
+        
+        public bool IsDashing { get; set; }
+        
+        public System.Action<Vector2> OnMoveEvent;
         
         void Awake()
         {
@@ -36,23 +43,27 @@ namespace Olle.Scripts
             _defaultScaleY    = transform.localScale.y;
             _defaultMoveSpeed = moveSpeed;
 
-            _noise = GetComponent<NoiseEmitter>();
-
-            
-            _stamina = GetComponent<PlayerStamina>();
-           
+            _noise        = GetComponent<NoiseEmitter>();
+            _stamina      = GetComponent<PlayerStamina>();
+            _crouchInvis  = GetComponent<CrouchInvisibility>();
         }
-        
+
+        //Move inputs
         public void OnMove(InputAction.CallbackContext ctx)
         {
             _moveInput = ctx.ReadValue<Vector2>();
-        }
 
+            // Notify dash ability etc.
+            OnMoveEvent?.Invoke(_moveInput);
+        }
+        
+        //Run
         public void OnRun(InputAction.CallbackContext ctx)
         {
             _wantsToRun = ctx.ReadValue<float>() > 0.5f;
         }
 
+        //Crouch
         public void OnCrouch(InputAction.CallbackContext ctx)
         {
             if (ctx.performed)
@@ -62,6 +73,27 @@ namespace Olle.Scripts
             }
         }
 
+        //Interact
+        public void OnInteract(InputAction.CallbackContext ctx)
+        {
+            if (!ctx.performed)
+                return;
+            
+            float interactRadius = 1.5f;
+            Vector3 origin = transform.position + transform.forward * 1f;
+
+            Collider[] hits = Physics.OverlapSphere(origin, interactRadius);
+            foreach (Collider hit in hits)
+            {
+                var interactable = hit.GetComponent<Interactable>();
+                if (interactable != null)
+                {
+                    interactable.Trigger(this);
+                    break;
+                }
+            }
+        }
+        
         void Update()
         {
             Vector3 move = new Vector3(_moveInput.x, 0f, _moveInput.y);
@@ -73,8 +105,10 @@ namespace Olle.Scripts
             bool canSprint = false;
             if (_stamina != null)
             {
+                bool blockRegen = _crouchInvis != null && _crouchInvis.IsInvisible; 
                 _stamina.Tick(Time.deltaTime,
                               _wantsToRun && isMoving && !_isCrouching,
+                              blockRegen, 
                               out canSprint);
             }
 
@@ -82,17 +116,20 @@ namespace Olle.Scripts
             {
                 moveSpeed = crouchMoveSpeed;
             }
-            else if (canSprint)
+            else if (!IsDashing)
             {
-                moveSpeed = runMoveSpeed;
-            }
-            else if (_stamina != null && _stamina.isTired)
-            {
-                moveSpeed = 2f; // Tired Speed
-            }
-            else
-            {
-                moveSpeed = _defaultMoveSpeed;
+                if (canSprint)
+                {
+                    moveSpeed = runMoveSpeed;
+                }
+                else if (_stamina != null && _stamina.isTired)
+                {
+                    moveSpeed = 2f; // Tired Speed
+                }
+                else
+                {
+                    moveSpeed = _defaultMoveSpeed;
+                }
             }
 
             // Noise
@@ -133,15 +170,13 @@ namespace Olle.Scripts
 
         void FixedUpdate()
         {
-            // Movement
             if (_inputDir.sqrMagnitude > 0.0001f)
             {
                 float step = moveSpeed * Time.fixedDeltaTime;
                 Vector3 targetPos = _rb.position + _inputDir * step;
                 _rb.MovePosition(targetPos);
             }
-
-            // Face mouse
+            
             if (Camera.main == null || Mouse.current == null)
                 return;
 
@@ -160,26 +195,6 @@ namespace Olle.Scripts
             }
         }
         
-        public void OnInteract(InputAction.CallbackContext ctx)
-        {
-            if (!ctx.performed)
-                return;
-            
-            float interactRadius = 1.5f;
-            Vector3 origin = transform.position + transform.forward * 1f;
-
-            Collider[] hits = Physics.OverlapSphere(origin, interactRadius);
-            foreach (Collider hit in hits)
-            {
-                var interactable = hit.GetComponent<Interactable>();
-                if (interactable != null)
-                {
-                    interactable.Trigger(this);
-                    break;
-                }
-            }
-        }
-
         void ApplyCrouchState()
         {
             Vector3 scale = transform.localScale;
