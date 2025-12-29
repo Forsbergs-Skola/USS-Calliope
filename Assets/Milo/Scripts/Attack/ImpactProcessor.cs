@@ -3,28 +3,53 @@ using UnityEngine;
 public class ImpactProcessor : MonoBehaviour
 {
     [SerializeField] private LayerMask hitMask;
-    [SerializeField] private float fixedMaxDistance = 100f;
-
-    private int currentWeaponDamage;
+    
+    private SO_WeaponType currentWeapon;
+    
     public LayerMask HitMask => hitMask;
-    public float MaxDistance => fixedMaxDistance;
-
+    
     public void InitializeProcessor(SO_WeaponType weapon)
     {
-        currentWeaponDamage = weapon.WeaponDamage;
+        currentWeapon = weapon;
     }
-
+    
     public void ProcessHit(RaycastHit hit)
     {
-        Debug.Log($"Hit: {hit.collider.name} at {hit.point} | Dist: {hit.distance:F2}m");
+        if (!currentWeapon) return;
 
-        //if (!hit.collider.gameObject.TryGetComponent<EnemyHealthPC>(out var healthComponent)) return;
-        //healthComponent.TakeDamage(currentWeaponDamage);
-        var damageable = hit.collider.GetComponentInParent<IDamageable>();
-        if (damageable != null)
-        {
-            damageable.TakeDamage(currentWeaponDamage);
-        }
-        Debug.Log($"Damage dealt: {currentWeaponDamage} to {hit.collider.name}");
+        var calculatedDamage = currentWeapon.GetDamageAtDistance(hit.distance);
+
+        if (!hit.collider.gameObject.TryGetComponent<EnemyHealthPC>(out var healthComponent)) return;
+        healthComponent.TakeDamage(calculatedDamage);
     }
+    
+    public void ProcessTase(RaycastHit hit)
+    {
+        if (!currentWeapon || currentWeapon.AttackCategories != SO_WeaponType.AttackCategory.NonLethal)
+        {
+            return;
+        }
+
+        var stunTime = currentWeapon.StunEffectTime;
+
+        // if (!hit.collider.gameObject.TryGetComponent<EnemyStunEffect>(out var stunEffect)) return;
+        // stunEffect.GetStunned(stunTime);
+    }
+
+    public void ProcessMeleeHit(RaycastHit hit, Vector3 attackDirection, float force)
+    {
+        if (!currentWeapon) return;
+
+        if (hit.collider.TryGetComponent<EnemyHealthPC>(out var health))
+        {
+            health.TakeDamage(currentWeapon.Damage);
+        }
+
+        if (hit.collider.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.AddForceAtPosition(attackDirection.normalized * force, hit.point, ForceMode.Impulse);
+        }
+    }
+
+
 }

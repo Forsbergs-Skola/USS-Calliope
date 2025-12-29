@@ -6,11 +6,10 @@ public class WeaponCooldown : MonoBehaviour
     private float currentFireRate;
     private bool canShoot = true;
 
-    // Initialization called by PlayerWeaponHandler.EquipWeapon
     public void InitializeCooldown(float fireRate)
     {
         currentFireRate = fireRate;
-        canShoot = true; //  resets cooldown when a new weapon is equipped
+        canShoot = true; 
     }
 
     public bool CanFire()

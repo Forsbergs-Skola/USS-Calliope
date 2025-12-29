@@ -2,26 +2,24 @@ using UnityEngine;
 
 public class WeaponPickupHandler : PickupBase
 {
-    [SerializeField] private SO_WeaponType weapon;
-
+    [SerializeField] private WeaponView weaponView;
     [SerializeField] private Transform weaponSocket;
+
+    [Header("Optional Ammo On Pickup")]
+    [SerializeField] private bool giveStartingAmmo;
+    [SerializeField] private int startingAmmoAmount = 0;
 
     protected override void OnPickup(GameObject picker)
     {
         if (!picker.TryGetComponent<PlayerWeaponHandler>(out var handler))
             return;
 
-        handler.EquipWeapon(weapon);
+        handler.EquipWeapon(weaponView.WeaponType, weaponView.gameObject);
 
-        if (weaponSocket == null) return;
-        // Keep the world position (optional: or remove if it should snap to socket)
-        transform.SetParent(weaponSocket, worldPositionStays: false);
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
-        transform.localScale = Vector3.one;
+        if (!giveStartingAmmo && !weaponView.WeaponType.AmmoType) return;
+        handler.AmmoModel.AddAmmo(weaponView.WeaponType.AmmoType, startingAmmoAmount);
 
         var col = GetComponent<Collider>();
-        if (col != null) col.enabled = false;
+        if (col) col.enabled = false;
     }
-
 }

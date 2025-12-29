@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fdc3a13b5fc81042b83285e787e264b, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: Assembly-CSharp::SO_WeaponType
+  id: Gun Name
+  weaponCategory: 'Rifle '
+  ammoCategory: 'Super good ammo '
+  icon: {fileID: 0}
+  description: 'Pew Pew gun gun '
+  damage: 0
+  fireRate: 0.2
+  isSemiAutomatic: 0
+  attackCategory: 0
+  hasAmmo: 0
+  magSize: 0
+  ammoType: {fileID: 0}
+  reloadTime: 0
+  hasBallistics: 0
+  impactRange: 0
+  spreadStandardDeviation: 0
+  damageOverDistance:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  pelletCount: 1
+  recoilPerShotMin: 0
+  recoilPerShotMax: 0
+  recoilRecoverySpeed: 0
+  movementInaccuracyMultiplier: 0
+  sprintInaccuracyMultiplier: 0
+  accuracyGracePeriod: 0
+  stunEffectTime: 0
+  isMelee: 0
+  meleeReach: 0
+  meleeHitRadius: 0
+  meleeHitForce: 0
+  weaponModelPrefab: {fileID: 0}
+  muzzleFlashPrefab: {fileID: 0}
+  attackSound: {fileID: 0}
+  reloadSound: {fileID: 0}
+  dryFireSound: {fileID: 0}

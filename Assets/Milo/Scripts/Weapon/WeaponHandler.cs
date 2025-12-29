@@ -1,115 +1,155 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
-    [SerializeField] private PlayerAimController aimController;
-    [SerializeField] private WeaponCooldown cooldown;
-    [SerializeField] private ImpactProcessor impactProcessor;
+    [SerializeField] private AudioSource audioSource;
     [SerializeField] private Transform firePoint;
 
-    [Header("Input")] [SerializeField] private InputActionReference shootAction;
-
-    private AmmoModel ammoModel;
+    private AttackInput attackInput;
     private SO_WeaponType currentWeapon;
+    private bool isHoldingTrigger;
+    private Coroutine firingCoroutine;
+    private PerformAttack performAttack;
+    private PlayerAimController aimController;
+    private WeaponCooldown weaponCooldown;
+    private GameObject currentWeaponPrefab;
 
-    public AmmoModel AmmoModel => ammoModel;
-
-    void Awake()
+    public AmmoModel AmmoModel { get; private set; }
+    
+    private void Awake()
     {
-        ammoModel = new AmmoModel();
-        ammoModel.AmmoChanged += OnAmmoChanged;
-        ammoModel.OnError += OnAmmoError;
+        weaponCooldown = GetComponent<WeaponCooldown>();
+        attackInput = GetComponent<AttackInput>();
+        aimController = GetComponent<PlayerAimController>();
+        performAttack = GetComponent<PerformAttack>();
 
-        if (shootAction != null && shootAction.action != null)
-        {
-            shootAction.action.Enable();
-            shootAction.action.performed += OnShootInput;
-        }
+        AmmoModel = new AmmoModel();
     }
 
-    void OnDestroy()
+    private void Start()
     {
-        if (shootAction != null && shootAction.action != null)
-        {
-            shootAction.action.performed -= OnShootInput;
-            shootAction.action.Disable();
-        }
+        attackInput.FireStarted += OnFireStarted;
+        attackInput.FireStopped += OnFireStopped;
+        attackInput.AimStarted += OnAimStarted;
+        attackInput.AimStopped += OnAimStopped;
     }
 
-    private void OnShootInput(InputAction.CallbackContext context)
+    private void OnDisable()
     {
-        TryShoot();
+        attackInput.FireStarted -= OnFireStarted;
+        attackInput.FireStopped -= OnFireStopped;
+        attackInput.AimStarted -= OnAimStarted;
+        attackInput.AimStopped -= OnAimStopped;
     }
-
-    public void EquipWeapon(SO_WeaponType newWeapon)
+    
+    public void EquipWeapon(SO_WeaponType equippedWeapon, GameObject weaponPrefab = null)
     {
-        if (newWeapon == null)
+        if (!equippedWeapon)
+            return;
+
+        if (weaponPrefab && !firePoint)
         {
-            Debug.LogWarning("Attempted to equip null weapon.");
+            Debug.LogError("WeaponHandler.cs: Tried to equip weapon but firePoint is missing");
             return;
         }
 
-        if (newWeapon == currentWeapon)
+        if (currentWeaponPrefab)
+            Destroy(currentWeaponPrefab);
+        
+        currentWeapon = equippedWeapon;
+        currentWeaponPrefab = weaponPrefab;
+
+        AmmoModel.InitializeAmmo(equippedWeapon);
+        weaponCooldown.InitializeCooldown(equippedWeapon.FireRate);
+        performAttack.SetCurrentWeapon(equippedWeapon);
+        
+        if (!currentWeaponPrefab)
             return;
 
-        currentWeapon = newWeapon;
-        Debug.Log($"Equipped: {newWeapon.WeaponId}");
-
-
-        ammoModel.Initialize(newWeapon);
-
-        cooldown.InitializeCooldown(newWeapon.FireRate);
-
-        impactProcessor.InitializeProcessor(newWeapon);
+        currentWeaponPrefab.transform.SetParent(firePoint.parent, false);
+        currentWeaponPrefab.transform.localPosition = Vector3.zero;
+        currentWeaponPrefab.transform.localRotation = Quaternion.identity;
+        currentWeaponPrefab.transform.localScale = Vector3.one;
     }
-
-    public void TryShoot()
+    
+    private void OnFireStarted()
     {
-        if (currentWeapon == null || firePoint == null) return;
+        if (!currentWeapon) return;
 
-        if (!cooldown.CanFire()) return;
-
-        const int ammoPerShot = 1;
-        if (!ammoModel.UseAmmo(ammoPerShot))
+        // Melee logic: Usually allowed even if not aiming
+        if (currentWeapon.AttackCategories == SO_WeaponType.AttackCategory.Melee)
         {
-            Debug.Log($"Click! {currentWeapon.WeaponId} out of ammo.");
+            TryMeleeAttack();
             return;
         }
 
-        FireWeapon();
-        cooldown.StartCooldown(currentWeapon.FireRate);
-    }
+        // Gun logic: Requires aiming
+        if (!aimController.IsAiming) return;
 
-    private void FireWeapon()
-    {
-        Vector3 origin = firePoint.position;
-        Vector3 finalDirection;
-
-        if (aimController.TryGetAimDirection(origin, out finalDirection))
+        if (!currentWeapon.IsSemiAutomatic)
         {
-            RaycastHit hit;
-
-            if (Physics.Raycast(origin, finalDirection, out hit, impactProcessor.MaxDistance, impactProcessor.HitMask))
-            {
-                impactProcessor.ProcessHit(hit);
-                Debug.DrawLine(origin, hit.point, Color.red, 0.1f);
-            }
-            else
-            {
-                Debug.Log("Shot missed everything.");
-                Debug.DrawLine(origin, origin + finalDirection * impactProcessor.MaxDistance, Color.yellow, 0.1f);
-            }
+            if (firingCoroutine != null) return;
+            isHoldingTrigger = true;
+            firingCoroutine = StartCoroutine(AutomaticFire());
+        }
+        else
+        {
+            TryHitScanAttack();
         }
     }
 
-    private void OnAmmoChanged(int current, int max)
+    private void OnFireStopped()
     {
-        Debug.Log($"Ammo: {current}/{max}");
+        isHoldingTrigger = false;
+        if (firingCoroutine == null) return;
+        StopCoroutine(firingCoroutine);
+        firingCoroutine = null;
     }
 
-    private void OnAmmoError(string message)
+    private void OnAimStarted()
     {
-        Debug.LogWarning(message);
+    }
+
+    private void OnAimStopped()
+    {
+    }
+
+    private void TryHitScanAttack()
+    {
+        if (!currentWeapon || !firePoint) return;
+        if (!weaponCooldown.CanFire() || !currentWeapon.HasAmmo) return;
+
+        if (!AmmoModel.UseAmmo(1))
+        {
+            audioSource.PlayOneShot(currentWeapon.DryFireSound);
+            return;
+        }
+
+        performAttack.Execute();
+        weaponCooldown.StartCooldown(currentWeapon.FireRate);
+    }
+    
+    private void TryMeleeAttack()
+    {
+        // Melee doesn't need to check for firePoint or Ammo
+        if (!weaponCooldown.CanFire())
+            return;
+
+        Debug.Log("[WeaponHandler] Executing Melee Attack");
+    
+        performAttack.Execute();
+    
+        // Use the weapon's fireRate as the "swing speed" cooldown
+        weaponCooldown.StartCooldown(currentWeapon.FireRate);
+    }
+
+    private IEnumerator AutomaticFire()
+    {
+        while (isHoldingTrigger)
+        {
+            TryHitScanAttack();
+            yield return new WaitForSeconds(currentWeapon.FireRate);
+        }
     }
 }
