@@ -80,7 +80,7 @@ public class SO_LeapAttack : EnemyAttackSOClass
         }
 
         // Stop & hit
-        //movement.FollowPlayer = false;
+        movement.FollowPlayer = false;
 
         if (Vector3.Distance(enemy.position, player.position) <= headbuttDistance)
         {
