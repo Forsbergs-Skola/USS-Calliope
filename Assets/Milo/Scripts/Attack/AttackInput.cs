@@ -9,6 +9,7 @@ public class AttackInput : MonoBehaviour
     [SerializeField] private InputActionReference aimAction;
     [SerializeField] private InputActionReference shootAction;
     [SerializeField] private InputActionReference switchWeaponAction;
+    [SerializeField] private InputActionReference reloadAction;
     
     [Header("Extras, later make full PlayerInput script")]
     // for the movement inaccuracy
@@ -26,6 +27,8 @@ public class AttackInput : MonoBehaviour
     public event Action FireStopped;
     
     public event Action SwitchWeaponTriggered;
+    
+    public event Action ReloadTriggered;
 
     private void Awake()
     {
@@ -50,6 +53,12 @@ public class AttackInput : MonoBehaviour
         {
             switchWeaponAction.action.performed += OnSwitchWeaponPerformed;
         }
+        
+        if (reloadAction?.action != null)
+        {
+            reloadAction.action.Enable();
+            reloadAction.action.performed += OnReloadPerformed;
+        }
     }
 
     private void OnDestroy()
@@ -70,7 +79,13 @@ public class AttackInput : MonoBehaviour
         {
             switchWeaponAction.action.performed -= OnSwitchWeaponPerformed;
         }
-
+        
+        if (reloadAction?.action != null)
+        {
+            reloadAction.action.performed -= OnReloadPerformed;
+            reloadAction.action.Disable();
+        }
+        
         Disable(mousePosAction);
         Disable(aimAction);
         Disable(shootAction);
@@ -120,6 +135,11 @@ public class AttackInput : MonoBehaviour
     private void OnSwitchWeaponPerformed(InputAction.CallbackContext ctx)
     {
         SwitchWeaponTriggered?.Invoke();
+    }
+    
+    private void OnReloadPerformed(InputAction.CallbackContext ctx)
+    {
+        ReloadTriggered?.Invoke();
     }
 
 }

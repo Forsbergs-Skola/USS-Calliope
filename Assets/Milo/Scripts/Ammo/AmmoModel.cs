@@ -9,6 +9,15 @@ public class AmmoModel
     public int CurrentAmmo => currentAmmo;
     public int MaxAmmo => maxAmmo;
     public SO_AmmoType CurrentAmmoType => currentAmmoType;
+    
+    private InventoryData invData
+    {
+        get
+        {
+            if (DataController.Instance == null) return null;
+            else { return DataController.Instance.InventoryRuntimeData.Value; }
+        }
+    }
 
     public void InitializeAmmo(SO_WeaponType currentWeapon)
     {
@@ -43,8 +52,20 @@ public class AmmoModel
     
     public void AddAmmoToInventory(SO_AmmoType ammoType, int amount)
     {
-        
+        if (invData == null || ammoType == null) return;
+
+        var consumables = invData.GetConsumableIDsAndQuantities();
+
+        if (consumables.ContainsKey(ammoType.AmmoID))
+        {
+            invData.ReplenishConsumable(ammoType.AmmoID, amount);
+        }
+        else
+        {
+            invData.AddNewConsumable(ammoType.AmmoID, amount);
+        }
     }
+
 
     private bool CanAcceptAmmo(SO_AmmoType ammoType)
     {

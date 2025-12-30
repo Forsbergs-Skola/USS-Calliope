@@ -191,6 +191,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1926603785}
   m_SourcePrefab: {fileID: 100100000, guid: 9327003ea6cb2da47853dc82c165af25, type: 3}
+--- !u!114 &100316901 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9098381059490804233, guid: 9327003ea6cb2da47853dc82c165af25, type: 3}
+  m_PrefabInstance: {fileID: 100316900}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926603779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6bbda1685bf2944da00d2b15dd83e00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AmmoPickUpView
 --- !u!1 &142093199
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,6 +754,7 @@ MonoBehaviour:
   aimAction: {fileID: -5968461157856933420, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   shootAction: {fileID: 3034809152121054921, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   switchWeaponAction: {fileID: 2120363068553297381, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
+  reloadAction: {fileID: 2450256997621281868, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   moveAction: {fileID: 6531606723557171274, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   sprintAction: {fileID: -3730138691951497943, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
 --- !u!114 &261220425
@@ -1576,6 +1588,10 @@ PrefabInstance:
       propertyPath: ammoType
       value: 
       objectReference: {fileID: 11400000, guid: 691fdfec37c81b043a98ea330a08e097, type: 2}
+    - target: {fileID: -2885262326704161632, guid: 558361b11e7b7bc459b9cf8ab3e1db6f, type: 3}
+      propertyPath: ammoView
+      value: 
+      objectReference: {fileID: 480313405}
     - target: {fileID: 2892628960457162550, guid: 558361b11e7b7bc459b9cf8ab3e1db6f, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.55673456
@@ -1629,6 +1645,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 558361b11e7b7bc459b9cf8ab3e1db6f, type: 3}
+--- !u!114 &480313405 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4972216990875399929, guid: 558361b11e7b7bc459b9cf8ab3e1db6f, type: 3}
+  m_PrefabInstance: {fileID: 480313404}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6bbda1685bf2944da00d2b15dd83e00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AmmoPickUpView
 --- !u!1 &500497012
 GameObject:
   m_ObjectHideFlags: 0
@@ -2337,6 +2364,10 @@ PrefabInstance:
       propertyPath: ammoType
       value: 
       objectReference: {fileID: 11400000, guid: 691fdfec37c81b043a98ea330a08e097, type: 2}
+    - target: {fileID: -2885262326704161632, guid: 558361b11e7b7bc459b9cf8ab3e1db6f, type: 3}
+      propertyPath: ammoView
+      value: 
+      objectReference: {fileID: 956662202}
     - target: {fileID: 2892628960457162550, guid: 558361b11e7b7bc459b9cf8ab3e1db6f, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.55673456
@@ -2390,6 +2421,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 558361b11e7b7bc459b9cf8ab3e1db6f, type: 3}
+--- !u!114 &956662202 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4972216990875399929, guid: 558361b11e7b7bc459b9cf8ab3e1db6f, type: 3}
+  m_PrefabInstance: {fileID: 956662201}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6bbda1685bf2944da00d2b15dd83e00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AmmoPickUpView
 --- !u!4 &977369426 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4703078290517897432, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
@@ -4032,7 +4074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6309ff93f9c1d7743a9d3f8202def4cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AmmoPickupHandler
-  ammoType: {fileID: 11400000, guid: aa71757218043c24a88dd9653ea70395, type: 2}
+  ammoView: {fileID: 100316901}
   amount: 10
 --- !u!1 &2037949327
 GameObject:
@@ -4347,6 +4389,7 @@ MonoBehaviour:
   aimAction: {fileID: -5968461157856933420, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   shootAction: {fileID: 3034809152121054921, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   switchWeaponAction: {fileID: 0}
+  reloadAction: {fileID: 0}
   moveAction: {fileID: 6531606723557171274, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   sprintAction: {fileID: -3730138691951497943, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
 --- !u!114 &2052664395

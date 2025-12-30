@@ -10,7 +10,7 @@ public class AmmoPickupHandler : PickupBase
         get
         {
             if (DataController.Instance == null) return null;
-            else { return DataController.Instance.InventoryRuntimeData.Value; }
+            else return DataController.Instance.InventoryRuntimeData.Value;
         }
     }
 
