@@ -742,6 +742,7 @@ MonoBehaviour:
   mousePosAction: {fileID: -318039564575867876, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   aimAction: {fileID: -5968461157856933420, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   shootAction: {fileID: 3034809152121054921, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
+  switchWeaponAction: {fileID: 2120363068553297381, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   moveAction: {fileID: 6531606723557171274, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   sprintAction: {fileID: -3730138691951497943, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
 --- !u!114 &261220425
@@ -1408,6 +1409,10 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 2052664393}
+    - target: {fileID: 7729286904413520891, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
+      propertyPath: weaponDatabase
+      value: 
+      objectReference: {fileID: 11400000, guid: 3cc863e5416a2144291cdfd16f05fa3f, type: 2}
     - target: {fileID: 9161830421190369938, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
       propertyPath: m_Name
       value: Milo_Player
@@ -2483,6 +2488,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
+--- !u!1001 &999214857
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1765906091027323765, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
+      propertyPath: handler
+      value: 
+      objectReference: {fileID: 414829432}
+    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.050853
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.100000955
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.4498887
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5667480868257029868, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
+      propertyPath: m_Name
+      value: Rattlesnake V
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
 --- !u!1 &1019161990
 GameObject:
   m_ObjectHideFlags: 0
@@ -3062,15 +3128,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5585744665537500015, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5664564470485737258, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5664564470485737258, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5820759906099545411, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
       propertyPath: m_Radius
@@ -4280,6 +4346,7 @@ MonoBehaviour:
   mousePosAction: {fileID: -318039564575867876, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   aimAction: {fileID: -5968461157856933420, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   shootAction: {fileID: 3034809152121054921, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
+  switchWeaponAction: {fileID: 0}
   moveAction: {fileID: 6531606723557171274, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   sprintAction: {fileID: -3730138691951497943, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
 --- !u!114 &2052664395
@@ -4363,6 +4430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponHandler
   audioSource: {fileID: 2052664393}
   firePoint: {fileID: 1066289235}
+  weaponDatabase: {fileID: 0}
 --- !u!4 &2052664410 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6524440003849950842, guid: 44b1c7e56d961bc428fdbfe335416d56, type: 3}
@@ -5024,71 +5092,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be7b1ffaf4032b543a3479e10619469d, type: 3}
---- !u!1001 &7156526228845648507
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1765906091027323765, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
-      propertyPath: handler
-      value: 
-      objectReference: {fileID: 414829432}
-    - target: {fileID: 1765906091027323765, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
-      propertyPath: weaponSocket
-      value: 
-      objectReference: {fileID: 1035262097}
-    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.60129
-      objectReference: {fileID: 0}
-    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.107
-      objectReference: {fileID: 0}
-    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.50869
-      objectReference: {fileID: 0}
-    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1785433930726014034, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5667480868257029868, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
-      propertyPath: m_Name
-      value: Rattlesnake V
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
 --- !u!1001 &7905143984298459711
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5195,7 +5198,6 @@ SceneRoots:
   - {fileID: 1266601125}
   - {fileID: 480313404}
   - {fileID: 956662201}
-  - {fileID: 7156526228845648507}
   - {fileID: 100316900}
   - {fileID: 2231839013690144746}
   - {fileID: 7905143984298459711}
@@ -5209,3 +5211,4 @@ SceneRoots:
   - {fileID: 220722062}
   - {fileID: 931922641}
   - {fileID: 185085727}
+  - {fileID: 999214857}

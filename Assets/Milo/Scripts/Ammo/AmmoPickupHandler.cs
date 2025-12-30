@@ -2,15 +2,21 @@ using UnityEngine;
 
 public class AmmoPickupHandler : PickupBase
 {
-    [SerializeField] private SO_AmmoType ammoType;
+    [SerializeField] AmmoPickUpView ammoView;
     [SerializeField, Min(1)] private int amount = 10;
+    
+    private InventoryData invData
+    {
+        get
+        {
+            if (DataController.Instance == null) return null;
+            else { return DataController.Instance.InventoryRuntimeData.Value; }
+        }
+    }
 
     protected override void OnPickup(GameObject picker)
     {
-        if (!picker.TryGetComponent<PlayerWeaponHandler>(out var handler))
-            return;
-
-        handler.AmmoModel.AddAmmo(ammoType, amount);
+        invData.AddNewConsumable(ammoView.AmmoType.AmmoID, amount);
         Destroy(gameObject);
     }
 }

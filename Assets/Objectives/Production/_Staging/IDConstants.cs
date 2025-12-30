@@ -16,9 +16,18 @@ public static class IDConstants
     // WEAPONS //
     public const string PISTOL = "e0d787fd-841a-4d18-80aa-a714d392ec94";
     public const string MK7 = "d22dc9f8-adc6-44ca-b725-b3d72abf2d78";
+    public const string TASER = "64618f6a-b830-4f3f-adda-1fc46797723e";
+    public const string STEELPIPE = "06328f13-2353-482b-a0ea-b4f1a7f16931";
+    public const string RATTLESNAKE_V = "f66b924c-ebe0-4e69-8508-0cc5118b8e90";
 
     // CONSUMABLES //
     public const string PISTOL_AMMO = "a9f38ca3-34f0-4319-82e1-0e8588736d51";
+
+    public const string MK_AMMO = "45723e17-4905-4e9b-8214-e0fd74a87e13";
+
+    public const string BATTERIES = "6164535a-3b6b-426b-9e1a-b57d180f9eba";
+
+    public const string SHOTGUN_AMMO = "9c776512-d310-40af-ae44-d51b07abe9b6";
     //public const string HEALTH_PACK = "ABC123";
 
 
@@ -47,6 +56,10 @@ public static class IDConstants
     {
         List<string> allWeapons = new List<string>();
         allWeapons.Add(PISTOL);
+        allWeapons.Add(MK7);
+        allWeapons.Add(TASER);
+        allWeapons.Add(STEELPIPE);
+        allWeapons.Add(RATTLESNAKE_V);
         
         // etc..
         return allWeapons;

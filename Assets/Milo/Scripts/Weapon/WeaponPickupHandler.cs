@@ -19,14 +19,27 @@ public class WeaponPickupHandler : PickupBase
 
     protected override void OnPickup(GameObject picker)
     {
-        if (!handler) return;
-        
-        // Add it to inventory
-        
+        // Try to get the PlayerWeaponHandler from the picker if not assigned
+        if (handler == null)
+        {
+            handler = picker.GetComponent<PlayerWeaponHandler>();
+            if (handler == null)
+            {
+                Debug.LogWarning("No PlayerWeaponHandler found on picker or assigned in inspector.");
+                return;
+            }
+        }
 
-       //  handler.EquipWeapon(weaponView.WeaponType);
+        if (weaponView == null || weaponView.WeaponType == null)
+        {
+            Debug.LogWarning("WeaponView or WeaponType is missing!");
+            return;
+        }
+        
+        invData.AddWeaponItem(weaponView.WeaponType.WeaponID);
 
-        gameObject.SetActive(false);  
+        Destroy(gameObject);
     }
+
 
 }

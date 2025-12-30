@@ -8,6 +8,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private WeaponData weaponDatabase;
 
     private AttackInput attackInput;
     private SO_WeaponType currentWeaponData;
@@ -17,8 +18,10 @@ public class PlayerWeaponHandler : MonoBehaviour
     private PlayerAimController aimController;
     private WeaponCooldown weaponCooldown;
     private GameObject currentWeaponPrefab;
+    
 
     private int equippedWeaponIndex = -1;
+    
     
     
     private InventoryData invData
@@ -40,6 +43,8 @@ public class PlayerWeaponHandler : MonoBehaviour
         performAttack = GetComponent<PerformAttack>();
 
         AmmoModel = new AmmoModel();
+        
+        
     }
 
     private void Start()
@@ -48,6 +53,8 @@ public class PlayerWeaponHandler : MonoBehaviour
         attackInput.FireStopped += OnFireStopped;
         attackInput.AimStarted += OnAimStarted;
         attackInput.AimStopped += OnAimStopped;
+        attackInput.SwitchWeaponTriggered += EquipNextWeapon;
+
     }
 
     private void OnDisable()
@@ -56,67 +63,64 @@ public class PlayerWeaponHandler : MonoBehaviour
         attackInput.FireStopped -= OnFireStopped;
         attackInput.AimStarted -= OnAimStarted;
         attackInput.AimStopped -= OnAimStopped;
-    }
-    
-    public void EquipWeapon(SO_WeaponType weaponData)
-    {
-        if (!weaponData)
-            return;
+        attackInput.SwitchWeaponTriggered -= EquipNextWeapon;
 
-        if (weaponData.WeaponModelPrefab && !firePoint)
-        {
-            Debug.LogError("WeaponHandler.cs: Tried to equip weapon but firePoint is missing");
-            return;
-        }
-
-        // Maybe can be used later with inventory
-        if (currentWeaponPrefab)
-        {
-            Destroy(currentWeaponPrefab);
-        }
-        
-        currentWeaponData = weaponData;
-        currentWeaponPrefab = weaponData.WeaponModelPrefab;
-
-        AmmoModel.InitializeAmmo(weaponData);
-        weaponCooldown.InitializeCooldown(weaponData.FireRate);
-        performAttack.SetCurrentWeapon(weaponData);
-        
-        if (!currentWeaponPrefab)
-            return;
-
-        currentWeaponPrefab = Instantiate(weaponData.WeaponModelPrefab, firePoint.parent);
-        currentWeaponPrefab.transform.SetParent(firePoint.parent, false);
-        currentWeaponPrefab.transform.localPosition = Vector3.zero;
-        currentWeaponPrefab.transform.localRotation = Quaternion.identity;
-        currentWeaponPrefab.transform.localScale = Vector3.one;
     }
 
     private void EquipNextWeapon()
     {
-        if (GetAvailableWeapons().Count > 0)
-        {
-            int numberOfWeapons = GetAvailableWeapons().Count;
-            equippedWeaponIndex = (equippedWeaponIndex + 1) %  numberOfWeapons;
+        var availableWeapons = GetAvailableWeapons();
+        if (availableWeapons.Count <= 0) return;
 
-            string weaponId = GetAvailableWeapons()[equippedWeaponIndex];
-            
-            
+        // Increment index
+        equippedWeaponIndex = (equippedWeaponIndex + 1) % availableWeapons.Count;
+        var weaponId = availableWeapons[equippedWeaponIndex];
+
+        // Get weapon data
+        if (weaponDatabase == null)
+        {
+            Debug.LogWarning("[WeaponHandler] WeaponDatabase is missing!");
+            return;
+        }
+
+        SO_WeaponType weaponData = weaponDatabase.GetWeapon(weaponId);
+        if (weaponData == null) return;
+
+        // Destroy old prefab
+        if (currentWeaponPrefab != null)
+        {
+            Destroy(currentWeaponPrefab);
+            currentWeaponPrefab = null;
+        }
+
+        // Initialize systems
+        AmmoModel.InitializeAmmo(weaponData);
+        weaponCooldown.InitializeCooldown(weaponData.FireRate);
+        performAttack.SetCurrentWeapon(weaponData);
+
+        // Spawn visuals
+        if (weaponData.WeaponModelPrefab != null && firePoint != null)
+        {
+            currentWeaponPrefab = Instantiate(weaponData.WeaponModelPrefab, firePoint);
+            currentWeaponPrefab.transform.localPosition = Vector3.zero;
+            currentWeaponPrefab.transform.localRotation = Quaternion.identity;
+            currentWeaponPrefab.transform.localScale = Vector3.one;
+
+            Debug.Log("[WeaponHandler] Weapon spawned: " + currentWeaponPrefab.name);
         }
     }
+
     
     private void OnFireStarted()
     {
         if (!currentWeaponData) return;
 
-        // Melee logic: Usually allowed even if not aiming
         if (currentWeaponData.AttackCategories == SO_WeaponType.AttackCategory.Melee)
         {
             TryMeleeAttack();
             return;
         }
 
-        // Gun logic: Requires aiming
         if (!aimController.IsAiming) return;
 
         if (!currentWeaponData.IsSemiAutomatic)
