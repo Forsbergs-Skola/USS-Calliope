@@ -1,25 +1,21 @@
+using System;
 using UnityEngine;
 
 public class WeaponPickupHandler : PickupBase
 {
+    
+    // To access the current scriptable object data that each weapon has assigned in WeaponView
     [SerializeField] private WeaponView weaponView;
-    [SerializeField] private Transform weaponSocket;
-
-    [Header("Optional Ammo On Pickup")]
-    [SerializeField] private bool giveStartingAmmo;
-    [SerializeField] private int startingAmmoAmount = 0;
+    
+    [SerializeField] private PlayerWeaponHandler handler;
 
     protected override void OnPickup(GameObject picker)
     {
-        if (!picker.TryGetComponent<PlayerWeaponHandler>(out var handler))
-            return;
+        if (!handler) return;
 
-        handler.EquipWeapon(weaponView.WeaponType, weaponView.gameObject);
+        handler.EquipWeapon(weaponView.WeaponType);
 
-        if (!giveStartingAmmo && !weaponView.WeaponType.AmmoType) return;
-        handler.AmmoModel.AddAmmo(weaponView.WeaponType.AmmoType, startingAmmoAmount);
-
-        var col = GetComponent<Collider>();
-        if (col) col.enabled = false;
+        gameObject.SetActive(false);  
     }
+
 }

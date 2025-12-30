@@ -1548,6 +1548,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a5e743ea2ed4c229fbead17390ad783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAimView
+--- !u!114 &414829432 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7729286904413520891, guid: e0ee1d3b33bfbec4db54d09c59c5f6fd, type: 3}
+  m_PrefabInstance: {fileID: 414829391}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261220423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d34fadb6927d25418538f033b3d8339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponHandler
 --- !u!1001 &480313404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4807,6 +4818,10 @@ PrefabInstance:
       value: MK7 Pistol
       objectReference: {fileID: 0}
     - target: {fileID: 6620942097282387192, guid: cc4c2ae6cc2cc644eba7b0a3caf82f48, type: 3}
+      propertyPath: handler
+      value: 
+      objectReference: {fileID: 414829432}
+    - target: {fileID: 6620942097282387192, guid: cc4c2ae6cc2cc644eba7b0a3caf82f48, type: 3}
       propertyPath: muzzlePoint
       value: 
       objectReference: {fileID: 778735911}
@@ -4820,7 +4835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6620942097282387192, guid: cc4c2ae6cc2cc644eba7b0a3caf82f48, type: 3}
       propertyPath: startingAmmoAmount
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8717908679624615827, guid: cc4c2ae6cc2cc644eba7b0a3caf82f48, type: 3}
       propertyPath: m_LocalPosition.x

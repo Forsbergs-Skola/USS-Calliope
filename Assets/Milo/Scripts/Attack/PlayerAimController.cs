@@ -5,7 +5,7 @@ public class PlayerAimController : MonoBehaviour
 {
     [Header("Aim Settings")]
     [SerializeField] private LayerMask groundMask;
-    [SerializeField] private LayerMask zombieLayer; // Added for detection
+    [SerializeField] private LayerMask enemyLayer; // Added for detection
     [SerializeField] private float aimHeightOffset = 1.2f;
     [SerializeField] private float cameraOffsetDistance = 10f;
     
@@ -113,7 +113,7 @@ public class PlayerAimController : MonoBehaviour
                 if (target)
                 {
                     var dist = Vector3.Distance(transform.position, target.transform.position);
-                    var score = hitLogic.GetHitChanceScore(playerState, weaponHandler.CurrentWeapon, dist);
+                    var score = hitLogic.GetHitChanceScore(playerState, weaponHandler.CurrentWeaponData, dist);
                     UpdateCrosshairColor(score);
                 }
                 else
@@ -148,7 +148,9 @@ public class PlayerAimController : MonoBehaviour
 
     private GameObject GetTargetNearMouse(Vector3 mouseWorldPos)
     {
-        var targets = Physics.OverlapSphere(transform.position, weaponHandler.CurrentWeapon.ImpactRange, zombieLayer);
+        if (!weaponHandler.CurrentWeaponData) return null;
+        
+        var targets = Physics.OverlapSphere(transform.position, weaponHandler.CurrentWeaponData.ImpactRange, enemyLayer);
         GameObject bestTarget = null;
         var closestDistToMouse = 2.0f; 
 

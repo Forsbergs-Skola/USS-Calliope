@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
-    public SO_WeaponType CurrentWeapon => currentWeapon;
+    public SO_WeaponType CurrentWeaponData => currentWeaponData;
     
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Transform firePoint;
 
     private AttackInput attackInput;
-    private SO_WeaponType currentWeapon;
+    private SO_WeaponType currentWeaponData;
     private bool isHoldingTrigger;
     private Coroutine firingCoroutine;
     private PerformAttack performAttack;
@@ -45,30 +45,34 @@ public class PlayerWeaponHandler : MonoBehaviour
         attackInput.AimStopped -= OnAimStopped;
     }
     
-    public void EquipWeapon(SO_WeaponType equippedWeapon, GameObject weaponPrefab = null)
+    public void EquipWeapon(SO_WeaponType weaponData)
     {
-        if (!equippedWeapon)
+        if (!weaponData)
             return;
 
-        if (weaponPrefab && !firePoint)
+        if (weaponData.WeaponModelPrefab && !firePoint)
         {
             Debug.LogError("WeaponHandler.cs: Tried to equip weapon but firePoint is missing");
             return;
         }
 
+        // Maybe can be used later with inventory
         if (currentWeaponPrefab)
+        {
             Destroy(currentWeaponPrefab);
+        }
         
-        currentWeapon = equippedWeapon;
-        currentWeaponPrefab = weaponPrefab;
+        currentWeaponData = weaponData;
+        currentWeaponPrefab = weaponData.WeaponModelPrefab;
 
-        AmmoModel.InitializeAmmo(equippedWeapon);
-        weaponCooldown.InitializeCooldown(equippedWeapon.FireRate);
-        performAttack.SetCurrentWeapon(equippedWeapon);
+        AmmoModel.InitializeAmmo(weaponData);
+        weaponCooldown.InitializeCooldown(weaponData.FireRate);
+        performAttack.SetCurrentWeapon(weaponData);
         
         if (!currentWeaponPrefab)
             return;
 
+        currentWeaponPrefab = Instantiate(weaponData.WeaponModelPrefab, firePoint.parent);
         currentWeaponPrefab.transform.SetParent(firePoint.parent, false);
         currentWeaponPrefab.transform.localPosition = Vector3.zero;
         currentWeaponPrefab.transform.localRotation = Quaternion.identity;
@@ -77,10 +81,10 @@ public class PlayerWeaponHandler : MonoBehaviour
     
     private void OnFireStarted()
     {
-        if (!currentWeapon) return;
+        if (!currentWeaponData) return;
 
         // Melee logic: Usually allowed even if not aiming
-        if (currentWeapon.AttackCategories == SO_WeaponType.AttackCategory.Melee)
+        if (currentWeaponData.AttackCategories == SO_WeaponType.AttackCategory.Melee)
         {
             TryMeleeAttack();
             return;
@@ -89,7 +93,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         // Gun logic: Requires aiming
         if (!aimController.IsAiming) return;
 
-        if (!currentWeapon.IsSemiAutomatic)
+        if (!currentWeaponData.IsSemiAutomatic)
         {
             if (firingCoroutine != null) return;
             isHoldingTrigger = true;
@@ -119,17 +123,17 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private void TryHitScanAttack()
     {
-        if (!currentWeapon || !firePoint) return;
-        if (!weaponCooldown.CanFire() || !currentWeapon.HasAmmo) return;
+        if (!currentWeaponData || !firePoint) return;
+        if (!weaponCooldown.CanFire() || !currentWeaponData.HasAmmo) return;
 
         if (!AmmoModel.UseAmmo(1))
         {
-            audioSource.PlayOneShot(currentWeapon.DryFireSound);
+            audioSource.PlayOneShot(currentWeaponData.DryFireSound);
             return;
         }
 
         performAttack.Execute();
-        weaponCooldown.StartCooldown(currentWeapon.FireRate);
+        weaponCooldown.StartCooldown(currentWeaponData.FireRate);
     }
     
     private void TryMeleeAttack()
@@ -143,7 +147,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         performAttack.Execute();
     
         // Use the weapon's fireRate as the "swing speed" cooldown
-        weaponCooldown.StartCooldown(currentWeapon.FireRate);
+        weaponCooldown.StartCooldown(currentWeaponData.FireRate);
     }
 
     private IEnumerator AutomaticFire()
@@ -151,7 +155,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         while (isHoldingTrigger)
         {
             TryHitScanAttack();
-            yield return new WaitForSeconds(currentWeapon.FireRate);
+            yield return new WaitForSeconds(currentWeaponData.FireRate);
         }
     }
 }
