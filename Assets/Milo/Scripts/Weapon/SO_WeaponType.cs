@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "SO_WeaponType", menuName = "Player Combat/SO_WeaponType")]
 public class SO_WeaponType : ScriptableObject
@@ -11,8 +12,11 @@ public class SO_WeaponType : ScriptableObject
         Melee,
     }
 
+    
     [Header("General Info")]
-    [SerializeField] private string id;
+    [SerializeField] private string weaponID = string.Empty;
+
+    [SerializeField] private string displayName;
     [SerializeField] private string weaponCategory;
     [SerializeField] private string ammoCategory;
     [SerializeField] private Sprite icon;
@@ -68,7 +72,14 @@ public class SO_WeaponType : ScriptableObject
     [SerializeField] private AudioClip dryFireSound;
 
     //// PROPERTIES
-    public string WeaponId => id;
+   
+    public string GetWeaponID()
+    {
+        return weaponID;
+    }
+
+    public string WeaponID => weaponID;
+    public string DisplayName => displayName;
     public string WeaponCategory => weaponCategory;
     public string AmmoCategory => ammoCategory;
     public Sprite WeaponIcon => icon;
@@ -129,5 +140,14 @@ public class SO_WeaponType : ScriptableObject
     public bool ShouldTrackMovement()
     {
         return attackCategory == AttackCategory.Hitscan;
+    }
+    
+    private void OnValidate()
+    {
+        if (!string.IsNullOrEmpty(weaponID)) return;
+        weaponID = System.Guid.NewGuid().ToString();
+#if UNITY_EDITOR
+        UnityEditor.EditorUtility.SetDirty(this);
+#endif
     }
 }

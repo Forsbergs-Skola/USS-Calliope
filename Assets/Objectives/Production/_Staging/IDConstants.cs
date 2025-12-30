@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 
 public static class IDConstants
@@ -13,6 +15,7 @@ public static class IDConstants
 
     // WEAPONS //
     public const string PISTOL = "e0d787fd-841a-4d18-80aa-a714d392ec94";
+    public const string MK7 = "d22dc9f8-adc6-44ca-b725-b3d72abf2d78";
 
     // CONSUMABLES //
     public const string PISTOL_AMMO = "a9f38ca3-34f0-4319-82e1-0e8588736d51";
@@ -38,5 +41,15 @@ public static class IDConstants
     public const string CONVERSATION_BOB_00 = "50791dc5-7571-4ef8-930c-08a63d7ebec5";
     public const string CONVERSATION_BOB_01 = "1fe47f51-40fc-4ef2-b03f-b6d2208e927c";
 
+
+
+    public static List<string> GetAllWeapons()
+    {
+        List<string> allWeapons = new List<string>();
+        allWeapons.Add(PISTOL);
+        
+        // etc..
+        return allWeapons;
+    }
 
 }

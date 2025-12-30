@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerWeaponHandler : MonoBehaviour
@@ -16,6 +17,18 @@ public class PlayerWeaponHandler : MonoBehaviour
     private PlayerAimController aimController;
     private WeaponCooldown weaponCooldown;
     private GameObject currentWeaponPrefab;
+
+    private int equippedWeaponIndex = -1;
+    
+    
+    private InventoryData invData
+    {
+        get
+        {
+            if (DataController.Instance == null) return null;
+            else { return DataController.Instance.InventoryRuntimeData.Value; }
+        }
+    }
 
     public AmmoModel AmmoModel { get; private set; }
     
@@ -77,6 +90,19 @@ public class PlayerWeaponHandler : MonoBehaviour
         currentWeaponPrefab.transform.localPosition = Vector3.zero;
         currentWeaponPrefab.transform.localRotation = Quaternion.identity;
         currentWeaponPrefab.transform.localScale = Vector3.one;
+    }
+
+    private void EquipNextWeapon()
+    {
+        if (GetAvailableWeapons().Count > 0)
+        {
+            int numberOfWeapons = GetAvailableWeapons().Count;
+            equippedWeaponIndex = (equippedWeaponIndex + 1) %  numberOfWeapons;
+
+            string weaponId = GetAvailableWeapons()[equippedWeaponIndex];
+            
+            
+        }
     }
     
     private void OnFireStarted()
@@ -157,5 +183,11 @@ public class PlayerWeaponHandler : MonoBehaviour
             TryHitScanAttack();
             yield return new WaitForSeconds(currentWeaponData.FireRate);
         }
+    }
+
+    private List<string> GetAvailableWeapons()
+    {
+        if (invData == null) return IDConstants.GetAllWeapons();
+        return invData.GetWeaponItemIDs();
     }
 }

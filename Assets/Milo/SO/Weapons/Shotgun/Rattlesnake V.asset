@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fdc3a13b5fc81042b83285e787e264b, type: 3}
   m_Name: Rattlesnake V
   m_EditorClassIdentifier: Assembly-CSharp::SO_WeaponType
-  id: Rattlesnake V
+  weaponID: f66b924c-ebe0-4e69-8508-0cc5118b8e90
+  displayName: 
   weaponCategory: 
   ammoCategory: 
   icon: {fileID: 0}
@@ -70,7 +71,10 @@ MonoBehaviour:
   sprintInaccuracyMultiplier: 2
   accuracyGracePeriod: 0.25
   stunEffectTime: 0
+  isMelee: 0
+  meleeReach: 0
   meleeHitRadius: 0
+  meleeHitForce: 0
   weaponModelPrefab: {fileID: 0}
   muzzleFlashPrefab: {fileID: 0}
   attackSound: {fileID: 8300000, guid: 0911c4d0d6a92434da45ab411647d6f3, type: 3}

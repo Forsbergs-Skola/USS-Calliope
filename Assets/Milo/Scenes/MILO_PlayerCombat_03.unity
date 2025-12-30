@@ -2448,15 +2448,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3916445979977635354, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3916445979977635354, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6566595255413055139, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
       propertyPath: m_Name
       value: EnemyActive (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6566595255413055139, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8718409416980625838, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
       propertyPath: followPlayer
@@ -4335,7 +4339,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 0
-  zombieLayer:
+  enemyLayer:
     serializedVersion: 2
     m_Bits: 0
   aimHeightOffset: 1.2
@@ -4636,15 +4640,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3916445979977635354, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3916445979977635354, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6566595255413055139, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
       propertyPath: m_Name
       value: EnemyActive (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6566595255413055139, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8718409416980625838, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
       propertyPath: followPlayer
@@ -4935,6 +4943,10 @@ PrefabInstance:
       value: Steelpipe
       objectReference: {fileID: 0}
     - target: {fileID: 7576579282830574017, guid: 99f9441496a6f174bb61ad197bfc4bce, type: 3}
+      propertyPath: handler
+      value: 
+      objectReference: {fileID: 414829432}
+    - target: {fileID: 7576579282830574017, guid: 99f9441496a6f174bb61ad197bfc4bce, type: 3}
       propertyPath: weaponSocket
       value: 
       objectReference: {fileID: 977369426}
@@ -5020,6 +5032,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1765906091027323765, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
+      propertyPath: handler
+      value: 
+      objectReference: {fileID: 414829432}
     - target: {fileID: 1765906091027323765, guid: 600871834dc3ae44b9ea5e56eb2789c0, type: 3}
       propertyPath: weaponSocket
       value: 
@@ -5133,6 +5149,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5102737146730425158, guid: 8aa6e7643d7b84d40b54fb67680ef60f, type: 3}
+      propertyPath: handler
+      value: 
+      objectReference: {fileID: 414829432}
     - target: {fileID: 5102737146730425158, guid: 8aa6e7643d7b84d40b54fb67680ef60f, type: 3}
       propertyPath: weaponSocket
       value: 
