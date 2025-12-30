@@ -19,4 +19,6 @@ public class PlayerState : MonoBehaviour
     
     public bool IsMoving => input.MoveAction.action.ReadValue<Vector2>().sqrMagnitude > 0.01f;
     public bool IsSprinting => input.SprintAction.action.ReadValue<float>() > 0.01f;
+    
+        
 }

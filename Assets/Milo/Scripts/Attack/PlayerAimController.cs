@@ -1,32 +1,34 @@
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerAimController : MonoBehaviour
 {
     [Header("Aim Settings")]
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private LayerMask zombieLayer; // Added for detection
     [SerializeField] private float aimHeightOffset = 1.2f;
     [SerializeField] private float cameraOffsetDistance = 10f;
     
     [Header("Aim Camera Settings")]
     [SerializeField] private float holdThreshold = 0.2f; 
-    [Tooltip("How fast the player enters the combat stance")]
     [SerializeField] private float transitionSpeed = 5f; 
-    [Tooltip("How 'heavy' the camera feels when following the mouse")]
     [SerializeField] private float smoothSpeed = 3f;     
 
     [Header("References")]
     [SerializeField] private Transform crosshairTransform;
     [SerializeField] private CinemachineCamera cam;
-    
+
     private AttackInput attackInput;
+    private PlayerState playerState; // Added player state reference
     private CinemachineCameraOffset offsetExtension;
     private Camera mainCamera;
     private Vector2 lastMousePos;
     private Vector3 currentTargetOffset;
+    private PlayerWeaponHandler weaponHandler;
     
-    // Internal Logic State
+    private HitChance hitLogic = new HitChance();
+    private SpriteRenderer crosshairSprite;
+
     private float holdTimer = 0f;
     private float currentAimWeight = 0f; 
     private bool isHoldingButton = false;
@@ -35,18 +37,19 @@ public class PlayerAimController : MonoBehaviour
 
     private void Awake()
     {
-        
+        weaponHandler = GetComponent<PlayerWeaponHandler>();
         attackInput = GetComponent<AttackInput>();
-        
+        playerState = GetComponent<PlayerState>();
         mainCamera = Camera.main;
-        if (!mainCamera) Debug.LogError("Main camera not found!");
         
         if (cam)
         {
             offsetExtension = cam.GetComponent<CinemachineCameraOffset>();
-            if (!offsetExtension)
-                offsetExtension = cam.gameObject.AddComponent<CinemachineCameraOffset>();
+            if (!offsetExtension) offsetExtension = cam.gameObject.AddComponent<CinemachineCameraOffset>();
         }
+
+        if (crosshairTransform)
+            crosshairSprite = crosshairTransform.GetComponent<SpriteRenderer>();
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
@@ -68,25 +71,14 @@ public class PlayerAimController : MonoBehaviour
     }
 
     private void OnAimInputStarted() => isHoldingButton = true;
-
-    private void OnAimInputStopped()
-    {
-        if (isHoldingButton && holdTimer < holdThreshold) return;
-        
-        isHoldingButton = false;
-        IsAiming = false;
-        holdTimer = 0f;
-    }
+    private void OnAimInputStopped() { isHoldingButton = false; IsAiming = false; holdTimer = 0f; }
 
     private void Update()
     {
         if (isHoldingButton)
         {
             holdTimer += Time.deltaTime;
-            if (holdTimer >= holdThreshold)
-            {
-                IsAiming = true;
-            }
+            if (holdTimer >= holdThreshold) IsAiming = true;
         }
 
         float targetWeight = IsAiming ? 1f : 0f;
@@ -95,15 +87,12 @@ public class PlayerAimController : MonoBehaviour
         UpdateAimLogic();
     }
 
-    // Refactor this spaghetti
-    
     private void UpdateAimLogic()
     {
         if (!mainCamera) return;
 
         var ray = mainCamera.ScreenPointToRay(lastMousePos);
         var aimPlane = new Plane(Vector3.up, transform.position + Vector3.up * aimHeightOffset);
-
         var desiredOffset = Vector3.zero;
 
         if (aimPlane.Raycast(ray, out var enter))
@@ -112,21 +101,32 @@ public class PlayerAimController : MonoBehaviour
             
             if (IsAiming)
             {
-                Vector3 lookDir = targetPosition - transform.position;
+                var lookDir = targetPosition - transform.position;
                 lookDir.y = 0f;
-                if (lookDir.sqrMagnitude > 0.01f)
-                    transform.rotation = Quaternion.LookRotation(lookDir);
+                if (lookDir.sqrMagnitude > 0.01f) transform.rotation = Quaternion.LookRotation(lookDir);
                 
-                Vector3 pullVector = targetPosition - transform.position;
+                var pullVector = targetPosition - transform.position;
                 pullVector.y = 0;
-
                 desiredOffset = Vector3.ClampMagnitude(pullVector * 0.5f, cameraOffsetDistance) * currentAimWeight;
+
+                var target = GetTargetNearMouse(targetPosition);
+                if (target)
+                {
+                    var dist = Vector3.Distance(transform.position, target.transform.position);
+                    var score = hitLogic.GetHitChanceScore(playerState, weaponHandler.CurrentWeapon, dist);
+                    UpdateCrosshairColor(score);
+                }
+                else
+                {
+                    if (crosshairSprite) crosshairSprite.color = Color.white;
+                }
             }
 
             if (crosshairTransform)
             {
                 crosshairTransform.position = targetPosition + Vector3.up * 0.05f; 
                 crosshairTransform.LookAt(mainCamera.transform);
+                crosshairSprite.enabled = IsAiming;
             }
         }
 
@@ -134,15 +134,42 @@ public class PlayerAimController : MonoBehaviour
         currentTargetOffset = Vector3.Lerp(currentTargetOffset, desiredOffset, Time.deltaTime * smoothSpeed);
         offsetExtension.Offset = currentTargetOffset;
     }
+    
+    private void UpdateCrosshairColor(float score)
+    {
+        if (!crosshairSprite) return;
+        crosshairSprite.color = score switch
+        {
+            >= 0.8f => Color.green,
+            >= 0.4f => new Color(1f, 0.5f, 0f),
+            _ => Color.red
+        };
+    }
+
+    private GameObject GetTargetNearMouse(Vector3 mouseWorldPos)
+    {
+        var targets = Physics.OverlapSphere(transform.position, weaponHandler.CurrentWeapon.ImpactRange, zombieLayer);
+        GameObject bestTarget = null;
+        var closestDistToMouse = 2.0f; 
+
+        foreach (var col in targets)
+        {
+            var distToMouse = Vector3.Distance(col.transform.position, mouseWorldPos);
+            if (!(distToMouse < closestDistToMouse)) continue;
+            closestDistToMouse = distToMouse;
+            bestTarget = col.gameObject;
+        }
+        return bestTarget;
+    }
 
     public bool TryGetAimDirection(Vector3 origin, out Vector3 direction)
     {
         var ray = mainCamera.ScreenPointToRay(lastMousePos);
-        Plane aimPlane = new Plane(Vector3.up, transform.position + Vector3.up * aimHeightOffset);
+        var aimPlane = new Plane(Vector3.up, transform.position + Vector3.up * aimHeightOffset);
 
-        if (aimPlane.Raycast(ray, out float enter))
+        if (aimPlane.Raycast(ray, out var enter))
         {
-            Vector3 target = ray.GetPoint(enter);
+            var target = ray.GetPoint(enter);
             direction = (target - origin).normalized;
             return true;
         }

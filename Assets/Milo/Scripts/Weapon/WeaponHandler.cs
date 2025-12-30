@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
+    public SO_WeaponType CurrentWeapon => currentWeapon;
+    
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Transform firePoint;
 

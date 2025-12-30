@@ -1,45 +1,22 @@
-
-/*
- *  Three Type of Hit chances Red, Orange, Green
- *  Calculated depending on current stamina, health, movement, weapon impact range, weapon spread
- *  Before Calculating normalize values to 0.0 - 1.0
- */
+using UnityEngine;
 
 public class HitChance
 {
-    public float MaxStamina;
-    public float MaxHealth;
-    
-    public void FinalChance(PlayerState player)
+    public float GetHitChanceScore(PlayerState player, SO_WeaponType weapon, float distance)
     {
-        float score = 1f;
-        
-        var staminaPercentage = player.CurrentStamina / player.MaxStamina;
-        var healthPercentage = player.CurrentHealth / player.MaxHealth;
-        
+        var distanceRatio = Mathf.Clamp01(distance / weapon.ImpactRange);
+        var score = weapon.DamageOverDistance.Evaluate(distanceRatio);
+
+        // Force float math by adding (float)
+        var staminaPercentage = (float)player.CurrentStamina / player.MaxStamina;
+        var healthPercentage = (float)player.CurrentHealth / player.MaxHealth;
+    
         score *= staminaPercentage;
         score *= healthPercentage;
 
-        if (player.IsSprinting)
-        {
-            score *= 0.1f;
-        }
-        else if (player.Is)
-        
-    }
+        if (player.IsSprinting) score /= weapon.SprintInaccuracyMultiplier;
+        else if (player.IsMoving) score /= weapon.MovementInaccuracyMultiplier;
 
-    public void RedHitChance()
-    {
-        
-    }
-
-    public void OrangeHitChance()
-    {
-        
-    }
-
-    public void GreenHitChance()
-    {
-        
+        return Mathf.Clamp01(score);
     }
 }

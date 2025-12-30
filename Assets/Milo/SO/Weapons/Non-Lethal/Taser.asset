@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Taser
   m_EditorClassIdentifier: Assembly-CSharp::SO_WeaponType
   id: Taser
-  weaponCategory: 
-  ammoCategory: 
+  weaponCategory: Non Lethal
+  ammoCategory: Batteries
   icon: {fileID: 0}
   description: 
   damage: 0
-  fireRate: 10
+  fireRate: 5
   isSemiAutomatic: 0
   attackCategory: 1
   hasAmmo: 1
