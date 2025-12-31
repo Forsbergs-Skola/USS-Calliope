@@ -16,7 +16,17 @@ public class AmmoPickupHandler : PickupBase
 
     protected override void OnPickup(GameObject picker)
     {
-        invData.AddNewConsumable(ammoView.AmmoType.AmmoID, amount);
-        Destroy(gameObject);
+        if (invData == null || ammoView.AmmoType == null) return;
+
+        var consumables = invData.GetConsumableIDsAndQuantities();
+
+        if (consumables.ContainsKey(ammoView.AmmoType.AmmoID))
+        {
+            invData.ReplenishConsumable(ammoView.AmmoType.AmmoID, amount);
+        }
+        else
+        {
+            invData.AddNewConsumable(ammoView.AmmoType.AmmoID, amount);
+        }        Destroy(gameObject);
     }
 }

@@ -41,31 +41,10 @@ public class AmmoModel
 
     public void AddAmmo(SO_AmmoType ammoType, int amount)
     {
-        if (!CanAcceptAmmo(ammoType))
-        {
-            AddAmmoToInventory(ammoType, amount);
-            return;
-        }
+        if (!CanAcceptAmmo(ammoType)) return;
 
         currentAmmo = Math.Min(currentAmmo + amount, maxAmmo);
     }
-    
-    public void AddAmmoToInventory(SO_AmmoType ammoType, int amount)
-    {
-        if (invData == null || ammoType == null) return;
-
-        var consumables = invData.GetConsumableIDsAndQuantities();
-
-        if (consumables.ContainsKey(ammoType.AmmoID))
-        {
-            invData.ReplenishConsumable(ammoType.AmmoID, amount);
-        }
-        else
-        {
-            invData.AddNewConsumable(ammoType.AmmoID, amount);
-        }
-    }
-
 
     private bool CanAcceptAmmo(SO_AmmoType ammoType)
     {
