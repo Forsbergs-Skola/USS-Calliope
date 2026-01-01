@@ -27,7 +27,7 @@ MonoBehaviour:
   magSize: 8
   ammoType: {fileID: 11400000, guid: aa71757218043c24a88dd9653ea70395, type: 2}
   reloadTime: 0
-  hasBallistics: 0
+  hasBallistics: 1
   impactRange: 15
   spreadStandardDeviation: 0.03
   damageOverDistance:
@@ -64,6 +64,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   pelletCount: 5
+  recoilType: 0
   recoilPerShotMin: 0
   recoilPerShotMax: 0
   recoilRecoverySpeed: 0
