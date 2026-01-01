@@ -21,7 +21,7 @@ MonoBehaviour:
   damage: 50
   fireRate: 1
   isSemiAutomatic: 1
-  attackCategory: 2
+  attackCategory: 0
   hasAmmo: 0
   magSize: 0
   ammoType: {fileID: 0}
@@ -36,6 +36,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   pelletCount: 1
+  recoilType: 0
   recoilPerShotMin: 0
   recoilPerShotMax: 0
   recoilRecoverySpeed: 0

@@ -17,8 +17,7 @@ MonoBehaviour:
   weaponCategory: Pistol
   ammoCategory: 9mm
   icon: {fileID: 0}
-  description: Standard issue for E-M consortium security officers. Reliable, but
-    don't let them get too close.
+  description: 'Standard issue for E-M consortium security officers. '
   damage: 40
   fireRate: 0.25
   isSemiAutomatic: 1
@@ -64,6 +63,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   pelletCount: 1
+  recoilType: 1
   recoilPerShotMin: 0
   recoilPerShotMax: 0
   recoilRecoverySpeed: 0

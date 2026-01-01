@@ -12,18 +12,20 @@ public class SO_WeaponType : ScriptableObject
         Melee,
     }
 
+    public enum RecoilTypes
+    {
+        CrosshairSway,
+        SpreadPerShot,
+    }
     
-    [Header("General Info")]
     [SerializeField] private string weaponID = string.Empty;
-
     [SerializeField] private string displayName;
     [SerializeField] private string weaponCategory;
     [SerializeField] private string ammoCategory;
     [SerializeField] private Sprite icon;
     [TextArea(2, 7)] [SerializeField] private string description;
 
-    [Header("Weapon Stats")]
-    [SerializeField, Min(0)] private int damage;                  
+    [SerializeField, Min(0)] private int damage;      
     [SerializeField, Min(0.01f)] private float fireRate = 0.2f;   // Shots per second
     [SerializeField] private bool isSemiAutomatic;
     [SerializeField] private AttackCategory attackCategory;
@@ -32,18 +34,18 @@ public class SO_WeaponType : ScriptableObject
     [SerializeField] private SO_AmmoType ammoType;
     [SerializeField] private float reloadTime;
 
-    [Header("Ballistics Settings")]
     [SerializeField] private bool hasBallistics;
     [SerializeField, Min(1f)] private float impactRange;
     [Tooltip("0.05+ for shotguns, 0.01+ for rifles & pistols")]
     [SerializeField, Range(0f, 0.1f)] private float spreadStandardDeviation;
     [SerializeField] private AnimationCurve damageOverDistance;
     [SerializeField, Min(1)] private int pelletCount = 1;
+    
+    [SerializeField] private RecoilTypes recoilType;
     [SerializeField, Min(0f)] private float recoilPerShotMin;
     [SerializeField, Min(0f)] private float recoilPerShotMax;
     [SerializeField, Min(0f)] private float recoilRecoverySpeed;
 
-    [Header("Accuracy & Movement")]
     [Tooltip("Pistol 1.5, Rifle 2.5, Shotgun 1.2")]
     [SerializeField, Min(0f)] private float movementInaccuracyMultiplier;
     [Tooltip("Pistol 3.0, Rifle 5.0, Shotgun 2.0")]
@@ -51,22 +53,18 @@ public class SO_WeaponType : ScriptableObject
     [Tooltip("Pistol 0.20s, Rifle 0.10s, Shotgun 0.25s")]
     [SerializeField, Range(0f, 0.5f)] private float accuracyGracePeriod = 0.15f;
 
-    [Header("Taser Settings")]
     [SerializeField, Min(0)] private float stunEffectTime;
 
-    [Header("Melee Settings")] 
     [SerializeField] private bool isMelee;
     [SerializeField, Min(0.1f)] private float meleeReach;
     [SerializeField, Min(0.1f)] private float meleeHitRadius;
     [SerializeField] private float meleeHitForce;
 
     //// VISUALS
-    [Header("Visuals")]
     [SerializeField] private GameObject weaponModelPrefab;
     [SerializeField] private ParticleSystem muzzleFlashPrefab;
 
     //// AUDIO
-    [Header("Audio")]
     [SerializeField] private AudioClip attackSound;
     [SerializeField] private AudioClip reloadSound;
     [SerializeField] private AudioClip dryFireSound;
@@ -99,6 +97,7 @@ public class SO_WeaponType : ScriptableObject
     public float SpreadStandardDeviation => spreadStandardDeviation;
     public AnimationCurve DamageOverDistance => damageOverDistance;
     public int PelletCount => pelletCount;
+    public RecoilTypes RecoilType => recoilType;
     public float RecoilPerShotMin => recoilPerShotMin;
     public float RecoilPerShotMax => recoilPerShotMax;
     public float RecoilRecoverySpeed => recoilRecoverySpeed;
