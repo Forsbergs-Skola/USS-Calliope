@@ -123,8 +123,8 @@ public class SO_WeaponType : ScriptableObject
     //// METHODS
     public int GetDamageAtDistance(float distance)
     {
-        float t = Mathf.Clamp01(distance / impactRange);
-        float factor = damageOverDistance.Evaluate(t);
+        var t = Mathf.Clamp01(distance / impactRange);
+        var factor = damageOverDistance.Evaluate(t);
         return Mathf.RoundToInt(damage * factor);
     }
 

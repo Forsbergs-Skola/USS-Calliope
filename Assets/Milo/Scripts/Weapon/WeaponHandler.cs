@@ -99,15 +99,13 @@ public class PlayerWeaponHandler : MonoBehaviour
         weaponCooldown.InitializeCooldown(weaponData.FireRate);
         performAttack.SetCurrentWeapon(weaponData);
 
-        if (weaponData.WeaponModelPrefab != null && firePoint != null)
-        {
-            currentWeaponPrefab = Instantiate(weaponData.WeaponModelPrefab, firePoint);
-            currentWeaponPrefab.transform.localPosition = Vector3.zero;
-            currentWeaponPrefab.transform.localRotation = Quaternion.identity;
-            currentWeaponPrefab.transform.localScale = Vector3.one;
+        if (weaponData.WeaponModelPrefab == null || firePoint == null) return;
+        currentWeaponPrefab = Instantiate(weaponData.WeaponModelPrefab, firePoint);
+        currentWeaponPrefab.transform.localPosition = Vector3.zero;
+        currentWeaponPrefab.transform.localRotation = Quaternion.identity;
+        currentWeaponPrefab.transform.localScale = Vector3.one;
 
-            Debug.Log("[WeaponHandler] Weapon spawned: " + currentWeaponPrefab.name);
-        }
+        Debug.Log("[WeaponHandler] Weapon spawned: " + currentWeaponPrefab.name);
     }
 
     
