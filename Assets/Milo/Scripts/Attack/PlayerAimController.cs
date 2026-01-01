@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class PlayerAimController : MonoBehaviour
 {
-    [Header("Aim Settings")]
     [SerializeField] private LayerMask groundMask;
-    [SerializeField] private LayerMask enemyLayer; // Added for detection
-    [SerializeField] private float aimHeightOffset = 1.2f;
+    [SerializeField] private LayerMask enemyLayer; 
     [SerializeField] private float cameraOffsetDistance = 10f;
     
     [Header("Aim Camera Settings")]
@@ -14,24 +12,26 @@ public class PlayerAimController : MonoBehaviour
     [SerializeField] private float transitionSpeed = 5f; 
     [SerializeField] private float smoothSpeed = 3f;     
 
-    [Header("References")]
     [SerializeField] private Transform crosshairTransform;
     [SerializeField] private CinemachineCamera cam;
 
     private AttackInput attackInput;
-    private PlayerState playerState; // Added player state reference
+    private PlayerState playerState; 
     private CinemachineCameraOffset offsetExtension;
     private Camera mainCamera;
     private Vector2 lastMousePos;
     private Vector3 currentTargetOffset;
     private PlayerWeaponHandler weaponHandler;
     
-    private HitChance hitLogic = new HitChance();
+    private readonly HitChance hitLogic = new HitChance();
     private SpriteRenderer crosshairSprite;
 
     private float holdTimer = 0f;
     private float currentAimWeight = 0f; 
     private bool isHoldingButton = false;
+    
+    private const float AimHeightOffset = 0.56f;
+    
 
     public bool IsAiming { get; private set; }
 
@@ -92,7 +92,7 @@ public class PlayerAimController : MonoBehaviour
         if (!mainCamera) return;
 
         var ray = mainCamera.ScreenPointToRay(lastMousePos);
-        var aimPlane = new Plane(Vector3.up, transform.position + Vector3.up * aimHeightOffset);
+        var aimPlane = new Plane(Vector3.up, transform.position + Vector3.up * AimHeightOffset);
         var desiredOffset = Vector3.zero;
 
         if (aimPlane.Raycast(ray, out var enter))
@@ -167,7 +167,7 @@ public class PlayerAimController : MonoBehaviour
     public bool TryGetAimDirection(Vector3 origin, out Vector3 direction)
     {
         var ray = mainCamera.ScreenPointToRay(lastMousePos);
-        var aimPlane = new Plane(Vector3.up, transform.position + Vector3.up * aimHeightOffset);
+        var aimPlane = new Plane(Vector3.up, transform.position + Vector3.up * AimHeightOffset);
 
         if (aimPlane.Raycast(ray, out var enter))
         {

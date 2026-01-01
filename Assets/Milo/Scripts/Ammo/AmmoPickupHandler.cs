@@ -2,21 +2,21 @@ using UnityEngine;
 
 public class AmmoPickupHandler : PickupBase
 {
-    [SerializeField] AmmoPickUpView ammoView;
+    [SerializeField] private AmmoPickUpView ammoView;
     [SerializeField, Min(1)] private int amount = 10;
     
     private InventoryData invData
     {
         get
         {
-            if (DataController.Instance == null) return null;
+            if (!DataController.Instance) return null;
             else return DataController.Instance.InventoryRuntimeData.Value;
         }
     }
 
     protected override void OnPickup(GameObject picker)
     {
-        if (invData == null || ammoView.AmmoType == null) return;
+        if (invData == null || !ammoView.AmmoType) return;
 
         var consumables = invData.GetConsumableIDsAndQuantities();
 

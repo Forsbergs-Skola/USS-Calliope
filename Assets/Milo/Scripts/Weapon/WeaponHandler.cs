@@ -176,7 +176,6 @@ public class PlayerWeaponHandler : MonoBehaviour
     
         performAttack.Execute();
     
-        // Use the weapon's fireRate as the "swing speed" cooldown
         weaponCooldown.StartCooldown(currentWeaponData.FireRate);
     }
 
@@ -194,8 +193,8 @@ public class PlayerWeaponHandler : MonoBehaviour
         if (invData == null) return IDConstants.GetAllWeapons();
         return invData.GetWeaponItemIDs();
     }
-    
-    public void TryReload()
+
+    private void TryReload()
     {
         if (!currentWeaponData || !currentWeaponData.HasAmmo) return;
         if (reloadCoroutine != null) return; // already reloading
@@ -213,13 +212,12 @@ public class PlayerWeaponHandler : MonoBehaviour
 
         if (invData.GetConsumableIDsAndQuantities().TryGetValue(ammoID, out int ammoAvailable) && ammoAvailable > 0)
         {
-            int ammoNeeded = AmmoModel.MaxAmmo - AmmoModel.CurrentAmmo;
-            int ammoToLoad = Mathf.Min(ammoAvailable, ammoNeeded);
+            var ammoNeeded = AmmoModel.MaxAmmo - AmmoModel.CurrentAmmo;
+            var ammoToLoad = Mathf.Min(ammoAvailable, ammoNeeded);
 
-            // Remove ammo from inventory
+            // Delete ammo from inventory and add ammo to weapon //
+            
             invData.DepleteConsumable(ammoID, ammoToLoad);
-
-            // Add ammo to weapon
             AmmoModel.AddAmmo(AmmoModel.CurrentAmmoType, ammoToLoad);
 
             Debug.Log($"Reloaded {ammoToLoad} ammo into {currentWeaponData.DisplayName}");
