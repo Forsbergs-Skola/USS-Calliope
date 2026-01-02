@@ -72,7 +72,14 @@ public class SO_WeaponTypeEditor : Editor
             EditorGUILayout.PropertyField(serializedObject.FindProperty("recoilPerShotMax"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("recoilRecoverySpeed"));
         }
+
+        EditorGUILayout.Space();
         
+        EditorGUILayout.LabelField("Feedback", EditorStyles.boldLabel);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("weaponModelPrefab"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("attackSound"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("reloadSound"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("dryFireSound"));
         serializedObject.ApplyModifiedProperties();
     }
 }

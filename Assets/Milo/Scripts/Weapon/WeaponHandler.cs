@@ -19,7 +19,6 @@ public class PlayerWeaponHandler : MonoBehaviour
     private WeaponCooldown weaponCooldown;
     private GameObject currentWeaponPrefab;
     private Coroutine reloadCoroutine;
-    
 
     private int equippedWeaponIndex = -1;
     
@@ -72,6 +71,13 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private void EquipNextWeapon()
     {
+       
+        if (currentWeaponData != null && AmmoModel.CurrentAmmo > 0)
+        {
+            Debug.Log("Returning ammo to inventory");
+            invData.ReplenishConsumable(currentWeaponData.AmmoType.AmmoID, AmmoModel.CurrentAmmo);
+        }
+        
         var availableWeapons = GetAvailableWeapons();
         if (availableWeapons.Count <= 0) return;
 
@@ -166,7 +172,6 @@ public class PlayerWeaponHandler : MonoBehaviour
     
     private void TryMeleeAttack()
     {
-        // Melee doesn't need to check for firePoint or Ammo
         if (!weaponCooldown.CanFire())
             return;
 
@@ -197,6 +202,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         if (!currentWeaponData || !currentWeaponData.HasAmmo) return;
         if (reloadCoroutine != null) return; // already reloading
 
+        
         reloadCoroutine = StartCoroutine(ReloadRoutine());
     }
     
