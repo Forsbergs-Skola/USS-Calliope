@@ -15,10 +15,10 @@ public static class IDConstants
 
     // WEAPONS //
     public const string PISTOL = "e0d787fd-841a-4d18-80aa-a714d392ec94";
-    public const string MK7 = "d22dc9f8-adc6-44ca-b725-b3d72abf2d78";
-    public const string TASER = "64618f6a-b830-4f3f-adda-1fc46797723e";
-    public const string STEELPIPE = "06328f13-2353-482b-a0ea-b4f1a7f16931";
-    public const string RATTLESNAKE_V = "f66b924c-ebe0-4e69-8508-0cc5118b8e90";
+    public const string MK7 = "6ebdcfdc-4e88-49d7-954a-143f52bdba91";
+    public const string TASER = "8f54a66f-c4ce-4549-970b-2291019cb1ce";
+    public const string STEELPIPE = "a7a80968-16c4-4e8c-8a59-022c54568dbd";
+    public const string RATTLESNAKE_V = "fc8de8b9-4321-4f8a-a583-b7a0f1359ee6";
 
     // CONSUMABLES //
     public const string PISTOL_AMMO = "a9f38ca3-34f0-4319-82e1-0e8588736d51";

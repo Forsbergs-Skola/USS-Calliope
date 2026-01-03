@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fdc3a13b5fc81042b83285e787e264b, type: 3}
-  m_Name: Test
+  m_Script: {fileID: 11500000, guid: 9c1fc6fc41172884f8a31ab1c231bf18, type: 3}
+  m_Name: SteelpipeData
   m_EditorClassIdentifier: Assembly-CSharp::SO_WeaponType
-  weaponID: e436a0e0-2338-4744-af1c-9c391d228215
+  weaponID: 
   displayName: 
-  weaponCategory: 'Rifle '
-  ammoCategory: 'Super good ammo '
+  weaponCategory: 
+  ammoCategory: 
   icon: {fileID: 0}
-  description: 'Pew Pew gun gun '
+  description: 
   damage: 0
   fireRate: 0.2
   isSemiAutomatic: 0
@@ -42,7 +42,7 @@ MonoBehaviour:
   recoilRecoverySpeed: 0
   movementInaccuracyMultiplier: 0
   sprintInaccuracyMultiplier: 0
-  accuracyGracePeriod: 0
+  accuracyGracePeriod: 0.15
   stunEffectTime: 0
   isMelee: 0
   meleeReach: 0
