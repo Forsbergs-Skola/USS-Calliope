@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-[CreateAssetMenu(fileName = "SO_WeaponType", menuName = "Player Combat/SO_WeaponType")]
+[CreateAssetMenu(fileName = "SO_WeaponType", menuName = "Player/Player Combat/SO_WeaponType")]
 public class SO_WeaponType : ScriptableObject
 {
     public enum AttackCategory
@@ -137,11 +137,6 @@ public class SO_WeaponType : ScriptableObject
 
         return spreadStandardDeviation * movementInaccuracyMultiplier * multiplier;
     }
-
-
-
-
-
 
     public bool ShouldTrackMovement()
     {

@@ -112,7 +112,7 @@ public class PlayerAimController : MonoBehaviour
                 if (target)
                 {
                     var dist = Vector3.Distance(transform.position, target.transform.position);
-                    HitChance.CurrentHitChanceScore = HitChance.GetHitChanceScore(playerState, weaponHandler.CurrentWeaponData, dist);
+                    var score = HitChance.GetHitChanceScore(playerState, weaponHandler.CurrentWeaponData, dist);
                     UpdateCrosshairColor(HitChance.CurrentHitChanceScore);
                 }
                 else

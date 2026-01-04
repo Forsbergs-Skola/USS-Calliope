@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SO_AmmoType", menuName = "Player Combat/SO_AmmoType")]
+[CreateAssetMenu(fileName = "SO_AmmoType", menuName = "Player/Player Combat/SO_AmmoType")]
 public class SO_AmmoType : ScriptableObject
 {
     [SerializeField] private string ammoID = string.Empty;    

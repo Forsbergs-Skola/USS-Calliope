@@ -5,6 +5,7 @@ namespace Olle.Scripts
 {
     public class PlayerController : MonoBehaviour
     {
+
         public float moveSpeed = 5f;
         public float runMoveSpeed = 8f;
         public float crouchMoveSpeed = 2f;
@@ -28,7 +29,7 @@ namespace Olle.Scripts
         float _noiseTimer;
         
         PlayerStamina _stamina;
-        CrouchInvisibility _crouchInvis; 
+        CrouchInvisibility _crouchInvis;
         
         public bool IsCrouching => _isCrouching;
         
