@@ -6,15 +6,16 @@ public class PlayerAimController : MonoBehaviour
 {
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private LayerMask enemyLayer; 
-    [SerializeField] private float cameraOffsetDistance = 10f;
     
     [Header("Aim Camera Settings")]
     [SerializeField] private float holdThreshold = 0.2f; 
     [SerializeField] private float transitionSpeed = 5f; 
-    [SerializeField] private float smoothSpeed = 3f;     
+    [SerializeField] private float smoothSpeed = 3f;
+    [SerializeField] private float cameraOffsetDistance = 10f;
+
 
     [SerializeField] private Transform crosshairTransform;
-    [SerializeField] private CinemachineCamera cam;
+    [SerializeField] private CinemachineCamera cineMachineCam;
 
     private AttackInput attackInput;
     private PlayerState playerState; 
@@ -42,10 +43,10 @@ public class PlayerAimController : MonoBehaviour
         playerState = GetComponent<PlayerState>();
         mainCamera = Camera.main;
         
-        if (cam)
+        if (cineMachineCam)
         {
-            offsetExtension = cam.GetComponent<CinemachineCameraOffset>();
-            if (!offsetExtension) offsetExtension = cam.gameObject.AddComponent<CinemachineCameraOffset>();
+            offsetExtension = cineMachineCam.GetComponent<CinemachineCameraOffset>();
+            if (!offsetExtension) offsetExtension = cineMachineCam.gameObject.AddComponent<CinemachineCameraOffset>();
         }
 
         if (crosshairTransform)
@@ -109,25 +110,12 @@ public class PlayerAimController : MonoBehaviour
                 pullVector.y = 0;
                 desiredOffset = Vector3.ClampMagnitude(pullVector * 0.5f, cameraOffsetDistance) * currentAimWeight;
 
-                var target = GetTargetNearMouse(targetPosition);
-                if (target)
-                {
-                    var dist = Vector3.Distance(transform.position, target.transform.position);
-                    var score = HitChance.GetHitChanceScore(playerState, weaponHandler.CurrentWeaponData, dist);
-                    UpdateCrosshairColor(HitChance.CurrentHitChanceScore);
-                }
-                else
-                {
-                    if (crosshairSprite) crosshairSprite.color = Color.white;
-                }
+                GetHitChance(ray, enter);
             }
 
-            if (crosshairTransform)
-            {
-                crosshairTransform.position = targetPosition + Vector3.up * 0.05f; 
-                crosshairTransform.LookAt(mainCamera.transform);
-                crosshairSprite.enabled = IsAiming;
-            }
+            if (!IsAiming) crosshairSprite.enabled = false;
+            CrosshairPosition(targetPosition);
+            
         }
 
         if (!offsetExtension) return;
@@ -144,6 +132,16 @@ public class PlayerAimController : MonoBehaviour
             >= 0.4f => Color.yellow,
             _ => Color.red
         };
+    }
+
+    private void CrosshairPosition(Vector3 targetPosition)
+    {
+        if (IsAiming)
+        {
+            crosshairTransform.position = targetPosition + Vector3.up * 0.05f;
+            crosshairTransform.LookAt(mainCamera.transform);
+            crosshairSprite.enabled = IsAiming;
+        }
     }
 
     private GameObject GetTargetNearMouse(Vector3 mouseWorldPos)
@@ -180,9 +178,8 @@ public class PlayerAimController : MonoBehaviour
         return false;
     }
 
-    public void GetHitChance(Ray ray)
+    public void GetHitChance(Ray ray, float enter)
     {
-
         var targetPosition = ray.GetPoint(enter);
 
         var target = GetTargetNearMouse(targetPosition);
