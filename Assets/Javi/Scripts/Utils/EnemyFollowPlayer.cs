@@ -10,7 +10,7 @@ public class EnemyFollowPlayer : MonoBehaviour
 
     [Header("State")]
     [SerializeField] private bool followPlayer = false;
-
+    
     // Getter & Setter for the speed
     public float MoveSpeed
     {
@@ -29,7 +29,7 @@ public class EnemyFollowPlayer : MonoBehaviour
     {
         if (!followPlayer || playerTarget == null)
             return;
-
+        
         MoveTowardsPlayer();
     }
 

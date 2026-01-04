@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 
 public static class IDConstants
@@ -13,13 +15,19 @@ public static class IDConstants
 
     // WEAPONS //
     public const string PISTOL = "e0d787fd-841a-4d18-80aa-a714d392ec94";
-    public const string RIFLE = "597115c9-38db-470a-bf36-6b3cb3ec9f20";
+    public const string PISTOL_MK7 = "6ebdcfdc-4e88-49d7-954a-143f52bdba91";
+    public const string SHOTGUN_RATTLESNAKE_V = "82e898b7-6a7b-41cd-996b-e1907dc4981a";
+    public const string TASER = "3f4dd43a-e99b-4c1b-9c6d-3712e4113175";
+    public const string STEELPIPE = "bbb47cb0-3019-4cc0-9392-b1f78e038035";
 
     // CONSUMABLES //
     public const string PISTOL_AMMO = "a9f38ca3-34f0-4319-82e1-0e8588736d51";
-    public const string RIFLE_AMMO = "ABC123...";
+    public const string PISTOL_MK7_AMMO = "45723e17-4905-4e9b-8214-e0fd74a87e13";
+    public const string BATTERIES = "6164535a-3b6b-426b-9e1a-b57d180f9eba";
+    public const string SHOTGUN_AMMO = "9c776512-d310-40af-ae44-d51b07abe9b6";
+    
+    
     //public const string HEALTH_PACK = "ABC123";
-
 
 
 
@@ -39,5 +47,20 @@ public static class IDConstants
 
     public const string CONVERSATION_BOB_00 = "50791dc5-7571-4ef8-930c-08a63d7ebec5";
     public const string CONVERSATION_BOB_01 = "1fe47f51-40fc-4ef2-b03f-b6d2208e927c";
+
+
+
+    public static List<string> GetAllWeapons()
+    {
+        List<string> allWeapons = new List<string>();
+        allWeapons.Add(PISTOL);
+        allWeapons.Add(PISTOL_MK7);
+        allWeapons.Add(TASER);
+        allWeapons.Add(STEELPIPE);
+        allWeapons.Add(SHOTGUN_RATTLESNAKE_V);
+        
+        // etc..
+        return allWeapons;
+    }
 
 }

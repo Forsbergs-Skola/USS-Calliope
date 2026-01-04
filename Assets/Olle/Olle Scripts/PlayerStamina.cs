@@ -18,7 +18,7 @@ public class PlayerStamina : MonoBehaviour
         currentStamina = maxStamina;
     }
 
-    public void Tick(float deltaTime, bool isTryingToSprint, out bool canSprint)
+    public void Tick(float deltaTime, bool isTryingToSprint, bool blockRegen, out bool canSprint)
     {
         canSprint = !isTired && currentStamina > 0f && isTryingToSprint;
 
@@ -29,7 +29,8 @@ public class PlayerStamina : MonoBehaviour
         }
         else
         {
-            HandleRegen(deltaTime);
+            if (!blockRegen)
+                HandleRegen(deltaTime);
         }
     }
 

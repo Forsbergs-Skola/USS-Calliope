@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1fc6fc41172884f8a31ab1c231bf18, type: 3}
+  m_Name: ShotgunData
+  m_EditorClassIdentifier: Assembly-CSharp::SO_WeaponType
+  weaponID: 82e898b7-6a7b-41cd-996b-e1907dc4981a
+  displayName: Rattlesnake V
+  weaponCategory: Shotgun
+  ammoCategory: Shotgun Shells
+  icon: {fileID: 0}
+  description: 
+  damage: 50
+  fireRate: 1
+  isSemiAutomatic: 1
+  attackCategory: 0
+  hasAmmo: 1
+  magSize: 7
+  ammoType: {fileID: 11400000, guid: aa71757218043c24a88dd9653ea70395, type: 2}
+  reloadTime: 2
+  hasBallistics: 1
+  impactRange: 10
+  spreadStandardDeviation: 0.025
+  damageOverDistance:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.00680542
+      value: 0.9976196
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.9319725
+      value: 0.002380371
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  pelletCount: 5
+  recoilType: 0
+  recoilPerShotMin: 0
+  recoilPerShotMax: 0
+  recoilRecoverySpeed: 0
+  movementInaccuracyMultiplier: 0
+  sprintInaccuracyMultiplier: 0
+  accuracyGracePeriod: 0.15
+  stunEffectTime: 0
+  isMelee: 0
+  meleeReach: 0
+  meleeHitRadius: 0
+  meleeHitForce: 0
+  weaponModelPrefab: {fileID: 5836871964187019949, guid: 8b1b5d0845969ba448342b08857dc894, type: 3}
+  muzzleFlashPrefab: {fileID: 0}
+  attackSound: {fileID: 0}
+  reloadSound: {fileID: 0}
+  dryFireSound: {fileID: 0}
