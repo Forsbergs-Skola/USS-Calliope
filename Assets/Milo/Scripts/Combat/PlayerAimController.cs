@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -177,5 +178,23 @@ public class PlayerAimController : MonoBehaviour
 
         direction = transform.forward;
         return false;
+    }
+
+    public void GetHitChance(Ray ray)
+    {
+
+        var targetPosition = ray.GetPoint(enter);
+
+        var target = GetTargetNearMouse(targetPosition);
+        if (target)
+        {
+            var dist = Vector3.Distance(transform.position, target.transform.position);
+            var score = HitChance.GetHitChanceScore(playerState, weaponHandler.CurrentWeaponData, dist);
+            UpdateCrosshairColor(HitChance.CurrentHitChanceScore);
+        }
+        else
+        {
+            if (crosshairSprite) crosshairSprite.color = Color.white;
+        }
     }
 }
