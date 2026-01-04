@@ -12,11 +12,11 @@ public class ObjectiveSO : ScriptableObject
 
     [SerializeField] private List<string> prerequisiteObjectiveIDs = new List<string>();
 
-
-    // I expect to see something in the Inspector tab here, where I can drag the KillAliceCompletionCriteria script
-    // from the project window, but there's nothing
-    //[SerializeReference] private List<CompletionCriteria> completionCriteriaList = new List<CompletionCriteria>();
     [SerializeField] private CompletionCriteriaSO completionCriteria;
+
+
+    [Multiline] [SerializeField] private string devNotes;
+
 
     public string ObjectiveID { get => objectiveID; }
     public string ObjectiveTitle { get => objectiveTitle; }

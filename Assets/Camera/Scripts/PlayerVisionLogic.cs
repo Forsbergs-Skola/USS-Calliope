@@ -60,6 +60,8 @@ public class PlayerVisionLogic : MonoBehaviour
 
     void SetEnemyVisibility(Collider enemy, bool visible)
     {
+        if (!enemy) return;
+        
         Renderer renderer = enemy.GetComponent<Renderer>();
         SneakyEnemy sneaky = enemy.GetComponent<SneakyEnemy>();
 
@@ -68,6 +70,7 @@ public class PlayerVisionLogic : MonoBehaviour
 
         if (sneaky != null)
             sneaky.SetSeen(visible);
+        
     }
     
     

@@ -21,6 +21,13 @@ public class EnemyPhaseStateMachine : MonoBehaviour
 
         infection.OnInfectionChanged.AddListener(EvaluatePhase);
     }
+    
+    private void Start()
+    {
+        // Force initial phase evaluation
+        EvaluatePhase(infection.InfectionPercentage);
+    }
+
 
     private void EvaluatePhase(float infectionValue)
     {
@@ -47,7 +54,7 @@ public class EnemyPhaseStateMachine : MonoBehaviour
             return;
         }
 
-        currentPhase.OnEnterPhase();
+        currentPhase.OnEnterPhase(data);
     }
 
     private void Update()

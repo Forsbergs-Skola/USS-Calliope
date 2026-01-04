@@ -101,16 +101,16 @@ public class ObjectivesTracker : Singleton<ObjectivesTracker>
 
     private void IngestRuntimeDataUpdate(IRuntimeData _data)
     {
+        ProgressionData progressionData = DataController.Instance.ProgressionRuntimeData.Value;
+        if (progressionData == null) return;
 
-        if (!(_data is ProgressionData)) return;
-        ProgressionData progressionData = _data as ProgressionData;
         if (progressionData.ObjectivesAndStatusesDict == null) return;
 
         List<ObjectiveSO> startedObjectives = new List<ObjectiveSO>();
         Dictionary<string, EnumObjectiveStatus> statusDict = new Dictionary<string, EnumObjectiveStatus>(progressionData.ObjectivesAndStatusesDict);
-        foreach(string objID in statusDict.Keys.ToList<string>())
+        foreach (string objID in statusDict.Keys.ToList<string>())
         {
-            if(statusDict[objID] == EnumObjectiveStatus.STARTED) { startedObjectives.Add(GetObjectiveWithID(objID)); }
+            if (statusDict[objID] == EnumObjectiveStatus.STARTED) { startedObjectives.Add(GetObjectiveWithID(objID)); }
         }
 
         if (startedObjectives.Count > 0)
@@ -128,6 +128,7 @@ public class ObjectivesTracker : Singleton<ObjectivesTracker>
         if (devMode) { DebugIncomingData(progressionData); }
         else { /*TODO: UI stuff...*/ }
     }
+
 
     private void DebugIncomingData(ProgressionData progData)
     {

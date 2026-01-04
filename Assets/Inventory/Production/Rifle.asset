@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee7b136159cd2f747add31b7f6d02b29, type: 3}
+  m_Name: Rifle
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponItemSO
+  itemID: 597115c9-38db-470a-bf36-6b3cb3ec9f20
+  displayName: Rifle
+  iconTexturePath: InventoryItemTextures/
