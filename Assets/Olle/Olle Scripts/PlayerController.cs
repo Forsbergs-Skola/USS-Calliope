@@ -3,100 +3,100 @@ using UnityEngine.InputSystem;
 
 namespace Olle.Scripts
 {
+    [RequireComponent(typeof(Rigidbody), typeof(PlayerAnimationController))]
     public class PlayerController : MonoBehaviour
     {
-
+        [Header("Movement Speeds")]
         public float moveSpeed = 5f;
         public float runMoveSpeed = 8f;
         public float crouchMoveSpeed = 2f;
-        
+
+        [Header("Crouch")]
         public float crouchScaleY = 0.5f;
-        
-        public float walkStepInterval   = 0.4f;
-        public float runStepInterval    = 0.25f;
+
+        [Header("Footstep Noise")]
+        public float walkStepInterval = 0.4f;
+        public float runStepInterval = 0.25f;
         public float crouchStepInterval = 0.6f;
 
-        Rigidbody _rb;
-        Vector3 _inputDir;
-        Vector2 _moveInput;
-        bool _wantsToRun;
+        [Header("Rotation")]
+        [SerializeField] private float rotationSpeed = 15f;
+
+        // Components
+        private Rigidbody _rb;
+        private PlayerAnimationController _anim;
+        private NoiseEmitter _noise;
+        private PlayerStamina _stamina;
+        private CrouchInvisibility _crouchInvis;
+
+        // Input & movement
+        private Vector2 _moveInput;
+        private Vector3 _inputDir;
+        private bool _wantsToRun;
         public bool _isCrouching;
+        private float _turnCooldown = 0.5f;
+        private float _turnTimer = 0f;
 
-        float _defaultScaleY;
-        float _defaultMoveSpeed;
+        // Default values
+        private float _defaultScaleY;
+        private float _defaultMoveSpeed;
 
-        NoiseEmitter _noise;
-        float _noiseTimer;
-        
-        PlayerStamina _stamina;
-        CrouchInvisibility _crouchInvis;
+        // Rotation
+        private Quaternion? _targetRotation;
 
-        PlayerAnimationController _anim;
+        // Footstep noise timer
+        private float _noiseTimer;
 
-
+        // Public properties
         public bool IsCrouching => _isCrouching;
-        
         public bool IsDashing { get; set; }
-        
+        public bool IsSprinting => _wantsToRun && _inputDir.sqrMagnitude > 0.01f && !_isCrouching && !IsDashing && (_stamina == null || !_stamina.isTired);
+        public bool IsMoving => _inputDir.sqrMagnitude > 0.01f;
+
         public System.Action<Vector2> OnMoveEvent;
-        
-        void Awake()
+
+        private void Awake()
         {
+            _rb = GetComponent<Rigidbody>();
+            _rb.interpolation = RigidbodyInterpolation.Interpolate;
+            _rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
             _anim = GetComponent<PlayerAnimationController>();
+            _noise = GetComponent<NoiseEmitter>();
+            _stamina = GetComponent<PlayerStamina>();
+            _crouchInvis = GetComponent<CrouchInvisibility>();
 
-            _rb = GetComponent<Rigidbody>();
-
-            _defaultScaleY    = transform.localScale.y;
+            _defaultScaleY = transform.localScale.y;
             _defaultMoveSpeed = moveSpeed;
-
-            _noise        = GetComponent<NoiseEmitter>();
-            _stamina      = GetComponent<PlayerStamina>();
-            _crouchInvis  = GetComponent<CrouchInvisibility>();
         }
 
-        //Move inputs
+        #region Input Callbacks
         public void OnMove(InputAction.CallbackContext ctx)
         {
-            if (ctx.performed)
-            {
-                _moveInput = ctx.ReadValue<Vector2>();
-            }
-            else if (ctx.canceled)
-            {
-                _moveInput = Vector2.zero;
-            }
-
+            _moveInput = ctx.performed ? ctx.ReadValue<Vector2>() : Vector2.zero;
             OnMoveEvent?.Invoke(_moveInput);
         }
 
-        //Run
         public void OnRun(InputAction.CallbackContext ctx)
         {
             _wantsToRun = ctx.ReadValue<float>() > 0.5f;
         }
 
-        //Crouch
         public void OnCrouch(InputAction.CallbackContext ctx)
         {
-            if (ctx.performed)
-            {
-                _isCrouching = !_isCrouching;
-                ApplyCrouchState();
-            }
+            if (!ctx.performed) return;
+            _isCrouching = !_isCrouching;
+            ApplyCrouchState();
         }
 
-        //Interact
         public void OnInteract(InputAction.CallbackContext ctx)
         {
-            if (!ctx.performed)
-                return;
-            
+            if (!ctx.performed) return;
+
             float interactRadius = 1.5f;
             Vector3 origin = transform.position + transform.forward * 1f;
 
-            Collider[] hits = Physics.OverlapSphere(origin, interactRadius);
-            foreach (Collider hit in hits)
+            foreach (var hit in Physics.OverlapSphere(origin, interactRadius))
             {
                 var interactable = hit.GetComponent<Interactable>();
                 if (interactable != null)
@@ -106,170 +106,96 @@ namespace Olle.Scripts
                 }
             }
         }
-        
-        void Update()
-        {
-            Vector3 move = new Vector3(_moveInput.x, 0f, _moveInput.y);
-            move = Vector3.ClampMagnitude(move, 1f);
-            _inputDir = move;
+        #endregion
 
-            bool isMoving = _inputDir.sqrMagnitude > 0.01f;
-            
+        private void Update()
+        {
+            // Update input direction
+            _inputDir = Vector3.ClampMagnitude(new Vector3(_moveInput.x, 0f, _moveInput.y), 1f);
+            bool isMoving = IsMoving;
+
+            // Handle stamina
             bool canSprint = false;
             if (_stamina != null)
             {
-                bool blockRegen = _crouchInvis != null && _crouchInvis.IsInvisible; 
-                _stamina.Tick(Time.deltaTime,
-                              _wantsToRun && isMoving && !_isCrouching,
-                              blockRegen, 
-                              out canSprint);
+                bool blockRegen = _crouchInvis != null && _crouchInvis.IsInvisible;
+                _stamina.Tick(Time.deltaTime, _wantsToRun && isMoving && !_isCrouching, blockRegen, out canSprint);
             }
 
-            if (_isCrouching)
-            {
-                moveSpeed = crouchMoveSpeed;
-            }
-            else if (!IsDashing)
-            {
-                if (canSprint)
-                {
-                    moveSpeed = runMoveSpeed;
-                }
-                else if (_stamina != null && _stamina.isTired)
-                {
-                    moveSpeed = 2f; // Tired Speed
-                }
-                else
-                {
-                    moveSpeed = _defaultMoveSpeed;
-                }
-            }
+            // Update move speed based on state
+            moveSpeed = _isCrouching ? crouchMoveSpeed :
+                        (!IsDashing ? (IsSprinting ? runMoveSpeed : _defaultMoveSpeed) : moveSpeed);
 
-            // Noise
-            if (isMoving && _noise != null)
-            {
-                _noiseTimer += Time.deltaTime;
+            HandleNoise(isMoving, Time.deltaTime);
+            CalculateRotationTarget();
 
-                if (!_isCrouching && _wantsToRun)
-                {
-                    if (_noiseTimer >= runStepInterval)
-                    {
-                        _noise.EmitRun();
-                        _noiseTimer = 0f;
-                    }
-                }
-                else if (_isCrouching)
-                {
-                    if (_noiseTimer >= crouchStepInterval)
-                    {
-                        _noise.EmitCrouch();
-                        _noiseTimer = 0f;
-                    }
-                }
-                else
-                {
-                    if (_noiseTimer >= walkStepInterval)
-                    {
-                        _noise.EmitWalk();
-                        _noiseTimer = 0f;
-                    }
-                }
-            }
-            else
-            {
-                _noiseTimer = 0f;
-            }
-
-            if (_anim != null)
-            {
-                _anim.UpdateMovement(new Vector2(_inputDir.x, _inputDir.z));
-            }
+            _anim?.UpdateMovement(new Vector2(_inputDir.x, _inputDir.z), IsSprinting);
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
-            if (_moveInput.sqrMagnitude > 0.0001f)
+            if (_inputDir.sqrMagnitude > 0.0001f)
             {
-                Vector3 move = transform.right * _moveInput.x + transform.forward * _moveInput.y;
+                Vector3 move = transform.right * _inputDir.x + transform.forward * _inputDir.z;
                 move = Vector3.ClampMagnitude(move, 1f);
-
-                float step = moveSpeed * Time.fixedDeltaTime;
-                Vector3 targetPos = _rb.position + move * step;
-                _rb.MovePosition(targetPos);
-
-                bool rotateWithMovement = false; 
-                if (rotateWithMovement)
-                {
-                    Quaternion targetRot = Quaternion.LookRotation(move);
-                    _rb.MoveRotation(Quaternion.Slerp(_rb.rotation, targetRot, 10f * Time.fixedDeltaTime));
-                }
+                _rb.MovePosition(_rb.position + move * moveSpeed * Time.fixedDeltaTime);
             }
 
-            bool useMouseRotation = true; 
-            if (useMouseRotation && Camera.main != null && Mouse.current != null)
+            if (_targetRotation.HasValue)
             {
-                Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-                if (Physics.Raycast(ray, out RaycastHit hit, 1000f))
-                {
-                    Vector3 lookPos = hit.point;
-                    lookPos.y = _rb.position.y;
-                    Vector3 lookDir = lookPos - _rb.position;
-
-                    if (lookDir.sqrMagnitude > 0.0001f)
-                    {
-                        Quaternion targetRot = Quaternion.LookRotation(lookDir);
-                        _rb.MoveRotation(Quaternion.Slerp(_rb.rotation, targetRot, 15f * Time.fixedDeltaTime));
-                    }
-                }
+                _rb.MoveRotation(Quaternion.Slerp(_rb.rotation, _targetRotation.Value, rotationSpeed * Time.fixedDeltaTime));
             }
+        }
 
-         
-            bool isMoving = _moveInput.sqrMagnitude > 0.01f;
-            if (isMoving && _noise != null)
+        private void CalculateRotationTarget()
+        {
+            if (Camera.main == null || Mouse.current == null) return;
+
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+            Plane groundPlane = new Plane(Vector3.up, transform.position);
+
+            if (groundPlane.Raycast(ray, out float enter))
             {
-                _noiseTimer += Time.fixedDeltaTime;
+                Vector3 targetPoint = ray.GetPoint(enter);
+                Vector3 lookDir = targetPoint - transform.position;
+                lookDir.y = 0f;
 
-                if (!_isCrouching && _wantsToRun)
+                if (lookDir.sqrMagnitude > 0.001f)
+                    _targetRotation = Quaternion.LookRotation(lookDir);
+            }
+        }
+
+        private void HandleNoise(bool isMoving, float deltaTime)
+        {
+            if (_noise == null) return;
+
+            if (isMoving)
+            {
+                _noiseTimer += deltaTime;
+
+                if (!_isCrouching && IsSprinting && _noiseTimer >= runStepInterval)
                 {
-                    if (_noiseTimer >= runStepInterval)
-                    {
-                        _noise.EmitRun();
-                        _noiseTimer = 0f;
-                    }
+                    _noise.EmitRun();
+                    _noiseTimer = 0f;
                 }
-                else if (_isCrouching)
+                else if (_isCrouching && _noiseTimer >= crouchStepInterval)
                 {
-                    if (_noiseTimer >= crouchStepInterval)
-                    {
-                        _noise.EmitCrouch();
-                        _noiseTimer = 0f;
-                    }
+                    _noise.EmitCrouch();
+                    _noiseTimer = 0f;
                 }
-                else
+                else if (!_isCrouching && !IsSprinting && _noiseTimer >= walkStepInterval)
                 {
-                    if (_noiseTimer >= walkStepInterval)
-                    {
-                        _noise.EmitWalk();
-                        _noiseTimer = 0f;
-                    }
+                    _noise.EmitWalk();
+                    _noiseTimer = 0f;
                 }
             }
             else
             {
                 _noiseTimer = 0f;
             }
-
-            if (_anim != null)
-            {
-                // Pass input relative to player local space for animations
-                Vector3 localMove = transform.InverseTransformDirection(
-                    transform.right * _moveInput.x + transform.forward * _moveInput.y
-                );
-                _anim.UpdateMovement(new Vector2(localMove.x, localMove.z));
-            }
         }
 
-        void ApplyCrouchState()
+        private void ApplyCrouchState()
         {
             Vector3 scale = transform.localScale;
             scale.y = _isCrouching ? _defaultScaleY * crouchScaleY : _defaultScaleY;

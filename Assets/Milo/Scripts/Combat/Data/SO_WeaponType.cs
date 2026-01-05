@@ -16,8 +16,18 @@ public class SO_WeaponType : ScriptableObject
         CrosshairSway,
         SpreadPerShot,
     }
-    
+
+    public enum WeaponType
+    {
+        Unarmed = 0,
+        Pistol = 1,
+        Rifle = 2,
+        Melee = 3
+    }
+
     [SerializeField] private string weaponID = string.Empty;
+    [SerializeField] private WeaponType weaponType;
+    [SerializeField] private bool usesLeftHandIK;
     [SerializeField] private string displayName;
     [SerializeField] private string weaponCategory;
     [SerializeField] private string ammoCategory;
@@ -25,7 +35,7 @@ public class SO_WeaponType : ScriptableObject
     [TextArea(2, 7)] [SerializeField] private string description;
 
     [SerializeField, Min(0)] private int damage;      
-    [SerializeField, Min(0.01f)] private float fireRate = 0.2f;   // Shots per second
+    [SerializeField, Min(0.01f)] private float fireRate = 0.2f;   
     [SerializeField] private bool isSemiAutomatic;
     [SerializeField] private AttackCategory attackCategory;
     [SerializeField] private bool hasAmmo;
@@ -82,6 +92,8 @@ public class SO_WeaponType : ScriptableObject
     public Sprite WeaponIcon => icon;
     public string WeaponDescription => description;
     public AttackCategory AttackCategories => attackCategory;
+    public WeaponType TypeOfWeapon => weaponType;
+    public bool UsesLeftHandIK => usesLeftHandIK;
 
     public int Damage => damage;
     public float FireRate => fireRate;

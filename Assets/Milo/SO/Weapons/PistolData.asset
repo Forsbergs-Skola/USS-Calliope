@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: PistolData
   m_EditorClassIdentifier: Assembly-CSharp::SO_WeaponType
   weaponID: 6ebdcfdc-4e88-49d7-954a-143f52bdba91
+  weaponType: 1
+  usesLeftHandIK: 1
   displayName: 
   weaponCategory: Pistol
   ammoCategory: Pistol Ammo
@@ -84,7 +86,7 @@ MonoBehaviour:
   meleeReach: 0
   meleeHitRadius: 0
   meleeHitForce: 0
-  weaponModelPrefab: {fileID: 8820415652031407637, guid: 9895a4a7cd40d284c9318ee5aa57775b, type: 3}
+  weaponModelPrefab: {fileID: 1472282675940717097, guid: daa41aeec5d75ee46971ea44c4180b97, type: 3}
   muzzleFlashPrefab: {fileID: 0}
   attackSound: {fileID: 0}
   reloadSound: {fileID: 0}

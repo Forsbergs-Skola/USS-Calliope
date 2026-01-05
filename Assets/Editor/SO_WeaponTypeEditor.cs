@@ -14,6 +14,7 @@ public class SO_WeaponTypeEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("weaponID"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("displayName"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("weaponCategory"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("weaponType"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("ammoCategory"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("icon"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("description"));
@@ -25,7 +26,10 @@ public class SO_WeaponTypeEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("fireRate"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("attackCategory"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("isSemiAutomatic"));
-        
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("usesLeftHandIK"));
+
+
+
         EditorGUILayout.Space();
         
         EditorGUILayout.LabelField("Ammo Settings", EditorStyles.boldLabel);

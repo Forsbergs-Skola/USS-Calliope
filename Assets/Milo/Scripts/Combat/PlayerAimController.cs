@@ -113,7 +113,7 @@ public class PlayerAimController : MonoBehaviour
                 GetHitChance(ray, enter);
             }
 
-          
+          if (!IsAiming) crosshairSprite.enabled = false;
             CrosshairPosition(targetPosition);
             
         }
