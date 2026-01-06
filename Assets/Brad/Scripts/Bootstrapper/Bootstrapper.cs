@@ -11,6 +11,7 @@ public class Bootstrapper : Singleton<Bootstrapper>
     [SerializeField] private EmptyPayloadEvent newGamePressedEvent;
     [SerializeField] private EmptyPayloadEvent loadGamePressedEvent;
     [SerializeField] private EmptyPayloadEvent logoSplashFinishedEvent;
+    [SerializeField] private bool skipSplash = false;
 
     private bool pressedInputDampened = false;
     private bool isFreshStart = true;
@@ -19,7 +20,15 @@ public class Bootstrapper : Singleton<Bootstrapper>
     {
         isFreshStart = false;
         //UIController.Instance.ShowCanvas(EnumCanvasUIName.MAIN_MENU);
-        UIController.Instance.ShowCanvas(EnumCanvasUIName.LOGO_SPLASH);
+        if (skipSplash)
+        {
+            UIController.Instance.ShowCanvas(EnumCanvasUIName.MAIN_MENU);
+        }
+        else
+        {
+            UIController.Instance.ShowCanvas(EnumCanvasUIName.LOGO_SPLASH);
+        }
+       
     }
     private void OnEnable()
     {

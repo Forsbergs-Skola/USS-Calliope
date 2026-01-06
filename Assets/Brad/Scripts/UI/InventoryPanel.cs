@@ -49,7 +49,7 @@ public class InventoryPanel : MonoBehaviour
         List<string> weaponIDs = inventoryData.GetWeaponItemIDs();
         List <string> questItemIDs = inventoryData.GetQuestItemIDs();
         Dictionary<string, int> consumablesDict = inventoryData.GetConsumableIDsAndQuantities();
-
+        //
         List<WeaponItemSO> weapons = new List<WeaponItemSO>();
         List<QuestItemSO> questItems = new List<QuestItemSO>();
         List<ConsumableItemSO> consumables = new List<ConsumableItemSO>();

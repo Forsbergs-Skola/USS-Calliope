@@ -6,19 +6,16 @@ public class EnemyAttackController : MonoBehaviour
     [Header("Player Reference")]
     [SerializeField] private string playerTag = "Player";
     
-    //TODO: Delete this field and use the method SetAttacks!!
-    [Header("Attacks")]
-    [SerializeField] private List<EnemyAttackSOClass> availableAttacks;
-    
-    private List<EnemyAttackSOClass> currentAttacks = new();
+    [SerializeField]  private List<EnemyAttackInstance> currentAttacks = new();
     private EnemyAttackContext context;
 
     private void Awake()
     {
         context = new EnemyAttackContext
         {
-            enemy = transform,
-            movement = GetComponent<EnemyFollowPlayer>()
+            enemy = transform.root,
+            movement = GetComponent<EnemyFollowPlayer>(),
+            coroutineRunner = this
         };
     }
     
@@ -54,28 +51,41 @@ public class EnemyAttackController : MonoBehaviour
 
     public void SetAttacks(List<EnemyAttackSOClass> attacks)
     {
-        currentAttacks = attacks;
+        currentAttacks.Clear();
+        foreach (var attack in attacks)
+        {
+            currentAttacks.Add(new EnemyAttackInstance
+            {
+                attack = attack
+            });
+        }
+        Debug.Log($"[EnemyAttackController] Attack instances created: {currentAttacks.Count}");
     }
 
     private void Update()
     {
-        if (context.player == null) return;
-        Debug.Log($"[EnemyAttackController] Executing Update");
-        //foreach (var attack in currentAttacks)
-        foreach (var attack in availableAttacks)
+        if (context.player == null)
+            return;
+
+        if (currentAttacks == null || currentAttacks.Count == 0)
+            return;
+
+        foreach (var attackInstance in currentAttacks)
         {
-            Debug.Log($"[EnemyAttackController] foreach");
-            if (attack.IsOnCooldown())
+            if (attackInstance == null || attackInstance.attack == null)
                 continue;
-            
-            Debug.Log($"[EnemyAttackController] before canExecute");
-            if (attack.CanExecute(context))
+
+            if (attackInstance.IsOnCooldown())
+                continue;
+
+            if (attackInstance.attack.CanExecute(context))
             {
-                Debug.Log($"Executing attack: {attack.name}");
-                attack.Execute(context);
-                attack.MarkUsed();
-                break; // One attack per frame
+                Debug.Log($"Executing attack: {attackInstance.attack.name}");
+                attackInstance.attack.Execute(context);
+                attackInstance.MarkUsed();
+                break; // Only one attack per frame
             }
         }
     }
+
 }
