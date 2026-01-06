@@ -16,14 +16,15 @@ public static class HitChance
             (float)player.CurrentHealth / player.MaxHealth);
 
         if (player.CurrentStamina == 0) staminaNormalized = 0.1f;
-        if (player.CurrentHealth <= 20) healthNormalized = 0.0f;
 
         score *= staminaNormalized + 0.2f;
         score *= healthNormalized + 0.3f;
 
-        if (player.IsSprinting) score *= 0.2f;
-        else if (player.IsMoving) score *= 0.7f;
+        if (player.IsSprinting()) score *= weapon.SprintInaccuracyMultiplier;
+        else if (player.IsMoving()) score *= weapon.MovementInaccuracyMultiplier;
 
+
+        if (player.CurrentHealth <= 15) score = 1f;
 
         CurrentHitChanceScore = Mathf.Clamp01(score);
         return CurrentHitChanceScore;

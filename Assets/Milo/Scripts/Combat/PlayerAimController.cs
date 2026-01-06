@@ -26,12 +26,14 @@ public class PlayerAimController : MonoBehaviour
     private Vector3 currentTargetOffset;
     private PlayerWeaponHandler weaponHandler;
     private Animator animator;
+    private PlayerVisionLogic visionlogic;
 
     private float holdTimer = 0f;
     private float currentAimWeight = 0f;
     private bool isHoldingButton = false;
 
     private int unEquippedAnim = 0;
+    private float camRayDistance = 100.0f;
 
     private const float AimHeightOffset = 0.56f;
 
@@ -44,6 +46,7 @@ public class PlayerAimController : MonoBehaviour
         playerState = GetComponent<PlayerState>();
         animator = GetComponent<Animator>();
         mainCamera = Camera.main;
+        visionlogic = GetComponent<PlayerVisionLogic>();
 
         if (cineMachineCam)
         {
@@ -125,7 +128,7 @@ public class PlayerAimController : MonoBehaviour
             return;
         }
 
-        bool hitEnemy = Physics.Raycast(ray, out RaycastHit enemyHit, 100f, enemyLayer);
+        bool hitEnemy = Physics.Raycast(ray, out RaycastHit enemyHit, camRayDistance, enemyLayer);
 
         if (IsAiming)
         {
@@ -144,7 +147,10 @@ public class PlayerAimController : MonoBehaviour
 
             desiredOffset = Vector3.ClampMagnitude(pullVector * 0.5f, cameraOffsetDistance) * currentAimWeight;
 
-            if (hitEnemy)
+
+            float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+
+            if (hitEnemy && distanceToTarget <= visionlogic.viewDistance + 1.5f)
             {
                 var dist = Vector3.Distance(transform.position, enemyHit.collider.bounds.center);
                 var score = HitChance.GetHitChanceScore(playerState, weaponHandler.CurrentWeaponData, dist);

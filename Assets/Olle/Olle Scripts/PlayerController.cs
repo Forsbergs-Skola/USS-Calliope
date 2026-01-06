@@ -47,7 +47,6 @@ namespace Olle.Scripts
         // Footstep noise timer
         private float _noiseTimer;
 
-        // Public properties
         public bool IsCrouching => _isCrouching;
         public bool IsDashing { get; set; }
         public bool IsSprinting => _wantsToRun && _inputDir.sqrMagnitude > 0.01f && !_isCrouching && !IsDashing && (_stamina == null || !_stamina.isTired);
@@ -110,11 +109,9 @@ namespace Olle.Scripts
 
         private void Update()
         {
-            // Update input direction
             _inputDir = Vector3.ClampMagnitude(new Vector3(_moveInput.x, 0f, _moveInput.y), 1f);
             bool isMoving = IsMoving;
 
-            // Handle stamina
             bool canSprint = false;
             if (_stamina != null)
             {
@@ -122,7 +119,6 @@ namespace Olle.Scripts
                 _stamina.Tick(Time.deltaTime, _wantsToRun && isMoving && !_isCrouching, blockRegen, out canSprint);
             }
 
-            // Update move speed based on state
             moveSpeed = _isCrouching ? crouchMoveSpeed :
                         (!IsDashing ? (IsSprinting ? runMoveSpeed : _defaultMoveSpeed) : moveSpeed);
 

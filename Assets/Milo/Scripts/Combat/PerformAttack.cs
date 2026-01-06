@@ -16,12 +16,14 @@ public class PerformAttack : MonoBehaviour
     private AttackInput attackInput;
     private PlayerAimController aimController;
     private ImpactProcessor impactProcessor;
+    private PlayerState playerState;
 
     private void Awake()
     {
         attackInput = GetComponent<AttackInput>();
         aimController = GetComponent<PlayerAimController>();
         impactProcessor = GetComponent<ImpactProcessor>();
+        playerState = GetComponent<PlayerState>();
     }
 
     private void Update()
@@ -156,7 +158,7 @@ public class PerformAttack : MonoBehaviour
     {
         if (!currentWeapon) return 0f;
         var isSprinting = attackInput.SprintAction.action.IsPressed();
-        return currentWeapon.GetBaseSpreadIntensity(movementTimer, isSprinting, HitChance.CurrentHitChanceScore);
+        return currentWeapon.GetBaseSpreadIntensity(movementTimer, isSprinting, HitChance.CurrentHitChanceScore, playerState.CurrentHealth);
     }
 
     private void PlayAttackSound()

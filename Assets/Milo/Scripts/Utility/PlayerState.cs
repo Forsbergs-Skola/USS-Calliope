@@ -17,8 +17,21 @@ public class PlayerState : MonoBehaviour
     public float CurrentStamina => stamina.currentStamina;
     public float MaxStamina => stamina.maxStamina;
 
-    public bool IsMoving => controller != null && controller.IsMoving;
-    public bool IsSprinting => controller != null && controller.IsSprinting;
+    public bool IsMoving()
+    {
+        if (input.MoveAction.action.IsPressed()){
+            return true;
+        }
+        return false;
+    }
+    public bool IsSprinting()
+    {
+        if (input.SprintAction.action.IsPressed())
+        {
+            return true;
+        }
+        return false;
+    }
     public bool IsCrouching => controller != null && controller.IsCrouching;
 
 }

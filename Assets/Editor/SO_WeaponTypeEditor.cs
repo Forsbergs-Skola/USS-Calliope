@@ -64,6 +64,10 @@ public class SO_WeaponTypeEditor : Editor
             EditorGUILayout.PropertyField(serializedObject.FindProperty("spreadStandardDeviation"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("damageOverDistance"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("pelletCount"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("movementInaccuracyMultiplier"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("sprintInaccuracyMultiplier"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("accuracyGracePeriod"));
+
         }
 
         EditorGUILayout.Space();

@@ -56,9 +56,9 @@ public class SO_WeaponType : ScriptableObject
     [SerializeField, Min(0f)] private float recoilRecoverySpeed;
 
     [Tooltip("Pistol 1.5, Rifle 2.5, Shotgun 1.2")]
-    [SerializeField, Min(0f)] private float movementInaccuracyMultiplier;
+    [SerializeField, Range(0, 1)] private float movementInaccuracyMultiplier;
     [Tooltip("Pistol 3.0, Rifle 5.0, Shotgun 2.0")]
-    [SerializeField, Min(0f)] private float sprintInaccuracyMultiplier;
+    [SerializeField, Range(0, 1)] private float sprintInaccuracyMultiplier;
     [Tooltip("Pistol 0.20s, Rifle 0.10s, Shotgun 0.25s")]
     [SerializeField, Range(0f, 0.5f)] private float accuracyGracePeriod = 0.15f;
 
@@ -136,18 +136,27 @@ public class SO_WeaponType : ScriptableObject
         return Mathf.RoundToInt(damage * factor);
     }
 
-    public float GetBaseSpreadIntensity(float movementTimer, bool isSprinting, float hitChanceScore)
+    public float GetBaseSpreadIntensity(float movementTimer, bool isSprinting, float hitChanceScore, float currentHealth)
     {
-        // invert hitChanceScore so low score = high spread
-        float multiplier = 1f - hitChanceScore;
 
-        if (!isSprinting && movementTimer <= accuracyGracePeriod)
-            return spreadStandardDeviation * multiplier;
+        float multiplier;
+      
+        if (hitChanceScore < 0.2f)
+        {
+            multiplier = 10f;
+        }
+        else if (hitChanceScore < 0.5f)
+        {
+            multiplier = 3.0f;
+        }
+        else multiplier = 0f;
 
-        if (isSprinting)
-            return spreadStandardDeviation * sprintInaccuracyMultiplier * multiplier;
+        if (currentHealth <= 15.0f)
+        {
+            multiplier = 0.0f;
+        }
 
-        return spreadStandardDeviation * movementInaccuracyMultiplier * multiplier;
+        return spreadStandardDeviation = multiplier;
     }
 
     public bool ShouldTrackMovement()
