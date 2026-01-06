@@ -36,7 +36,7 @@ public class WeaponPickupHandler : PickupBase
             return;
         }
         
-        invData.AddWeaponItem(weaponView.WeaponType.WeaponID);
+        if (invData != null) invData.AddWeaponItem(weaponView.WeaponType.WeaponID);
 
         Destroy(gameObject);
     }

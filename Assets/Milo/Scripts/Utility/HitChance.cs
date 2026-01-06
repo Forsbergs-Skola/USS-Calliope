@@ -31,6 +31,7 @@ public static class HitChance
 
     private static float DistanceRatio(SO_WeaponType weapon, float distance)
     {
+        if (weapon == null) return 50f;
         float distanceRatio = Mathf.Clamp01(distance / weapon.ImpactRange);
 
         return weapon.DamageOverDistance.Evaluate(distanceRatio);

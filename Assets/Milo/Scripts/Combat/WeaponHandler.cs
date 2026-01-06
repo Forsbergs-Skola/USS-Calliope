@@ -22,8 +22,6 @@ public class PlayerWeaponHandler : MonoBehaviour
     private WeaponCooldown weaponCooldown;
     private GameObject currentWeaponPrefab;
     private Coroutine reloadCoroutine;
-    private WeaponHandIK weaponHandIK;
-
     private int equippedWeaponIndex = -1;
 
     private InventoryData invData
@@ -43,7 +41,6 @@ public class PlayerWeaponHandler : MonoBehaviour
         attackInput = GetComponent<AttackInput>();
         aimController = GetComponent<PlayerAimController>();
         performAttack = GetComponent<PerformAttack>();
-        weaponHandIK = GetComponent<WeaponHandIK>();
 
         AmmoModel = new AmmoModel();
     }
@@ -71,7 +68,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     private void EquipNextWeapon()
     {
         var availableWeapons = GetAvailableWeapons();
-        if (availableWeapons.Count <= 0) return;
+        if (availableWeapons.Count == 0) return;
 
         if (currentWeaponData != null && AmmoModel.CurrentAmmo > 0)
         {
@@ -87,11 +84,15 @@ public class PlayerWeaponHandler : MonoBehaviour
 
         currentWeaponData = weaponData;
 
-        // Clean up IK and Visuals
-        weaponHandIK.SetLeftHandTarget(null);
         if (currentWeaponPrefab != null) Destroy(currentWeaponPrefab);
 
         ApplyWeaponSetup(weaponData);
+
+        if (invData.GetConsumableIDsAndQuantities().TryGetValue(weaponData.AmmoType.AmmoID, out int ammoAvailable) && ammoAvailable > 0)
+        {
+            invData.DepleteConsumable(weaponData.AmmoType.AmmoID, weaponData.MagSize);
+            AmmoModel.AddAmmo(weaponData.AmmoType, weaponData.MagSize);
+        }
     }
 
     private void ApplyWeaponSetup(SO_WeaponType data)
@@ -101,18 +102,12 @@ public class PlayerWeaponHandler : MonoBehaviour
         weaponCooldown.InitializeCooldown(data.FireRate);
         performAttack.SetCurrentWeapon(data);
 
-        if (data.WeaponModelPrefab != null && rightHand != null)
+        if (data.WeaponModelPrefab != null && firePoint != null)
         {
-            currentWeaponPrefab = Instantiate(data.WeaponModelPrefab, rightHand);
+            currentWeaponPrefab = Instantiate(data.WeaponModelPrefab, firePoint);
             currentWeaponPrefab.transform.localPosition = Vector3.zero;
             currentWeaponPrefab.transform.localRotation = Quaternion.identity;
-
-            // Search for the IK target inside the instantiated weapon prefab
-            Transform leftHandIK = currentWeaponPrefab.transform.Find("LeftHandIK");
-            if (leftHandIK != null)
-            {
-                weaponHandIK.SetLeftHandTarget(leftHandIK);
-            }
+            currentWeaponPrefab.transform.localScale = Vector3.one;
         }
     }
 
