@@ -97,6 +97,11 @@ namespace Olle.Scripts
         
         void Update()
         {
+            if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            {
+                TogglePause();
+            }
+            
             Vector3 move = new Vector3(_moveInput.x, 0f, _moveInput.y);
             move = Vector3.ClampMagnitude(move, 1f);
             _inputDir = move;
@@ -202,5 +207,23 @@ namespace Olle.Scripts
             scale.y = _isCrouching ? _defaultScaleY * crouchScaleY : _defaultScaleY;
             transform.localScale = scale;
         }
+        
+        public void TogglePause()
+        {
+        
+            if (!UIController.Instance.GetIsCanvasUp(EnumCanvasUIName.PAUSE))
+            {
+                UIController.Instance.ShowCanvas(EnumCanvasUIName.PAUSE);
+            }
+            else
+            {
+                UIController.Instance.RemoveCanvas(EnumCanvasUIName.PAUSE);
+            }
+        }
+        
     }
+    
+    
+    
+    
 }
