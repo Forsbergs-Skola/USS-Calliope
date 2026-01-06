@@ -10,7 +10,6 @@ public class PlayerWeaponHandler : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Transform firePoint;
     [SerializeField] private SO_WeaponList weaponDatabase;
-    [SerializeField] private Animator animator;
     [SerializeField] private Transform rightHand; // Defined this so the weapon has a parent!
 
     private AttackInput attackInput;
@@ -97,7 +96,6 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private void ApplyWeaponSetup(SO_WeaponType data)
     {
-        animator.SetInteger("WeaponType", (int)data.TypeOfWeapon);
         AmmoModel.InitializeAmmo(data);
         weaponCooldown.InitializeCooldown(data.FireRate);
         performAttack.SetCurrentWeapon(data);

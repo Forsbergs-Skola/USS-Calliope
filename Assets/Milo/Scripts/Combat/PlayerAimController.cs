@@ -25,10 +25,13 @@ public class PlayerAimController : MonoBehaviour
     private Vector2 lastMousePos;
     private Vector3 currentTargetOffset;
     private PlayerWeaponHandler weaponHandler;
+    private Animator animator;
 
     private float holdTimer = 0f;
     private float currentAimWeight = 0f;
     private bool isHoldingButton = false;
+
+    private int unEquippedAnim = 0;
 
     private const float AimHeightOffset = 0.56f;
 
@@ -39,6 +42,7 @@ public class PlayerAimController : MonoBehaviour
         weaponHandler = GetComponent<PlayerWeaponHandler>();
         attackInput = GetComponent<AttackInput>();
         playerState = GetComponent<PlayerState>();
+        animator = GetComponent<Animator>();
         mainCamera = Camera.main;
 
         if (cineMachineCam)
@@ -81,7 +85,6 @@ public class PlayerAimController : MonoBehaviour
 
     private void Update()
     {
-        // Update mouse position every frame (for UI crosshair)
         lastMousePos = attackInput.GetMousePosition();
 
         if (isHoldingButton)
@@ -94,6 +97,13 @@ public class PlayerAimController : MonoBehaviour
         currentAimWeight = Mathf.MoveTowards(currentAimWeight, targetWeight, Time.deltaTime * transitionSpeed);
 
         UpdateAimLogic();
+
+        if (!IsAiming)
+        {
+            int currentAnimation = animator.GetInteger("WeaponType");
+            if (currentAnimation == 0) return;
+            animator.SetInteger("WeaponType", (int)unEquippedAnim);
+        }
     }
 
     private void UpdateAimLogic()
@@ -105,14 +115,8 @@ public class PlayerAimController : MonoBehaviour
 
         Vector3 targetPosition;
         Vector3 desiredOffset = Vector3.zero;
-        bool hitEnemy = false;
 
-        if (Physics.Raycast(ray, out RaycastHit enemyHit, 100f, enemyLayer))
-        {
-            targetPosition = enemyHit.collider.bounds.center;
-            hitEnemy = true;
-        }
-        else if (aimPlane.Raycast(ray, out float enter))
+        if (aimPlane.Raycast(ray, out float enter))
         {
             targetPosition = ray.GetPoint(enter);
         }
@@ -121,9 +125,15 @@ public class PlayerAimController : MonoBehaviour
             return;
         }
 
+        bool hitEnemy = Physics.Raycast(ray, out RaycastHit enemyHit, 100f, enemyLayer);
+
         if (IsAiming)
         {
-            // Rotate player towards target
+            if (weaponHandler.CurrentWeaponData != null)
+            {
+                animator.SetInteger("WeaponType", (int)weaponHandler.CurrentWeaponData.TypeOfWeapon);
+            }
+                
             var lookDir = targetPosition - transform.position;
             lookDir.y = 0f;
             if (lookDir.sqrMagnitude > 0.01f)
@@ -134,10 +144,9 @@ public class PlayerAimController : MonoBehaviour
 
             desiredOffset = Vector3.ClampMagnitude(pullVector * 0.5f, cameraOffsetDistance) * currentAimWeight;
 
-            // Update crosshair color based on hit chance
             if (hitEnemy)
             {
-                var dist = Vector3.Distance(transform.position, targetPosition);
+                var dist = Vector3.Distance(transform.position, enemyHit.collider.bounds.center);
                 var score = HitChance.GetHitChanceScore(playerState, weaponHandler.CurrentWeaponData, dist);
                 UpdateCrosshairColor(score);
             }
@@ -147,10 +156,8 @@ public class PlayerAimController : MonoBehaviour
             }
         }
 
-        // Move crosshair UI to mouse world position
         UpdateCrosshairPosition(targetPosition);
 
-        // Smooth camera offset
         if (offsetExtension)
         {
             currentTargetOffset = Vector3.Lerp(currentTargetOffset, desiredOffset, Time.deltaTime * smoothSpeed);
@@ -179,7 +186,6 @@ public class PlayerAimController : MonoBehaviour
 
         Vector3 screenPos = mainCamera.WorldToScreenPoint(worldPos);
 
-        // Clamp inside screen bounds
         screenPos.x = Mathf.Clamp(screenPos.x, 0, Screen.width);
         screenPos.y = Mathf.Clamp(screenPos.y, 0, Screen.height);
 
@@ -201,5 +207,4 @@ public class PlayerAimController : MonoBehaviour
         direction = transform.forward;
         return false;
     }
-
 }
