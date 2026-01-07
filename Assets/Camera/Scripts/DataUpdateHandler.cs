@@ -24,10 +24,10 @@ public class DataUpdateHandler : MonoBehaviour
       bool investigateMedbayFinished = progressionRuntimeData.Value.ObjectivesAndStatusesDict[IDConstants.OBJECTIVE_04_ID] == EnumObjectiveStatus.FINISHED;
       if (investigateMedbayFinished)
       {
-         bool hasPistol = inventoryRuntimeData.Value.GetWeaponItemIDs().Contains(IDConstants.PISTOL);
+         bool hasPistol = inventoryRuntimeData.Value.GetWeaponItemIDs().Contains(IDConstants.PISTOL_MK7);
          if (!hasPistol)
          {
-            inventoryRuntimeData.Value.AddWeaponItem(IDConstants.PISTOL);
+            inventoryRuntimeData.Value.AddWeaponItem(IDConstants.PISTOL_MK7);
             inventoryRuntimeData.Value.AddNewConsumable(IDConstants.PISTOL_AMMO, 10);
          }
       }

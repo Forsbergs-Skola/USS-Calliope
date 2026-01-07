@@ -3166,6 +3166,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 10822350, guid: 34d7c0326aa4144e0a3b7a904ee287bc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -12982,6 +12986,9 @@ MonoBehaviour:
   maximumBoost: 0.8
   speed: 0.1
   strength: 250
+  noFlicker: 0
+  source: {fileID: 0}
+  initialIntensity: 0
 --- !u!114 &919706965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14889,6 +14896,9 @@ MonoBehaviour:
   maximumBoost: 0.8
   speed: 0.1
   strength: 250
+  noFlicker: 0
+  source: {fileID: 0}
+  initialIntensity: 0
 --- !u!114 &1048282231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17908,6 +17918,9 @@ MonoBehaviour:
   maximumBoost: 0.5
   speed: 0.1
   strength: 250
+  noFlicker: 0
+  source: {fileID: 0}
+  initialIntensity: 0
 --- !u!114 &1262573424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21963,6 +21976,9 @@ MonoBehaviour:
   maximumBoost: 0.5
   speed: 0.1
   strength: 250
+  noFlicker: 0
+  source: {fileID: 0}
+  initialIntensity: 0
 --- !u!114 &1553385954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26007,6 +26023,9 @@ MonoBehaviour:
   maximumBoost: 0.5
   speed: 0.1
   strength: 250
+  noFlicker: 0
+  source: {fileID: 0}
+  initialIntensity: 0
 --- !u!114 &1889394894
 MonoBehaviour:
   m_ObjectHideFlags: 0
