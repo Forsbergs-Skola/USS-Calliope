@@ -324,6 +324,7 @@ GameObject:
   - component: {fileID: 4486414231570038934}
   - component: {fileID: 8434852341701702401}
   - component: {fileID: 8170827979388918667}
+  - component: {fileID: 3303215723275432951}
   m_Layer: 7
   m_Name: EnemyActive
   m_TagString: Untagged
@@ -579,6 +580,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 830a181bd894c024a9748a2bfa4dd8c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhaseLatent
+--- !u!114 &3303215723275432951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566595255413055139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b296e5db013d245971a56e0812d3b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageTextSpawner
+  damageTextPrefab: {fileID: 2076834550311892472, guid: de321cc44df38414a8f06f37c47de266, type: 3}
+  spawnPoint: {fileID: 3709878699956416442}
 --- !u!1 &7681951782638355072
 GameObject:
   m_ObjectHideFlags: 0
