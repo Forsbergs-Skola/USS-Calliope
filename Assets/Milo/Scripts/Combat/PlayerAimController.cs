@@ -103,9 +103,7 @@ public class PlayerAimController : MonoBehaviour
 
         if (!IsAiming)
         {
-            int currentAnimation = animator.GetInteger("WeaponType");
-            if (currentAnimation == 0) return;
-            animator.SetInteger("WeaponType", (int)unEquippedAnim);
+            animator.SetInteger("WeaponType", unEquippedAnim);
         }
     }
 
