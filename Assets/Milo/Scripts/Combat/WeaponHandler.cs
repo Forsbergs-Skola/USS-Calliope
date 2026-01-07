@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerWeaponHandler : MonoBehaviour
 {
     public SO_WeaponType CurrentWeaponData => currentWeaponData;
-    
+
+    [Header("References")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Transform firePoint;
     [SerializeField] private SO_WeaponList weaponDatabase;
+    [SerializeField] private Transform rightHand; // Defined this so the weapon has a parent!
 
     private AttackInput attackInput;
     private SO_WeaponType currentWeaponData;
@@ -19,11 +21,8 @@ public class PlayerWeaponHandler : MonoBehaviour
     private WeaponCooldown weaponCooldown;
     private GameObject currentWeaponPrefab;
     private Coroutine reloadCoroutine;
-
     private int equippedWeaponIndex = -1;
-    
-    
-    
+
     private InventoryData invData
     {
         get
@@ -34,7 +33,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     }
 
     public AmmoModel AmmoModel { get; private set; }
-    
+
     private void Awake()
     {
         weaponCooldown = GetComponent<WeaponCooldown>();
@@ -43,8 +42,6 @@ public class PlayerWeaponHandler : MonoBehaviour
         performAttack = GetComponent<PerformAttack>();
 
         AmmoModel = new AmmoModel();
-        
-        
     }
 
     private void Start()
@@ -55,7 +52,6 @@ public class PlayerWeaponHandler : MonoBehaviour
         attackInput.AimStopped += OnAimStopped;
         attackInput.SwitchWeaponTriggered += EquipNextWeapon;
         attackInput.ReloadTriggered += TryReload;
-
     }
 
     private void OnDisable()
@@ -66,55 +62,53 @@ public class PlayerWeaponHandler : MonoBehaviour
         attackInput.AimStopped -= OnAimStopped;
         attackInput.SwitchWeaponTriggered -= EquipNextWeapon;
         attackInput.ReloadTriggered -= TryReload;
-
     }
 
     private void EquipNextWeapon()
     {
-       
+        var availableWeapons = GetAvailableWeapons();
+        if (availableWeapons.Count == 0) return;
+
         if (currentWeaponData != null && AmmoModel.CurrentAmmo > 0)
         {
-            Debug.Log("Returning ammo to inventory");
             invData.ReplenishConsumable(currentWeaponData.AmmoType.AmmoID, AmmoModel.CurrentAmmo);
         }
-        
-        var availableWeapons = GetAvailableWeapons();
-        if (availableWeapons.Count <= 0) return;
 
         equippedWeaponIndex = (equippedWeaponIndex + 1) % availableWeapons.Count;
-        var weaponId = availableWeapons[equippedWeaponIndex];
+        string weaponId = availableWeapons[equippedWeaponIndex];
 
-        if (weaponDatabase == null)
-        {
-            Debug.LogWarning("[WeaponHandler] WeaponDatabase is missing!");
-            return;
-        }
-
+        if (!weaponDatabase) return;
         SO_WeaponType weaponData = weaponDatabase.GetWeapon(weaponId);
         if (weaponData == null) return;
 
         currentWeaponData = weaponData;
 
-        if (currentWeaponPrefab != null)
+        if (currentWeaponPrefab != null) Destroy(currentWeaponPrefab);
+
+        ApplyWeaponSetup(weaponData);
+
+        if (invData.GetConsumableIDsAndQuantities().TryGetValue(weaponData.AmmoType.AmmoID, out int ammoAvailable) && ammoAvailable > 0)
         {
-            Destroy(currentWeaponPrefab);
-            currentWeaponPrefab = null;
+            invData.DepleteConsumable(weaponData.AmmoType.AmmoID, weaponData.MagSize);
+            AmmoModel.AddAmmo(weaponData.AmmoType, weaponData.MagSize);
         }
-
-        AmmoModel.InitializeAmmo(weaponData);
-        weaponCooldown.InitializeCooldown(weaponData.FireRate);
-        performAttack.SetCurrentWeapon(weaponData);
-
-        if (weaponData.WeaponModelPrefab == null || firePoint == null) return;
-        currentWeaponPrefab = Instantiate(weaponData.WeaponModelPrefab, firePoint);
-        currentWeaponPrefab.transform.localPosition = Vector3.zero;
-        currentWeaponPrefab.transform.localRotation = Quaternion.identity;
-        currentWeaponPrefab.transform.localScale = Vector3.one;
-
-        Debug.Log("[WeaponHandler] Weapon spawned: " + currentWeaponPrefab.name);
     }
 
-    
+    private void ApplyWeaponSetup(SO_WeaponType data)
+    {
+        AmmoModel.InitializeAmmo(data);
+        weaponCooldown.InitializeCooldown(data.FireRate);
+        performAttack.SetCurrentWeapon(data);
+
+        if (data.WeaponModelPrefab != null && firePoint != null)
+        {
+            currentWeaponPrefab = Instantiate(data.WeaponModelPrefab, firePoint);
+            currentWeaponPrefab.transform.localPosition = Vector3.zero;
+            currentWeaponPrefab.transform.localRotation = Quaternion.identity;
+            currentWeaponPrefab.transform.localScale = Vector3.one;
+        }
+    }
+
     private void OnFireStarted()
     {
         if (!currentWeaponData) return;
@@ -147,13 +141,9 @@ public class PlayerWeaponHandler : MonoBehaviour
         firingCoroutine = null;
     }
 
-    private void OnAimStarted()
-    {
-    }
+    private void OnAimStarted() { }
 
-    private void OnAimStopped()
-    {
-    }
+    private void OnAimStopped() { }
 
     private void TryHitScanAttack()
     {
@@ -169,16 +159,11 @@ public class PlayerWeaponHandler : MonoBehaviour
         performAttack.Execute();
         weaponCooldown.StartCooldown(currentWeaponData.FireRate);
     }
-    
+
     private void TryMeleeAttack()
     {
-        if (!weaponCooldown.CanFire())
-            return;
-
-        Debug.Log("[WeaponHandler] Executing Melee Attack");
-    
+        if (!weaponCooldown.CanFire()) return;
         performAttack.Execute();
-    
         weaponCooldown.StartCooldown(currentWeaponData.FireRate);
     }
 
@@ -200,18 +185,13 @@ public class PlayerWeaponHandler : MonoBehaviour
     private void TryReload()
     {
         if (!currentWeaponData || !currentWeaponData.HasAmmo) return;
-        if (reloadCoroutine != null) return; // already reloading
-
-        
+        if (reloadCoroutine != null) return;
         reloadCoroutine = StartCoroutine(ReloadRoutine());
     }
-    
+
     private IEnumerator ReloadRoutine()
     {
-        Debug.Log("[WeaponHandler] Reloading " + currentWeaponData.DisplayName);
-
         yield return new WaitForSeconds(currentWeaponData.ReloadTime);
-
         string ammoID = currentWeaponData.AmmoType.AmmoID;
 
         if (invData.GetConsumableIDsAndQuantities().TryGetValue(ammoID, out int ammoAvailable) && ammoAvailable > 0)
@@ -219,19 +199,10 @@ public class PlayerWeaponHandler : MonoBehaviour
             var ammoNeeded = AmmoModel.MaxAmmo - AmmoModel.CurrentAmmo;
             var ammoToLoad = Mathf.Min(ammoAvailable, ammoNeeded);
 
-            // Delete ammo from inventory and add ammo to weapon //
-            
             invData.DepleteConsumable(ammoID, ammoToLoad);
             AmmoModel.AddAmmo(AmmoModel.CurrentAmmoType, ammoToLoad);
-
-            Debug.Log($"Reloaded {ammoToLoad} ammo into {currentWeaponData.DisplayName}");
-        }
-        else
-        {
-            Debug.Log("[WeaponHandler] No ammo available to reload!");
         }
 
         reloadCoroutine = null;
     }
-
 }

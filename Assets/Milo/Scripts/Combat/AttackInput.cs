@@ -91,6 +91,14 @@ public class AttackInput : MonoBehaviour
         Disable(shootAction);
     }
 
+    public Vector2 GetMousePosition()
+    {
+        if (mousePosAction?.action == null)
+            return Vector2.zero;
+
+        return mousePosAction.action.ReadValue<Vector2>();
+    }
+
     private void Update()
     {
         if (mousePosAction?.action == null) return;
