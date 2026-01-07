@@ -35,8 +35,8 @@ public static class IDConstants
     // OBJECTIVES //
     ////////////////
 
-    public const string OBJECTIVE_01_ID = "e58ad942-7804-4300-96a0-9d491166dc4f";
-    public const string OBJECTIVE_02_ID = "4553e647-8ac9-4a60-a82d-4c2b25dc402f";
+    public const string OBJECTIVE_01_ID = "e58ad942-7804-4300-96a0-9d491166dc4f"; //Flashlight
+    public const string OBJECTIVE_02_ID = "4553e647-8ac9-4a60-a82d-4c2b25dc402f"; //Central Corridor
     public const string OBJECTIVE_03_ID = "9260c37a-3ab7-4bb8-810c-26343331fc1d";
     public const string OBJECTIVE_04_ID = "f7051371-8cfd-4c9c-acf8-6700da31cd66";
     public const string OBJECTIVE_05_ID = "c85d2b1e-29eb-418f-a70a-0976131276b8";
