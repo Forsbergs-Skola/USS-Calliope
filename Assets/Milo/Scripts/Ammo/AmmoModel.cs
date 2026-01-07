@@ -10,18 +10,9 @@ public class AmmoModel
     public int MaxAmmo => maxAmmo;
     public SO_AmmoType CurrentAmmoType => currentAmmoType;
     
-    private InventoryData invData
-    {
-        get
-        {
-            if (DataController.Instance == null) return null;
-            else { return DataController.Instance.InventoryRuntimeData.Value; }
-        }
-    }
-
     public void InitializeAmmo(SO_WeaponType currentWeapon)
     {
-        if (!currentWeapon || !currentWeapon.HasAmmo)
+        if (currentWeapon == null || !currentWeapon.HasAmmo)
         {
             ClearWeaponAmmo();
             return;
@@ -48,12 +39,9 @@ public class AmmoModel
 
     private bool CanAcceptAmmo(SO_AmmoType ammoType)
     {
-        if (!currentAmmoType)
-            return false;
-
-        if (ammoType != currentAmmoType)
-            return false;
-
+        if (currentAmmoType == null) return false;
+        else if (ammoType != currentAmmoType) return false;
+        
         return currentAmmo < maxAmmo;
     }
 
