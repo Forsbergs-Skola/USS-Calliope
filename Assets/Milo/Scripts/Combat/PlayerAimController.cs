@@ -1,38 +1,41 @@
-using TMPro;
-using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.UI;
+using Unity.Cinemachine;
 
 public class PlayerAimController : MonoBehaviour
 {
     [SerializeField] private LayerMask groundMask;
-    [SerializeField] private LayerMask enemyLayer; 
-    
+    [SerializeField] private LayerMask enemyLayer;
+
     [Header("Aim Camera Settings")]
-    [SerializeField] private float holdThreshold = 0.2f; 
-    [SerializeField] private float transitionSpeed = 5f; 
+    [SerializeField] private float holdThreshold = 0.2f;
+    [SerializeField] private float transitionSpeed = 5f;
     [SerializeField] private float smoothSpeed = 3f;
     [SerializeField] private float cameraOffsetDistance = 10f;
 
+    [Header("UI")]
+    [SerializeField] private Image crosshairImage;
 
-    [SerializeField] private Transform crosshairTransform;
     [SerializeField] private CinemachineCamera cineMachineCam;
 
     private AttackInput attackInput;
-    private PlayerState playerState; 
+    private PlayerState playerState;
     private CinemachineCameraOffset offsetExtension;
     private Camera mainCamera;
     private Vector2 lastMousePos;
     private Vector3 currentTargetOffset;
     private PlayerWeaponHandler weaponHandler;
-    
-    private SpriteRenderer crosshairSprite;
+    private Animator animator;
+    private PlayerVisionLogic visionlogic;
 
     private float holdTimer = 0f;
-    private float currentAimWeight = 0f; 
+    private float currentAimWeight = 0f;
     private bool isHoldingButton = false;
-    
+
+    private int unEquippedAnim = 0;
+    private float camRayDistance = 100.0f;
+
     private const float AimHeightOffset = 0.56f;
-    
 
     public bool IsAiming { get; private set; }
 
@@ -41,16 +44,19 @@ public class PlayerAimController : MonoBehaviour
         weaponHandler = GetComponent<PlayerWeaponHandler>();
         attackInput = GetComponent<AttackInput>();
         playerState = GetComponent<PlayerState>();
+        animator = GetComponent<Animator>();
         mainCamera = Camera.main;
-        
+        visionlogic = GetComponent<PlayerVisionLogic>();
+
         if (cineMachineCam)
         {
             offsetExtension = cineMachineCam.GetComponent<CinemachineCameraOffset>();
-            if (!offsetExtension) offsetExtension = cineMachineCam.gameObject.AddComponent<CinemachineCameraOffset>();
+            if (!offsetExtension)
+                offsetExtension = cineMachineCam.gameObject.AddComponent<CinemachineCameraOffset>();
         }
 
-        if (crosshairTransform)
-            crosshairSprite = crosshairTransform.GetComponent<SpriteRenderer>();
+        if (crosshairImage)
+            crosshairImage.enabled = false;
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
@@ -72,10 +78,18 @@ public class PlayerAimController : MonoBehaviour
     }
 
     private void OnAimInputStarted() => isHoldingButton = true;
-    private void OnAimInputStopped() { isHoldingButton = false; IsAiming = false; holdTimer = 0f; }
+    private void OnAimInputStopped()
+    {
+        isHoldingButton = false;
+        IsAiming = false;
+        holdTimer = 0f;
+        if (crosshairImage) crosshairImage.enabled = false;
+    }
 
     private void Update()
     {
+        lastMousePos = attackInput.GetMousePosition();
+
         if (isHoldingButton)
         {
             holdTimer += Time.deltaTime;
@@ -86,6 +100,13 @@ public class PlayerAimController : MonoBehaviour
         currentAimWeight = Mathf.MoveTowards(currentAimWeight, targetWeight, Time.deltaTime * transitionSpeed);
 
         UpdateAimLogic();
+
+        if (!IsAiming)
+        {
+            int currentAnimation = animator.GetInteger("WeaponType");
+            if (currentAnimation == 0) return;
+            animator.SetInteger("WeaponType", (int)unEquippedAnim);
+        }
     }
 
     private void UpdateAimLogic()
@@ -94,39 +115,67 @@ public class PlayerAimController : MonoBehaviour
 
         var ray = mainCamera.ScreenPointToRay(lastMousePos);
         var aimPlane = new Plane(Vector3.up, transform.position + Vector3.up * AimHeightOffset);
-        var desiredOffset = Vector3.zero;
 
-        if (aimPlane.Raycast(ray, out var enter))
+        Vector3 targetPosition;
+        Vector3 desiredOffset = Vector3.zero;
+
+        if (aimPlane.Raycast(ray, out float enter))
         {
-            var targetPosition = ray.GetPoint(enter);
-            
-            if (IsAiming)
-            {
-                var lookDir = targetPosition - transform.position;
-                lookDir.y = 0f;
-                if (lookDir.sqrMagnitude > 0.01f) transform.rotation = Quaternion.LookRotation(lookDir);
-                
-                var pullVector = targetPosition - transform.position;
-                pullVector.y = 0;
-                desiredOffset = Vector3.ClampMagnitude(pullVector * 0.5f, cameraOffsetDistance) * currentAimWeight;
-
-                GetHitChance(ray, enter);
-            }
-
-            if (!IsAiming) crosshairSprite.enabled = false;
-            CrosshairPosition(targetPosition);
-            
+            targetPosition = ray.GetPoint(enter);
+        }
+        else
+        {
+            return;
         }
 
-        if (!offsetExtension) return;
-        currentTargetOffset = Vector3.Lerp(currentTargetOffset, desiredOffset, Time.deltaTime * smoothSpeed);
-        offsetExtension.Offset = currentTargetOffset;
+        bool hitEnemy = Physics.Raycast(ray, out RaycastHit enemyHit, camRayDistance, enemyLayer);
+
+        if (IsAiming)
+        {
+            if (weaponHandler.CurrentWeaponData != null)
+            {
+                animator.SetInteger("WeaponType", (int)weaponHandler.CurrentWeaponData.TypeOfWeapon);
+            }
+                
+            var lookDir = targetPosition - transform.position;
+            lookDir.y = 0f;
+            if (lookDir.sqrMagnitude > 0.01f)
+                transform.rotation = Quaternion.LookRotation(lookDir);
+
+            var pullVector = targetPosition - transform.position;
+            pullVector.y = 0f;
+
+            desiredOffset = Vector3.ClampMagnitude(pullVector * 0.5f, cameraOffsetDistance) * currentAimWeight;
+
+
+            float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+
+            if (hitEnemy && distanceToTarget <= visionlogic.viewDistance + 1.5f && weaponHandler.CurrentWeaponData)
+            {
+                var dist = Vector3.Distance(transform.position, enemyHit.collider.bounds.center);
+                var score = HitChance.GetHitChanceScore(playerState, weaponHandler.CurrentWeaponData, dist);
+                UpdateCrosshairColor(score);
+            }
+            else
+            {
+                if (crosshairImage) crosshairImage.color = Color.white;
+            }
+        }
+
+        UpdateCrosshairPosition(targetPosition);
+
+        if (offsetExtension)
+        {
+            currentTargetOffset = Vector3.Lerp(currentTargetOffset, desiredOffset, Time.deltaTime * smoothSpeed);
+            offsetExtension.Offset = currentTargetOffset;
+        }
     }
-    
+
     private void UpdateCrosshairColor(float score)
     {
-        if (!crosshairSprite) return;
-        crosshairSprite.color = score switch
+        if (!crosshairImage) return;
+
+        crosshairImage.color = score switch
         {
             >= 0.8f => Color.green,
             >= 0.4f => Color.yellow,
@@ -134,32 +183,19 @@ public class PlayerAimController : MonoBehaviour
         };
     }
 
-    private void CrosshairPosition(Vector3 targetPosition)
+    private void UpdateCrosshairPosition(Vector3 worldPos)
     {
-        if (IsAiming)
-        {
-            crosshairTransform.position = targetPosition + Vector3.up * 0.05f;
-            crosshairTransform.LookAt(mainCamera.transform);
-            crosshairSprite.enabled = IsAiming;
-        }
-    }
+        if (!crosshairImage) return;
 
-    private GameObject GetTargetNearMouse(Vector3 mouseWorldPos)
-    {
-        if (!weaponHandler.CurrentWeaponData) return null;
-        
-        var targets = Physics.OverlapSphere(transform.position, weaponHandler.CurrentWeaponData.ImpactRange, enemyLayer);
-        GameObject bestTarget = null;
-        var closestDistToMouse = 2.0f; 
+        crosshairImage.enabled = IsAiming;
+        if (!IsAiming) return;
 
-        foreach (var col in targets)
-        {
-            var distToMouse = Vector3.Distance(col.transform.position, mouseWorldPos);
-            if (!(distToMouse < closestDistToMouse)) continue;
-            closestDistToMouse = distToMouse;
-            bestTarget = col.gameObject;
-        }
-        return bestTarget;
+        Vector3 screenPos = mainCamera.WorldToScreenPoint(worldPos);
+
+        screenPos.x = Mathf.Clamp(screenPos.x, 0, Screen.width);
+        screenPos.y = Mathf.Clamp(screenPos.y, 0, Screen.height);
+
+        crosshairImage.transform.position = screenPos;
     }
 
     public bool TryGetAimDirection(Vector3 origin, out Vector3 direction)
@@ -176,22 +212,5 @@ public class PlayerAimController : MonoBehaviour
 
         direction = transform.forward;
         return false;
-    }
-
-    public void GetHitChance(Ray ray, float enter)
-    {
-        var targetPosition = ray.GetPoint(enter);
-
-        var target = GetTargetNearMouse(targetPosition);
-        if (target)
-        {
-            var dist = Vector3.Distance(transform.position, target.transform.position);
-            var score = HitChance.GetHitChanceScore(playerState, weaponHandler.CurrentWeaponData, dist);
-            UpdateCrosshairColor(HitChance.CurrentHitChanceScore);
-        }
-        else
-        {
-            if (crosshairSprite) crosshairSprite.color = Color.white;
-        }
     }
 }
