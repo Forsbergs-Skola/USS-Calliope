@@ -1907,19 +1907,27 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7275934061249600935, guid: b576f0e7a4c57f44ebedb30d16ee9953, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 852697739}
   m_SourcePrefab: {fileID: 100100000, guid: b576f0e7a4c57f44ebedb30d16ee9953, type: 3}
 --- !u!114 &165909346 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5030343536725030250, guid: b576f0e7a4c57f44ebedb30d16ee9953, type: 3}
   m_PrefabInstance: {fileID: 165909345}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 165909347}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8d96ebb97d69a94cb95aa08d93a10ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVisionLogic
+--- !u!1 &165909347 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7275934061249600935, guid: b576f0e7a4c57f44ebedb30d16ee9953, type: 3}
+  m_PrefabInstance: {fileID: 165909345}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &169471143
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12594,7 +12602,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4371285880217236625, guid: b576f0e7a4c57f44ebedb30d16ee9953, type: 3}
   m_PrefabInstance: {fileID: 165909345}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 165909347}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e7d9132c1d1475438b6ee7aba326770, type: 3}
@@ -12605,6 +12613,21 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8048671226396329757, guid: b576f0e7a4c57f44ebedb30d16ee9953, type: 3}
   m_PrefabInstance: {fileID: 165909345}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &852697739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165909347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b296e5db013d245971a56e0812d3b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageTextSpawner
+  damageTextPrefab: {fileID: 2076834550311892472, guid: de321cc44df38414a8f06f37c47de266, type: 3}
+  spawnPoint: {fileID: 852697738}
+  verticalOffset: 2
 --- !u!1 &853862338
 GameObject:
   m_ObjectHideFlags: 0

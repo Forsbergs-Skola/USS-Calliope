@@ -61,8 +61,8 @@ public class Bootstrapper : Singleton<Bootstrapper>
     // API //
     public void PauseGame(bool paused)
     {
-        if (paused) { Time.timeScale = 0f; }
-        else { Time.timeScale = 1f; }
+        if (paused) { Time.timeScale = 0f; Cursor.visible = true; }
+        else { Time.timeScale = 1f; Cursor.visible = false; }
     }
     public void TogglePause()
     {
