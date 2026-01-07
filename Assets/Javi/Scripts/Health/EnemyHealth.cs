@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 
-public class EnemyHealth : MonoBehaviour, IDamageable
+public class EnemyHealth : MonoBehaviour, IDamageable, IDamageEvents
 {
     [Header("Health")]
     [SerializeField] private float maxHealth = 100f;
@@ -9,6 +10,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     public UnityEvent<float, float> OnHealthChanged = new UnityEvent<float, float>();
     public UnityEvent OnDeath = new UnityEvent();
+    public event Action<float> OnDamaged;
 
     private void Awake()
     {
@@ -24,7 +26,9 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
+        OnDamaged?.Invoke(damage);
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        
         Debug.Log("Enemy took damage: " + damage);
         if (currentHealth <= 0)
         {
