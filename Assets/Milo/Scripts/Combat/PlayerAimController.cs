@@ -150,7 +150,7 @@ public class PlayerAimController : MonoBehaviour
 
             float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
 
-            if (hitEnemy && distanceToTarget <= visionlogic.viewDistance + 1.5f)
+            if (hitEnemy && distanceToTarget <= visionlogic.viewDistance + 1.5f && weaponHandler.CurrentWeaponData)
             {
                 var dist = Vector3.Distance(transform.position, enemyHit.collider.bounds.center);
                 var score = HitChance.GetHitChanceScore(playerState, weaponHandler.CurrentWeaponData, dist);

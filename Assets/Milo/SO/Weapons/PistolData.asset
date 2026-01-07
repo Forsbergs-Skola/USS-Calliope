@@ -20,7 +20,7 @@ MonoBehaviour:
   ammoCategory: Pistol Ammo
   icon: {fileID: 0}
   description: 
-  damage: 32
+  damage: 40
   fireRate: 0.2
   isSemiAutomatic: 1
   attackCategory: 0
@@ -30,7 +30,7 @@ MonoBehaviour:
   reloadTime: 2
   hasBallistics: 1
   impactRange: 50
-  spreadStandardDeviation: 10
+  spreadStandardDeviation: 0
   damageOverDistance:
     serializedVersion: 2
     m_Curve:
@@ -86,7 +86,7 @@ MonoBehaviour:
   meleeReach: 0
   meleeHitRadius: 0
   meleeHitForce: 0
-  weaponModelPrefab: {fileID: 1472282675940717097, guid: daa41aeec5d75ee46971ea44c4180b97, type: 3}
+  weaponModelPrefab: {fileID: 3612096930350278592, guid: c6ee8fee523698a4f9a3c6abcc4bda14, type: 3}
   muzzleFlashPrefab: {fileID: 0}
   attackSound: {fileID: 8300000, guid: 7fcf55f120862cc46b19c9c4af6c1fb5, type: 3}
   reloadSound: {fileID: 0}

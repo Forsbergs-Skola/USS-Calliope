@@ -17,7 +17,6 @@ public class SO_WeaponList : ScriptableObject
             if (weapon == null) continue;
 
             if (lookup.TryAdd(weapon.WeaponID, weapon)) continue;
-            Debug.LogError($"Duplicate weapon GUID: {weapon.WeaponID}");
             continue;
         }
     }

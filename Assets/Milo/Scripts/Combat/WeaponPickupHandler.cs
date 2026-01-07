@@ -12,14 +12,13 @@ public class WeaponPickupHandler : PickupBase
         }
     }
     
-    // To access the current scriptable object data that each weapon has assigned in WeaponView
     [SerializeField] private WeaponView weaponView;
     
     [SerializeField] private PlayerWeaponHandler handler;
 
     protected override void OnPickup(GameObject picker)
     {
-        // Try to get the PlayerWeaponHandler from the picker if not assigned
+        
         if (handler == null)
         {
             handler = picker.GetComponent<PlayerWeaponHandler>();
