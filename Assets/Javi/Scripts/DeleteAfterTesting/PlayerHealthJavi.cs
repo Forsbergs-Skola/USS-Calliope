@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 
-public class PlayerHealthJavi : MonoBehaviour, IDamageable
+public class PlayerHealthJavi : MonoBehaviour, IDamageable, IDamageEvents
 {
     [Header("Health")]
     [SerializeField] private float maxHealth = 100f;
@@ -9,6 +10,7 @@ public class PlayerHealthJavi : MonoBehaviour, IDamageable
     
     public UnityEvent<float, float> OnHealthChanged = new UnityEvent<float, float>();
     public UnityEvent OnDeath = new UnityEvent();
+    public event Action<float> OnDamaged;
 
     private void Awake()
     {
@@ -17,18 +19,19 @@ public class PlayerHealthJavi : MonoBehaviour, IDamageable
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(float damage)
     {
-        if (amount <= 0f)
+        if (damage <= 0f)
             return;
 
-        currentHealth -= amount;
+        currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
         
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        OnDamaged?.Invoke(damage);
 
         Debug.Log(
-            $"[PlayerHealth] Took {amount} damage → {currentHealth}/{maxHealth}"
+            $"[PlayerHealth] Took {damage} damage → {currentHealth}/{maxHealth}"
         );
 
         if (currentHealth <= 0f)
