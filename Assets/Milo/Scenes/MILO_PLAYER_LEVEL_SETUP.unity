@@ -51582,6 +51582,10 @@ PrefabInstance:
       propertyPath: crosshairImage
       value: 
       objectReference: {fileID: 1031200461}
+    - target: {fileID: 4130560632481062247, guid: b576f0e7a4c57f44ebedb30d16ee9953, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c2d3bbad856e5544ca2fcaf927a77deb, type: 2}
     - target: {fileID: 7275934061249600935, guid: b576f0e7a4c57f44ebedb30d16ee9953, type: 3}
       propertyPath: m_Name
       value: TestPlayer

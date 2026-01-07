@@ -6171,14 +6171,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7d9132c1d1475438b6ee7aba326770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Olle.Scripts.PlayerController
-  moveSpeed: 1.7
-  runMoveSpeed: 3.5
+  moveSpeed: 2.2
+  runMoveSpeed: 4.5
   crouchMoveSpeed: 2
   crouchScaleY: 0.5
   walkStepInterval: 0.4
   runStepInterval: 0.25
   crouchStepInterval: 0.6
-  rotationSpeed: 20
   _isCrouching: 0
 --- !u!114 &9027683890756863525
 MonoBehaviour:
@@ -6388,7 +6387,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7275934061249600935}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e247ae22880ad114aa876423d6d87da7, type: 3}
   m_Name: 

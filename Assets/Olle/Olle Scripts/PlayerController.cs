@@ -9,11 +9,11 @@ namespace Olle.Scripts
         public float moveSpeed = 5f;
         public float runMoveSpeed = 8f;
         public float crouchMoveSpeed = 2f;
-        
+
         public float crouchScaleY = 0.5f;
-        
-        public float walkStepInterval   = 0.4f;
-        public float runStepInterval    = 0.25f;
+
+        public float walkStepInterval = 0.4f;
+        public float runStepInterval = 0.25f;
         public float crouchStepInterval = 0.6f;
 
         Rigidbody _rb;
@@ -27,26 +27,32 @@ namespace Olle.Scripts
 
         NoiseEmitter _noise;
         float _noiseTimer;
-        
+
         PlayerStamina _stamina;
         CrouchInvisibility _crouchInvis;
-        
+
+        // Added this for animation support
+        PlayerAnimationController _animatorControl;
+
         public bool IsCrouching => _isCrouching;
-        
+
         public bool IsDashing { get; set; }
-        
+
         public System.Action<Vector2> OnMoveEvent;
-        
+
         void Awake()
         {
             _rb = GetComponent<Rigidbody>();
 
-            _defaultScaleY    = transform.localScale.y;
+            _defaultScaleY = transform.localScale.y;
             _defaultMoveSpeed = moveSpeed;
 
-            _noise        = GetComponent<NoiseEmitter>();
-            _stamina      = GetComponent<PlayerStamina>();
-            _crouchInvis  = GetComponent<CrouchInvisibility>();
+            _noise = GetComponent<NoiseEmitter>();
+            _stamina = GetComponent<PlayerStamina>();
+            _crouchInvis = GetComponent<CrouchInvisibility>();
+
+            // Initialize the animation controller reference
+            _animatorControl = GetComponent<PlayerAnimationController>();
         }
 
         //Move inputs
@@ -57,7 +63,7 @@ namespace Olle.Scripts
             // Notify dash ability etc.
             OnMoveEvent?.Invoke(_moveInput);
         }
-        
+
         //Run
         public void OnRun(InputAction.CallbackContext ctx)
         {
@@ -79,7 +85,7 @@ namespace Olle.Scripts
         {
             if (!ctx.performed)
                 return;
-            
+
             float interactRadius = 1.5f;
             Vector3 origin = transform.position + transform.forward * 1f;
 
@@ -94,27 +100,27 @@ namespace Olle.Scripts
                 }
             }
         }
-        
+
         void Update()
         {
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
             {
                 TogglePause();
             }
-            
+
             Vector3 move = new Vector3(_moveInput.x, 0f, _moveInput.y);
             move = Vector3.ClampMagnitude(move, 1f);
             _inputDir = move;
 
             bool isMoving = _inputDir.sqrMagnitude > 0.01f;
-            
+
             bool canSprint = false;
             if (_stamina != null)
             {
-                bool blockRegen = _crouchInvis != null && _crouchInvis.IsInvisible; 
+                bool blockRegen = _crouchInvis != null && _crouchInvis.IsInvisible;
                 _stamina.Tick(Time.deltaTime,
                               _wantsToRun && isMoving && !_isCrouching,
-                              blockRegen, 
+                              blockRegen,
                               out canSprint);
             }
 
@@ -172,6 +178,14 @@ namespace Olle.Scripts
             {
                 _noiseTimer = 0f;
             }
+
+            // Sync with the PlayerAnimationController
+            if (_animatorControl != null)
+            {
+                // canSprint from your stamina logic tells us if we are actually allowed to run
+                bool isActuallySprinting = canSprint && isMoving && !_isCrouching;
+                _animatorControl.UpdateMovement(_moveInput, isActuallySprinting);
+            }
         }
 
         void FixedUpdate()
@@ -182,7 +196,7 @@ namespace Olle.Scripts
                 Vector3 targetPos = _rb.position + _inputDir * step;
                 _rb.MovePosition(targetPos);
             }
-            
+
             if (Camera.main == null || Mouse.current == null)
                 return;
 
@@ -200,17 +214,17 @@ namespace Olle.Scripts
                 }
             }
         }
-        
+
         void ApplyCrouchState()
         {
             Vector3 scale = transform.localScale;
             scale.y = _isCrouching ? _defaultScaleY * crouchScaleY : _defaultScaleY;
             transform.localScale = scale;
         }
-        
+
         public void TogglePause()
         {
-        
+
             if (!UIController.Instance.GetIsCanvasUp(EnumCanvasUIName.PAUSE))
             {
                 UIController.Instance.ShowCanvas(EnumCanvasUIName.PAUSE);
@@ -220,10 +234,6 @@ namespace Olle.Scripts
                 UIController.Instance.RemoveCanvas(EnumCanvasUIName.PAUSE);
             }
         }
-        
+
     }
-    
-    
-    
-    
 }

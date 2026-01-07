@@ -21,8 +21,8 @@ public static class IDConstants
     public const string STEELPIPE = "bbb47cb0-3019-4cc0-9392-b1f78e038035";
 
     // CONSUMABLES //
-    public const string PISTOL_AMMO = "a9f38ca3-34f0-4319-82e1-0e8588736d51";
-    public const string PISTOL_MK7_AMMO = "45723e17-4905-4e9b-8214-e0fd74a87e13";
+    public const string PISTOL_AMMO = "45723e17-4905-4e9b-8214-e0fd74a87e13";
+    // public const string PISTOL_MK7_AMMO = "45723e17-4905-4e9b-8214-e0fd74a87e13";
     public const string BATTERIES = "6164535a-3b6b-426b-9e1a-b57d180f9eba";
     public const string SHOTGUN_AMMO = "9c776512-d310-40af-ae44-d51b07abe9b6";
     
