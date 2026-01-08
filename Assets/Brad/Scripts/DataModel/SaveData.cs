@@ -29,12 +29,17 @@ public class SaveData
     public bool PROGRESSION_TalkedToAlice;
     */
 
+    public string PROGRESSION_ObjectiveIDs;
+    public string PROGRESSION_ObjectiveStatuses;
+
     ///////////////////
     // InventoryData //
     ///////////////////
 
-    public string INVENTORY_itemsString;
-    public string INVENTORY_resourcesString;
+    public string INVENTORY_weaponsString;
+    public string INVENTORY_questItemsString;
+    public string INVENTORY_consumablesItemsString;
+    public string INVENTORY_consumablesValuesString;
 
 
 

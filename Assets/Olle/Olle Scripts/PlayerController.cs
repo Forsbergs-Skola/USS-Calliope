@@ -103,10 +103,15 @@ namespace Olle.Scripts
 
         void Update()
         {
+            /*
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
             {
-                TogglePause();
+                if (Bootstrapper.Instance != null)
+                {
+                    Bootstrapper.Instance.TogglePause();
+                }
             }
+            */
 
             Vector3 move = new Vector3(_moveInput.x, 0f, _moveInput.y);
             move = Vector3.ClampMagnitude(move, 1f);
@@ -222,6 +227,7 @@ namespace Olle.Scripts
             transform.localScale = scale;
         }
 
+        /*
         public void TogglePause()
         {
 
@@ -234,6 +240,7 @@ namespace Olle.Scripts
                 UIController.Instance.RemoveCanvas(EnumCanvasUIName.PAUSE);
             }
         }
+        */
 
     }
 }
