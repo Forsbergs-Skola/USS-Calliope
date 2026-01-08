@@ -2,6 +2,7 @@ using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 
 public interface IRuntimeData
@@ -142,19 +143,60 @@ public static class SaveService
         ///////////////////
         // InventoryData //
         ///////////////////
-        
+
         // wrapperize lists
         // TODO...
+
+        List<string> questItemIDs = inventoryData.GetQuestItemIDs();
+        StringListWrapper questItemsWrapper = DataTools.GetWrapperizedStringList(questItemIDs);
+        string questItemsString = JsonUtility.ToJson(questItemsWrapper);
+
+        List<string> weaponItemIDs = inventoryData.GetWeaponItemIDs();
+        StringListWrapper weaponItemsWrapper = DataTools.GetWrapperizedStringList(weaponItemIDs);
+        string weaponsString = JsonUtility.ToJson(weaponItemsWrapper);
+
+        List<string> consumableItemIDs = inventoryData.GetConsumableIDsAndQuantities().Keys.ToList<string>();
+        List<int> consumableItemValues = inventoryData.GetConsumableIDsAndQuantities().Values.ToList<int>();
+        List<string> stringListConsumableItemValues = new();
+        foreach(int i in consumableItemValues)
+        {
+            stringListConsumableItemValues.Add(i.ToString());
+        }
+        StringListWrapper consumableItemsWrapper = DataTools.GetWrapperizedStringList(consumableItemIDs);
+        StringListWrapper consumableValuesWrapper = DataTools.GetWrapperizedStringList(stringListConsumableItemValues);
+        string consumablesItemsString = JsonUtility.ToJson(consumableItemsWrapper);
+        string consumablesValuesString = JsonUtility.ToJson(consumableValuesWrapper);
 
         // write to outData
         // TODO...
 
+        outData.INVENTORY_questItemsString = questItemsString;
+        outData.INVENTORY_weaponsString = weaponsString;
+        outData.INVENTORY_consumablesItemsString = consumablesItemsString;
+        outData.INVENTORY_consumablesValuesString = consumablesValuesString;
 
         /////////////////////
         // ProgressionData //
         /////////////////////
-        
-        // TODO
+
+        // Objectives...
+        List<string> objectiveIDs = progressionData.ObjectivesAndStatusesDict.Keys.ToList<string>();
+        List<string> objStatuses = new();
+        foreach (string objID in objectiveIDs)
+        {
+            EnumObjectiveStatus status = progressionData.ObjectivesAndStatusesDict[objID];
+            objStatuses.Add(status.ToString());
+        }
+        StringListWrapper objectiveIDsWrapper = DataTools.GetWrapperizedStringList(objectiveIDs);
+        StringListWrapper statusesWrapper = DataTools.GetWrapperizedStringList(objStatuses);
+        string objectiveIDsString = JsonUtility.ToJson(objectiveIDsWrapper);
+        string objectiveStatusesString = JsonUtility.ToJson(statusesWrapper);
+
+        // other progression variables
+
+        // write to outData
+        outData.PROGRESSION_ObjectiveIDs = objectiveIDsString;
+        outData.PROGRESSION_ObjectiveStatuses = objectiveStatusesString;
 
         // return outData
         return outData;
@@ -184,9 +226,9 @@ public static class SaveService
         EnumWeaponType equippedWeapon = EnumWeaponType.NONE;
 
         // convert equipped weapon string to EnumWeaponType
-        if (Enum.TryParse(saveData.PLAYER_EquippedWeapon, ignoreCase: true, out EnumWeaponType theWeapon))
+        if (Enum.TryParse(saveData.PLAYER_EquippedWeapon, ignoreCase: true, out EnumWeaponType _theWeapon))
         {
-            equippedWeapon = theWeapon;
+            equippedWeapon = _theWeapon;
         }
         _playerData.EquippedWeapon = equippedWeapon;
 
@@ -204,15 +246,62 @@ public static class SaveService
         // TODO extract the data...
         // create list of items from saveData.INVENTORY_itemsString & add it to _inventoryData
         // create a dictionary of resources from INVENTORY_resourcesString & add it to _inventoryData
+        
+        List<string> weaponIDs = DataTools.GetStringListFromJson(saveData.INVENTORY_weaponsString);
+        List<string> questItemIDs = DataTools.GetStringListFromJson(saveData.INVENTORY_questItemsString);
+        List<string> consumablesIDs = DataTools.GetStringListFromJson(saveData.INVENTORY_consumablesItemsString);
+        List<string> consumablesValuesStringList = DataTools.GetStringListFromJson(saveData.INVENTORY_consumablesValuesString);
+
+        Dictionary<string, int> consumablesDict = new();
+        for (int i = 0; i < consumablesIDs.Count; i++)
+        {
+            string key = consumablesIDs[i];
+            if (int.TryParse(consumablesValuesStringList[i], out int _value))
+            {
+                // _value now holds the integerized value for the current ID
+                consumablesDict[key] = _value;
+            }
+            else
+            {
+                Debug.LogError("Problem parsing the consumable values in saved data");
+            }
+        }
+
+        _inventoryData.SetWeaponsList(weaponIDs);
+        _inventoryData.SetQuestItemsList(questItemIDs);
+        _inventoryData.SetConsumablesDict(consumablesDict);
 
         return new InventoryData(_inventoryData);
     }
     private static ProgressionData GetProgressionDataFromSaveData(SaveData saveData)
     {
+
         ProgressionData _progressionData = new ProgressionData(true);
+        
+        // objectives
 
-        // TODO
+        List<string> idStrings = DataTools.GetStringListFromJson(saveData.PROGRESSION_ObjectiveIDs);
+        List<string> statusStrings = DataTools.GetStringListFromJson(saveData.PROGRESSION_ObjectiveStatuses);
 
+        Dictionary<string, EnumObjectiveStatus> statusDict = new();
+        for (int i = 0; i< idStrings.Count; i++)
+        {
+            string key = idStrings[i];
+            if (Enum.TryParse(statusStrings[i], ignoreCase: true, out EnumObjectiveStatus _status))
+            {
+                statusDict[key] = _status;
+            }
+            else
+            {
+                Debug.LogError("Problem parsing the objective statuses in saved data");
+            }
+        }
+        _progressionData.UpdateObjectivesAndStatuses(statusDict);
+
+        // other prog variables
+        // TODO...
+
+        // return the new progression data
         return new ProgressionData(_progressionData);
         
     }
