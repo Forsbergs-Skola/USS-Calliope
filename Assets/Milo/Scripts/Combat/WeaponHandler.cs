@@ -23,6 +23,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     private GameObject currentWeaponPrefab;
     private Coroutine reloadCoroutine;
     private int equippedWeaponIndex = -1;
+    private bool isUnarmed;
     
     
 
@@ -55,6 +56,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         attackInput.AimStopped += OnAimStopped;
         attackInput.SwitchWeaponTriggered += EquipNextWeapon;
         attackInput.ReloadTriggered += TryReload;
+        attackInput.UnEquipWeaponTriggered += UnEquipWeapon;
     }
 
     private void OnDisable()
@@ -65,6 +67,33 @@ public class PlayerWeaponHandler : MonoBehaviour
         attackInput.AimStopped -= OnAimStopped;
         attackInput.SwitchWeaponTriggered -= EquipNextWeapon;
         attackInput.ReloadTriggered -= TryReload;
+        attackInput.UnEquipWeaponTriggered -= UnEquipWeapon;    
+    }
+
+    private void UnEquipWeapon()
+    {
+        if (isUnarmed) return;
+
+        if (currentWeaponData != null && currentWeaponData.HasAmmo && AmmoModel.CurrentAmmo > 0)
+        {
+            invData.ReplenishConsumable(currentWeaponData.AmmoType.AmmoID, AmmoModel.CurrentAmmo);
+        }
+
+        if (currentWeaponPrefab != null)
+        {
+            Destroy(currentWeaponPrefab);
+        }
+
+        if (reloadCoroutine != null)
+        {
+            StopCoroutine(reloadCoroutine);
+            reloadCoroutine = null;
+        }
+
+        OnFireStopped();
+
+        currentWeaponData = null;
+        isUnarmed = true;
     }
 
     private void EquipNextWeapon()
@@ -72,13 +101,11 @@ public class PlayerWeaponHandler : MonoBehaviour
         var availableWeapons = GetAvailableWeapons();
         if (availableWeapons.Count == 0) return;
 
-        
-        if (currentWeaponData != null && AmmoModel.CurrentAmmo > 0)
+        if (!isUnarmed)
         {
-                invData.ReplenishConsumable(currentWeaponData.AmmoType.AmmoID, AmmoModel.CurrentAmmo);
+            UnEquipWeapon();
         }
-        
-        
+
         equippedWeaponIndex = (equippedWeaponIndex + 1) % availableWeapons.Count;
         string weaponId = availableWeapons[equippedWeaponIndex];
 
@@ -87,19 +114,16 @@ public class PlayerWeaponHandler : MonoBehaviour
         if (weaponData == null) return;
 
         currentWeaponData = weaponData;
-
-        if (currentWeaponPrefab != null) Destroy(currentWeaponPrefab);
+        isUnarmed = false;
 
         ApplyWeaponSetup(weaponData);
 
-     
-        
         if (invData.GetConsumableIDsAndQuantities().TryGetValue(weaponData.AmmoType.AmmoID, out int ammoAvailable) && ammoAvailable > 0)
         {
-            invData.DepleteConsumable(weaponData.AmmoType.AmmoID, weaponData.MagSize);
-            AmmoModel.AddAmmo(weaponData.AmmoType, weaponData.MagSize);
+            int amountToTake = Mathf.Min(weaponData.MagSize, ammoAvailable);
+            invData.DepleteConsumable(weaponData.AmmoType.AmmoID, amountToTake);
+            AmmoModel.AddAmmo(weaponData.AmmoType, amountToTake);
         }
-        
     }
 
     private void ApplyWeaponSetup(SO_WeaponType data)

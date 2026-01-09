@@ -5814,6 +5814,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5030343536725030250}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5588837012005930377}
     - targetCorrespondingSourceObject: {fileID: -2851149267613598858, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7899966163916405628}
@@ -6158,6 +6161,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3f7e1dcc-2d0f-465b-9848-97bb266ede73
     m_ActionName: 'Player/TurnOn[/Keyboard/f]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c7c1af74-b084-4039-ab39-a97d0beb0399
+    m_ActionName: 'Player/UnEquipWeapon[/Keyboard/1]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -6265,6 +6272,7 @@ MonoBehaviour:
   shootAction: {fileID: 3034809152121054921, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   switchWeaponAction: {fileID: 2120363068553297381, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   reloadAction: {fileID: 2450256997621281868, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
+  unEquipWeaponAction: {fileID: 4987503079247536939, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   moveAction: {fileID: 6531606723557171274, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   sprintAction: {fileID: -3730138691951497943, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
 --- !u!114 &5668886614611623744
@@ -6421,6 +6429,25 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   eyeHeight: 1.5
+--- !u!114 &-5588837012005930377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7275934061249600935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9377005fa1543d41b6a30b9a4389730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnarmedAttack
+  damage: 10
+  reach: 1.5
+  radius: 0.5
+  attackCooldown: 1
+  impactProcessor: {fileID: 5668886614611623744}
+  isUnarmed: 0
+  force: 5
 --- !u!4 &8048671226396329757 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 039b9d116bbe683469dc40576050134e, type: 3}

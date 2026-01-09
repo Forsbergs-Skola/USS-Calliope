@@ -17,6 +17,7 @@ public class PerformAttack : MonoBehaviour
     private PlayerAimController aimController;
     private ImpactProcessor impactProcessor;
     private PlayerState playerState;
+    private UnarmedAttack unarmedAttack;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class PerformAttack : MonoBehaviour
         aimController = GetComponent<PlayerAimController>();
         impactProcessor = GetComponent<ImpactProcessor>();
         playerState = GetComponent<PlayerState>();
+        unarmedAttack = GetComponent<UnarmedAttack>();
     }
 
     private void Update()
@@ -44,20 +46,29 @@ public class PerformAttack : MonoBehaviour
     {
         if (!CanAttack(out Vector3 aimDirection)) return;
 
-        switch (currentWeapon.AttackCategories)
+        
+        if (!unarmedAttack.isUnarmed)
         {
-            case SO_WeaponType.AttackCategory.Hitscan:
-                GunAttack(aimDirection);
-                break;
-            case SO_WeaponType.AttackCategory.NonLethal:
-                TaserAttack(aimDirection);
-                break;
-            case SO_WeaponType.AttackCategory.Melee:
-                MeleeAttack(aimDirection);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            switch (currentWeapon.AttackCategories)
+            {
+                case SO_WeaponType.AttackCategory.Hitscan:
+                    GunAttack(aimDirection);
+                    break;
+                case SO_WeaponType.AttackCategory.NonLethal:
+                    TaserAttack(aimDirection);
+                    break;
+                case SO_WeaponType.AttackCategory.Melee:
+                    MeleeAttack(aimDirection);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
+        else         
+        {
+            UnarmedAttack(aimDirection);
+        }
+
     }
 
     //// ATTACK TYPES
@@ -99,7 +110,11 @@ public class PerformAttack : MonoBehaviour
         }
     }
 
-    
+    private void UnarmedAttack(Vector3 aimDirection)
+    {
+        unarmedAttack.Attack(aimDirection, firePoint, impactProcessor.HitMask); 
+    }
+
     private bool CanAttack(out Vector3 aimDirection)
     {
         aimDirection = Vector3.zero;

@@ -11,8 +11,6 @@ public class Flashlight : MonoBehaviour
     
     private EventRelay eventRelay = EventRelay.Instance;
 
-
-
     void Start()
     {
         gameObject.SetActive(!inventoryRuntimeData.Value.GetQuestItemIDs().Contains(IDConstants.FLASHLIGHT_INV_ID));

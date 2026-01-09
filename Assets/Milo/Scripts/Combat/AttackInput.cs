@@ -10,7 +10,8 @@ public class AttackInput : MonoBehaviour
     [SerializeField] private InputActionReference shootAction;
     [SerializeField] private InputActionReference switchWeaponAction;
     [SerializeField] private InputActionReference reloadAction;
-    
+    [SerializeField] private InputActionReference unEquipWeaponAction;
+
     [Header("Extras, later make full PlayerInput script")]
     // for the movement inaccuracy
     [SerializeField] private InputActionReference moveAction;
@@ -19,6 +20,7 @@ public class AttackInput : MonoBehaviour
     public InputActionReference MoveAction => moveAction;
     public InputActionReference SprintAction => sprintAction;
     public InputActionReference SwitchWeaponAction => switchWeaponAction;
+
     
     public event Action<Vector2> MouseMoved;
     public event Action AimStarted;
@@ -30,12 +32,15 @@ public class AttackInput : MonoBehaviour
     
     public event Action ReloadTriggered;
 
+    public event Action UnEquipWeaponTriggered;
+
     private void Awake()
     {
         Enable(mousePosAction);
         Enable(aimAction);
         Enable(shootAction);
-        Enable(switchWeaponAction); // Enable switch weapon action
+        Enable(switchWeaponAction); 
+        Enable(unEquipWeaponAction);
 
         if (aimAction?.action != null)
         {
@@ -59,6 +64,11 @@ public class AttackInput : MonoBehaviour
             reloadAction.action.Enable();
             reloadAction.action.performed += OnReloadPerformed;
         }
+
+        if (unEquipWeaponAction?.action != null)
+        {
+            unEquipWeaponAction.action.performed += OnUnEquipWeapon;
+        }   
     }
 
     private void OnDestroy()
@@ -85,10 +95,17 @@ public class AttackInput : MonoBehaviour
             reloadAction.action.performed -= OnReloadPerformed;
             reloadAction.action.Disable();
         }
-        
+
+        if (unEquipWeaponAction?.action != null)
+        {
+            unEquipWeaponAction.action.performed -= OnUnEquipWeapon;
+        }
+
         Disable(mousePosAction);
         Disable(aimAction);
         Disable(shootAction);
+        Disable(switchWeaponAction);
+        Disable(unEquipWeaponAction);
     }
 
     public Vector2 GetMousePosition()
@@ -150,4 +167,10 @@ public class AttackInput : MonoBehaviour
         ReloadTriggered?.Invoke();
     }
 
+    private void OnUnEquipWeapon(InputAction.CallbackContext ctx)
+    {
+        UnEquipWeaponTriggered?.Invoke();
+    }
+
+ 
 }
