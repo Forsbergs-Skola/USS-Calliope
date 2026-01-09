@@ -10,6 +10,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Transform firePoint;
     [SerializeField] private SO_WeaponList weaponDatabase;
+    [SerializeField] private UnarmedAttack unarmedAttack;
     [SerializeField] private Transform rightHand; // Defined this so the weapon has a parent!
 
     private AttackInput attackInput;
@@ -23,7 +24,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     private GameObject currentWeaponPrefab;
     private Coroutine reloadCoroutine;
     private int equippedWeaponIndex = -1;
-    private bool isUnarmed;
+    
     
     
 
@@ -72,7 +73,7 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private void UnEquipWeapon()
     {
-        if (isUnarmed) return;
+        if (unarmedAttack.isUnarmed) return;
 
         if (currentWeaponData != null && currentWeaponData.HasAmmo && AmmoModel.CurrentAmmo > 0)
         {
@@ -93,7 +94,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         OnFireStopped();
 
         currentWeaponData = null;
-        isUnarmed = true;
+        unarmedAttack.isUnarmed = true;
     }
 
     private void EquipNextWeapon()
@@ -101,7 +102,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         var availableWeapons = GetAvailableWeapons();
         if (availableWeapons.Count == 0) return;
 
-        if (!isUnarmed)
+        if (!unarmedAttack.isUnarmed)
         {
             UnEquipWeapon();
         }
@@ -114,7 +115,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         if (weaponData == null) return;
 
         currentWeaponData = weaponData;
-        isUnarmed = false;
+        unarmedAttack.isUnarmed = false;
 
         ApplyWeaponSetup(weaponData);
 
