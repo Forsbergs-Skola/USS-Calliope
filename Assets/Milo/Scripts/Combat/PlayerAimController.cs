@@ -58,7 +58,7 @@ public class PlayerAimController : MonoBehaviour
         if (crosshairImage)
             crosshairImage.enabled = false;
 
-        
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
     }
 

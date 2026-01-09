@@ -1,11 +1,16 @@
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class Flashlight : MonoBehaviour
 {
     [SerializeField] private InventoryRuntimeData inventoryRuntimeData;
     [SerializeField] private ProgressionRuntimeData progressionRuntimeData;
+
+    [SerializeField] Transform player;
+    [SerializeField] private Light lightSource;
     
     private EventRelay eventRelay = EventRelay.Instance;
+
 
 
     void Start()
@@ -34,9 +39,19 @@ public class Flashlight : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-           inventoryRuntimeData.Value.AddQuestItem(IDConstants.FLASHLIGHT_INV_ID);
-           gameObject.SetActive(false);
+            
+            inventoryRuntimeData.Value.AddQuestItem(IDConstants.FLASHLIGHT_INV_ID);
+
+          
+            Transform targetParent = other.transform;
+
+            Light lightInstance = Instantiate(lightSource);
+            lightInstance.transform.SetParent(targetParent, false); 
+            lightInstance.transform.localPosition = new Vector3(0f, 1.5f,0f);
+            lightInstance.transform.localRotation = Quaternion.identity;
+
+            gameObject.SetActive(false);
         }
     }
-    
+
 }

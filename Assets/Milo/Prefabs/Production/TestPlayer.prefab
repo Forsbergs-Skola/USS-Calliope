@@ -6154,6 +6154,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 84eee0b0-c965-405e-adec-8435803acdf7
     m_ActionName: 'Player/Reload[/Keyboard/r]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3f7e1dcc-2d0f-465b-9848-97bb266ede73
+    m_ActionName: 'Player/TurnOn[/Keyboard/f]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -6171,8 +6175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7d9132c1d1475438b6ee7aba326770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Olle.Scripts.PlayerController
-  moveSpeed: 2.2
-  runMoveSpeed: 4.5
+  moveSpeed: 3.94
+  runMoveSpeed: 6
   crouchMoveSpeed: 2
   crouchScaleY: 0.5
   walkStepInterval: 0.4

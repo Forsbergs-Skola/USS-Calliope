@@ -48,8 +48,8 @@ public class PlayerStamina : MonoBehaviour
         if (currentStamina <= 0f)
             isTired = true;
 
-        if (!Mathf.Approximately(before, currentStamina))
-            Debug.Log($"Stamina DRAIN: {currentStamina:0}/{maxStamina}", this);
+        // if (!Mathf.Approximately(before, currentStamina))
+          //  Debug.Log($"Stamina DRAIN: {currentStamina:0}/{maxStamina}", this);
     }
 
     void HandleRegen(float deltaTime)
@@ -85,8 +85,8 @@ public class PlayerStamina : MonoBehaviour
             if (currentStamina >= maxStamina)
                 isTired = false;
 
-            if (!Mathf.Approximately(before, currentStamina))
-                Debug.Log($"Stamina REGEN: {currentStamina:0}/{maxStamina}", this);
+            // if (!Mathf.Approximately(before, currentStamina))
+             //   Debug.Log($"Stamina REGEN: {currentStamina:0}/{maxStamina}", this);
         }
     }
     

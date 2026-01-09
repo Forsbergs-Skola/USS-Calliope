@@ -14,6 +14,7 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private AttackInput attackInput;
     private SO_WeaponType currentWeaponData;
+    private SO_FlashLight flashlightData;
     private bool isHoldingTrigger;
     private Coroutine firingCoroutine;
     private PerformAttack performAttack;
@@ -22,6 +23,8 @@ public class PlayerWeaponHandler : MonoBehaviour
     private GameObject currentWeaponPrefab;
     private Coroutine reloadCoroutine;
     private int equippedWeaponIndex = -1;
+    
+    
 
     private InventoryData invData
     {
@@ -69,11 +72,13 @@ public class PlayerWeaponHandler : MonoBehaviour
         var availableWeapons = GetAvailableWeapons();
         if (availableWeapons.Count == 0) return;
 
+        
         if (currentWeaponData != null && AmmoModel.CurrentAmmo > 0)
         {
-            invData.ReplenishConsumable(currentWeaponData.AmmoType.AmmoID, AmmoModel.CurrentAmmo);
+                invData.ReplenishConsumable(currentWeaponData.AmmoType.AmmoID, AmmoModel.CurrentAmmo);
         }
-
+        
+        
         equippedWeaponIndex = (equippedWeaponIndex + 1) % availableWeapons.Count;
         string weaponId = availableWeapons[equippedWeaponIndex];
 
@@ -87,16 +92,22 @@ public class PlayerWeaponHandler : MonoBehaviour
 
         ApplyWeaponSetup(weaponData);
 
+     
+        
         if (invData.GetConsumableIDsAndQuantities().TryGetValue(weaponData.AmmoType.AmmoID, out int ammoAvailable) && ammoAvailable > 0)
         {
             invData.DepleteConsumable(weaponData.AmmoType.AmmoID, weaponData.MagSize);
             AmmoModel.AddAmmo(weaponData.AmmoType, weaponData.MagSize);
         }
+        
     }
 
     private void ApplyWeaponSetup(SO_WeaponType data)
     {
-        AmmoModel.InitializeAmmo(data);
+        if (data.HasAmmo)
+        {
+            AmmoModel.InitializeAmmo(data);
+        }
         weaponCooldown.InitializeCooldown(data.FireRate);
         performAttack.SetCurrentWeapon(data);
 
