@@ -7,16 +7,20 @@ public class UnarmedAttack : MonoBehaviour
     [SerializeField] private float radius = 0.5f;
     [SerializeField] private float attackCooldown = 1.0f;
     [SerializeField] private ImpactProcessor impactProcessor;
+
     public bool isUnarmed;
+    public int Damage => damage;
+   
+
 
     // Apply physics to AI
     [SerializeField] private int force = 5;
 
-   
 
     public void Attack(Vector3 aimDirection, Transform firePoint, LayerMask hitMask )
     {
-        if (aimDirection == Vector3.zero) aimDirection = transform.forward;
+        Debug.Log("Performing unarmed attack");
+        aimDirection = transform.forward;
 
         var origin = firePoint.position;
         var hits = Physics.SphereCastAll(origin, radius, aimDirection, reach, hitMask);
@@ -25,7 +29,7 @@ public class UnarmedAttack : MonoBehaviour
         {
             if (hit.collider.transform.root == transform.root) continue;
 
-            impactProcessor.ProcessMeleeHit(hit, aimDirection, force);
+            impactProcessor.ProcessUnarmedHit(hit, aimDirection, force);
         }
     }
 }

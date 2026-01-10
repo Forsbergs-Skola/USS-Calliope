@@ -4,6 +4,7 @@ public class ImpactProcessor : MonoBehaviour
 {
     [SerializeField] private LayerMask hitMask;
     private SO_WeaponType currentWeapon;
+    private UnarmedAttack unarmed;
     public LayerMask HitMask => hitMask;
     
     public void InitializeProcessor(SO_WeaponType weapon)
@@ -38,5 +39,11 @@ public class ImpactProcessor : MonoBehaviour
 
         var damageable = hit.collider.GetComponentInParent<IDamageable>();
         damageable?.TakeDamage(currentWeapon.Damage);
+    }
+
+    public void ProcessUnarmedHit(RaycastHit hit, Vector3 attackDirection, float force)
+    {
+        var damageable = hit.collider.GetComponentInParent<IDamageable>();
+        damageable?.TakeDamage(unarmed.Damage); 
     }
 }

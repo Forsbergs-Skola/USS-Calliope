@@ -100,7 +100,11 @@ public class PlayerWeaponHandler : MonoBehaviour
     private void EquipNextWeapon()
     {
         var availableWeapons = GetAvailableWeapons();
-        if (availableWeapons.Count == 0) return;
+        if (availableWeapons.Count == 0)
+        {
+            unarmedAttack.isUnarmed = true;
+            return;
+        }
 
         if (!unarmedAttack.isUnarmed)
         {
