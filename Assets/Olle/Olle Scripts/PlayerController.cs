@@ -151,11 +151,16 @@ namespace Olle.Scripts
                 if (Camera.main != null && Mouse.current != null)
                 {
                     Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-                    if (Physics.Raycast(ray, out RaycastHit hit, 1000f))
+
+                    int layerMask = ~LayerMask.GetMask("Player");
+
+                    if (Physics.Raycast(ray, out RaycastHit hit, 1000f, layerMask))
                     {
                         Vector3 lookDir = hit.point - transform.position;
                         lookDir.y = 0;
-                        if (lookDir.sqrMagnitude > 0.001f)
+
+                        // Increase the threshold slightly to avoid jitter
+                        if (lookDir.sqrMagnitude > 0.1f)
                         {
                             targetRot = Quaternion.LookRotation(lookDir);
                             shouldRotate = true;
