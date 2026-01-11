@@ -85,7 +85,12 @@ public class PauseCanvas : MonoBehaviour, ICanvasUI
     }
     private void HandleSaveButtonPressed()
     {
-        Debug.Log("SAVE FEATURE COMING SOON...");
+        if (DataController.Instance == null) return;
+        Debug.Log("SAVING GAME");
+        PlayerData playerData = DataController.Instance.PlayerRuntimeData.Value;
+        ProgressionData progData = DataController.Instance.ProgressionRuntimeData.Value;
+        InventoryData invData = DataController.Instance.InventoryRuntimeData.Value;
+        SaveService.Save(playerData, invData, progData);
     }
     private void HandleBackButtonPressed()
     {
