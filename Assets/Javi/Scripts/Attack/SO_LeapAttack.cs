@@ -63,10 +63,10 @@ public class SO_LeapAttack : EnemyAttackSOClass
 
         Debug.Log("[Leap] Started");
 
-        float originalSpeed = movement.MoveSpeed;
+        //float originalSpeed = movement.MoveSpeed;
 
         // Crouch run
-        movement.MoveSpeed = crouchRunSpeed;
+        //movement.MoveSpeed = crouchRunSpeed;
 
         float timer = 0f;
         while (timer < crouchRunDuration)
@@ -80,7 +80,7 @@ public class SO_LeapAttack : EnemyAttackSOClass
         }
 
         // Stop & hit
-        movement.FollowPlayer = false;
+        //movement.FollowPlayer = false;
 
         if (Vector3.Distance(enemy.position, player.position) <= headbuttDistance)
         {
@@ -97,6 +97,6 @@ public class SO_LeapAttack : EnemyAttackSOClass
         }
 
         // Restore movement
-        movement.MoveSpeed = originalSpeed;
+        //movement.MoveSpeed = originalSpeed;
     }
 }

@@ -5,6 +5,57 @@ public class EnemyFollowPlayer : MonoBehaviour
     [Header("Target")]
     [SerializeField] private Transform playerTarget;
 
+    [Header("State")]
+    [SerializeField] private bool followPlayer = false;
+
+    private SimpleMovementAgent movement;
+
+    public bool FollowPlayer => followPlayer;
+
+    private void Awake()
+    {
+        movement = GetComponent<SimpleMovementAgent>();
+        
+        if (movement == null)
+        {
+            Debug.LogError($"{name} requires a SimpleMovementAgent component!");
+            enabled = false;
+            return;
+        }
+    }
+
+    private void Update()
+    {
+        if (!followPlayer || playerTarget == null)
+            return;
+
+        movement.MoveTo(playerTarget.position);
+    }
+
+    public void SetTarget(Transform target) => playerTarget = target;
+    
+    public void SetFollow(bool follow)
+    {
+        followPlayer = follow;
+        
+        if (movement != null)
+        {
+            if (follow)
+                movement.SetMovementState(SimpleMovementAgent.MovementState.Chasing);
+            else
+                movement.SetMovementState(SimpleMovementAgent.MovementState.Patrolling);
+        }
+    }
+    
+    public void SetChaseSpeedMultiplier(float multiplier)
+    {
+        if (movement != null)
+            movement.SetChaseMultiplier(multiplier);
+    }
+    
+    /*[Header("Target")]
+    [SerializeField] private Transform playerTarget;
+
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 2f;
 
@@ -45,5 +96,5 @@ public class EnemyFollowPlayer : MonoBehaviour
     public void SetTarget(Transform target)
     {
         playerTarget = target;
-    }
+    }*/
 }
