@@ -151,14 +151,25 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private void OnFireStarted()
     {
-        if (!currentWeaponData) return;
+        // 1. Check if we have any way to attack at all
+        if (!currentWeaponData && !unarmedAttack.isUnarmed) return;
 
+        // 2. CHECK UNARMED FIRST (Prevents null crash)
+        if (unarmedAttack.isUnarmed)
+        {
+            Debug.Log("WeaponHandler: TryUnarmedAttack Called");
+            TryUnarmedAttack();
+            return;
+        }
+
+        // 3. Now it is safe to check weapon categories because we know a weapon exists
         if (currentWeaponData.AttackCategories == SO_WeaponType.AttackCategory.Melee)
         {
             TryMeleeAttack();
             return;
         }
 
+        // 4. Hitscan/Taser Logic
         if (!aimController.IsAiming) return;
 
         if (!currentWeaponData.IsSemiAutomatic)
@@ -207,6 +218,13 @@ public class PlayerWeaponHandler : MonoBehaviour
         weaponCooldown.StartCooldown(currentWeaponData.FireRate);
     }
 
+    private void TryUnarmedAttack()
+    {
+        Debug.Log("WeaponHandler: TryUnarmedAttack Called");
+        if (!weaponCooldown.CanFire()) return;
+        performAttack.Execute();
+        weaponCooldown.StartCooldown(unarmedAttack.Cooldown);
+    }
     private IEnumerator AutomaticFire()
     {
         while (isHoldingTrigger)

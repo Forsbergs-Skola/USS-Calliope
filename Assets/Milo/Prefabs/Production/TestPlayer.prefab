@@ -6356,7 +6356,7 @@ MonoBehaviour:
   audioSource: {fileID: 8560969470994166487}
   firePoint: {fileID: 3288179016502847727}
   weaponDatabase: {fileID: 11400000, guid: 3cc863e5416a2144291cdfd16f05fa3f, type: 2}
-  unarmedAttack: {fileID: 0}
+  unarmedAttack: {fileID: -5588837012005930377}
   rightHand: {fileID: 2578741458430219503}
 --- !u!114 &2226201227331291444
 MonoBehaviour:
@@ -6442,12 +6442,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9377005fa1543d41b6a30b9a4389730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnarmedAttack
-  damage: 10
+  damage: 50
   reach: 1.5
   radius: 0.5
   attackCooldown: 1
   impactProcessor: {fileID: 5668886614611623744}
-  isUnarmed: 0
+  isUnarmed: 1
   force: 5
 --- !u!4 &8048671226396329757 stripped
 Transform:

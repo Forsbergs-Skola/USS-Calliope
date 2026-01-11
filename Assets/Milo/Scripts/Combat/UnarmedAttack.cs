@@ -10,19 +10,19 @@ public class UnarmedAttack : MonoBehaviour
 
     public bool isUnarmed;
     public int Damage => damage;
-   
-
+    public float Cooldown => attackCooldown;
 
     // Apply physics to AI
     [SerializeField] private int force = 5;
-
 
     public void Attack(Vector3 aimDirection, Transform firePoint, LayerMask hitMask )
     {
         Debug.Log("Performing unarmed attack");
         aimDirection = transform.forward;
-
         var origin = firePoint.position;
+
+        Debug.DrawRay(origin, aimDirection * reach, Color.yellow, 1.0f);
+
         var hits = Physics.SphereCastAll(origin, radius, aimDirection, reach, hitMask);
 
         foreach (var hit in hits)

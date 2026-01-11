@@ -43,7 +43,13 @@ public class ImpactProcessor : MonoBehaviour
 
     public void ProcessUnarmedHit(RaycastHit hit, Vector3 attackDirection, float force)
     {
+        // IMPORTANT: Make sure 'unarmed' is assigned!
+        if (unarmed == null) unarmed = GetComponent<UnarmedAttack>();
+
         var damageable = hit.collider.GetComponentInParent<IDamageable>();
-        damageable?.TakeDamage(unarmed.Damage); 
+        if (damageable != null)
+        {
+            damageable.TakeDamage(unarmed.Damage);
+        }
     }
 }

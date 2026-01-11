@@ -44,7 +44,11 @@ public class PerformAttack : MonoBehaviour
 
     public void Execute()
     {
-        if (!CanAttack(out Vector3 aimDirection)) return;
+        if (!CanAttack(out Vector3 aimDirection))
+        {
+            Debug.Log("PerformAttack: Execute(): Cannot Attack");
+            return;
+        }
 
         
         if (!unarmedAttack.isUnarmed)
@@ -119,23 +123,20 @@ public class PerformAttack : MonoBehaviour
     {
         aimDirection = Vector3.zero;
 
-        if (!currentWeapon || !firePoint) 
-        {
-            return false;
-        }
+        // FIX: Allow the attack to proceed if we are unarmed, even if currentWeapon is null
+        if (!firePoint) return false;
+        if (!unarmedAttack.isUnarmed && currentWeapon == null) return false;
 
         var hasAim = aimController.TryGetAimDirection(firePoint.position, out aimDirection);
-    
-        if (currentWeapon.AttackCategories != SO_WeaponType.AttackCategory.Melee) 
+
+        // Unarmed and Melee don't require a valid hitscan aim point (can just use forward)
+        if (unarmedAttack.isUnarmed || (currentWeapon != null && currentWeapon.AttackCategories == SO_WeaponType.AttackCategory.Melee))
         {
-            return hasAim;
+            if (!hasAim) aimDirection = transform.forward;
+            return true;
         }
 
-        if (!hasAim)
-        {
-            aimDirection = transform.forward;
-        }
-        return true; 
+        return hasAim;
     }
 
     private void PerformRaycastShot(Vector3 aimDirection, Action<RaycastHit> onHit)
