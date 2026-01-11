@@ -1,3 +1,4 @@
+using Olle.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     [SerializeField] private SO_WeaponList weaponDatabase;
     [SerializeField] private UnarmedAttack unarmedAttack;
     [SerializeField] private Transform rightHand; // Defined this so the weapon has a parent!
+    [SerializeField] private Animator animator;
 
     private AttackInput attackInput;
     private SO_WeaponType currentWeaponData;
@@ -25,8 +27,9 @@ public class PlayerWeaponHandler : MonoBehaviour
     private Coroutine reloadCoroutine;
     private int equippedWeaponIndex = -1;
     
-    
-    
+
+
+
 
     private InventoryData invData
     {
@@ -90,6 +93,8 @@ public class PlayerWeaponHandler : MonoBehaviour
             StopCoroutine(reloadCoroutine);
             reloadCoroutine = null;
         }
+
+        animator.SetInteger("WeaponType", (int)0);
 
         OnFireStopped();
 

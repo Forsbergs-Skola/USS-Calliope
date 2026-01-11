@@ -9,6 +9,7 @@ public class UnarmedAttack : MonoBehaviour
     [SerializeField] private float attackCooldown = 1.0f;
     [SerializeField] private ImpactProcessor impactProcessor;
 
+
     private PlayerAnimationController animator;
 
     public void Awake()

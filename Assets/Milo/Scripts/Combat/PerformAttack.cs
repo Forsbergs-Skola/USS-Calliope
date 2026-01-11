@@ -78,7 +78,7 @@ public class PerformAttack : MonoBehaviour
     //// ATTACK TYPES
     private void GunAttack(Vector3 aimDirection)
     {
-        PlayAttackSound();
+        PlayAttackSound(0.7f);
         for (int i = 0; i < currentWeapon.PelletCount; i++)
         {
             PerformRaycastShot(aimDirection, impactProcessor.ProcessHit);
@@ -177,8 +177,8 @@ public class PerformAttack : MonoBehaviour
         return currentWeapon.GetBaseSpreadIntensity(movementTimer, isSprinting, HitChance.CurrentHitChanceScore, playerState.CurrentHealth);
     }
 
-    private void PlayAttackSound()
+    private void PlayAttackSound(float volume = 1.0f)
     {
-        audioSource.PlayOneShot(currentWeapon.AttackSound);
+        audioSource.PlayOneShot(currentWeapon.AttackSound, volume);
     }
 }

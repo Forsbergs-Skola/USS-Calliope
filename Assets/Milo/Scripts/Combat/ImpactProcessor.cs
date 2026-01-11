@@ -1,9 +1,14 @@
 using UnityEngine;
 using System.Collections;
+using NUnit.Framework;
 
 public class ImpactProcessor : MonoBehaviour
 {
     [SerializeField] private LayerMask hitMask;
+    [SerializeField] private AudioSource hitAudioSource;
+
+    [SerializeField] private AudioClip PunchHit;
+
     private SO_WeaponType currentWeapon;
     private UnarmedAttack unarmed;
     public LayerMask HitMask => hitMask;
@@ -40,6 +45,9 @@ public class ImpactProcessor : MonoBehaviour
 
         var damageable = hit.collider.GetComponentInParent<IDamageable>();
         damageable?.TakeDamage(currentWeapon.Damage);
+
+        // TODO:
+        // Apply force to the hit object if it has a Rigidbody
     }
 
     public void ProcessUnarmedHit(RaycastHit hit, Vector3 attackDirection, float force)
@@ -48,8 +56,12 @@ public class ImpactProcessor : MonoBehaviour
         var damageable = hit.collider.GetComponentInParent<IDamageable>();
         if (damageable != null)
         {
-            StartCoroutine(DelayedUnarmedDamage(damageable, unarmed.Damage, 0.2f)); // 0.2s delay
+            StartCoroutine(DelayedUnarmedDamage(damageable, unarmed.Damage, 0.2f));
+            AudioSource.PlayClipAtPoint(PunchHit, hit.point);
         }
+
+        // TODO:
+        // Apply force to the hit object if it has a Rigidbody
     }
 
     private IEnumerator DelayedUnarmedDamage(IDamageable target, float damage, float delay)

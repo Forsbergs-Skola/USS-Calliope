@@ -41,6 +41,8 @@ namespace Olle.Scripts
         PlayerAnimationController _animatorControl;
 
         public bool IsCrouching => _isCrouching;
+        public bool IsMoving => _inputDir.sqrMagnitude > 0.01f;
+        public bool IsSprinting => _wantsToRun && _inputDir.sqrMagnitude > 0.01f && !_isCrouching;
         public bool IsDashing { get; set; }
         public System.Action<Vector2> OnMoveEvent;
 
