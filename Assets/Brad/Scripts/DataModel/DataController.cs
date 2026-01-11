@@ -50,6 +50,11 @@ public class DataController : Singleton<DataController>
         inventoryRuntimeData.Value = _gameData.inventoryData;
         progressionRuntimeData.Value = _gameData.progressionData;
         EventRelay.Instance.GameEvents.DataUpdatedEvent.TriggerEvent();
+
+        Debug.Log(progressionRuntimeData.Value.SceneName);
+        SceneManager.LoadScene(progressionRuntimeData.Value.SceneName);
+
+
     }
 
     private void WipeData()

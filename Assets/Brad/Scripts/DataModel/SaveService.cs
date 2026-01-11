@@ -83,13 +83,20 @@ public static class SaveService
         gData.inventoryData = inventoryData;
         gData.progressionData = progressionData;
         SaveData newSD = GameDataToSaveData(gData);
+
         // TODO -- write newSD to disk
+        string json = JsonUtility.ToJson(newSD, true);
+        File.WriteAllText(saveFilePath, json);
+        EventRelay.Instance.GameEvents.GameSavedEvent.TriggerEvent();
     }
     public static void Load()
     {
+        if (!SaveExists()) return;
         SaveData savedData = new SaveData();
 
         // TODO -- read saved JSON into savedData
+        string json = File.ReadAllText(saveFilePath);
+        savedData = JsonUtility.FromJson<SaveData>(json);
         
         GameData gameData = new GameData();
         PlayerData _playerData = GetPlayerDataFromSaveData(savedData);
@@ -193,10 +200,22 @@ public static class SaveService
         string objectiveStatusesString = JsonUtility.ToJson(statusesWrapper);
 
         // other progression variables
+        List<string> defeatedEnemies = new List<string>(progressionData.GetDefeatedEnemiesList());
+        StringListWrapper enemiesDefeatedStringWrapper = DataTools.GetWrapperizedStringList(defeatedEnemies);
+        string defeatedEnemiesString = JsonUtility.ToJson(enemiesDefeatedStringWrapper);
+
+
+
 
         // write to outData
         outData.PROGRESSION_ObjectiveIDs = objectiveIDsString;
         outData.PROGRESSION_ObjectiveStatuses = objectiveStatusesString;
+        outData.PROGRESSION_EnemiesDefeated = defeatedEnemiesString;
+        outData.PROGRESSION_AlicaAndBobFuneralHeld = progressionData.AliceAndBobFuneralHeld;
+        outData.PROGRESSION_AlicaAndBobFuneralHeld = progressionData.BobContacted;
+        outData.PROGRESSION_CentralCorridorDiscovered = progressionData.CentralCorridorDiscovered;
+        outData.PROGRESSION_CrewQuartersUnlocked = progressionData.CrewQuartersUnlocked;
+        outData.PROGRESSION_SceneName = progressionData.SceneName;
 
         // return outData
         return outData;
@@ -299,7 +318,15 @@ public static class SaveService
         _progressionData.UpdateObjectivesAndStatuses(statusDict);
 
         // other prog variables
-        // TODO...
+        List<string> defeatedEnemiesList = DataTools.GetStringListFromJson(saveData.PROGRESSION_EnemiesDefeated);
+        _progressionData.ReplaceDefeatedEnemiesList(defeatedEnemiesList);
+
+        _progressionData.AliceAndBobFuneralHeld = saveData.PROGRESSION_AlicaAndBobFuneralHeld;
+        _progressionData.BobContacted = saveData.PROGRESSION_BobContacted;
+        _progressionData.CentralCorridorDiscovered = saveData.PROGRESSION_CentralCorridorDiscovered;
+        _progressionData.CrewQuartersUnlocked = saveData.PROGRESSION_CrewQuartersUnlocked;
+        _progressionData.DataDelivered = saveData.PROGRESSION_DataDelivered;
+        _progressionData.SceneName = saveData.PROGRESSION_SceneName;
 
         // return the new progression data
         return new ProgressionData(_progressionData);

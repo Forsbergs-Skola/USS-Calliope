@@ -31,6 +31,14 @@ public class SaveData
 
     public string PROGRESSION_ObjectiveIDs;
     public string PROGRESSION_ObjectiveStatuses;
+    public string PROGRESSION_EnemiesDefeated;
+    public string PROGRESSION_SceneName;
+
+    public bool PROGRESSION_DataDelivered;
+    public bool PROGRESSION_CentralCorridorDiscovered;
+    public bool PROGRESSION_BobContacted;
+    public bool PROGRESSION_CrewQuartersUnlocked;
+    public bool PROGRESSION_AlicaAndBobFuneralHeld;
 
     ///////////////////
     // InventoryData //
