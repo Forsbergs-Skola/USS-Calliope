@@ -5,13 +5,20 @@ namespace Olle.Scripts
 {
     public class PlayerController : MonoBehaviour
     {
-
+        [Header("Movement Settings")]
         public float moveSpeed = 5f;
         public float runMoveSpeed = 8f;
         public float crouchMoveSpeed = 2f;
+        public float rotationSpeed = 10f;
 
+        [Header("Rotation Style")]
+        [Tooltip("True: Face mouse smoothly always. False: Face movement direction when not aiming (Old Style).")]
+        public bool mouse = true;
+
+        [Header("Crouch Settings")]
         public float crouchScaleY = 0.5f;
 
+        [Header("Footstep Intervals")]
         public float walkStepInterval = 0.4f;
         public float runStepInterval = 0.25f;
         public float crouchStepInterval = 0.6f;
@@ -30,14 +37,11 @@ namespace Olle.Scripts
 
         PlayerStamina _stamina;
         CrouchInvisibility _crouchInvis;
-
-        // Added this for animation support
+        PlayerAimController _aimController;
         PlayerAnimationController _animatorControl;
 
         public bool IsCrouching => _isCrouching;
-
         public bool IsDashing { get; set; }
-
         public System.Action<Vector2> OnMoveEvent;
 
         void Awake()
@@ -50,27 +54,21 @@ namespace Olle.Scripts
             _noise = GetComponent<NoiseEmitter>();
             _stamina = GetComponent<PlayerStamina>();
             _crouchInvis = GetComponent<CrouchInvisibility>();
-
-            // Initialize the animation controller reference
+            _aimController = GetComponent<PlayerAimController>();
             _animatorControl = GetComponent<PlayerAnimationController>();
         }
 
-        //Move inputs
         public void OnMove(InputAction.CallbackContext ctx)
         {
             _moveInput = ctx.ReadValue<Vector2>();
-
-            // Notify dash ability etc.
             OnMoveEvent?.Invoke(_moveInput);
         }
 
-        //Run
         public void OnRun(InputAction.CallbackContext ctx)
         {
             _wantsToRun = ctx.ReadValue<float>() > 0.5f;
         }
 
-        //Crouch
         public void OnCrouch(InputAction.CallbackContext ctx)
         {
             if (ctx.performed)
@@ -80,11 +78,9 @@ namespace Olle.Scripts
             }
         }
 
-        //Interact
         public void OnInteract(InputAction.CallbackContext ctx)
         {
-            if (!ctx.performed)
-                return;
+            if (!ctx.performed) return;
 
             float interactRadius = 1.5f;
             Vector3 origin = transform.position + transform.forward * 1f;
@@ -109,8 +105,7 @@ namespace Olle.Scripts
             }
 
             Vector3 move = new Vector3(_moveInput.x, 0f, _moveInput.y);
-            move = Vector3.ClampMagnitude(move, 1f);
-            _inputDir = move;
+            _inputDir = Vector3.ClampMagnitude(move, 1f);
 
             bool isMoving = _inputDir.sqrMagnitude > 0.01f;
 
@@ -124,67 +119,57 @@ namespace Olle.Scripts
                               out canSprint);
             }
 
-            if (_isCrouching)
-            {
-                moveSpeed = crouchMoveSpeed;
-            }
+            if (_isCrouching) moveSpeed = crouchMoveSpeed;
             else if (!IsDashing)
             {
-                if (canSprint)
-                {
-                    moveSpeed = runMoveSpeed;
-                }
-                else if (_stamina != null && _stamina.isTired)
-                {
-                    moveSpeed = 2f; // Tired Speed
-                }
-                else
-                {
-                    moveSpeed = _defaultMoveSpeed;
-                }
+                if (canSprint) moveSpeed = runMoveSpeed;
+                else if (_stamina != null && _stamina.isTired) moveSpeed = 2f;
+                else moveSpeed = _defaultMoveSpeed;
             }
 
-            // Noise
-            if (isMoving && _noise != null)
-            {
-                _noiseTimer += Time.deltaTime;
+            HandleNoise(isMoving, canSprint);
 
-                if (!_isCrouching && _wantsToRun)
-                {
-                    if (_noiseTimer >= runStepInterval)
-                    {
-                        _noise.EmitRun();
-                        _noiseTimer = 0f;
-                    }
-                }
-                else if (_isCrouching)
-                {
-                    if (_noiseTimer >= crouchStepInterval)
-                    {
-                        _noise.EmitCrouch();
-                        _noiseTimer = 0f;
-                    }
-                }
-                else
-                {
-                    if (_noiseTimer >= walkStepInterval)
-                    {
-                        _noise.EmitWalk();
-                        _noiseTimer = 0f;
-                    }
-                }
-            }
-            else
-            {
-                _noiseTimer = 0f;
-            }
-
-            // Sync with the PlayerAnimationController
             if (_animatorControl != null)
             {
-                // canSprint from your stamina logic tells us if we are actually allowed to run
                 bool isActuallySprinting = canSprint && isMoving && !_isCrouching;
                 _animatorControl.UpdateMovement(_moveInput, isActuallySprinting);
+            }
+
+            HandleRotation();
+        }
+
+        private void HandleRotation()
+        {
+            bool isAiming = _aimController != null && _aimController.IsAiming;
+            Quaternion targetRot = transform.rotation;
+            bool shouldRotate = false;
+
+            if (mouse || isAiming)
+            {
+                if (Camera.main != null && Mouse.current != null)
+                {
+                    Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+                    if (Physics.Raycast(ray, out RaycastHit hit, 1000f))
+                    {
+                        Vector3 lookDir = hit.point - transform.position;
+                        lookDir.y = 0;
+                        if (lookDir.sqrMagnitude > 0.001f)
+                        {
+                            targetRot = Quaternion.LookRotation(lookDir);
+                            shouldRotate = true;
+                        }
+                    }
+                }
+            }
+            else if (_inputDir.sqrMagnitude > 0.01f)
+            {
+                targetRot = Quaternion.LookRotation(_inputDir);
+                shouldRotate = true;
+            }
+
+            if (shouldRotate)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
             }
         }
 
@@ -197,22 +182,31 @@ namespace Olle.Scripts
                 _rb.MovePosition(targetPos);
             }
 
-            if (Camera.main == null || Mouse.current == null)
-                return;
+            _rb.MoveRotation(transform.rotation);
+        }
 
-            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-            if (Physics.Raycast(ray, out RaycastHit hit, 1000f))
+        private void HandleNoise(bool isMoving, bool canSprint)
+        {
+            if (isMoving && _noise != null)
             {
-                Vector3 lookPos = hit.point;
-                lookPos.y = _rb.position.y;
-
-                Vector3 lookDir = lookPos - _rb.position;
-                if (lookDir.sqrMagnitude > 0.0001f)
+                _noiseTimer += Time.deltaTime;
+                if (!_isCrouching && _wantsToRun && _noiseTimer >= runStepInterval)
                 {
-                    Quaternion targetRot = Quaternion.LookRotation(lookDir);
-                    _rb.MoveRotation(targetRot);
+                    _noise.EmitRun();
+                    _noiseTimer = 0f;
+                }
+                else if (_isCrouching && _noiseTimer >= crouchStepInterval)
+                {
+                    _noise.EmitCrouch();
+                    _noiseTimer = 0f;
+                }
+                else if (!_isCrouching && !_wantsToRun && _noiseTimer >= walkStepInterval)
+                {
+                    _noise.EmitWalk();
+                    _noiseTimer = 0f;
                 }
             }
+            else _noiseTimer = 0f;
         }
 
         void ApplyCrouchState()
@@ -224,16 +218,10 @@ namespace Olle.Scripts
 
         public void TogglePause()
         {
-
             if (!UIController.Instance.GetIsCanvasUp(EnumCanvasUIName.PAUSE))
-            {
                 UIController.Instance.ShowCanvas(EnumCanvasUIName.PAUSE);
-            }
             else
-            {
                 UIController.Instance.RemoveCanvas(EnumCanvasUIName.PAUSE);
-            }
         }
-
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class ImpactProcessor : MonoBehaviour
 {
@@ -43,13 +44,17 @@ public class ImpactProcessor : MonoBehaviour
 
     public void ProcessUnarmedHit(RaycastHit hit, Vector3 attackDirection, float force)
     {
-        // IMPORTANT: Make sure 'unarmed' is assigned!
         if (unarmed == null) unarmed = GetComponent<UnarmedAttack>();
-
         var damageable = hit.collider.GetComponentInParent<IDamageable>();
         if (damageable != null)
         {
-            damageable.TakeDamage(unarmed.Damage);
+            StartCoroutine(DelayedUnarmedDamage(damageable, unarmed.Damage, 0.2f)); // 0.2s delay
         }
+    }
+
+    private IEnumerator DelayedUnarmedDamage(IDamageable target, float damage, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        target.TakeDamage(damage);
     }
 }

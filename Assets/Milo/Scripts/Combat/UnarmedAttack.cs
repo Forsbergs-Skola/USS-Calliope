@@ -1,3 +1,4 @@
+using Olle.Scripts;
 using UnityEngine;
 
 public class UnarmedAttack : MonoBehaviour
@@ -7,6 +8,14 @@ public class UnarmedAttack : MonoBehaviour
     [SerializeField] private float radius = 0.5f;
     [SerializeField] private float attackCooldown = 1.0f;
     [SerializeField] private ImpactProcessor impactProcessor;
+
+    private PlayerAnimationController animator;
+
+    public void Awake()
+    {
+        animator = GetComponent<PlayerAnimationController>();
+    }
+    
 
     public bool isUnarmed;
     public int Damage => damage;
@@ -20,6 +29,8 @@ public class UnarmedAttack : MonoBehaviour
         Debug.Log("Performing unarmed attack");
         aimDirection = transform.forward;
         var origin = firePoint.position;
+
+        animator.Punch();
 
         Debug.DrawRay(origin, aimDirection * reach, Color.yellow, 1.0f);
 

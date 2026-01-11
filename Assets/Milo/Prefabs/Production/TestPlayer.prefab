@@ -6182,9 +6182,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7d9132c1d1475438b6ee7aba326770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Olle.Scripts.PlayerController
-  moveSpeed: 3.94
-  runMoveSpeed: 6
+  moveSpeed: 2.5
+  runMoveSpeed: 4.7
   crouchMoveSpeed: 2
+  rotationSpeed: 10
+  mouse: 0
   crouchScaleY: 0.5
   walkStepInterval: 0.4
   runStepInterval: 0.25

@@ -53,6 +53,11 @@ namespace Olle.Scripts
             else if (angle < -45f)
                 animator.SetTrigger(TurnLeftHash);
         }
+
+        public void Punch()
+        {
+            animator.SetTrigger("PunchTrigger");
+        }
     }
 
     // In the animation controller, weapontype int determines which weapon is equipped, 0 = unarmed, 1 = pistol, 2 = rifle/shotgun 3 = Melee
