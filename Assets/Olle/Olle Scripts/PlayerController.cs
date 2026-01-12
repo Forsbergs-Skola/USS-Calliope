@@ -39,6 +39,9 @@ namespace Olle.Scripts
         CrouchInvisibility _crouchInvis;
         PlayerAimController _aimController;
         PlayerAnimationController _animatorControl;
+        
+        bool _dashing;
+        Vector3 _dashVelocity;
 
         public bool IsCrouching => _isCrouching;
         public bool IsMoving => _inputDir.sqrMagnitude > 0.01f;
@@ -187,6 +190,13 @@ namespace Olle.Scripts
 
         void FixedUpdate()
         {
+            if (_dashing)
+            {
+                // DASH MOVEMENT USING VELOCITY
+                _rb.linearVelocity = new Vector3(_dashVelocity.x, _rb.linearVelocity.y, _dashVelocity.z);
+                return;
+            }
+
             if (_inputDir.sqrMagnitude > 0.0001f)
             {
                 float step = moveSpeed * Time.fixedDeltaTime;
@@ -237,6 +247,21 @@ namespace Olle.Scripts
                 UIController.Instance.RemoveCanvas(EnumCanvasUIName.PAUSE);
         }
         */
+        
+        public void StartDash(Vector2 dir, float speed)
+        {
+            _dashing = true;
+            IsDashing = true;
 
+            _dashVelocity = new Vector3(dir.x, 0f, dir.y).normalized * speed;
+        }
+
+        public void EndDash()
+        {
+            _dashing = false;
+            IsDashing = false;
+
+            _rb.linearVelocity = new Vector3(0f, _rb.linearVelocity.y, 0f);
+        }
     }
 }
