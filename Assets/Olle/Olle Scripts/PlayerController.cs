@@ -16,6 +16,8 @@ namespace Olle.Scripts
         public float runStepInterval = 0.25f;
         public float crouchStepInterval = 0.6f;
 
+        [SerializeField] private InventoryChecker inventoryChecker;
+
         Rigidbody _rb;
         Vector3 _inputDir;
         Vector2 _moveInput;
@@ -53,6 +55,17 @@ namespace Olle.Scripts
 
             // Initialize the animation controller reference
             _animatorControl = GetComponent<PlayerAnimationController>();
+        }
+
+        private void Start()
+        {
+            PlayerDataHandler dataHandler = GetComponent<PlayerDataHandler>();
+            PlayerData data = dataHandler.RuntimeData.Value;
+            Vector3 lastPos = data.LastPosition;
+
+            if (lastPos == Vector3.zero) return;
+            gameObject.transform.position = lastPos;
+
         }
 
         //Move inputs
@@ -99,6 +112,35 @@ namespace Olle.Scripts
                     break;
                 }
             }
+        }
+
+        public void HandleConsumablePickup(string idString, int qty)
+        {
+            switch (idString)
+            {
+                case IDConstants.ADRENALINE:
+
+                    Debug.Log("PLAYER PICKS UP ADRENALINE");
+
+                    inventoryChecker.ReplinishAdrenaline(qty);
+                    break;
+            }
+        }
+
+        private void UseAdrenaline()
+        {
+            if (inventoryChecker.TryDepleteAdrenaline(1))
+            {
+                ActuateAdrenaline();
+                return;
+            }
+            Debug.Log("You got no adrenaline :(");
+        }
+
+        private void ActuateAdrenaline()
+        {
+            Debug.Log("Going fast now!!!");
+            //
         }
 
         void Update()

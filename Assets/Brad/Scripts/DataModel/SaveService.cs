@@ -145,6 +145,9 @@ public static class SaveService
         outData.PLAYER_XP = playerData.XP;
         outData.PLAYER_Stamina = playerData.Stamina;
         outData.PLAYER_EquippedWeapon = playerData.EquippedWeapon.ToString();
+        outData.PLAYER_PosX = playerData.LastPosition.x;
+        outData.PLAYER_PosY = playerData.LastPosition.y;
+        outData.PLAYER_PosZ = playerData.LastPosition.z;
 
 
         ///////////////////
@@ -255,6 +258,10 @@ public static class SaveService
         _playerData.Health = saveData.PLAYER_Health;
         _playerData.XP = saveData.PLAYER_XP;
         _playerData.Stamina = saveData.PLAYER_Stamina;
+
+        Vector3 lastPosVector = new Vector3(saveData.PLAYER_PosX, saveData.PLAYER_PosY, saveData.PLAYER_PosZ); ;
+        _playerData.LastPosition = lastPosVector;
+
 
         return new PlayerData(_playerData);
     }

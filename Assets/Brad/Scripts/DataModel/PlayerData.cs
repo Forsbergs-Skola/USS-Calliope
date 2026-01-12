@@ -23,6 +23,8 @@ public class PlayerData : IRuntimeData
     private int _barterSkill;
     private int _agility;
 
+    private Vector3 _lastPosition;
+
     // TODO: Update the SaveService conversion tools for these...
 
     ///////////////////
@@ -177,6 +179,16 @@ public class PlayerData : IRuntimeData
         }
     }
 
+    public Vector3 LastPosition
+    {
+        get => _lastPosition;
+        set
+        {
+            if (value == _lastPosition) return;
+            _lastPosition = value;
+        }
+    }
+
     //////////////////
     // Constructors //
     //////////////////
@@ -197,6 +209,8 @@ public class PlayerData : IRuntimeData
         TechSkill = 0;
         BarterSkill = 0;
         Agility = 0;
+
+        LastPosition = Vector3.zero;
     }
     public PlayerData(bool isSandbox)
     {
@@ -215,6 +229,8 @@ public class PlayerData : IRuntimeData
         TechSkill = 0;
         BarterSkill = 0;
         Agility = 0;
+
+        LastPosition = Vector3.zero;
     }
 
     public PlayerData(PlayerData inData)
@@ -234,6 +250,8 @@ public class PlayerData : IRuntimeData
         TechSkill = inData.TechSkill;
         BarterSkill = inData.BarterSkill;
         Agility = inData.Agility;
+
+        LastPosition = inData.LastPosition;
     }
     public bool GetIsSandbox() { return IsSandbox; }
 }
