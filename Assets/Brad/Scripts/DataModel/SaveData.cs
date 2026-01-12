@@ -29,12 +29,25 @@ public class SaveData
     public bool PROGRESSION_TalkedToAlice;
     */
 
+    public string PROGRESSION_ObjectiveIDs;
+    public string PROGRESSION_ObjectiveStatuses;
+    public string PROGRESSION_EnemiesDefeated;
+    public string PROGRESSION_SceneName;
+
+    public bool PROGRESSION_DataDelivered;
+    public bool PROGRESSION_CentralCorridorDiscovered;
+    public bool PROGRESSION_BobContacted;
+    public bool PROGRESSION_CrewQuartersUnlocked;
+    public bool PROGRESSION_AlicaAndBobFuneralHeld;
+
     ///////////////////
     // InventoryData //
     ///////////////////
 
-    public string INVENTORY_itemsString;
-    public string INVENTORY_resourcesString;
+    public string INVENTORY_weaponsString;
+    public string INVENTORY_questItemsString;
+    public string INVENTORY_consumablesItemsString;
+    public string INVENTORY_consumablesValuesString;
 
 
 

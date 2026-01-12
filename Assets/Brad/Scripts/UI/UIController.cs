@@ -81,6 +81,9 @@ public class UIController : Singleton<UIController>
     /////////
     public void ShowCanvas(EnumCanvasUIName canvasName)
     {
+
+        Debug.Log($"Showing Canvas: {canvasName.ToString()}");
+
         if (GetIsCanvasActive(canvasName)) { Debug.LogWarning($"{canvasName.ToString()} is already active"); return; }
         if (GetCanvasPrefab(canvasName) == null) { Debug.LogError($"No prefab for canvas: {canvasName.ToString()}"); return; }
         GameObject canvasObj = GetCanvasPrefab(canvasName);
@@ -98,6 +101,9 @@ public class UIController : Singleton<UIController>
     }
     public void RemoveCanvas(EnumCanvasUIName canvasName)
     {
+
+        Debug.Log($"Hiding Canvas: {canvasName.ToString()}");
+
         ICanvasUI canvasUI = GetActiveCanvas(canvasName);
         if (canvasUI == null) { Debug.LogError($"Cannot remove {canvasName.ToString()} is not active"); return; }
         Destroy(canvasUI.GetCanvas().gameObject);

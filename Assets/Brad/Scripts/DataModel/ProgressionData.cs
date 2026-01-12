@@ -13,6 +13,7 @@ public class ProgressionData : IRuntimeData
     ////////////////////
 
     private string _sceneName;
+
     private List<string> _defeatedEnemiesList;
     private Dictionary<string, EnumObjectiveStatus> _objectivesAndStatusesDict;
 
@@ -20,15 +21,6 @@ public class ProgressionData : IRuntimeData
     private bool _centralCorridorDiscovered;
     private bool _bobContacted = false;
     private bool _crewQuartersUnlocked = false;
-    
-    
-    
-    
-    
-    
-    
-    
-    
     private bool _aliceAndBobFuneralHeld = false;
 
 
@@ -125,6 +117,10 @@ public class ProgressionData : IRuntimeData
         if (_defeatedEnemiesList.Contains(enemyName)) return;
         _defeatedEnemiesList.Add(enemyName);
         DataTools.HandleOnDataChanged(this);
+    }
+    public void ReplaceDefeatedEnemiesList(List<string> inList)
+    {
+        _defeatedEnemiesList = new List<string>(inList);
     }
 
 

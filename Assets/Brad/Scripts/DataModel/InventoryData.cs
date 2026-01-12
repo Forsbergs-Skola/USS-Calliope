@@ -19,6 +19,10 @@
         private List<string> _questItemIDs;
 
         // WEAPONS
+        public void SetWeaponsList(List<string> ids)
+        {
+            _weaponItemIDs = new List<string>(ids);
+        }
         public List<string> GetWeaponItemIDs()
         {
             return new List<string>(_weaponItemIDs);
@@ -37,6 +41,10 @@
         }
 
         // QUEST ITEMS
+        public void SetQuestItemsList(List<string> ids)
+        {
+            _questItemIDs = new List<string>(ids);
+        }
         public List<string> GetQuestItemIDs()
         {
             return new List<string>(_questItemIDs);
@@ -54,9 +62,11 @@
             DataTools.HandleOnDataChanged(this);
         }
 
-
-        // CONSUMABLES
-
+    // CONSUMABLES
+        public void SetConsumablesDict(Dictionary<string, int> dict)
+        {
+            _consumableItemIDsAndQuantities = new Dictionary<string, int>(dict);
+        }
         public Dictionary<string, int> GetConsumableIDsAndQuantities()
         {
             return new Dictionary<string, int>(_consumableItemIDsAndQuantities);
@@ -118,7 +128,5 @@
             _consumableItemIDsAndQuantities = inData.GetConsumableIDsAndQuantities();
         }
         public bool GetIsSandbox() { return IsSandbox; }
-
-        
 
     }

@@ -101,10 +101,15 @@ namespace Olle.Scripts
 
         void Update()
         {
+            /*
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
             {
-                TogglePause();
+                if (Bootstrapper.Instance != null)
+                {
+                    Bootstrapper.Instance.TogglePause();
+                }
             }
+            */
 
             Vector3 move = new Vector3(_moveInput.x, 0f, _moveInput.y);
             _inputDir = Vector3.ClampMagnitude(move, 1f);
@@ -223,6 +228,7 @@ namespace Olle.Scripts
             transform.localScale = scale;
         }
 
+        /*
         public void TogglePause()
         {
             if (!UIController.Instance.GetIsCanvasUp(EnumCanvasUIName.PAUSE))
@@ -230,5 +236,7 @@ namespace Olle.Scripts
             else
                 UIController.Instance.RemoveCanvas(EnumCanvasUIName.PAUSE);
         }
+        */
+
     }
 }

@@ -97,7 +97,9 @@ public class Bootstrapper : Singleton<Bootstrapper>
     private void HandleLoadGamePressedEvent()
     {
         SaveService.Load(); // Save service triggers SavedGameLoadedEvent, Datacontroller ingests it
-        SceneManager.LoadScene(DataController.Instance.ProgressionRuntimeData.Value.SceneName);
+        //SceneManager.LoadScene(DataController.Instance.ProgressionRuntimeData.Value.SceneName);
+        //Debug.Log(DataController.Instance.ProgressionRuntimeData.Value.SceneName);
+        //SceneManager.LoadScene("NewLevel");
     }
 
     private System.Collections.IEnumerator StartPressedInputCooldown()
