@@ -25,8 +25,9 @@ public static class IDConstants
     // public const string PISTOL_MK7_AMMO = "45723e17-4905-4e9b-8214-e0fd74a87e13";
     public const string BATTERIES = "6164535a-3b6b-426b-9e1a-b57d180f9eba";
     public const string SHOTGUN_AMMO = "9c776512-d310-40af-ae44-d51b07abe9b6";
-    
-    
+    public const string ADRENALINE = "f13541fe-4906-4dc4-a5ab-a9e9445f224e";
+
+
     //public const string HEALTH_PACK = "ABC123";
 
 
