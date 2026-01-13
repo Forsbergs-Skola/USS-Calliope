@@ -205,26 +205,27 @@ namespace Olle.Scripts
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
             }
         }
+        [Header("Collision")]
+        public LayerMask wallMask = -1; // Walls layer
 
         void FixedUpdate()
         {
             if (_dashing)
             {
-                // DASH MOVEMENT USING VELOCITY
                 _rb.linearVelocity = new Vector3(_dashVelocity.x, _rb.linearVelocity.y, _dashVelocity.z);
-                return;
             }
-
-            if (_inputDir.sqrMagnitude > 0.0001f)
+            else if (_inputDir.sqrMagnitude > 0.0001f)
             {
-                float step = moveSpeed * Time.fixedDeltaTime;
-                Vector3 targetPos = _rb.position + _inputDir * step;
-                _rb.MovePosition(targetPos);
+                Vector3 targetVel = new Vector3(_inputDir.x * moveSpeed, _rb.linearVelocity.y, _inputDir.z * moveSpeed);
+                _rb.linearVelocity = targetVel;
+            }
+            else
+            {
+                _rb.linearVelocity = new Vector3(0f, _rb.linearVelocity.y, 0f);
             }
 
             _rb.MoveRotation(transform.rotation);
         }
-
         private void HandleNoise(bool isMoving, bool canSprint)
         {
             if (isMoving && _noise != null)
@@ -329,6 +330,7 @@ namespace Olle.Scripts
             _stamina.adrenalineRushActive = false;
             moveSpeed = oldSpeed;
             runMoveSpeed = oldRunSpeed;
+            _rb.linearVelocity = new Vector3(0f, _rb.linearVelocity.y, 0f);
             // normalize everything else...
         }
 
