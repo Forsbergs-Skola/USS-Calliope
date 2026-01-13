@@ -18,7 +18,7 @@ public class ConsumablePrefab : MonoBehaviour
     {
         if (DataController.Instance == null) return;
         InventoryData invData = DataController.Instance.InventoryRuntimeData.Value;
-        if (invData.ExhaustedPickups.Contains(worldID))
+        if (invData.GetExhaustedPickups().Contains(worldID))
         {
             Destroy(gameObject);
         }

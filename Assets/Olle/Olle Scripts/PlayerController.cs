@@ -270,6 +270,7 @@ namespace Olle.Scripts
 
         public void HandleConsumablePickup(string worldID, string catalogID, int qty)
         {
+
             //inventorySO.Value.ExhaustedPickups.Add(worldID);
             pickupHandler.HandleConsumablePickup(inventorySO.Value, worldID, catalogID, qty);
 

@@ -7,7 +7,7 @@ public class PlayerPickupHandler
     {
         Dictionary<string, int> consumablesDict = invData.GetConsumableIDsAndQuantities();
 
-        invData.ExhaustedPickups.Add(worldID);
+        invData.AddExhausedPickup(worldID);
 
         if (consumablesDict.ContainsKey(itemID))
         {
