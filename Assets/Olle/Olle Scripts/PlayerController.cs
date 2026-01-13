@@ -5,6 +5,9 @@ namespace Olle.Scripts
 {
     public class PlayerController : MonoBehaviour
     {
+
+        private const float ADRENALINE_DURATION = 10f;
+
         [Header("Movement Settings")]
         public float moveSpeed = 5f;
         public float runMoveSpeed = 8f;
@@ -64,6 +67,18 @@ namespace Olle.Scripts
             _crouchInvis = GetComponent<CrouchInvisibility>();
             _aimController = GetComponent<PlayerAimController>();
             _animatorControl = GetComponent<PlayerAnimationController>();
+        }
+
+        private void Start()
+        {
+            PlayerDataHandler pHandler = GetComponent<PlayerDataHandler>();
+            PlayerData data = pHandler.RuntimeData.Value;
+            Vector3 lastPos = data.LastPosition;
+            if (lastPos != Vector3.zero)
+            {
+
+                gameObject.transform.position = lastPos;
+            }
         }
 
         public void OnMove(InputAction.CallbackContext ctx)
@@ -272,6 +287,46 @@ namespace Olle.Scripts
         {
             pickupHandler.HandleConsumablePickup(inventorySO.Value, worldID, catalogID, qty);
         }
+
+        public void TryDepleteAdrenaline()
+        {
+            if (pickupHandler.TryUseConsumable(inventorySO.Value, IDConstants.ADRENALINE, 1))
+            {
+                // pickuphandler depletes adrenaline
+                UseAdrenaline();
+                return;
+            }
+            Debug.Log("You got no adrenaline");
+        }
+        private void UseAdrenaline()
+        {
+            
+            Debug.Log("Player go fast!");
+
+            // TODO: player observable behavior
+            // whatever else happens...
+
+            StartCoroutine(AdrenalineCoroutine());
+        }
+
+        private System.Collections.IEnumerator AdrenalineCoroutine()
+        {
+
+            float oldSpeed = moveSpeed;
+
+            // change stuff
+            Debug.Log("ADRENALINE ON");
+            moveSpeed = 10f;
+            // and whatever else we want to adjust...
+
+            yield return new WaitForSeconds(ADRENALINE_DURATION);
+            
+            // change stuff back
+            Debug.Log("ADRENALINE OFF");
+            moveSpeed = oldSpeed;
+            // normalize everything else...
+        }
+
 
     }
 }
