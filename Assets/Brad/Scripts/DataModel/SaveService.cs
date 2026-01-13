@@ -174,6 +174,10 @@ public static class SaveService
         string consumablesItemsString = JsonUtility.ToJson(consumableItemsWrapper);
         string consumablesValuesString = JsonUtility.ToJson(consumableValuesWrapper);
 
+        List<string> exhasutedPickups = new List<string>(inventoryData.GetExhaustedPickups());
+        StringListWrapper exhaustedPickupsWrapper = DataTools.GetWrapperizedStringList(exhasutedPickups);
+        string exhaustedPickupsString = JsonUtility.ToJson(exhaustedPickupsWrapper);
+
         // write to outData
         // TODO...
 
@@ -181,6 +185,7 @@ public static class SaveService
         outData.INVENTORY_weaponsString = weaponsString;
         outData.INVENTORY_consumablesItemsString = consumablesItemsString;
         outData.INVENTORY_consumablesValuesString = consumablesValuesString;
+        outData.INVENTORY_exhaustedPickups = exhaustedPickupsString;
 
         /////////////////////
         // ProgressionData //
@@ -270,6 +275,7 @@ public static class SaveService
         List<string> questItemIDs = DataTools.GetStringListFromJson(saveData.INVENTORY_questItemsString);
         List<string> consumablesIDs = DataTools.GetStringListFromJson(saveData.INVENTORY_consumablesItemsString);
         List<string> consumablesValuesStringList = DataTools.GetStringListFromJson(saveData.INVENTORY_consumablesValuesString);
+        List<string> exhaustedPickups = DataTools.GetStringListFromJson(saveData.INVENTORY_exhaustedPickups);
 
         Dictionary<string, int> consumablesDict = new();
         for (int i = 0; i < consumablesIDs.Count; i++)
@@ -289,6 +295,7 @@ public static class SaveService
         _inventoryData.SetWeaponsList(weaponIDs);
         _inventoryData.SetQuestItemsList(questItemIDs);
         _inventoryData.SetConsumablesDict(consumablesDict);
+        _inventoryData.SetExhaustedPickupsList(exhaustedPickups);
 
         return new InventoryData(_inventoryData);
     }
