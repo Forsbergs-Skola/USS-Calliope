@@ -5739,7 +5739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.7200007
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5972,6 +5972,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5517207398987385911}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1460932543849029416}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6474028666021621801}
     - targetCorrespondingSourceObject: {fileID: -2851149267613598858, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6010156154803002617}
@@ -6352,6 +6358,10 @@ MonoBehaviour:
   runStepInterval: 0.25
   crouchStepInterval: 0.6
   _isCrouching: 0
+  inventorySO: {fileID: 11400000, guid: dd7b9f8b2691e0446b0a65aad0a865d4, type: 2}
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &5718043753391489410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6404,6 +6414,7 @@ MonoBehaviour:
   regenDelay: 2
   currentStamina: 0
   isTired: 0
+  adrenalineRushActive: 0
 --- !u!114 &2339370594210145214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6658,6 +6669,35 @@ MonoBehaviour:
   playerController: {fileID: 8933689367220383931}
   footstepAudio: {fileID: 3753332862450785857}
   speedScale: 1.121
+--- !u!114 &1460932543849029416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6475783448891758247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d4bbf6e0c83ca419900d1b6f90ec81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerConsumableUser
+--- !u!114 &6474028666021621801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6475783448891758247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55550d8f3943a7b40a7ccfbb9acda912, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Olle.Scripts.DashAbility
+  dashSpeedMultiplier: 10
+  dashDuration: 0.2
+  doubleTapWindow: 0.25
+  maxTapHoldTime: 0.15
+  dashStaminaCost: 20
 --- !u!4 &7246013604886153025 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5651751901618623305, guid: 039b9d116bbe683469dc40576050134e, type: 3}
