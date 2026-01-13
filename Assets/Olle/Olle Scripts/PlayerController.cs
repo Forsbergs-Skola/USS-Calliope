@@ -40,6 +40,7 @@ namespace Olle.Scripts
         PlayerAimController _aimController;
         PlayerAnimationController _animatorControl;
 
+
         public bool IsCrouching => _isCrouching;
         public bool IsMoving => _inputDir.sqrMagnitude > 0.01f;
         public bool IsSprinting => _wantsToRun && _inputDir.sqrMagnitude > 0.01f && !_isCrouching;
@@ -217,7 +218,7 @@ namespace Olle.Scripts
                     _noise.EmitWalk();
                     _noiseTimer = 0f;
                 }
-            }
+            }   
             else _noiseTimer = 0f;
         }
 

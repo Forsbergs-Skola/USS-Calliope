@@ -8,7 +8,8 @@ public class PlayerVisionLogic : MonoBehaviour
     public LayerMask enemyLayer;
     public LayerMask obstacleLayer;
     public float eyeHeight = 1.5f;
-    
+
+  
     private HashSet<Collider> trackedEnemies = new HashSet<Collider>(); //Lieke a list but doesn't allow duplicates and have fast lookup
     
     void Update()
@@ -32,7 +33,7 @@ public class PlayerVisionLogic : MonoBehaviour
         }
     }
     
-    bool CheckVisibility(Collider enemy)
+   public bool CheckVisibility(Collider enemy)
     {
         Vector3 directionToEnemy = enemy.transform.position - transform.position;
         directionToEnemy.y = 0f;

@@ -1,7 +1,5 @@
 using UnityEngine;
 
-namespace Olle.Scripts
-{
     public class PlayerAnimationController : MonoBehaviour
     {
         [SerializeField] private Animator animator;
@@ -11,54 +9,51 @@ namespace Olle.Scripts
         private static readonly int MoveYHash = Animator.StringToHash("MoveY");
         private static readonly int SpeedHash = Animator.StringToHash("Speed");
         private static readonly int SprintHash = Animator.StringToHash("IsSprinting");
-        private static readonly int TurnLeftHash = Animator.StringToHash("TurnLeft90");
-        private static readonly int TurnRightHash = Animator.StringToHash("TurnRight90");
+
+        public Animator Animator { get => animator; set => animator = value; }
+        public float Smoothing { get => smoothing; set => smoothing = value; }
+
+        public static int MoveXHash1 => MoveXHash;
+
+         public static int MoveYHash1 => MoveYHash;
+
+        public static int SpeedHash1 => SpeedHash;
+
+        public static int SprintHash1 => SprintHash;
 
         private void Reset()
         {
-            animator = GetComponent<Animator>();
+            Animator = GetComponent<Animator>();
         }
 
         public void UpdateMovement(Vector2 moveInput, bool isSprinting)
         {
-            if (animator == null) return;
+            if (Animator == null) return;
 
             float inputMagnitude = moveInput.magnitude;
-            animator.SetFloat(SpeedHash, inputMagnitude);
+            Animator.SetFloat(SpeedHash1, inputMagnitude);
 
             Vector2 clampedInput = Vector2.ClampMagnitude(moveInput, 1f);
 
-            animator.SetFloat(MoveXHash, clampedInput.x, smoothing, Time.deltaTime);
-            animator.SetFloat(MoveYHash, clampedInput.y, smoothing, Time.deltaTime);
+            Animator.SetFloat(MoveXHash1, clampedInput.x, Smoothing, Time.deltaTime);
+            Animator.SetFloat(MoveYHash1, clampedInput.y, Smoothing, Time.deltaTime);
 
-            animator.SetBool(SprintHash, isSprinting);
+            Animator.SetBool(SprintHash1, isSprinting);
         }
 
         public void SetIdle()
         {
-            if (animator == null) return;
+            if (Animator == null) return;
 
-            animator.SetFloat(MoveXHash, 0f);
-            animator.SetFloat(MoveYHash, 0f);
-            animator.SetFloat(SpeedHash, 0f);
-            animator.SetBool(SprintHash, false);
-        }
-
-        public void PlayTurnAnimation(float angle)
-        {
-            if (animator == null) return;
-
-            if (angle > 45f)
-                animator.SetTrigger(TurnRightHash);
-            else if (angle < -45f)
-                animator.SetTrigger(TurnLeftHash);
+            Animator.SetFloat(MoveXHash1, 0f);
+            Animator.SetFloat(MoveYHash1, 0f);
+            Animator.SetFloat(SpeedHash1, 0f);
+            Animator.SetBool(SprintHash1, false);
         }
 
         public void Punch()
         {
-            animator.SetTrigger("PunchTrigger");
+            Animator.SetTrigger("PunchTrigger");
         }
     }
 
-    // In the animation controller, weapontype int determines which weapon is equipped, 0 = unarmed, 1 = pistol, 2 = rifle/shotgun 3 = Melee
-}

@@ -27,10 +27,6 @@ public class PlayerWeaponHandler : MonoBehaviour
     private Coroutine reloadCoroutine;
     private int equippedWeaponIndex = -1;
     
-
-
-
-
     private InventoryData invData
     {
         get
@@ -135,7 +131,6 @@ public class PlayerWeaponHandler : MonoBehaviour
             AmmoModel.AddAmmo(weaponData.AmmoType, amountToTake);
         }
     }
-
     private void ApplyWeaponSetup(SO_WeaponType data)
     {
         if (data.HasAmmo)
@@ -156,10 +151,8 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private void OnFireStarted()
     {
-        // 1. Check if we have any way to attack at all
         if (!currentWeaponData && !unarmedAttack.isUnarmed) return;
 
-        // 2. CHECK UNARMED FIRST (Prevents null crash)
         if (unarmedAttack.isUnarmed)
         {
             Debug.Log("WeaponHandler: TryUnarmedAttack Called");
@@ -167,14 +160,12 @@ public class PlayerWeaponHandler : MonoBehaviour
             return;
         }
 
-        // 3. Now it is safe to check weapon categories because we know a weapon exists
         if (currentWeaponData.AttackCategories == SO_WeaponType.AttackCategory.Melee)
         {
             TryMeleeAttack();
             return;
         }
 
-        // 4. Hitscan/Taser Logic
         if (!aimController.IsAiming) return;
 
         if (!currentWeaponData.IsSemiAutomatic)

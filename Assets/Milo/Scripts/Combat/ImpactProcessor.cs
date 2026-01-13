@@ -11,18 +11,24 @@ public class ImpactProcessor : MonoBehaviour
 
     private SO_WeaponType currentWeapon;
     private UnarmedAttack unarmed;
-    public LayerMask HitMask => hitMask;
-    
+    public LayerMask HitMask => HitMask1;
+
+    public LayerMask HitMask1 { get => hitMask; set => hitMask = value; }
+    public AudioSource HitAudioSource { get => hitAudioSource; set => hitAudioSource = value; }
+    public AudioClip PunchHit1 { get => PunchHit; set => PunchHit = value; }
+    public SO_WeaponType CurrentWeapon { get => currentWeapon; set => currentWeapon = value; }
+    public UnarmedAttack Unarmed { get => unarmed; set => unarmed = value; }
+
     public void InitializeProcessor(SO_WeaponType weapon)
     {
-        currentWeapon = weapon;
+        CurrentWeapon = weapon;
     }
     
     public void ProcessHit(RaycastHit hit)
     {
-        if (!currentWeapon) return;
+        if (!CurrentWeapon) return;
 
-        float calculatedDamage = currentWeapon.GetDamageAtDistance(hit.distance);
+        float calculatedDamage = CurrentWeapon.GetDamageAtDistance(hit.distance);
         
         var damageable = hit.collider.GetComponentInParent<IDamageable>();
         damageable?.TakeDamage(calculatedDamage);
@@ -30,21 +36,21 @@ public class ImpactProcessor : MonoBehaviour
     
     public void ProcessTase(RaycastHit hit)
     {
-        if (!currentWeapon || currentWeapon.AttackCategories != SO_WeaponType.AttackCategory.NonLethal)
+        if (!CurrentWeapon || CurrentWeapon.AttackCategories != SO_WeaponType.AttackCategory.NonLethal)
         {
             return;
         }
 
-        var stunTime = currentWeapon.StunEffectTime;
+        var stunTime = CurrentWeapon.StunEffectTime;
 
     }
 
     public void ProcessMeleeHit(RaycastHit hit, Vector3 attackDirection, float force)
     {
-        if (!currentWeapon) return;
+        if (!CurrentWeapon) return;
 
         var damageable = hit.collider.GetComponentInParent<IDamageable>();
-        damageable?.TakeDamage(currentWeapon.Damage);
+        damageable?.TakeDamage(CurrentWeapon.Damage);
 
         // TODO:
         // Apply force to the hit object if it has a Rigidbody
@@ -52,12 +58,12 @@ public class ImpactProcessor : MonoBehaviour
 
     public void ProcessUnarmedHit(RaycastHit hit, Vector3 attackDirection, float force)
     {
-        if (unarmed == null) unarmed = GetComponent<UnarmedAttack>();
+        if (Unarmed == null) Unarmed = GetComponent<UnarmedAttack>();
         var damageable = hit.collider.GetComponentInParent<IDamageable>();
         if (damageable != null)
         {
-            StartCoroutine(DelayedUnarmedDamage(damageable, unarmed.Damage, 0.2f));
-            AudioSource.PlayClipAtPoint(PunchHit, hit.point);
+            StartCoroutine(DelayedUnarmedDamage(damageable, Unarmed.Damage, 0.2f));
+            AudioSource.PlayClipAtPoint(PunchHit1, hit.point);
         }
 
         // TODO:

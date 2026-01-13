@@ -15,44 +15,50 @@ public class PlayerFootstepInterval : MonoBehaviour
 
     private PlayerStamina playerStamina;
 
+    public Olle.Scripts.PlayerController PlayerController { get => playerController; set => playerController = value; }
+    public PlayerFootstepAudio FootstepAudio { get => footstepAudio; set => footstepAudio = value; }
+    public float SpeedScale { get => speedScale; set => speedScale = value; }
+    public float StepTimer { get => _stepTimer; set => _stepTimer = value; }
+    public bool WasMoving { get => _wasMoving; set => _wasMoving = value; }
+    public PlayerStamina PlayerStamina { get => playerStamina; set => playerStamina = value; }
 
     private void Awake()
     {
-        playerStamina = playerController.GetComponent<PlayerStamina>();
+        PlayerStamina = PlayerController.GetComponent<PlayerStamina>();
     }
 
     private void Update()
     {
-        bool isMoving = playerController.IsMoving;
+        bool isMoving = PlayerController.IsMoving;
 
         if (!isMoving)
         {
-            _stepTimer = 0f;
-            _wasMoving = false;
+            StepTimer = 0f;
+            WasMoving = false;
             return;
         }
 
-        if (!_wasMoving)
+        if (!WasMoving)
         {
-            _stepTimer = GetCurrentInterval() * 0.2f;
-            _wasMoving = true;
+            StepTimer = GetCurrentInterval() * 0.2f;
+            WasMoving = true;
         }
 
-        _stepTimer += Time.deltaTime;
+        StepTimer += Time.deltaTime;
 
-        float currentInterval = GetCurrentInterval() * speedScale;
+        float currentInterval = GetCurrentInterval() * SpeedScale;
 
-        if (_stepTimer >= currentInterval)
+        if (StepTimer >= currentInterval)
         {
-            footstepAudio?.PlayFootstep();
-            _stepTimer -= currentInterval;
+            FootstepAudio?.PlayFootstep();
+            StepTimer -= currentInterval;
         }
     }
 
     private float GetCurrentInterval()
     {
-        if (playerController.IsCrouching) return playerController.crouchStepInterval;
-        if (playerController.IsSprinting && playerStamina.isTired == false) return playerController.runStepInterval;
-        return playerController.walkStepInterval;
+        if (PlayerController.IsCrouching) return PlayerController.crouchStepInterval;
+        if (PlayerController.IsSprinting && PlayerStamina.isTired == false) return PlayerController.runStepInterval;
+        return PlayerController.walkStepInterval;
     }
 }

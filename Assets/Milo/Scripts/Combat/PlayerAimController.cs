@@ -13,7 +13,6 @@ public class PlayerAimController : MonoBehaviour
     [SerializeField] private float smoothSpeed = 3f;
     [SerializeField] private float cameraOffsetDistance = 10f;
 
-    [Header("UI")]
     [SerializeField] private Image crosshairImage;
 
     [SerializeField] private CinemachineCamera cineMachineCam;

@@ -28,8 +28,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3555908911261273807}
+  m_Children: []
   m_Father: {fileID: 2228809539555221487}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1417849473479763101
@@ -660,13 +659,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5569483925914549187}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.38452554, y: 0.6146006, z: 0.50748503, w: 0.46568787}
+  m_LocalPosition: {x: 0.019, y: 0.122, z: 0.005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7787561917139233390}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 2228809539555221487}
+  m_LocalEulerAnglesHint: {x: -79.094, y: 105.697, z: 0}
 --- !u!1 &5987919694602988703
 GameObject:
   m_ObjectHideFlags: 0
@@ -5817,6 +5816,30 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 251d72baf6deee74fbfa3fd4b14b0cdf, type: 2}
+    - target: {fileID: 5472332158908625945, guid: 039b9d116bbe683469dc40576050134e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472332158908625945, guid: 039b9d116bbe683469dc40576050134e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472332158908625945, guid: 039b9d116bbe683469dc40576050134e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472332158908625945, guid: 039b9d116bbe683469dc40576050134e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472332158908625945, guid: 039b9d116bbe683469dc40576050134e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472332158908625945, guid: 039b9d116bbe683469dc40576050134e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       propertyPath: m_Controller
       value: 
@@ -5905,6 +5928,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5472332158908625945, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7787561917139233390}
+    - targetCorrespondingSourceObject: {fileID: 5472332158908625945, guid: 039b9d116bbe683469dc40576050134e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3555908911261273807}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
@@ -6325,6 +6351,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c7c1af74-b084-4039-ab39-a97d0beb0399
     m_ActionName: 'Player/UnEquipWeapon[/Keyboard/1]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f91b8f39-5f5b-46dd-8139-c8df97bc2187
+    m_ActionName: 'Player/UnarmedLockOn[/Keyboard/q]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -6435,6 +6465,7 @@ MonoBehaviour:
   switchWeaponAction: {fileID: 2120363068553297381, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   reloadAction: {fileID: 2450256997621281868, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   unEquipWeaponAction: {fileID: 4987503079247536939, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
+  lockOnAction: {fileID: -527563738331296843, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   moveAction: {fileID: 6531606723557171274, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
   sprintAction: {fileID: -3730138691951497943, guid: 03d85f3a2be13ed4aa84934c4ba56326, type: 3}
 --- !u!114 &4210617535973815479
@@ -6607,7 +6638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9377005fa1543d41b6a30b9a4389730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnarmedAttack
-  damage: 50
+  damage: 1
   reach: 1.5
   radius: 0.5
   attackCooldown: 1

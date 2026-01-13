@@ -40,5 +40,4 @@ public class WeaponPickupHandler : PickupBase
         Destroy(gameObject);
     }
 
-
 }

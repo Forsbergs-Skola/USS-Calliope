@@ -30,7 +30,6 @@ public class PlayerHealthBarSlider : MonoBehaviour
             playerHealth.OnHealthChanged.AddListener(UpdateHealthBar);
         }
     }
-    
     private void LateUpdate()
     {
         // Makes the health bar always face the camera

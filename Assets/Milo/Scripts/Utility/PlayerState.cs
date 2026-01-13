@@ -1,11 +1,8 @@
 using UnityEngine;
 using Olle.Scripts;
 
-
 public class PlayerState : MonoBehaviour
 {
-
-
     [SerializeField] private PlayerStamina stamina;
     [SerializeField] private PlayerHealthJavi health;
     [SerializeField] private AttackInput input;
@@ -33,5 +30,4 @@ public class PlayerState : MonoBehaviour
         return false;
     }
     public bool IsCrouching => controller != null && controller.IsCrouching;
-
 }

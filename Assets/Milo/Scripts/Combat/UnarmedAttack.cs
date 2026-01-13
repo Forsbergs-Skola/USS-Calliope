@@ -9,7 +9,6 @@ public class UnarmedAttack : MonoBehaviour
     [SerializeField] private float attackCooldown = 1.0f;
     [SerializeField] private ImpactProcessor impactProcessor;
 
-
     private PlayerAnimationController animator;
 
     public void Awake()
@@ -17,12 +16,10 @@ public class UnarmedAttack : MonoBehaviour
         animator = GetComponent<PlayerAnimationController>();
     }
     
-
     public bool isUnarmed;
     public int Damage => damage;
     public float Cooldown => attackCooldown;
 
-    // Apply physics to AI
     [SerializeField] private int force = 5;
 
     public void Attack(Vector3 aimDirection, Transform firePoint, LayerMask hitMask )

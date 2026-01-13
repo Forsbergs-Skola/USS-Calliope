@@ -11,22 +11,27 @@ public class PlayerFootstepAudio : MonoBehaviour
 
     private int _lastIndex = -1;
 
+    public AudioClip[] FootstepClips { get => footstepClips; set => footstepClips = value; }
+    public float Volume { get => volume; set => volume = value; }
+    public float PitchVariation { get => pitchVariation; set => pitchVariation = value; }
+    public int LastIndex { get => _lastIndex; set => _lastIndex = value; }
+
     public void PlayFootstep()
     {
-        int count = footstepClips.Length;
+        int count = FootstepClips.Length;
         if (count == 0) return;
 
         int index = (count > 1) ? Random.Range(0, count - 1) : 0;
-        if (count > 1 && index >= _lastIndex && _lastIndex != -1) index++;
-        _lastIndex = index;
+        if (count > 1 && index >= LastIndex && LastIndex != -1) index++;
+        LastIndex = index;
 
         AudioSource pooledSource = AudioPoolManager.Instance.GetSource();
 
-        float pitch = 1f + Random.Range(-pitchVariation, pitchVariation);
+        float pitch = 1f + Random.Range(-PitchVariation, PitchVariation);
 
         if (pooledSource.TryGetComponent(out PlayerAudioPoolHandler handler))
         {
-            handler.Play(footstepClips[index], volume, pitch);
+            handler.Play(FootstepClips[index], Volume, pitch);
         }
     }
 }
