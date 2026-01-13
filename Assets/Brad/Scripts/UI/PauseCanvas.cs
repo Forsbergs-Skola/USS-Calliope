@@ -90,6 +90,11 @@ public class PauseCanvas : MonoBehaviour, ICanvasUI
         PlayerData playerData = DataController.Instance.PlayerRuntimeData.Value;
         ProgressionData progData = DataController.Instance.ProgressionRuntimeData.Value;
         InventoryData invData = DataController.Instance.InventoryRuntimeData.Value;
+
+
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        playerData.LastPosition = playerObj.transform.position;
+
         SaveService.Save(playerData, invData, progData);
     }
     private void HandleBackButtonPressed()

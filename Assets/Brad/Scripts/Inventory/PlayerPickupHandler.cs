@@ -18,4 +18,22 @@ public class PlayerPickupHandler
             invData.AddNewConsumable(itemID, qty);
         }
     }
+
+
+    public bool TryUseConsumable(InventoryData invData, string itemID, int qty = 1)
+    {
+
+        Dictionary<string, int> consumablesDict = invData.GetConsumableIDsAndQuantities();
+        if (consumablesDict.ContainsKey(itemID))
+        {
+            if (consumablesDict[itemID] >= qty)
+            {
+                invData.DepleteConsumable(itemID, qty);
+                return true;
+            }
+        }
+        // default...
+        return false;
+    }
+
 }

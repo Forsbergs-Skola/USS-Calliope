@@ -139,12 +139,21 @@ public static class SaveService
         StringListWrapper statusEffectsWrapper = DataTools.GetWrapperizedStringList(statusEffects);
         string activeStatusEffectsString = JsonUtility.ToJson(statusEffectsWrapper);
 
+
+        float posX = playerData.LastPosition.x;
+        float posY = playerData.LastPosition.y;
+        float posZ = playerData.LastPosition.z;
+
+
         // write data to outData
         outData.PLAYER_ActiveStatusEffectsString = activeStatusEffectsString;
         outData.PLAYER_Health = playerData.Health;
         outData.PLAYER_XP = playerData.XP;
         outData.PLAYER_Stamina = playerData.Stamina;
         outData.PLAYER_EquippedWeapon = playerData.EquippedWeapon.ToString();
+        outData.PLAYER_PosX = posX;
+        outData.PLAYER_PosY = posY;
+        outData.PLAYER_PosZ = posZ;
 
 
         ///////////////////
@@ -260,6 +269,9 @@ public static class SaveService
         _playerData.Health = saveData.PLAYER_Health;
         _playerData.XP = saveData.PLAYER_XP;
         _playerData.Stamina = saveData.PLAYER_Stamina;
+
+        Vector3 lastPos = new Vector3(saveData.PLAYER_PosX, saveData.PLAYER_PosY, saveData.PLAYER_PosZ);
+        _playerData.LastPosition = lastPos;
 
         return new PlayerData(_playerData);
     }
