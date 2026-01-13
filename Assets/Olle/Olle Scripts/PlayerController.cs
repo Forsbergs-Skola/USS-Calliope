@@ -49,6 +49,8 @@ namespace Olle.Scripts
         public bool IsDashing { get; set; }
         public System.Action<Vector2> OnMoveEvent;
 
+        [SerializeField] private InventoryRuntimeData inventorySO;
+
         void Awake()
         {
             _rb = GetComponent<Rigidbody>();
@@ -267,6 +269,7 @@ namespace Olle.Scripts
 
         public void HandleConsumablePickup(string worldID, string catalogID, int qty)
         {
+            //PlayerPickupHandler pickupHandler = GetComponent<PlayerPickupHandler>();
 
         }
 

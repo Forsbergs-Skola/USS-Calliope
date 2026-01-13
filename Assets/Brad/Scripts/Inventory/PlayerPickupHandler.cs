@@ -1,16 +1,19 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-public class PlayerPickupHandler : MonoBehaviour
+public class PlayerPickupHandler
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void HandleConsumablePickup(InventoryData invData, string worldID, string itemID, int qty)
     {
-        
-    }
+        Dictionary<string, int> consumablesDict = invData.GetConsumableIDsAndQuantities();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (consumablesDict.ContainsKey(itemID))
+        {
+            invData.ReplenishConsumable(itemID, qty);
+        }
+        else
+        {
+            invData.AddNewConsumable(itemID, qty);
+        }
     }
 }

@@ -2410,36 +2410,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestPlayer (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8933689367220383931, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
+      propertyPath: inventorySO
+      value: 
+      objectReference: {fileID: 11400000, guid: dd7b9f8b2691e0446b0a65aad0a865d4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6475783448891758247, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2775064928562844087}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
 --- !u!4 &2775064928562844085 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5950743915408411677, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
   m_PrefabInstance: {fileID: 2775064928562844084}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2775064928562844086 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6475783448891758247, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
-  m_PrefabInstance: {fileID: 2775064928562844084}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2775064928562844087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2775064928562844086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04b1a0a53ce0a23409845ea169e93a32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerPickupHandler
 --- !u!1001 &3741779594891920823
 PrefabInstance:
   m_ObjectHideFlags: 0
