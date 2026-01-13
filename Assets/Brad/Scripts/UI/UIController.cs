@@ -33,9 +33,12 @@ public class UIController : Singleton<UIController>
 
     [Header("Prefabs")]
     [SerializeField] private List<StructCanvasUIPrefab> canvasPrefabs;
+    [SerializeField] private UISoundPlayer uiSoundPlayer;
 
     public const int FOREGROUND_SORT_ORDER = 10;
     public const int BACKGROUND_SORT_ORDER = 0;
+
+    public UISoundPlayer UISoundPlayer { get => uiSoundPlayer; }
 
     private List<ICanvasUI> GetActiveCanvases()
     {

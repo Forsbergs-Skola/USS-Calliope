@@ -18,7 +18,6 @@ namespace Olle.Scripts
 
         bool _isDashing;
         float _dashTimer;
-        float _originalMoveSpeed;
         
         Vector2 _currentDir;
         bool _isKeyDown;
@@ -92,7 +91,7 @@ namespace Olle.Scripts
             if (_isDashing || _controller == null || _stamina == null)
                 return;
 
-            if (_stamina.currentStamina < dashStaminaCost)
+            if (_stamina.isTired || _stamina.currentStamina < dashStaminaCost)
                 return;
 
             _stamina.currentStamina -= dashStaminaCost;
@@ -101,11 +100,13 @@ namespace Olle.Scripts
             _controller.IsDashing = true;
 
             _dashTimer = dashDuration;
-            _originalMoveSpeed = _controller.moveSpeed;
-            _controller.moveSpeed = _originalMoveSpeed * dashSpeedMultiplier;
+            
+            float dashSpeed = _controller.moveSpeed * dashSpeedMultiplier;
+            _controller.StartDash(dashDir, dashSpeed);
 
             Debug.Log("DASH START dir=" + dashDir);
         }
+
         
         void Update()
         {
@@ -116,8 +117,11 @@ namespace Olle.Scripts
             if (_dashTimer <= 0f)
             {
                 _isDashing = false;
+                
+                if (_controller != null)
+                    _controller.EndDash();
+
                 _controller.IsDashing = false;
-                _controller.moveSpeed = _originalMoveSpeed;
             }
         }
     }

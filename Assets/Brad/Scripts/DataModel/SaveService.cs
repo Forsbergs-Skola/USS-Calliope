@@ -139,12 +139,21 @@ public static class SaveService
         StringListWrapper statusEffectsWrapper = DataTools.GetWrapperizedStringList(statusEffects);
         string activeStatusEffectsString = JsonUtility.ToJson(statusEffectsWrapper);
 
+
+        float posX = playerData.LastPosition.x;
+        float posY = playerData.LastPosition.y;
+        float posZ = playerData.LastPosition.z;
+
+
         // write data to outData
         outData.PLAYER_ActiveStatusEffectsString = activeStatusEffectsString;
         outData.PLAYER_Health = playerData.Health;
         outData.PLAYER_XP = playerData.XP;
         outData.PLAYER_Stamina = playerData.Stamina;
         outData.PLAYER_EquippedWeapon = playerData.EquippedWeapon.ToString();
+        outData.PLAYER_PosX = posX;
+        outData.PLAYER_PosY = posY;
+        outData.PLAYER_PosZ = posZ;
 
 
         ///////////////////
@@ -174,6 +183,10 @@ public static class SaveService
         string consumablesItemsString = JsonUtility.ToJson(consumableItemsWrapper);
         string consumablesValuesString = JsonUtility.ToJson(consumableValuesWrapper);
 
+        List<string> exhasutedPickups = new List<string>(inventoryData.GetExhaustedPickups());
+        StringListWrapper exhaustedPickupsWrapper = DataTools.GetWrapperizedStringList(exhasutedPickups);
+        string exhaustedPickupsString = JsonUtility.ToJson(exhaustedPickupsWrapper);
+
         // write to outData
         // TODO...
 
@@ -181,6 +194,7 @@ public static class SaveService
         outData.INVENTORY_weaponsString = weaponsString;
         outData.INVENTORY_consumablesItemsString = consumablesItemsString;
         outData.INVENTORY_consumablesValuesString = consumablesValuesString;
+        outData.INVENTORY_exhaustedPickups = exhaustedPickupsString;
 
         /////////////////////
         // ProgressionData //
@@ -256,6 +270,9 @@ public static class SaveService
         _playerData.XP = saveData.PLAYER_XP;
         _playerData.Stamina = saveData.PLAYER_Stamina;
 
+        Vector3 lastPos = new Vector3(saveData.PLAYER_PosX, saveData.PLAYER_PosY, saveData.PLAYER_PosZ);
+        _playerData.LastPosition = lastPos;
+
         return new PlayerData(_playerData);
     }
     private static InventoryData GetInventoryDataFromSaveData(SaveData saveData)
@@ -270,6 +287,7 @@ public static class SaveService
         List<string> questItemIDs = DataTools.GetStringListFromJson(saveData.INVENTORY_questItemsString);
         List<string> consumablesIDs = DataTools.GetStringListFromJson(saveData.INVENTORY_consumablesItemsString);
         List<string> consumablesValuesStringList = DataTools.GetStringListFromJson(saveData.INVENTORY_consumablesValuesString);
+        List<string> exhaustedPickups = DataTools.GetStringListFromJson(saveData.INVENTORY_exhaustedPickups);
 
         Dictionary<string, int> consumablesDict = new();
         for (int i = 0; i < consumablesIDs.Count; i++)
@@ -289,6 +307,7 @@ public static class SaveService
         _inventoryData.SetWeaponsList(weaponIDs);
         _inventoryData.SetQuestItemsList(questItemIDs);
         _inventoryData.SetConsumablesDict(consumablesDict);
+        _inventoryData.SetExhaustedPickupsList(exhaustedPickups);
 
         return new InventoryData(_inventoryData);
     }

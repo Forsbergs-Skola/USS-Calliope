@@ -17,6 +17,10 @@ public class SaveData
     public int PLAYER_Stamina;
     public string PLAYER_EquippedWeapon;
 
+    public float PLAYER_PosX;
+    public float PLAYER_PosY;
+    public float PLAYER_PosZ;
+
 
     /////////////////////
     // ProgressionData //
@@ -48,6 +52,7 @@ public class SaveData
     public string INVENTORY_questItemsString;
     public string INVENTORY_consumablesItemsString;
     public string INVENTORY_consumablesValuesString;
+    public string INVENTORY_exhaustedPickups;
 
 
 
