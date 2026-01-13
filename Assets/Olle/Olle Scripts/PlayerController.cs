@@ -50,6 +50,7 @@ namespace Olle.Scripts
         public System.Action<Vector2> OnMoveEvent;
 
         [SerializeField] private InventoryRuntimeData inventorySO;
+        private PlayerPickupHandler pickupHandler = new PlayerPickupHandler();
 
         void Awake()
         {
@@ -269,7 +270,8 @@ namespace Olle.Scripts
 
         public void HandleConsumablePickup(string worldID, string catalogID, int qty)
         {
-            //PlayerPickupHandler pickupHandler = GetComponent<PlayerPickupHandler>();
+            //inventorySO.Value.ExhaustedPickups.Add(worldID);
+            pickupHandler.HandleConsumablePickup(inventorySO.Value, worldID, catalogID, qty);
 
         }
 

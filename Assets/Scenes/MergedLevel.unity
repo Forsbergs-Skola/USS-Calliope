@@ -221,7 +221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 105245327}
   m_Layer: 0
-  m_Name: AdrenalinePickups
+  m_Name: __ADRENALINE_PICKUPS___
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,6 +242,7 @@ Transform:
   m_Children:
   - {fileID: 112393419}
   - {fileID: 3741779594891920824}
+  - {fileID: 772331556}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &112393418
@@ -874,6 +875,75 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
+--- !u!1001 &772331555
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 105245327}
+    m_Modifications:
+    - target: {fileID: 1857928898443627343, guid: 68ce9068882e9d54e801505a4e1a1afe, type: 3}
+      propertyPath: worldID
+      value: 0916cf05-222e-4940-a3ee-da9d625c4693
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111639567356738509, guid: 68ce9068882e9d54e801505a4e1a1afe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111639567356738509, guid: 68ce9068882e9d54e801505a4e1a1afe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111639567356738509, guid: 68ce9068882e9d54e801505a4e1a1afe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.399231
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111639567356738509, guid: 68ce9068882e9d54e801505a4e1a1afe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.95228934
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111639567356738509, guid: 68ce9068882e9d54e801505a4e1a1afe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111639567356738509, guid: 68ce9068882e9d54e801505a4e1a1afe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.30519673
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111639567356738509, guid: 68ce9068882e9d54e801505a4e1a1afe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111639567356738509, guid: 68ce9068882e9d54e801505a4e1a1afe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111639567356738509, guid: 68ce9068882e9d54e801505a4e1a1afe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 35.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111639567356738509, guid: 68ce9068882e9d54e801505a4e1a1afe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5356626861096930862, guid: 68ce9068882e9d54e801505a4e1a1afe, type: 3}
+      propertyPath: m_Name
+      value: AdrenalinePrefab
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3708942059665958768, guid: 68ce9068882e9d54e801505a4e1a1afe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: 68ce9068882e9d54e801505a4e1a1afe, type: 3}
+--- !u!4 &772331556 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4111639567356738509, guid: 68ce9068882e9d54e801505a4e1a1afe, type: 3}
+  m_PrefabInstance: {fileID: 772331555}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &809810509
 GameObject:
   m_ObjectHideFlags: 0
