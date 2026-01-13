@@ -263,5 +263,12 @@ namespace Olle.Scripts
 
             _rb.linearVelocity = new Vector3(0f, _rb.linearVelocity.y, 0f);
         }
+
+
+        public void HandleConsumablePickup(string worldID, string catalogID, int qty)
+        {
+
+        }
+
     }
 }

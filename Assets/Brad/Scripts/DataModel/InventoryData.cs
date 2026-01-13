@@ -18,6 +18,8 @@
         private Dictionary<string, int> _consumableItemIDsAndQuantities;
         private List<string> _questItemIDs;
 
+    private List<string> _exshaustedPickups;
+
         // WEAPONS
         public void SetWeaponsList(List<string> ids)
         {
@@ -103,6 +105,16 @@
 
         }
 
+        public List<string> ExhaustedPickups
+        {
+            get => ExhaustedPickups;
+            set
+            {
+                _exshaustedPickups = new List<string>(value);
+            }
+
+        }
+
         //////////////////
         // Constructors //
         //////////////////
@@ -112,6 +124,7 @@
             _weaponItemIDs = new List<string>();
             _questItemIDs = new List<string>();
             _consumableItemIDsAndQuantities = new Dictionary<string, int>();
+            _exshaustedPickups = new List<string>();
         }
         public InventoryData(bool isSandbox)
         {
@@ -119,13 +132,15 @@
             _weaponItemIDs = new List<string>();
             _questItemIDs = new List<string>();
             _consumableItemIDsAndQuantities = new Dictionary<string, int>();
-        }
+        _exshaustedPickups = new List<string>();
+    }
         public InventoryData(InventoryData inData)
         {
             IsSandbox = false;
             _weaponItemIDs = inData.GetWeaponItemIDs();
             _questItemIDs = inData.GetQuestItemIDs();
             _consumableItemIDsAndQuantities = inData.GetConsumableIDsAndQuantities();
+            _exshaustedPickups = new List<string>(inData.ExhaustedPickups);
         }
         public bool GetIsSandbox() { return IsSandbox; }
 
