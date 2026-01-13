@@ -305,6 +305,7 @@ namespace Olle.Scripts
 
             // TODO: player observable behavior
             // whatever else happens...
+            _stamina.adrenalineRushActive = true;
 
             StartCoroutine(AdrenalineCoroutine());
         }
@@ -313,17 +314,21 @@ namespace Olle.Scripts
         {
 
             float oldSpeed = moveSpeed;
+            float oldRunSpeed = runMoveSpeed;
 
             // change stuff
             Debug.Log("ADRENALINE ON");
             moveSpeed = 10f;
+            runMoveSpeed = 15f;
             // and whatever else we want to adjust...
 
             yield return new WaitForSeconds(ADRENALINE_DURATION);
             
             // change stuff back
             Debug.Log("ADRENALINE OFF");
+            _stamina.adrenalineRushActive = false;
             moveSpeed = oldSpeed;
+            runMoveSpeed = oldRunSpeed;
             // normalize everything else...
         }
 
