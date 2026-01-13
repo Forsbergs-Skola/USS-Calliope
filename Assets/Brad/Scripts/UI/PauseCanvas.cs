@@ -12,8 +12,8 @@ public class PauseCanvas : MonoBehaviour, ICanvasUI
     [SerializeField] private TMP_Text toggleButtonText;
     [SerializeField] private ObjectivesPanel objectivesPanel;
     [SerializeField] private InventoryPanel inventoryPanel;
-    
 
+    private UISoundPlayer soundPlayer { get => UIController.Instance.UISoundPlayer; }
     private enum EnumPausePanel
     {
         NONE,
@@ -64,7 +64,9 @@ public class PauseCanvas : MonoBehaviour, ICanvasUI
         toggleViewButton.onClick.AddListener(HandleToggleViewButtonPressed);
 
         currentPanel = defaultPanel;
-        
+
+
+        soundPlayer.PlayUISound(EnumUISound.PAUSE_SCREEN);
 
     }
     private void OnDisable()

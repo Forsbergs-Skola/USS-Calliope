@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 071d6a1a3d1afc44db8014214a72087a, type: 3}
+  m_Name: UiSoundCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::UISoundCatalogSO
+  hoverClip: {fileID: 8300000, guid: ad2bb0ff92052b546a2115bafb51cd5f, type: 3}
+  pressClip: {fileID: 8300000, guid: fa80f4ef083c8944bac3fb8d9de44682, type: 3}
+  pauseScreenSound: {fileID: 8300000, guid: 34f4f5a8f22c3db4284700a8ae97eeef, type: 3}
