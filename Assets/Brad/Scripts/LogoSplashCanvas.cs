@@ -8,10 +8,11 @@ public class LogoSplashCanvas : MonoBehaviour, ICanvasUI
 {
     [SerializeField] private TMP_Text mainText;
     [SerializeField] private TMP_Text subText;
-    [SerializeField] private float staySeconds = 2f;
-    [SerializeField] private float fadeDuration = 2f;
+    [SerializeField] private float staySeconds = 4f;
+    [SerializeField] private float fadeDuration = 3f;
     [SerializeField] private Image frontPanel;
 
+    private UISoundPlayer soundPlayer { get => UIController.Instance.UISoundPlayer; }
 
     private void Start()
     {
@@ -23,6 +24,9 @@ public class LogoSplashCanvas : MonoBehaviour, ICanvasUI
 
     private void FadeIn()
     {
+
+        StartCoroutine(WaitThenPlaySound());
+
         Tween fadeTween = TweenService.GetFloatTween(gameObject, 1.0f, 0.0f, fadeDuration, EnumTweenEase.QUART, EnumTweenDirection.IN);
         fadeTween.StartTween();
 
@@ -56,7 +60,11 @@ public class LogoSplashCanvas : MonoBehaviour, ICanvasUI
     {
         yield return new WaitForSecondsRealtime(staySeconds);
         EventRelay.Instance.UIEvents.LogoSplashFinishedEvent.TriggerEvent();
-        //Debug.Log("FOO");
+    }
+    System.Collections.IEnumerator WaitThenPlaySound()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        soundPlayer.PlayUISound(EnumUISound.LOGO_SOUND);
     }
 
     // Interface Methods //
