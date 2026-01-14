@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DialogueEventHandler : MonoBehaviour
+public class DialogueEventHandler
 {
     ProgressionData progData { get => DataController.Instance.ProgressionRuntimeData.Value; }
 
@@ -28,7 +28,4 @@ public class DialogueEventHandler : MonoBehaviour
         invData.RemoveQuestItem(IDConstants.INFECTED_SAMPLE);
         invData.AddQuestItem(IDConstants.CREW_QUARTERS_KEY);
     }
-
-
-
 }
