@@ -132,6 +132,8 @@ namespace Olle.Scripts
             }
             */
 
+            if (Time.timeScale == 0f) return;
+
             Vector3 move = new Vector3(_moveInput.x, 0f, _moveInput.y);
             _inputDir = Vector3.ClampMagnitude(move, 1f);
 
@@ -185,7 +187,6 @@ namespace Olle.Scripts
                         Vector3 lookDir = hit.point - transform.position;
                         lookDir.y = 0;
 
-                        // Increase the threshold slightly to avoid jitter
                         if (lookDir.sqrMagnitude > 0.1f)
                         {
                             targetRot = Quaternion.LookRotation(lookDir);
@@ -210,6 +211,9 @@ namespace Olle.Scripts
 
         void FixedUpdate()
         {
+
+            if (Time.timeScale == 0f) return;
+
             if (_dashing)
             {
                 _rb.linearVelocity = new Vector3(_dashVelocity.x, _rb.linearVelocity.y, _dashVelocity.z);
@@ -319,8 +323,8 @@ namespace Olle.Scripts
 
             // change stuff
             Debug.Log("ADRENALINE ON");
-            moveSpeed = 10f;
-            runMoveSpeed = 15f;
+            // moveSpeed = 10f;
+            // runMoveSpeed = 15f;
             // and whatever else we want to adjust...
 
             yield return new WaitForSeconds(ADRENALINE_DURATION);

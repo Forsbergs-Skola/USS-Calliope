@@ -88,6 +88,8 @@ public class PlayerAimController : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0f) return;
+
         lastMousePos = attackInput.GetMousePosition();
 
         if (isHoldingButton)

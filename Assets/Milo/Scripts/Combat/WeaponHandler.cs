@@ -134,6 +134,7 @@ public class PlayerWeaponHandler : MonoBehaviour
             invData.DepleteConsumable(weaponData.AmmoType.AmmoID, amountToTake);
             AmmoModel.AddAmmo(weaponData.AmmoType, amountToTake);
         }
+
     }
 
     private void ApplyWeaponSetup(SO_WeaponType data)
@@ -144,6 +145,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         }
         weaponCooldown.InitializeCooldown(data.FireRate);
         performAttack.SetCurrentWeapon(data);
+
 
         if (data.WeaponModelPrefab != null && firePoint != null)
         {
@@ -209,6 +211,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         if (!AmmoModel.UseAmmo(1))
         {
             audioSource.PlayOneShot(currentWeaponData.DryFireSound);
+
             return;
         }
 
@@ -267,5 +270,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         }
 
         reloadCoroutine = null;
+
+        // WeaponHandler.AmmoModel.CurrentA
     }
 }
