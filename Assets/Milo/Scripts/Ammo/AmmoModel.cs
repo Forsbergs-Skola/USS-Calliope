@@ -21,6 +21,9 @@ public class AmmoModel
         currentAmmoType = currentWeapon.AmmoType;
         maxAmmo = currentWeapon.MagSize;
         currentAmmo = 0;
+
+        UpdateTheBackEnd();
+
     }
 
     private void ClearWeaponAmmo()
@@ -28,6 +31,9 @@ public class AmmoModel
         currentAmmoType = null;
         maxAmmo = 0;
         currentAmmo = 0;
+
+        UpdateTheBackEnd();
+
     }
 
     public void AddAmmo(SO_AmmoType ammoType, int amount)
@@ -35,6 +41,8 @@ public class AmmoModel
         if (!CanAcceptAmmo(ammoType)) return;
 
         currentAmmo = Math.Min(currentAmmo + amount, maxAmmo);
+
+        UpdateTheBackEnd();
     }
 
     private bool CanAcceptAmmo(SO_AmmoType ammoType)
@@ -51,6 +59,17 @@ public class AmmoModel
             return false;
 
         currentAmmo -= amount;
+        UpdateTheBackEnd();
         return true;
     }
+
+    private void UpdateTheBackEnd()
+    {
+        if (DataController.Instance == null) return;
+
+        PlayerData pData = DataController.Instance.PlayerRuntimeData.Value;
+        pData.PlayerCurrentAmmo = currentAmmo;
+
+    }
+
 }

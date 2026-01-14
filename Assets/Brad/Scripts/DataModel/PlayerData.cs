@@ -13,6 +13,8 @@ public class PlayerData : IRuntimeData
     private EnumWeaponType _equippedWeapon;
     private List<EnumPlayerStatusEffect> _activeStatusEffects;
 
+    private int _playerCurrentAmmo;
+
     // new...
     private EnumPlayerArchetype _archetype;
 
@@ -190,6 +192,17 @@ public class PlayerData : IRuntimeData
         }
     }
 
+    public int PlayerCurrentAmmo
+    {
+        get => _playerCurrentAmmo;
+        set
+        {
+            if (value == _playerCurrentAmmo) return;
+            _playerCurrentAmmo = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+
     //////////////////
     // Constructors //
     //////////////////
@@ -210,6 +223,7 @@ public class PlayerData : IRuntimeData
         TechSkill = 0;
         BarterSkill = 0;
         Agility = 0;
+        PlayerCurrentAmmo = 0;
 
         LastPosition = Vector3.zero;
     }
@@ -230,6 +244,7 @@ public class PlayerData : IRuntimeData
         TechSkill = 0;
         BarterSkill = 0;
         Agility = 0;
+        PlayerCurrentAmmo = 0;
 
         LastPosition = Vector3.zero;
     }
@@ -251,6 +266,7 @@ public class PlayerData : IRuntimeData
         TechSkill = inData.TechSkill;
         BarterSkill = inData.BarterSkill;
         Agility = inData.Agility;
+        PlayerCurrentAmmo = inData.PlayerCurrentAmmo;
 
         LastPosition = inData.LastPosition;
     }
