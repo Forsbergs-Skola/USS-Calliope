@@ -24,6 +24,7 @@ public class PatrolPoint : MonoBehaviour
         PatrolPointRegistry.UnregisterPoint(this);
     }
 
+    /*
     // Only for Unity not for builds
 #if UNITY_EDITOR
     private void OnDrawGizmos()
@@ -41,4 +42,5 @@ public class PatrolPoint : MonoBehaviour
             Debug.LogWarning($"{name} has no PatrolZone assigned", this);
     }
 #endif
+    */
 }

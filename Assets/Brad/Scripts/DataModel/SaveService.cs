@@ -154,6 +154,7 @@ public static class SaveService
         outData.PLAYER_PosX = posX;
         outData.PLAYER_PosY = posY;
         outData.PLAYER_PosZ = posZ;
+        outData.PLAYER_CurrentAmmo = playerData.PlayerCurrentAmmo;
 
 
         ///////////////////
@@ -272,6 +273,8 @@ public static class SaveService
 
         Vector3 lastPos = new Vector3(saveData.PLAYER_PosX, saveData.PLAYER_PosY, saveData.PLAYER_PosZ);
         _playerData.LastPosition = lastPos;
+
+        _playerData.PlayerCurrentAmmo = saveData.PLAYER_CurrentAmmo;
 
         return new PlayerData(_playerData);
     }
