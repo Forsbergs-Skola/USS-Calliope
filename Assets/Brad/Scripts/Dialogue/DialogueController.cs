@@ -4,18 +4,14 @@ using System.Collections.Generic;
 
 public class DialogueController : Singleton<DialogueController>
 {
-    //[SerializeField] private List<DialogueConversationSO> conversations;
     [SerializeField] private ConversationCatalogSO conversations;
 
-
-    DialogueEventHandler dialogueEventHandler = null;
+    DialogueEventHandler dialogueEventHandler = new DialogueEventHandler();
 
 
 
     private void Start()
     {
-        dialogueEventHandler = GetComponent<DialogueEventHandler>();
-
         EventRelay.Instance.UIEvents.DialogueConvoStartedEVent.OnEventTriggered += HandleConvoStartedEvent;
         EventRelay.Instance.UIEvents.DialogueConvoFinishedEvent.OnEventTriggered += HandleConvoEndedEvent;
         EventRelay.Instance.UIEvents.DialogueLineStartedEVent.OnEventTriggered += HandleLineStartedEvent;

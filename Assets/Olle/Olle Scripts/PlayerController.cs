@@ -5,6 +5,9 @@ namespace Olle.Scripts
 {
     public class PlayerController : MonoBehaviour
     {
+
+        private const float ADRENALINE_DURATION = 10f;
+
         [Header("Movement Settings")]
         public float moveSpeed = 5f;
         public float runMoveSpeed = 8f;
@@ -39,12 +42,18 @@ namespace Olle.Scripts
         CrouchInvisibility _crouchInvis;
         PlayerAimController _aimController;
         PlayerAnimationController _animatorControl;
+        
+        bool _dashing;
+        Vector3 _dashVelocity;
 
         public bool IsCrouching => _isCrouching;
         public bool IsMoving => _inputDir.sqrMagnitude > 0.01f;
         public bool IsSprinting => _wantsToRun && _inputDir.sqrMagnitude > 0.01f && !_isCrouching;
         public bool IsDashing { get; set; }
         public System.Action<Vector2> OnMoveEvent;
+
+        [SerializeField] private InventoryRuntimeData inventorySO;
+        private PlayerPickupHandler pickupHandler = new PlayerPickupHandler();
 
         void Awake()
         {
@@ -58,6 +67,18 @@ namespace Olle.Scripts
             _crouchInvis = GetComponent<CrouchInvisibility>();
             _aimController = GetComponent<PlayerAimController>();
             _animatorControl = GetComponent<PlayerAnimationController>();
+        }
+
+        private void Start()
+        {
+            PlayerDataHandler pHandler = GetComponent<PlayerDataHandler>();
+            PlayerData data = pHandler.RuntimeData.Value;
+            Vector3 lastPos = data.LastPosition;
+            if (lastPos != Vector3.zero)
+            {
+
+                gameObject.transform.position = lastPos;
+            }
         }
 
         public void OnMove(InputAction.CallbackContext ctx)
@@ -184,19 +205,27 @@ namespace Olle.Scripts
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
             }
         }
+        [Header("Collision")]
+        public LayerMask wallMask = -1; // Walls layer
 
         void FixedUpdate()
         {
-            if (_inputDir.sqrMagnitude > 0.0001f)
+            if (_dashing)
             {
-                float step = moveSpeed * Time.fixedDeltaTime;
-                Vector3 targetPos = _rb.position + _inputDir * step;
-                _rb.MovePosition(targetPos);
+                _rb.linearVelocity = new Vector3(_dashVelocity.x, _rb.linearVelocity.y, _dashVelocity.z);
+            }
+            else if (_inputDir.sqrMagnitude > 0.0001f)
+            {
+                Vector3 targetVel = new Vector3(_inputDir.x * moveSpeed, _rb.linearVelocity.y, _inputDir.z * moveSpeed);
+                _rb.linearVelocity = targetVel;
+            }
+            else
+            {
+                _rb.linearVelocity = new Vector3(0f, _rb.linearVelocity.y, 0f);
             }
 
             _rb.MoveRotation(transform.rotation);
         }
-
         private void HandleNoise(bool isMoving, bool canSprint)
         {
             if (isMoving && _noise != null)
@@ -237,6 +266,74 @@ namespace Olle.Scripts
                 UIController.Instance.RemoveCanvas(EnumCanvasUIName.PAUSE);
         }
         */
+        
+        public void StartDash(Vector2 dir, float speed)
+        {
+            _dashing = true;
+            IsDashing = true;
+
+            _dashVelocity = new Vector3(dir.x, 0f, dir.y).normalized * speed;
+        }
+
+        public void EndDash()
+        {
+            _dashing = false;
+            IsDashing = false;
+
+            _rb.linearVelocity = new Vector3(0f, _rb.linearVelocity.y, 0f);
+        }
+
+
+        public void HandleConsumablePickup(string worldID, string catalogID, int qty)
+        {
+            pickupHandler.HandleConsumablePickup(inventorySO.Value, worldID, catalogID, qty);
+        }
+
+        public void TryDepleteAdrenaline()
+        {
+            if (pickupHandler.TryUseConsumable(inventorySO.Value, IDConstants.ADRENALINE, 1))
+            {
+                // pickuphandler depletes adrenaline
+                UseAdrenaline();
+                return;
+            }
+            Debug.Log("You got no adrenaline");
+        }
+        private void UseAdrenaline()
+        {
+            
+            Debug.Log("Player go fast!");
+
+            // TODO: player observable behavior
+            // whatever else happens...
+            _stamina.adrenalineRushActive = true;
+
+            StartCoroutine(AdrenalineCoroutine());
+        }
+
+        private System.Collections.IEnumerator AdrenalineCoroutine()
+        {
+
+            float oldSpeed = moveSpeed;
+            float oldRunSpeed = runMoveSpeed;
+
+            // change stuff
+            Debug.Log("ADRENALINE ON");
+            moveSpeed = 10f;
+            runMoveSpeed = 15f;
+            // and whatever else we want to adjust...
+
+            yield return new WaitForSeconds(ADRENALINE_DURATION);
+            
+            // change stuff back
+            Debug.Log("ADRENALINE OFF");
+            _stamina.adrenalineRushActive = false;
+            moveSpeed = oldSpeed;
+            runMoveSpeed = oldRunSpeed;
+            _rb.linearVelocity = new Vector3(0f, _rb.linearVelocity.y, 0f);
+            // normalize everything else...
+        }
+
 
     }
 }
