@@ -8,6 +8,10 @@ public class SO_InfectionPhaseData : ScriptableObject
     public string phaseName;
     [Range(0,100)] public float minInfection;
     [Range(0,100)] public float maxInfection;
+    
+    [Header("Vision Cone")]
+    public float viewDistance = 10f;
+    [Range(1f, 180f)] public float viewAngle = 60f;
 
     [Header("Stats")]
     public float moveSpeedMultiplier = 1f;

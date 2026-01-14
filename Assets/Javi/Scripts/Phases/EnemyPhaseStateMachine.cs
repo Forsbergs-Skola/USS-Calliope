@@ -8,9 +8,12 @@ public class EnemyPhaseStateMachine : MonoBehaviour
 
     private IPhaseBehavior currentPhase;
     private InfectionController infection;
+    private EnemyVisionCone vision;
 
     private void Awake()
     {
+        vision = GetComponent<EnemyVisionCone>();
+        
         infection = GetComponent<InfectionController>();
         if (infection == null)
         {
@@ -44,6 +47,8 @@ public class EnemyPhaseStateMachine : MonoBehaviour
 
     private void SwitchPhase(SO_InfectionPhaseData data)
     {
+        vision?.SetPhaseData(data);
+        
         currentPhase?.OnExitPhase();
 
         currentPhase = GetComponent(data.phaseName) as IPhaseBehavior;

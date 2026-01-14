@@ -2,13 +2,22 @@ using UnityEngine;
 
 public class EnemyPerceptionSystem : MonoBehaviour, IPerceptionSystem
 {
-    [SerializeField] private float viewDistance = 10f;
+    /*[SerializeField] private float viewDistance = 10f;
     [SerializeField] private float viewAngle = 60f;
-    [SerializeField] private LayerMask obstacleMask;
+    [SerializeField] private LayerMask obstacleMask;*/
+    private EnemyVisionCone vision;
+    
+    void Awake()
+    {
+        vision = GetComponent<EnemyVisionCone>();
+    }
 
     public bool CanSeeTarget(Transform target)
     {
-        Vector3 dir = target.position - transform.position;
+        if (vision == null) return false;
+        return vision.CanSeePlayer();
+        
+        /*Vector3 dir = target.position - transform.position;
         if (dir.magnitude > viewDistance) return false;
         if (Vector3.Angle(transform.forward, dir) > viewAngle) return false;
 
@@ -16,7 +25,7 @@ public class EnemyPerceptionSystem : MonoBehaviour, IPerceptionSystem
         {
             return hit.transform == target;
         }
-        return false;
+        return false;*/
     }
 
     public bool CanHearNoise(Vector3 position, float intensity)

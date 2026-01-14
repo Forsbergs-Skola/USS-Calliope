@@ -400,6 +400,10 @@ GameObject:
   - component: {fileID: 2932783974447816348}
   - component: {fileID: 4146781767251965205}
   - component: {fileID: 4008439811742021944}
+  - component: {fileID: 6569872122964762068}
+  - component: {fileID: 2126473478715626084}
+  - component: {fileID: 9136781255176838356}
+  - component: {fileID: 1894025880240926431}
   m_Layer: 7
   m_Name: EnemyLatent
   m_TagString: Untagged
@@ -421,6 +425,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3776075455192558874}
+  - {fileID: 128052160898430706}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5671889210674595261
@@ -515,7 +520,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyFollowPlayer
   playerTarget: {fileID: 0}
-  moveSpeed: 2
   followPlayer: 1
 --- !u!114 &7876600125979415202
 MonoBehaviour:
@@ -600,11 +604,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24fe1b51207631d49a0c6cc7170fc34e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPerceptionSystem
-  viewDistance: 100
-  viewAngle: 180
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 24576
 --- !u!114 &7959023419765171005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,3 +669,101 @@ MonoBehaviour:
   damageTextPrefab: {fileID: 2076834550311892472, guid: de321cc44df38414a8f06f37c47de266, type: 3}
   spawnPoint: {fileID: 294805872955266305}
   verticalOffset: 2
+--- !u!114 &6569872122964762068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5585744665537500015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 866bead6f08829a46a25d2f29bed2ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAIStateController
+--- !u!114 &2126473478715626084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5585744665537500015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7943d63740636f84eb0b8cb3ee7da608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyPatrolController
+  allowedZones:
+  - {fileID: 11400000, guid: ba00b5f369a7e234d94bded2af9c1c8b, type: 2}
+  waitTimeAtPoint: 10
+  rotationSpeed: 45
+  reachTolerance: 0.3
+  retryDelay: 2
+  lookAngle: 60
+  lookPauseTime: 1.5
+--- !u!114 &9136781255176838356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5585744665537500015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cb05b8c93fb5ad449a4ec316eb4e159, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SimpleMovementAgent
+  baseSpeed: 2
+  rotationSpeed: 180
+  stoppingDistance: 0.1
+  patrolMultiplier: 0.8
+  chaseMultiplier: 1.5
+  investigateMultiplier: 1
+--- !u!114 &1894025880240926431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5585744665537500015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 249a2f9bacc6cde469da0dbf02eaddae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyVisionCone
+  visionOrigin: {fileID: 0}
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 24897
+  drawGizmos: 1
+--- !u!1 &6307701262232528697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 128052160898430706}
+  m_Layer: 7
+  m_Name: VisionOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &128052160898430706
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6307701262232528697}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 294805872955266305}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
