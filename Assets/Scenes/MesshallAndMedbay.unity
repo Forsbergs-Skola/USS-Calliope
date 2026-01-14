@@ -912,6 +912,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyActive
       objectReference: {fileID: 0}
+    - target: {fileID: 8450497102381977089, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
+      propertyPath: baseSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8450497102381977089, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
+      propertyPath: chaseMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8718409416980625838, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
       propertyPath: moveSpeed
       value: 5
@@ -4636,6 +4644,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5820759906099545411, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
       propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9136781255176838356, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
+      propertyPath: baseSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9136781255176838356, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
+      propertyPath: chaseMultiplier
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -15775,6 +15791,10 @@ PrefabInstance:
       propertyPath: volume
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 5235377874016009929, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
+      propertyPath: maxHealth
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 5950743915408411677, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 41.078964
@@ -15826,13 +15846,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6475783448891758247, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2775064928562844087}
   m_SourcePrefab: {fileID: 100100000, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
 --- !u!4 &2775064928562844085 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5950743915408411677, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
   m_PrefabInstance: {fileID: 2775064928562844084}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2775064928562844086 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6475783448891758247, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
+  m_PrefabInstance: {fileID: 2775064928562844084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2775064928562844087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2775064928562844086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2d885f905a512941a90d928a2c1a415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Olle.Scripts.CrouchInvisibility
+  crouchTimeToInvisible: 2
+  invisibleDuration: 10
+  rendersToHide: []
+  staminaTickAmount: 30
+  staminaTickInterval: 2
 --- !u!1001 &5418013671299839745
 PrefabInstance:
   m_ObjectHideFlags: 0
