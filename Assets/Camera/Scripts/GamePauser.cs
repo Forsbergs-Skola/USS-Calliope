@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class GamePauser : MonoBehaviour
 {
+    /*
     private void Update()
     {
         if (UIController.Instance == null) return;
@@ -26,5 +27,6 @@ public class GamePauser : MonoBehaviour
             UIController.Instance.RemoveCanvas(EnumCanvasUIName.PAUSE);
         }
     }
+    */
     
 }

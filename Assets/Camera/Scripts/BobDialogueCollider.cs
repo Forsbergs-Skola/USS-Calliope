@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
-
+using Unity.Cinemachine;
 public class BobDialogueCollider : MonoBehaviour
 {
     [SerializeField] private ProgressionRuntimeData progressionRuntimeData;
     [SerializeField] private InventoryRuntimeData inventoryRuntimeData;
+    
+    
     
     private void OnTriggerEnter(Collider other)
     {
@@ -12,7 +14,10 @@ public class BobDialogueCollider : MonoBehaviour
             return;
         
         bool investigateMedbayStarted = progressionRuntimeData.Value.ObjectivesAndStatusesDict[IDConstants.OBJECTIVE_04_ID] == EnumObjectiveStatus.STARTED;
-
+        
+        
+        
+        
         if (investigateMedbayStarted)
         {
             DialogueController.Instance.StartConvoWithID(IDConstants.CONVERSATION_BOB_00);
@@ -26,4 +31,5 @@ public class BobDialogueCollider : MonoBehaviour
         }
         
     }
+    
 }

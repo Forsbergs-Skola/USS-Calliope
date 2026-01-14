@@ -1,3 +1,4 @@
+using Olle.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +11,13 @@ public class PlayerWeaponHandler : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Transform firePoint;
     [SerializeField] private SO_WeaponList weaponDatabase;
+    [SerializeField] private UnarmedAttack unarmedAttack;
     [SerializeField] private Transform rightHand; // Defined this so the weapon has a parent!
+    [SerializeField] private Animator animator;
 
     private AttackInput attackInput;
     private SO_WeaponType currentWeaponData;
+    private SO_FlashLight flashlightData;
     private bool isHoldingTrigger;
     private Coroutine firingCoroutine;
     private PerformAttack performAttack;
@@ -22,6 +26,10 @@ public class PlayerWeaponHandler : MonoBehaviour
     private GameObject currentWeaponPrefab;
     private Coroutine reloadCoroutine;
     private int equippedWeaponIndex = -1;
+    
+
+
+
 
     private InventoryData invData
     {
@@ -52,6 +60,7 @@ public class PlayerWeaponHandler : MonoBehaviour
         attackInput.AimStopped += OnAimStopped;
         attackInput.SwitchWeaponTriggered += EquipNextWeapon;
         attackInput.ReloadTriggered += TryReload;
+        attackInput.UnEquipWeaponTriggered += UnEquipWeapon;
     }
 
     private void OnDisable()
@@ -62,16 +71,49 @@ public class PlayerWeaponHandler : MonoBehaviour
         attackInput.AimStopped -= OnAimStopped;
         attackInput.SwitchWeaponTriggered -= EquipNextWeapon;
         attackInput.ReloadTriggered -= TryReload;
+        attackInput.UnEquipWeaponTriggered -= UnEquipWeapon;    
+    }
+
+    private void UnEquipWeapon()
+    {
+        if (unarmedAttack.isUnarmed) return;
+
+        if (currentWeaponData != null && currentWeaponData.HasAmmo && AmmoModel.CurrentAmmo > 0)
+        {
+            invData.ReplenishConsumable(currentWeaponData.AmmoType.AmmoID, AmmoModel.CurrentAmmo);
+        }
+
+        if (currentWeaponPrefab != null)
+        {
+            Destroy(currentWeaponPrefab);
+        }
+
+        if (reloadCoroutine != null)
+        {
+            StopCoroutine(reloadCoroutine);
+            reloadCoroutine = null;
+        }
+
+        animator.SetInteger("WeaponType", (int)0);
+
+        OnFireStopped();
+
+        currentWeaponData = null;
+        unarmedAttack.isUnarmed = true;
     }
 
     private void EquipNextWeapon()
     {
         var availableWeapons = GetAvailableWeapons();
-        if (availableWeapons.Count == 0) return;
-
-        if (currentWeaponData != null && AmmoModel.CurrentAmmo > 0)
+        if (availableWeapons.Count == 0)
         {
-            invData.ReplenishConsumable(currentWeaponData.AmmoType.AmmoID, AmmoModel.CurrentAmmo);
+            unarmedAttack.isUnarmed = true;
+            return;
+        }
+
+        if (!unarmedAttack.isUnarmed)
+        {
+            UnEquipWeapon();
         }
 
         equippedWeaponIndex = (equippedWeaponIndex + 1) % availableWeapons.Count;
@@ -82,21 +124,24 @@ public class PlayerWeaponHandler : MonoBehaviour
         if (weaponData == null) return;
 
         currentWeaponData = weaponData;
-
-        if (currentWeaponPrefab != null) Destroy(currentWeaponPrefab);
+        unarmedAttack.isUnarmed = false;
 
         ApplyWeaponSetup(weaponData);
 
         if (invData.GetConsumableIDsAndQuantities().TryGetValue(weaponData.AmmoType.AmmoID, out int ammoAvailable) && ammoAvailable > 0)
         {
-            invData.DepleteConsumable(weaponData.AmmoType.AmmoID, weaponData.MagSize);
-            AmmoModel.AddAmmo(weaponData.AmmoType, weaponData.MagSize);
+            int amountToTake = Mathf.Min(weaponData.MagSize, ammoAvailable);
+            invData.DepleteConsumable(weaponData.AmmoType.AmmoID, amountToTake);
+            AmmoModel.AddAmmo(weaponData.AmmoType, amountToTake);
         }
     }
 
     private void ApplyWeaponSetup(SO_WeaponType data)
     {
-        AmmoModel.InitializeAmmo(data);
+        if (data.HasAmmo)
+        {
+            AmmoModel.InitializeAmmo(data);
+        }
         weaponCooldown.InitializeCooldown(data.FireRate);
         performAttack.SetCurrentWeapon(data);
 
@@ -111,14 +156,25 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private void OnFireStarted()
     {
-        if (!currentWeaponData) return;
+        // 1. Check if we have any way to attack at all
+        if (!currentWeaponData && !unarmedAttack.isUnarmed) return;
 
+        // 2. CHECK UNARMED FIRST (Prevents null crash)
+        if (unarmedAttack.isUnarmed)
+        {
+            Debug.Log("WeaponHandler: TryUnarmedAttack Called");
+            TryUnarmedAttack();
+            return;
+        }
+
+        // 3. Now it is safe to check weapon categories because we know a weapon exists
         if (currentWeaponData.AttackCategories == SO_WeaponType.AttackCategory.Melee)
         {
             TryMeleeAttack();
             return;
         }
 
+        // 4. Hitscan/Taser Logic
         if (!aimController.IsAiming) return;
 
         if (!currentWeaponData.IsSemiAutomatic)
@@ -167,6 +223,13 @@ public class PlayerWeaponHandler : MonoBehaviour
         weaponCooldown.StartCooldown(currentWeaponData.FireRate);
     }
 
+    private void TryUnarmedAttack()
+    {
+        Debug.Log("WeaponHandler: TryUnarmedAttack Called");
+        if (!weaponCooldown.CanFire()) return;
+        performAttack.Execute();
+        weaponCooldown.StartCooldown(unarmedAttack.Cooldown);
+    }
     private IEnumerator AutomaticFire()
     {
         while (isHoldingTrigger)

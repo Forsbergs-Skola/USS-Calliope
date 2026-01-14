@@ -528,6 +528,10 @@ PrefabInstance:
       value: EventRelay
       objectReference: {fileID: 0}
     - target: {fileID: 4380293817906167881, guid: 6a98ae3bb1860824cad6f97df5b536cb, type: 3}
+      propertyPath: gameSavedEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 1cd56a98f82867b4191d41fc79360879, type: 2}
+    - target: {fileID: 4380293817906167881, guid: 6a98ae3bb1860824cad6f97df5b536cb, type: 3}
       propertyPath: itemPickupEvent
       value: 
       objectReference: {fileID: 11400000, guid: 3f8e9db58bd31a845ac3de4c23beb7d5, type: 2}
@@ -1035,7 +1039,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
       propertyPath: skipSplash
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
       propertyPath: newGamePressedEvent
@@ -1043,7 +1047,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: c069b11bc30bb0c4a9b4afde452373a1, type: 2}
     - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
       propertyPath: defaultGameSceneName
-      value: NewLevel
+      value: MergedLevel
       objectReference: {fileID: 0}
     - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
       propertyPath: loadGamePressedEvent

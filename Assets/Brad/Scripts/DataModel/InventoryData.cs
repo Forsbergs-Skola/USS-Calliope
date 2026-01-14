@@ -17,8 +17,13 @@
         private List<string> _weaponItemIDs;
         private Dictionary<string, int> _consumableItemIDsAndQuantities;
         private List<string> _questItemIDs;
+        private List<string> _exshaustedPickups;
 
         // WEAPONS
+        public void SetWeaponsList(List<string> ids)
+        {
+            _weaponItemIDs = new List<string>(ids);
+        }
         public List<string> GetWeaponItemIDs()
         {
             return new List<string>(_weaponItemIDs);
@@ -37,6 +42,10 @@
         }
 
         // QUEST ITEMS
+        public void SetQuestItemsList(List<string> ids)
+        {
+            _questItemIDs = new List<string>(ids);
+        }
         public List<string> GetQuestItemIDs()
         {
             return new List<string>(_questItemIDs);
@@ -54,9 +63,11 @@
             DataTools.HandleOnDataChanged(this);
         }
 
-
-        // CONSUMABLES
-
+    // CONSUMABLES
+        public void SetConsumablesDict(Dictionary<string, int> dict)
+        {
+            _consumableItemIDsAndQuantities = new Dictionary<string, int>(dict);
+        }
         public Dictionary<string, int> GetConsumableIDsAndQuantities()
         {
             return new Dictionary<string, int>(_consumableItemIDsAndQuantities);
@@ -92,6 +103,35 @@
             DataTools.HandleOnDataChanged(this);
 
         }
+        
+        /*
+        public List<string> ExhaustedPickups
+        {
+            get => _exshaustedPickups;
+            set
+            {
+                _exshaustedPickups = new List<string>(value);
+            }
+
+        }
+        */
+        public void AddExhausedPickup(string worldID)
+        {
+
+            Debug.Log("FOO");
+
+            if (_exshaustedPickups.Contains(worldID)) return;
+            _exshaustedPickups.Add(worldID);
+            DataTools.HandleOnDataChanged(this);
+        }
+        public List<string> GetExhaustedPickups()
+        {
+            return new List<string>(_exshaustedPickups);
+        }
+        public void SetExhaustedPickupsList(List<string> inList)
+        {
+        _exshaustedPickups = new List<string>(inList);
+        }
 
         //////////////////
         // Constructors //
@@ -102,6 +142,7 @@
             _weaponItemIDs = new List<string>();
             _questItemIDs = new List<string>();
             _consumableItemIDsAndQuantities = new Dictionary<string, int>();
+            _exshaustedPickups = new List<string>();
         }
         public InventoryData(bool isSandbox)
         {
@@ -109,16 +150,16 @@
             _weaponItemIDs = new List<string>();
             _questItemIDs = new List<string>();
             _consumableItemIDsAndQuantities = new Dictionary<string, int>();
-        }
+            _exshaustedPickups = new List<string>();
+    }
         public InventoryData(InventoryData inData)
         {
             IsSandbox = false;
             _weaponItemIDs = inData.GetWeaponItemIDs();
             _questItemIDs = inData.GetQuestItemIDs();
             _consumableItemIDsAndQuantities = inData.GetConsumableIDsAndQuantities();
+            _exshaustedPickups = new List<string>(inData.GetExhaustedPickups());
         }
         public bool GetIsSandbox() { return IsSandbox; }
-
-        
 
     }

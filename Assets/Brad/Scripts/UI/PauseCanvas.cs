@@ -12,8 +12,8 @@ public class PauseCanvas : MonoBehaviour, ICanvasUI
     [SerializeField] private TMP_Text toggleButtonText;
     [SerializeField] private ObjectivesPanel objectivesPanel;
     [SerializeField] private InventoryPanel inventoryPanel;
-    
 
+    private UISoundPlayer soundPlayer { get => UIController.Instance.UISoundPlayer; }
     private enum EnumPausePanel
     {
         NONE,
@@ -64,7 +64,9 @@ public class PauseCanvas : MonoBehaviour, ICanvasUI
         toggleViewButton.onClick.AddListener(HandleToggleViewButtonPressed);
 
         currentPanel = defaultPanel;
-        
+
+
+        soundPlayer.PlayUISound(EnumUISound.PAUSE_SCREEN);
 
     }
     private void OnDisable()
@@ -85,7 +87,17 @@ public class PauseCanvas : MonoBehaviour, ICanvasUI
     }
     private void HandleSaveButtonPressed()
     {
-        Debug.Log("SAVE FEATURE COMING SOON...");
+        if (DataController.Instance == null) return;
+        Debug.Log("SAVING GAME");
+        PlayerData playerData = DataController.Instance.PlayerRuntimeData.Value;
+        ProgressionData progData = DataController.Instance.ProgressionRuntimeData.Value;
+        InventoryData invData = DataController.Instance.InventoryRuntimeData.Value;
+
+
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        playerData.LastPosition = playerObj.transform.position;
+
+        SaveService.Save(playerData, invData, progData);
     }
     private void HandleBackButtonPressed()
     {

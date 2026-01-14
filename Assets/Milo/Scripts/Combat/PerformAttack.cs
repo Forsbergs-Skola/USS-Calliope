@@ -17,6 +17,7 @@ public class PerformAttack : MonoBehaviour
     private PlayerAimController aimController;
     private ImpactProcessor impactProcessor;
     private PlayerState playerState;
+    private UnarmedAttack unarmedAttack;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class PerformAttack : MonoBehaviour
         aimController = GetComponent<PlayerAimController>();
         impactProcessor = GetComponent<ImpactProcessor>();
         playerState = GetComponent<PlayerState>();
+        unarmedAttack = GetComponent<UnarmedAttack>();
     }
 
     private void Update()
@@ -42,28 +44,41 @@ public class PerformAttack : MonoBehaviour
 
     public void Execute()
     {
-        if (!CanAttack(out Vector3 aimDirection)) return;
-
-        switch (currentWeapon.AttackCategories)
+        if (!CanAttack(out Vector3 aimDirection))
         {
-            case SO_WeaponType.AttackCategory.Hitscan:
-                GunAttack(aimDirection);
-                break;
-            case SO_WeaponType.AttackCategory.NonLethal:
-                TaserAttack(aimDirection);
-                break;
-            case SO_WeaponType.AttackCategory.Melee:
-                MeleeAttack(aimDirection);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            Debug.Log("PerformAttack: Execute(): Cannot Attack");
+            return;
         }
+
+        
+        if (!unarmedAttack.isUnarmed)
+        {
+            switch (currentWeapon.AttackCategories)
+            {
+                case SO_WeaponType.AttackCategory.Hitscan:
+                    GunAttack(aimDirection);
+                    break;
+                case SO_WeaponType.AttackCategory.NonLethal:
+                    TaserAttack(aimDirection);
+                    break;
+                case SO_WeaponType.AttackCategory.Melee:
+                    MeleeAttack(aimDirection);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        else         
+        {
+            UnarmedAttack(aimDirection);
+        }
+
     }
 
     //// ATTACK TYPES
     private void GunAttack(Vector3 aimDirection)
     {
-        PlayAttackSound();
+        PlayAttackSound(0.7f);
         for (int i = 0; i < currentWeapon.PelletCount; i++)
         {
             PerformRaycastShot(aimDirection, impactProcessor.ProcessHit);
@@ -99,28 +114,29 @@ public class PerformAttack : MonoBehaviour
         }
     }
 
-    
+    private void UnarmedAttack(Vector3 aimDirection)
+    {
+        unarmedAttack.Attack(aimDirection, firePoint, impactProcessor.HitMask); 
+    }
+
     private bool CanAttack(out Vector3 aimDirection)
     {
         aimDirection = Vector3.zero;
 
-        if (!currentWeapon || !firePoint) 
-        {
-            return false;
-        }
+        // FIX: Allow the attack to proceed if we are unarmed, even if currentWeapon is null
+        if (!firePoint) return false;
+        if (!unarmedAttack.isUnarmed && currentWeapon == null) return false;
 
         var hasAim = aimController.TryGetAimDirection(firePoint.position, out aimDirection);
-    
-        if (currentWeapon.AttackCategories != SO_WeaponType.AttackCategory.Melee) 
+
+        // Unarmed and Melee don't require a valid hitscan aim point (can just use forward)
+        if (unarmedAttack.isUnarmed || (currentWeapon != null && currentWeapon.AttackCategories == SO_WeaponType.AttackCategory.Melee))
         {
-            return hasAim;
+            if (!hasAim) aimDirection = transform.forward;
+            return true;
         }
 
-        if (!hasAim)
-        {
-            aimDirection = transform.forward;
-        }
-        return true; 
+        return hasAim;
     }
 
     private void PerformRaycastShot(Vector3 aimDirection, Action<RaycastHit> onHit)
@@ -161,8 +177,8 @@ public class PerformAttack : MonoBehaviour
         return currentWeapon.GetBaseSpreadIntensity(movementTimer, isSprinting, HitChance.CurrentHitChanceScore, playerState.CurrentHealth);
     }
 
-    private void PlayAttackSound()
+    private void PlayAttackSound(float volume = 1.0f)
     {
-        audioSource.PlayOneShot(currentWeapon.AttackSound);
+        audioSource.PlayOneShot(currentWeapon.AttackSound, volume);
     }
 }

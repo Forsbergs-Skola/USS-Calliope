@@ -9,6 +9,7 @@ public class SO_WeaponType : ScriptableObject
         Hitscan,
         NonLethal,
         Melee,
+        Flashlight,
     }
 
     public enum RecoilTypes
