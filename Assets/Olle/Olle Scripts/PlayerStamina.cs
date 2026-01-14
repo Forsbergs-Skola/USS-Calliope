@@ -10,6 +10,7 @@ public class PlayerStamina : MonoBehaviour
     
     public float currentStamina;
     public bool isTired;
+    public bool adrenalineRushActive;
     float _lastUseTime;
     float _regenTimer;
 
@@ -22,7 +23,7 @@ public class PlayerStamina : MonoBehaviour
     {
         canSprint = !isTired && currentStamina > 0f && isTryingToSprint;
 
-        if (canSprint)
+        if (canSprint && !adrenalineRushActive)
         {
             float amount = drainPerSecond * deltaTime;
             UseStamina(amount);
@@ -48,8 +49,8 @@ public class PlayerStamina : MonoBehaviour
         if (currentStamina <= 0f)
             isTired = true;
 
-        // if (!Mathf.Approximately(before, currentStamina))
-          //  Debug.Log($"Stamina DRAIN: {currentStamina:0}/{maxStamina}", this);
+        if (!Mathf.Approximately(before, currentStamina))
+            Debug.Log($"Stamina DRAIN: {currentStamina:0}/{maxStamina}", this);
     }
 
     void HandleRegen(float deltaTime)
