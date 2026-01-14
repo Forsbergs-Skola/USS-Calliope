@@ -44,6 +44,9 @@ public class ConsumablesGrid : MonoBehaviour
         Dictionary<string, int> consumablesDict = invData.GetConsumableIDsAndQuantities();
         foreach(string itemID in consumablesDict.Keys.ToList<string>())
         {
+
+            if (itemID == IDConstants.PISTOL_AMMO) continue;
+
             ConsumableItemSO itemData = InventoryController.Instance.GetConsumableItemData(itemID);
             string resourcePath = itemData.IconTexturePath;
             int qty = consumablesDict[itemID];
