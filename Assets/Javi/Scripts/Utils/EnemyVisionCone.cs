@@ -8,6 +8,7 @@ public class EnemyVisionCone : MonoBehaviour
 
     [Header("Layers")]
     [SerializeField] private LayerMask obstacleMask;
+    [SerializeField] private LayerMask playerMask;
 
     [Header("Debug (Editor Only)")]
     [SerializeField] private bool drawGizmos = true;
@@ -26,7 +27,10 @@ public class EnemyVisionCone : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
 
         if (player != null)
+        {
             playerInvisibility = player.GetComponent<Olle.Scripts.CrouchInvisibility>();
+        }
+        
     }
 
     public void SetPhaseData(SO_InfectionPhaseData data)
@@ -56,13 +60,15 @@ public class EnemyVisionCone : MonoBehaviour
             return false;
 
         // Line of sight check
-        if (Physics.Raycast(origin, dirToPlayer.normalized, out RaycastHit hit, viewDistance, obstacleMask))
+        LayerMask combinedMask = obstacleMask | playerMask;
+    
+        if (Physics.Raycast(origin, dirToPlayer.normalized, out RaycastHit hit, distance, combinedMask))
         {
-            if (hit.transform != player)
-                return false;
+            if (hit.transform == player || hit.transform.IsChildOf(player))
+                return true;
         }
 
-        return true;
+        return false;
     }
 
 #if UNITY_EDITOR
