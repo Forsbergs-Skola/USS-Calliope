@@ -5984,6 +5984,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 836093545134279187}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5859877226595765434}
     - targetCorrespondingSourceObject: {fileID: -2851149267613598858, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6010156154803002617}
@@ -6568,7 +6571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1df9502a12115044d8e1563dcf6feae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthJavi
-  maxHealth: 1000
+  maxHealth: 100
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6715,11 +6718,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2d885f905a512941a90d928a2c1a415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Olle.Scripts.CrouchInvisibility
-  crouchTimeToInvisible: 2
-  invisibleDuration: 10
-  rendersToHide: []
+  crouchTimeToInvisible: 0.1
+  invisibleDuration: 30
+  invisibleAlpha: 0.25
   staminaTickAmount: 30
   staminaTickInterval: 2
+  rendersToHide: []
 --- !u!114 &836093545134279187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6734,6 +6738,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthBarOlle
   playerHealthSlider: {fileID: 0}
   targetCamera: {fileID: 0}
+--- !u!114 &5859877226595765434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6475783448891758247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88781f8259fd1964cbda1661e0f52b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStaminaBar
+  playerStaminaSlider: {fileID: 0}
+  normalColor: {r: 0.043137256, g: 0.92156863, b: 0.015686275, a: 1}
+  adrenalineColor: {r: 3.3962264, g: 2.6152546, b: 0.27233896, a: 1}
 --- !u!4 &7246013604886153025 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5651751901618623305, guid: 039b9d116bbe683469dc40576050134e, type: 3}

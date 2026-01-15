@@ -97,7 +97,7 @@ namespace Olle.Scripts
             if (ctx.performed)
             {
                 _isCrouching = !_isCrouching;
-                ApplyCrouchState();
+                //ApplyCrouchState();
             }
         }
 
@@ -254,22 +254,22 @@ namespace Olle.Scripts
             else _noiseTimer = 0f;
         }
 
-        void ApplyCrouchState()
-        {
-            Vector3 scale = transform.localScale;
-            scale.y = _isCrouching ? _defaultScaleY * crouchScaleY : _defaultScaleY;
-            transform.localScale = scale;
-        }
-
         /*
-        public void TogglePause()
-        {
-            if (!UIController.Instance.GetIsCanvasUp(EnumCanvasUIName.PAUSE))
-                UIController.Instance.ShowCanvas(EnumCanvasUIName.PAUSE);
-            else
-                UIController.Instance.RemoveCanvas(EnumCanvasUIName.PAUSE);
-        }
-        */
+       void ApplyCrouchState()
+       {
+           Vector3 scale = transform.localScale;
+           scale.y = _isCrouching ? _defaultScaleY * crouchScaleY : _defaultScaleY;
+           transform.localScale = scale;
+       }
+
+       public void TogglePause()
+       {
+           if (!UIController.Instance.GetIsCanvasUp(EnumCanvasUIName.PAUSE))
+               UIController.Instance.ShowCanvas(EnumCanvasUIName.PAUSE);
+           else
+               UIController.Instance.RemoveCanvas(EnumCanvasUIName.PAUSE);
+       }
+       */
         
         public void StartDash(Vector2 dir, float speed)
         {
