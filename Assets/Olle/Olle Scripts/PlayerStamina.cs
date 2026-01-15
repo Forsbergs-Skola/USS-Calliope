@@ -92,4 +92,17 @@ public class PlayerStamina : MonoBehaviour
     }
     
     public float Normalized => currentStamina / maxStamina;
+    public bool AdrenalineRushActive 
+    { 
+        get => adrenalineRushActive; 
+        set 
+        { 
+            adrenalineRushActive = value;
+            if (adrenalineRushActive)
+            {
+                currentStamina = maxStamina;
+                isTired = false;
+            }
+        } 
+    }
 }
