@@ -5981,6 +5981,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4763404639357821555}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4356318923780843069}
     - targetCorrespondingSourceObject: {fileID: -2851149267613598858, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6010156154803002617}
@@ -6351,8 +6354,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7d9132c1d1475438b6ee7aba326770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Olle.Scripts.PlayerController
-  moveSpeed: 2.5
-  runMoveSpeed: 4.7
+  moveSpeed: 10
+  runMoveSpeed: 15
   crouchMoveSpeed: 2
   rotationSpeed: 10
   mouse: 0
@@ -6506,6 +6509,8 @@ MonoBehaviour:
   smoothSpeed: 3
   cameraOffsetDistance: 10
   crosshairImage: {fileID: 0}
+  maxNoiseOffset: 25.6
+  noiseSmoothSpeed: 9.02
   cineMachineCam: {fileID: 0}
 --- !u!114 &4611357923210010808
 MonoBehaviour:
@@ -6535,8 +6540,8 @@ MonoBehaviour:
   firePoint: {fileID: 3555908911261273807}
   weaponDatabase: {fileID: 11400000, guid: 3cc863e5416a2144291cdfd16f05fa3f, type: 2}
   unarmedAttack: {fileID: 6198528076392098426}
-  rightHand: {fileID: 2228809539555221487}
   animator: {fileID: 321275942813144679}
+  weaponReload: {fileID: -4356318923780843069}
 --- !u!114 &5311986332042757762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6716,6 +6721,18 @@ MonoBehaviour:
   damageTextPrefab: {fileID: 2076834550311892472, guid: de321cc44df38414a8f06f37c47de266, type: 3}
   spawnPoint: {fileID: 5950743915408411677}
   verticalOffset: 2
+--- !u!114 &-4356318923780843069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6475783448891758247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703d96903635d2b4da757559f8e2a370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponReload
 --- !u!4 &7246013604886153025 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5651751901618623305, guid: 039b9d116bbe683469dc40576050134e, type: 3}
