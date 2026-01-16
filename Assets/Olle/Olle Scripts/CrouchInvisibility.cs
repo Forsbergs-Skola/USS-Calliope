@@ -81,8 +81,8 @@ namespace Olle.Scripts
             
             if (_isInvisible)
             {
-                _invisibleTimer += Time.deltaTime;
-                if (_invisibleTimer >= invisibleDuration)
+               _invisibleTimer += Time.deltaTime;
+               if (_invisibleTimer >= invisibleDuration)
                 {
                     SetInvisible(false);
                     return;
@@ -95,6 +95,8 @@ namespace Olle.Scripts
         void HandleStaminaDrain()
         {
             if (_stamina == null) return;
+
+            if (_stamina.AdrenalineRushActive) return;
 
             _staminaTickTimer += Time.deltaTime;
             if (_staminaTickTimer < staminaTickInterval) return;
