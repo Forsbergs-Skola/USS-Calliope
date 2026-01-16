@@ -148,6 +148,7 @@ public static class SaveService
         // write data to outData
         outData.PLAYER_ActiveStatusEffectsString = activeStatusEffectsString;
         outData.PLAYER_Health = playerData.Health;
+        outData.PLAYER_MaxHealth = playerData.MaxHealth;
         outData.PLAYER_XP = playerData.XP;
         outData.PLAYER_Stamina = playerData.Stamina;
         outData.PLAYER_EquippedWeapon = playerData.EquippedWeapon.ToString();
@@ -268,6 +269,7 @@ public static class SaveService
 
         // do the easy stuff
         _playerData.Health = saveData.PLAYER_Health;
+        _playerData.MaxHealth = saveData.PLAYER_MaxHealth;
         _playerData.XP = saveData.PLAYER_XP;
         _playerData.Stamina = saveData.PLAYER_Stamina;
 

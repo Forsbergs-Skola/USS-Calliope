@@ -66,6 +66,8 @@ public class Bootstrapper : Singleton<Bootstrapper>
     }
     public void TogglePause()
     {
+
+        if (DataController.Instance.PlayerRuntimeData.Value.Health <= 0) { return; }
         
         if (!UIController.Instance.GetIsCanvasUp(EnumCanvasUIName.PAUSE))
         {
