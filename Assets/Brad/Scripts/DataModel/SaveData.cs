@@ -12,7 +12,8 @@ public class SaveData
     /////////////////
     public string PLAYER_ActiveStatusEffectsString;
 
-    public int PLAYER_Health;
+    public float PLAYER_Health;
+    public float PLAYER_MaxHealth;
     public int PLAYER_XP;
     public int PLAYER_Stamina;
     public int PLAYER_CurrentAmmo;

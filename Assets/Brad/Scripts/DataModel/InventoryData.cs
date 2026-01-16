@@ -118,7 +118,7 @@
         public void AddExhausedPickup(string worldID)
         {
 
-            Debug.Log("FOO");
+            //Debug.Log("FOO");
 
             if (_exshaustedPickups.Contains(worldID)) return;
             _exshaustedPickups.Add(worldID);

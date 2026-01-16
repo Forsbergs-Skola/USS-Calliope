@@ -85,7 +85,7 @@ public class UIController : Singleton<UIController>
     public void ShowCanvas(EnumCanvasUIName canvasName)
     {
 
-        Debug.Log($"Showing Canvas: {canvasName.ToString()}");
+        //Debug.Log($"Showing Canvas: {canvasName.ToString()}");
 
         if (GetIsCanvasActive(canvasName)) { Debug.LogWarning($"{canvasName.ToString()} is already active"); return; }
         if (GetCanvasPrefab(canvasName) == null) { Debug.LogError($"No prefab for canvas: {canvasName.ToString()}"); return; }

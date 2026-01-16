@@ -68,6 +68,12 @@ public class PauseCanvas : MonoBehaviour, ICanvasUI
 
         soundPlayer.PlayUISound(EnumUISound.PAUSE_SCREEN);
 
+        if (DataController.Instance.PlayerRuntimeData.Value.Health <= 0f)
+        {
+            saveButton.gameObject.SetActive(false);
+        }
+
+
     }
     private void OnDisable()
     {
@@ -140,4 +146,6 @@ public class PauseCanvas : MonoBehaviour, ICanvasUI
     {
         return GetComponent<Canvas>().sortingOrder;
     }
+
+
 }
