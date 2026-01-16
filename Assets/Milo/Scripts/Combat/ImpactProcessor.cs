@@ -45,9 +45,6 @@ public class ImpactProcessor : MonoBehaviour
 
         var damageable = hit.collider.GetComponentInParent<IDamageable>();
         damageable?.TakeDamage(currentWeapon.Damage);
-
-        // TODO:
-        // Apply force to the hit object if it has a Rigidbody
     }
 
     public void ProcessUnarmedHit(RaycastHit hit, Vector3 attackDirection, float force)
@@ -59,9 +56,6 @@ public class ImpactProcessor : MonoBehaviour
             StartCoroutine(DelayedUnarmedDamage(damageable, unarmed.Damage, 0.2f));
             AudioSource.PlayClipAtPoint(PunchHit, hit.point);
         }
-
-        // TODO:
-        // Apply force to the hit object if it has a Rigidbody
     }
 
     private IEnumerator DelayedUnarmedDamage(IDamageable target, float damage, float delay)

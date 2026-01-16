@@ -6557,7 +6557,7 @@ MonoBehaviour:
   stamina: {fileID: 8659560189394249738}
   health: {fileID: 5235377874016009929}
   input: {fileID: 3337265790887514486}
-  controller: {fileID: 0}
+  controller: {fileID: 8933689367220383931}
 --- !u!114 &5235377874016009929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6626,10 +6626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9377005fa1543d41b6a30b9a4389730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnarmedAttack
-  damage: 50
-  reach: 1.5
-  radius: 0.5
-  attackCooldown: 1
+  data: {fileID: 11400000, guid: 5671d560099c488488d019021f588176, type: 2}
   impactProcessor: {fileID: 4210617535973815479}
   isUnarmed: 1
   force: 5

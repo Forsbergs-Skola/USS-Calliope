@@ -75,7 +75,6 @@ public class PerformAttack : MonoBehaviour
 
     }
 
-    //// ATTACK TYPES
     private void GunAttack(Vector3 aimDirection)
     {
         PlayAttackSound(0.7f);
@@ -156,8 +155,7 @@ public class PerformAttack : MonoBehaviour
 
         if (showDebugTrajectory) Debug.DrawLine(origin, endPoint, debugColor, DebugLifetime);
     }
-    
-    // Refactor to another script
+   
     private void UpdateMovementTracking()
     {
         if (attackInput.MoveAction.action.ReadValue<Vector2>().sqrMagnitude > 0.01f)

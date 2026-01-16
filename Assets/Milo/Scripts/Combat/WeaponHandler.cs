@@ -1,4 +1,5 @@
 using Olle.Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -25,8 +26,6 @@ public class PlayerWeaponHandler : MonoBehaviour
     private PlayerAimController aimController;
     private WeaponCooldown weaponCooldown;
     private GameObject currentWeaponPrefab;
-
-    private Coroutine reloadCoroutine;
     private int equippedWeaponIndex = -1;
     
 
@@ -90,10 +89,9 @@ public class PlayerWeaponHandler : MonoBehaviour
             Destroy(currentWeaponPrefab);
         }
 
-        if (reloadCoroutine != null)
+        if (weaponReload != null)
         {
-            StopCoroutine(reloadCoroutine);
-            reloadCoroutine = null;
+            weaponReload.CancelReload();
         }
 
         animator.SetInteger("WeaponType", (int)0);
@@ -104,6 +102,9 @@ public class PlayerWeaponHandler : MonoBehaviour
         unarmedAttack.isUnarmed = true;
     }
 
+    // Add:
+    // Check if it is the first time equipping a weapon and add ammo 
+    // If not ammo should not be added automatically from the inventory 
     private void EquipNextWeapon()
     {
         var availableWeapons = GetAvailableWeapons();
@@ -203,7 +204,7 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private void TryHitScanAttack()
     {
-        if (weaponReload.ReloadCoroutine != null) return;
+        if (weaponReload.reloadCoroutine != null) return;
         if (!currentWeaponData || !firePoint) return;
         if (!weaponCooldown.CanFire() || !currentWeaponData.HasAmmo) return;
 

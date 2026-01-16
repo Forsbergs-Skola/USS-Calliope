@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class WeaponReload : MonoBehaviour
 {
-    private Coroutine reloadCoroutine;
-    public Coroutine ReloadCoroutine => reloadCoroutine;
+    public Coroutine reloadCoroutine { get; set; }
 
 
     public void TryReload
@@ -17,6 +16,8 @@ public class WeaponReload : MonoBehaviour
 
     private IEnumerator ReloadRoutine(AmmoModel ammo, SO_WeaponType data, InventoryData invData)
     {
+        if (data == null) yield break;
+
         if (ammo.CurrentAmmo >= ammo.MaxAmmo)
         {
             reloadCoroutine = null;
@@ -25,6 +26,8 @@ public class WeaponReload : MonoBehaviour
       
         string ammoID = data.AmmoType.AmmoID;
         yield return new WaitForSeconds(data.ReloadTime);
+
+        if (data == null) yield break;
 
         if (invData.GetConsumableIDsAndQuantities().TryGetValue(ammoID, out int ammoAvailable) && ammoAvailable > 0)
         {
@@ -36,5 +39,14 @@ public class WeaponReload : MonoBehaviour
         }
 
         reloadCoroutine = null;
+    }
+
+    public void CancelReload()
+    {
+        if (reloadCoroutine != null)
+        {
+            StopCoroutine(reloadCoroutine);
+            reloadCoroutine = null;
+        }
     }
 }
