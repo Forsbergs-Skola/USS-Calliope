@@ -81,12 +81,13 @@ namespace Olle.Scripts
             
             if (_isInvisible)
             {
-               _invisibleTimer += Time.deltaTime;
+              /* _invisibleTimer += Time.deltaTime;
                if (_invisibleTimer >= invisibleDuration)
                 {
                     SetInvisible(false);
                     return;
                 }
+                */
 
                 HandleStaminaDrain();
             }
@@ -138,7 +139,7 @@ namespace Olle.Scripts
         void SetInvisible(bool value)
         {
             _isInvisible = value;
-            _invisibleTimer = 0f;
+            //_invisibleTimer = 0f;
             _staminaTickTimer = 0f;
             
             UpdateTransparency();
