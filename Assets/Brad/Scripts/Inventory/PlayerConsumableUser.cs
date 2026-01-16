@@ -44,7 +44,7 @@ public class PlayerConsumableUser : MonoBehaviour
     }
     private void HandleHealthPackInput()
     {
-        //
+        pController.TryUseHealthPack();
     }
 
     private System.Collections.IEnumerator StartInputCooldown()

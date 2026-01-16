@@ -5,7 +5,6 @@ namespace Olle.Scripts
 {
     public class PlayerController : MonoBehaviour
     {
-
         private const float ADRENALINE_DURATION = 10f;
 
         [Header("Movement Settings")]
@@ -76,7 +75,6 @@ namespace Olle.Scripts
             Vector3 lastPos = data.LastPosition;
             if (lastPos != Vector3.zero)
             {
-
                 gameObject.transform.position = lastPos;
             }
         }
@@ -97,7 +95,6 @@ namespace Olle.Scripts
             if (ctx.performed)
             {
                 _isCrouching = !_isCrouching;
-                //ApplyCrouchState();
             }
         }
 
@@ -122,16 +119,6 @@ namespace Olle.Scripts
 
         void Update()
         {
-            /*
-            if (Keyboard.current.escapeKey.wasPressedThisFrame)
-            {
-                if (Bootstrapper.Instance != null)
-                {
-                    Bootstrapper.Instance.TogglePause();
-                }
-            }
-            */
-
             if (Time.timeScale == 0f) return;
 
             Vector3 move = new Vector3(_moveInput.x, 0f, _moveInput.y);
@@ -147,14 +134,20 @@ namespace Olle.Scripts
                               _wantsToRun && isMoving && !_isCrouching,
                               blockRegen,
                               out canSprint);
+
+                // Adrenaline: always allow sprint
+                if (_stamina.AdrenalineRushActive)
+                    canSprint = true;
             }
 
             if (_isCrouching) moveSpeed = crouchMoveSpeed;
             else if (!IsDashing)
             {
                 if (canSprint) moveSpeed = runMoveSpeed;
-                else if (_stamina != null && _stamina.isTired) moveSpeed = 2f;
-                else moveSpeed = _defaultMoveSpeed;
+                else if (_stamina != null && _stamina.isTired && !_stamina.AdrenalineRushActive)
+                    moveSpeed = 2f;
+                else
+                    moveSpeed = _defaultMoveSpeed;
             }
 
             HandleNoise(isMoving, canSprint);
@@ -206,12 +199,12 @@ namespace Olle.Scripts
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
             }
         }
+
         [Header("Collision")]
         public LayerMask wallMask = -1; // Walls layer
 
         void FixedUpdate()
         {
-
             if (Time.timeScale == 0f) return;
 
             if (_dashing)
@@ -230,6 +223,7 @@ namespace Olle.Scripts
 
             _rb.MoveRotation(transform.rotation);
         }
+
         private void HandleNoise(bool isMoving, bool canSprint)
         {
             if (isMoving && _noise != null)
@@ -254,23 +248,6 @@ namespace Olle.Scripts
             else _noiseTimer = 0f;
         }
 
-        /*
-       void ApplyCrouchState()
-       {
-           Vector3 scale = transform.localScale;
-           scale.y = _isCrouching ? _defaultScaleY * crouchScaleY : _defaultScaleY;
-           transform.localScale = scale;
-       }
-
-       public void TogglePause()
-       {
-           if (!UIController.Instance.GetIsCanvasUp(EnumCanvasUIName.PAUSE))
-               UIController.Instance.ShowCanvas(EnumCanvasUIName.PAUSE);
-           else
-               UIController.Instance.RemoveCanvas(EnumCanvasUIName.PAUSE);
-       }
-       */
-        
         public void StartDash(Vector2 dir, float speed)
         {
             _dashing = true;
@@ -287,57 +264,64 @@ namespace Olle.Scripts
             _rb.linearVelocity = new Vector3(0f, _rb.linearVelocity.y, 0f);
         }
 
-
         public void HandleConsumablePickup(string worldID, string catalogID, int qty)
         {
             pickupHandler.HandleConsumablePickup(inventorySO.Value, worldID, catalogID, qty);
+            
+            if (catalogID == "HealthPack")
+            {
+                var health = GetComponent<PlayerHealthJavi>();
+                health?.Heal(50f);
+            }
+        }
+        
+        public void TryUseHealthPack()
+        {
+            if (pickupHandler.TryUseConsumable(inventorySO.Value, IDConstants.HEALTH_PACK, 1))
+            {
+                var health = GetComponent<PlayerHealthJavi>();
+                if (health != null)
+                {
+                    health.Heal(50f);
+                    Debug.Log("Used Health Pack: +50 HP");
+                }
+                return;
+            }
+
+            Debug.Log("You got no health packs");
         }
 
         public void TryDepleteAdrenaline()
         {
             if (pickupHandler.TryUseConsumable(inventorySO.Value, IDConstants.ADRENALINE, 1))
             {
-                // pickuphandler depletes adrenaline
                 UseAdrenaline();
                 return;
             }
             Debug.Log("You got no adrenaline");
         }
+
         private void UseAdrenaline()
         {
-            
             Debug.Log("Player go fast!");
-
-            // TODO: player observable behavior
-            // whatever else happens...
-            _stamina.adrenalineRushActive = true;
-
+            _stamina.AdrenalineRushActive = true;
             StartCoroutine(AdrenalineCoroutine());
         }
 
         private System.Collections.IEnumerator AdrenalineCoroutine()
         {
-
             float oldSpeed = moveSpeed;
             float oldRunSpeed = runMoveSpeed;
 
-            // change stuff
             Debug.Log("ADRENALINE ON");
-            // moveSpeed = 10f;
-            // runMoveSpeed = 15f;
-            // and whatever else we want to adjust...
 
             yield return new WaitForSeconds(ADRENALINE_DURATION);
             
-            // change stuff back
             Debug.Log("ADRENALINE OFF");
-            _stamina.adrenalineRushActive = false;
+            _stamina.AdrenalineRushActive = false;
             moveSpeed = oldSpeed;
             runMoveSpeed = oldRunSpeed;
             _rb.linearVelocity = new Vector3(0f, _rb.linearVelocity.y, 0f);
-            // normalize everything else...
         }
-
-
     }
 }

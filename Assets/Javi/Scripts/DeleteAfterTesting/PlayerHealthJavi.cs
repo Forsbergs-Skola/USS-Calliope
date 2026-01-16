@@ -39,6 +39,17 @@ public class PlayerHealthJavi : MonoBehaviour, IDamageable, IDamageEvents
             Die();
         }
     }
+    public void Heal(float amount)
+    {
+        if (amount <= 0f) return;
+        
+        float before = currentHealth;
+        currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+        
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        
+        Debug.Log($"[PlayerHealth] Healed {amount} → {currentHealth}/{maxHealth}");
+    }
 
     private void Die()
     {
