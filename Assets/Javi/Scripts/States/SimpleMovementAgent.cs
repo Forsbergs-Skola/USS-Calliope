@@ -97,7 +97,7 @@ public class SimpleMovementAgent : MonoBehaviour, IMovementAgent
 
     public void MoveTo(Vector3 target)
     {
-        Debug.Log($"[MovementAgent] {name}: Moving to {target} at speed {CurrentSpeed}");
+        //Debug.Log($"[MovementAgent] {name}: Moving to {target} at speed {CurrentSpeed}");
         if (currentState == MovementState.Idle)
             return;
     

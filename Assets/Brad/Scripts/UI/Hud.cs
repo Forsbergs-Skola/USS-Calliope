@@ -20,6 +20,8 @@ public class Hud : MonoBehaviour, ICanvasUI
 
     [SerializeField] private IRuntimeDataPayloadEvent runtimeDataUpdatedEvent;
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private Slider staminaSlider;
+    [SerializeField] private RawImage adrenalineImage;
     [SerializeField] private GridLayoutGroup statusEffectsGrid;
     [SerializeField] private TMP_Text xpText;
     [SerializeField] private YouDead youDead;
@@ -39,6 +41,7 @@ public class Hud : MonoBehaviour, ICanvasUI
 
     private void OnEnable()
     {
+        adrenalineImage.gameObject.SetActive(false);
 
         Color devTextCol = devMode ? new Color(1f, 0f, 0f, 1f) : new Color(0f, 0f, 0f, 0f);
         currentHealthText.color = devTextCol;
@@ -81,12 +84,20 @@ public class Hud : MonoBehaviour, ICanvasUI
 
         float max = playerData.MaxHealth;
         float health = playerData.Health;
+        float stamina = playerData.Stamina;
+        float maxStamina = Constants.MAX_PLAYER_STAMINA;
+        bool onAdrenaline = playerData.OnAdrenaline;
 
 
         youDead.gameObject.SetActive(health <= 0f);
 
         healthSlider.maxValue = max;
         healthSlider.value = health;
+
+        staminaSlider.maxValue = maxStamina;
+        staminaSlider.value = stamina;
+
+        adrenalineImage.gameObject.SetActive(onAdrenaline);
 
         currentHealthText.text = $"CURRENT: {(int)health}";
         maxHealthText.text = $"MAX: {(int)max}";

@@ -10,7 +10,7 @@ public class PlayerData : IRuntimeData
     private float _health;
     private float _maxHealth;
     private int _xp;
-    private int _stamina;
+    private float _stamina;
     private EnumWeaponType _equippedWeapon;
     private List<EnumPlayerStatusEffect> _activeStatusEffects;
 
@@ -27,6 +27,7 @@ public class PlayerData : IRuntimeData
     private int _agility;
 
     private Vector3 _lastPosition = Vector3.zero;
+    private bool _onAdrenaline;
 
     // TODO: Update the SaveService conversion tools for these...
 
@@ -84,13 +85,13 @@ public class PlayerData : IRuntimeData
         }
     }
 
-    public int Stamina
+    public float Stamina
     {
         get => _stamina;
         set
         {
             if (_stamina == value) return;
-            _stamina = Mathf.Clamp(value, 0, Constants.MAX_PLAYER_STAMINA);
+            _stamina = Mathf.Max(0f, value);
             DataTools.HandleOnDataChanged(this);
         }
     }
@@ -210,6 +211,16 @@ public class PlayerData : IRuntimeData
         {
             if (value == _playerCurrentAmmo) return;
             _playerCurrentAmmo = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+    public bool OnAdrenaline
+    {
+        get => _onAdrenaline;
+        set
+        {
+            if (value == _onAdrenaline) return;
+            _onAdrenaline = value;
             DataTools.HandleOnDataChanged(this);
         }
     }
