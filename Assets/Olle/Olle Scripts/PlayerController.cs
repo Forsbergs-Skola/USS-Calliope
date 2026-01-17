@@ -7,6 +7,7 @@ namespace Olle.Scripts
     {
 
         private const float ADRENALINE_DURATION = 10f;
+        private const float HEALTH_PACK_RECOVER_AMOUNT = 10f;
 
         [Header("Movement Settings")]
         public float moveSpeed = 5f;
@@ -320,16 +321,35 @@ namespace Olle.Scripts
             }
             Debug.Log("You got no adrenaline");
         }
+
+        public void TryDepleteHealthPack()
+        {
+            if(pickupHandler.TryUseConsumable(inventorySO.Value, IDConstants.HEALTH_PACK, 1))
+            {
+                UseHealthPack();
+            }
+        }
+
         private void UseAdrenaline()
         {
             
-            Debug.Log("Player go fast!");
+            //Debug.Log("Player go fast!");
 
             // TODO: player observable behavior
             // whatever else happens...
             _stamina.adrenalineRushActive = true;
 
             StartCoroutine(AdrenalineCoroutine());
+        }
+        private void UseHealthPack()
+        {
+            //Debug.Log("USED A HEALTH PACK!!!!!");
+            if (TryGetComponent<PlayerHealthJavi>(out PlayerHealthJavi javiHealth))
+            {
+                javiHealth.RecoverDamage(HEALTH_PACK_RECOVER_AMOUNT);
+            }
+
+
         }
 
         private bool TryGetPlayerData(out PlayerData pdata)
