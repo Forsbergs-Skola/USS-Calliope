@@ -15,13 +15,17 @@ public struct StructStatusEffectIcon
 
 public class Hud : MonoBehaviour, ICanvasUI
 {
+    private Color onAdrenalineColor = Color.gold;
+    private Color notOnAdrenalineColor = Color.green;
 
     
 
     [SerializeField] private IRuntimeDataPayloadEvent runtimeDataUpdatedEvent;
     [SerializeField] private Slider healthSlider;
     [SerializeField] private Slider staminaSlider;
-    [SerializeField] private RawImage adrenalineImage;
+    //[SerializeField] private RawImage adrenalineImage;
+    [SerializeField] private Image staminaFillImage;
+
     [SerializeField] private GridLayoutGroup statusEffectsGrid;
     [SerializeField] private TMP_Text xpText;
     [SerializeField] private YouDead youDead;
@@ -30,6 +34,7 @@ public class Hud : MonoBehaviour, ICanvasUI
     [SerializeField] private TMP_Text maxHealthText;
 
     [SerializeField] private bool devMode = true;
+    [SerializeField] private RawImage crouchIndicator;
 
     [Header("Prefabs")]
     [SerializeField] private List<StructStatusEffectIcon> effectIcons;
@@ -41,7 +46,8 @@ public class Hud : MonoBehaviour, ICanvasUI
 
     private void OnEnable()
     {
-        adrenalineImage.gameObject.SetActive(false);
+        //adrenalineImage.gameObject.SetActive(false);
+        staminaFillImage.color = notOnAdrenalineColor;
 
         Color devTextCol = devMode ? new Color(1f, 0f, 0f, 1f) : new Color(0f, 0f, 0f, 0f);
         currentHealthText.color = devTextCol;
@@ -88,6 +94,8 @@ public class Hud : MonoBehaviour, ICanvasUI
         float maxStamina = Constants.MAX_PLAYER_STAMINA;
         bool onAdrenaline = playerData.OnAdrenaline;
 
+        bool isCrouching = playerData.GetActiveStatusEffects().Contains(EnumPlayerStatusEffect.IN_STEALTH);
+
 
         youDead.gameObject.SetActive(health <= 0f);
 
@@ -97,7 +105,15 @@ public class Hud : MonoBehaviour, ICanvasUI
         staminaSlider.maxValue = maxStamina;
         staminaSlider.value = stamina;
 
-        adrenalineImage.gameObject.SetActive(onAdrenaline);
+        //adrenalineImage.gameObject.SetActive(onAdrenaline);
+        Color staminaFillColor = onAdrenaline ? onAdrenalineColor : notOnAdrenalineColor;
+        staminaFillImage.color = staminaFillColor;
+
+        //string crouchDebug = isCrouching ? "CROUCH ON" : "CROUCH OFF";
+        //Debug.Log(crouchDebug);
+
+        bool showCrouchIndicator = isCrouching ? true : false;
+        crouchIndicator.gameObject.SetActive(showCrouchIndicator);
 
         currentHealthText.text = $"CURRENT: {(int)health}";
         maxHealthText.text = $"MAX: {(int)max}";
