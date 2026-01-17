@@ -6719,11 +6719,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Olle.Scripts.CrouchInvisibility
   crouchTimeToInvisible: 0.1
-  invisibleDuration: 30
+  invisibleDuration: 10
   invisibleAlpha: 0.25
   staminaTickAmount: 30
   staminaTickInterval: 2
   rendersToHide: []
+  invisIcon: {fileID: 0}
+  iconGroup: {fileID: 0}
 --- !u!114 &836093545134279187
 MonoBehaviour:
   m_ObjectHideFlags: 0
