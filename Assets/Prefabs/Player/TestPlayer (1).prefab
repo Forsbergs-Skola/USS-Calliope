@@ -6410,7 +6410,6 @@ MonoBehaviour:
   regenAmount: 20
   regenInterval: 0.5
   regenDelay: 2
-  currentStamina: 0
   isTired: 0
   adrenalineRushActive: 0
 --- !u!114 &5186270859394383149
@@ -6560,7 +6559,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1df9502a12115044d8e1563dcf6feae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthJavi
-  maxHealth: 100
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6574,7 +6572,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4951485592007247931}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e247ae22880ad114aa876423d6d87da7, type: 3}
   m_Name: 

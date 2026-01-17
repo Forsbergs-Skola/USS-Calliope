@@ -97,6 +97,23 @@ namespace Olle.Scripts
             if (ctx.performed)
             {
                 _isCrouching = !_isCrouching;
+
+                if (TryGetPlayerData(out PlayerData pData))
+                {
+                    if (_isCrouching)
+                    {
+                        //Debug.Log("FOO");
+
+                        pData.AddActiveStatusEffect(EnumPlayerStatusEffect.IN_STEALTH);
+                    }
+                    else
+                    {
+                        //Debug.Log("BAR");
+                        pData.RemoveActiveStatusEffect(EnumPlayerStatusEffect.IN_STEALTH);
+                    }
+                }
+
+
                 //ApplyCrouchState();
             }
         }
@@ -313,6 +330,17 @@ namespace Olle.Scripts
             _stamina.adrenalineRushActive = true;
 
             StartCoroutine(AdrenalineCoroutine());
+        }
+
+        private bool TryGetPlayerData(out PlayerData pdata)
+        {
+            if(TryGetComponent<PlayerDataHandler>(out PlayerDataHandler handler))
+            {
+                pdata = handler.RuntimeData.Value;
+                return true;
+            }
+            pdata = null;
+            return false;
         }
 
         private System.Collections.IEnumerator AdrenalineCoroutine()
