@@ -82,4 +82,31 @@ public static class PatrolPointRegistry
         pointsByZone?.Clear();
         isInitialized = false;
     }
+    
+    public static PatrolZone GetClosestZone(Vector3 position)
+    {
+        PatrolZone closestZone = null;
+        float closestDistanceSqr = float.MaxValue;
+
+        foreach (var kvp in pointsByZone)
+        {
+            PatrolZone zone = kvp.Key;
+            List<Transform> points = kvp.Value;
+
+            foreach (var point in points)
+            {
+                float distSqr = (point.position - position).sqrMagnitude;
+
+                if (distSqr < closestDistanceSqr)
+                {
+                    closestDistanceSqr = distSqr;
+                    closestZone = zone;
+                }
+            }
+        }
+        
+        Debug.Log("[PatrolPointRegistry] " + closestZone);
+
+        return closestZone;
+    }
 }

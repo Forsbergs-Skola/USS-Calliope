@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyAIStateController : MonoBehaviour
@@ -11,11 +12,12 @@ public class EnemyAIStateController : MonoBehaviour
     private enum State { Wandering, Watchful, Attacking }
     private State currentState = State.Wandering;
     
-    private float watchfulDuration = 90f;
+    [SerializeField] private float watchfulDuration = 60f;
+    [SerializeField] private float watchfulTimer = 8f;
     private PatrolZone lastSeenZone;
-    private float watchfulTimer = 15f;
     
     private Olle.Scripts.CrouchInvisibility playerInvisibility;
+    private Coroutine watchfulRoutine;
 
     private void Awake()
     {
@@ -61,7 +63,7 @@ public class EnemyAIStateController : MonoBehaviour
                     EnterAttacking();
                 /*else if (!IsInvoking(nameof(ReturnToPatrol)))
                     Invoke(nameof(ReturnToPatrol), 5f);*/ // looking for 5s
-                else
+                /*else
                 {
                     watchfulTimer -= Time.deltaTime;
 
@@ -69,13 +71,16 @@ public class EnemyAIStateController : MonoBehaviour
                     {
                         EnterWandering();
                     }
-                }
+                }*/
                 break;
         }
     }
 
     private void EnterWandering()
     {
+        if (watchfulRoutine != null)
+            StopCoroutine(watchfulRoutine);
+        
         chase.SetFollow(false);
         patrol.StartPatrol();
         currentState = State.Wandering;
@@ -84,8 +89,13 @@ public class EnemyAIStateController : MonoBehaviour
 
     private void EnterAttacking()
     {
+        if (watchfulRoutine != null)
+        {
+            StopCoroutine(watchfulRoutine);
+            watchfulRoutine = null;
+        }
+        
         //CancelInvoke(nameof(ReturnToPatrol));
-        lastSeenZone = patrol.GetCurrentZone();
         patrol.StopPatrol();
         chase.SetTarget(player);
         chase.SetFollow(true);
@@ -100,13 +110,44 @@ public class EnemyAIStateController : MonoBehaviour
         chase.SetFollow(false);
         chase.SetTarget(null);
         //watchfulTimer = watchfulDuration;
+        
+        lastSeenZone = PatrolPointRegistry.GetClosestZone(player.position);
+        Debug.Log("[EnemyAIStateController] EnterWatchful "  + lastSeenZone);
+        if (lastSeenZone == null)
+        {
+            Debug.LogWarning($"{name}: Could not determine last seen zone, falling back to main patrol");
+        }
+        
         currentState = State.Watchful;
         Debug.Log($"{name} entering Watchful state");
+        
+        if (watchfulRoutine != null)
+            StopCoroutine(watchfulRoutine);
+
+        watchfulRoutine = StartCoroutine(WatchfulRoutine());
         
         // changing to investigating
         var movement = GetComponent<SimpleMovementAgent>();
         if (movement != null)
             movement.SetMovementState(SimpleMovementAgent.MovementState.Investigating);
+    }
+    
+    private IEnumerator WatchfulRoutine()
+    {
+        // Quiet watch
+        yield return new WaitForSeconds(watchfulTimer);
+
+        // Investigate zone
+        if (lastSeenZone != null)
+        {
+            Debug.Log("[EnemyAIStateController] WatchfulRoutine "  + lastSeenZone);
+            patrol.PatrolSingleZone(lastSeenZone);
+            yield return new WaitForSeconds(watchfulDuration);
+        }
+
+        // Back to main patrol
+        patrol.PatrolMainZones();
+        currentState = State.Wandering;
     }
     
     /*private void ReturnToPatrol()
