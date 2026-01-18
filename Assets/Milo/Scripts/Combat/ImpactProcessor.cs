@@ -36,7 +36,14 @@ public class ImpactProcessor : MonoBehaviour
         }
 
         var stunTime = currentWeapon.StunEffectTime;
-
+        
+        //
+        EnemyStunController stunController = hit.collider.GetComponentInParent<EnemyStunController>();
+        if (stunController != null)
+        {
+            stunController.ApplyStun(stunTime);
+        }
+        //
     }
 
     public void ProcessMeleeHit(RaycastHit hit, Vector3 attackDirection, float force)
