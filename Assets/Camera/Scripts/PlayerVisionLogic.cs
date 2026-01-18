@@ -9,7 +9,7 @@ public class PlayerVisionLogic : MonoBehaviour
     public LayerMask obstacleLayer;
     public float eyeHeight = 1.5f;
     
-    private HashSet<Collider> trackedEnemies = new HashSet<Collider>(); //Lieke a list but doesn't allow duplicates and have fast lookup
+    private HashSet<Collider> trackedEnemies = new HashSet<Collider>(); //Like a list but doesn't allow duplicates and have fast lookup
     
     void Update()
     {

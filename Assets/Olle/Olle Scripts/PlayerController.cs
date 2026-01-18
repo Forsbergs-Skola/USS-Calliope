@@ -5,7 +5,8 @@ namespace Olle.Scripts
 {
     public class PlayerController : MonoBehaviour
     {
-
+        private Transform cameraTransform;
+        
         private const float ADRENALINE_DURATION = 10f;
         private const float HEALTH_PACK_RECOVER_AMOUNT = 10f;
 
@@ -72,6 +73,8 @@ namespace Olle.Scripts
 
         private void Start()
         {
+            cameraTransform = Camera.main != null ? Camera.main.transform : null; //Null exception handler for camera
+            
             PlayerDataHandler pHandler = GetComponent<PlayerDataHandler>();
             PlayerData data = pHandler.RuntimeData.Value;
             Vector3 lastPos = data.LastPosition;
@@ -153,6 +156,19 @@ namespace Olle.Scripts
             if (Time.timeScale == 0f) return;
 
             Vector3 move = new Vector3(_moveInput.x, 0f, _moveInput.y);
+            
+            if (cameraTransform != null)
+            {
+                Vector3 cameraForward = cameraTransform.forward;
+                Vector3 cameraRight = cameraTransform.right;
+                
+                cameraForward.y = 0f;
+                cameraRight.y = 0f;
+
+                move = cameraRight * _moveInput.x + cameraForward * _moveInput.y;
+            }
+            
+            
             _inputDir = Vector3.ClampMagnitude(move, 1f);
 
             bool isMoving = _inputDir.sqrMagnitude > 0.01f;
