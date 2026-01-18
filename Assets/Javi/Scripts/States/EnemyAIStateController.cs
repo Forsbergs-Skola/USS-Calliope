@@ -18,6 +18,12 @@ public class EnemyAIStateController : MonoBehaviour
     
     private Olle.Scripts.CrouchInvisibility playerInvisibility;
     private Coroutine watchfulRoutine;
+    private Coroutine watchfulFromCallRoutine;
+    
+    private EnemyCallSystem callSystem;
+    [SerializeField] private float callInterval = 20f;
+    private Coroutine callLoopRoutine;
+    private Vector3 lastCallPosition;
 
     private void Awake()
     {
@@ -30,6 +36,8 @@ public class EnemyAIStateController : MonoBehaviour
         playerInvisibility = player != null 
             ? player.GetComponent<Olle.Scripts.CrouchInvisibility>() 
             : null;
+        
+        callSystem = GetComponent<EnemyCallSystem>();
     }
 
     private void Start()
@@ -78,21 +86,33 @@ public class EnemyAIStateController : MonoBehaviour
 
     private void EnterWandering()
     {
+        StopCallLoop();
+        
         if (watchfulRoutine != null)
             StopCoroutine(watchfulRoutine);
+        if (watchfulFromCallRoutine != null)
+            StopCoroutine(watchfulFromCallRoutine);
         
         chase.SetFollow(false);
         patrol.StartPatrol();
         currentState = State.Wandering;
+        callSystem?.ResetCallState();
         Debug.Log($"{name} entering Wandering state");
     }
 
     private void EnterAttacking()
     {
+        StopCallLoop();
+        
         if (watchfulRoutine != null)
         {
             StopCoroutine(watchfulRoutine);
             watchfulRoutine = null;
+        }
+        if (watchfulFromCallRoutine != null)
+        {
+            StopCoroutine(watchfulFromCallRoutine);
+            watchfulFromCallRoutine = null;
         }
         
         //CancelInvoke(nameof(ReturnToPatrol));
@@ -101,10 +121,14 @@ public class EnemyAIStateController : MonoBehaviour
         chase.SetFollow(true);
         currentState = State.Attacking;
         Debug.Log($"{name} entering Attacking state");
+        
+        StartCallLoop();
     }
 
     private void EnterWatchful()
     {
+        StopCallLoop();
+        
         //Invoke(nameof(ReturnToPatrol), watchfulDuration);
         patrol.StopPatrol();
         chase.SetFollow(false);
@@ -123,6 +147,8 @@ public class EnemyAIStateController : MonoBehaviour
         
         if (watchfulRoutine != null)
             StopCoroutine(watchfulRoutine);
+        if (watchfulFromCallRoutine != null)
+            StopCoroutine(watchfulFromCallRoutine);
 
         watchfulRoutine = StartCoroutine(WatchfulRoutine());
         
@@ -130,6 +156,8 @@ public class EnemyAIStateController : MonoBehaviour
         var movement = GetComponent<SimpleMovementAgent>();
         if (movement != null)
             movement.SetMovementState(SimpleMovementAgent.MovementState.Investigating);
+        
+        StartCallLoop();
     }
     
     private IEnumerator WatchfulRoutine()
@@ -148,6 +176,102 @@ public class EnemyAIStateController : MonoBehaviour
         // Back to main patrol
         patrol.PatrolMainZones();
         currentState = State.Wandering;
+        EnterWandering();
+    }
+    
+    private IEnumerator WatchfulFromCallRoutine()
+    {
+        // Small pause to "process" the scream
+        //yield return new WaitForSeconds(1.5f);
+        //yield return new WaitForSeconds(watchfulDuration);
+        
+        if (lastSeenZone != null)
+        {
+            transform.LookAt(lastCallPosition);
+            yield return new WaitForSeconds(0.5f);
+            
+            // patrol.PatrolSingleZone(lastSeenZone);
+            if (patrol.CanPatrolZone(lastSeenZone))
+            {
+                patrol.PatrolSingleZone(lastSeenZone);
+                yield return new WaitForSeconds(watchfulDuration);
+            }
+            else
+            {
+                // Stay in site but watching
+                patrol.WatchInPlace(watchfulDuration);
+                yield return new WaitForSeconds(watchfulDuration);
+            }
+        }
+
+        patrol.PatrolMainZones();
+        currentState = State.Wandering;
+        EnterWandering();
+    }
+    
+    public void ForceWatchfulFromCall(PatrolZone zone, Vector3 callPosition)
+    {
+        if (zone == null) return;
+        StopCallLoop();
+        
+        lastSeenZone = zone;
+        lastCallPosition = callPosition;
+
+        patrol.StopPatrol();
+        chase.SetFollow(false);
+        chase.SetTarget(null);
+
+        currentState = State.Watchful;
+
+        if (watchfulRoutine != null)
+            StopCoroutine(watchfulRoutine);
+        if (watchfulFromCallRoutine != null)
+            StopCoroutine(watchfulFromCallRoutine);
+
+        watchfulFromCallRoutine = StartCoroutine(WatchfulFromCallRoutine());
+        
+        var movement = GetComponent<SimpleMovementAgent>();
+        if (movement != null)
+            movement.SetMovementState(SimpleMovementAgent.MovementState.Investigating);
+
+        StartCallLoop();
+    }
+    
+    private void StartCallLoop()
+    {
+        if (callSystem == null) return;
+
+        StopCallLoop();
+        callLoopRoutine = StartCoroutine(CallLoopRoutine());
+    }
+
+    private void StopCallLoop()
+    {
+        if (callLoopRoutine != null)
+        {
+            StopCoroutine(callLoopRoutine);
+            callLoopRoutine = null;
+        }
+    }
+
+    private IEnumerator CallLoopRoutine()
+    {
+        // Try to call just when entering in Attacking or Watchful modes
+        callSystem.TryCall(transform.position);
+
+        while (true)
+        {
+            yield return new WaitForSeconds(callInterval);
+
+            // Try to call each "callInterval" seconds
+            if (currentState != State.Attacking &&
+                currentState != State.Watchful)
+            {
+                yield break;
+            }
+
+            callSystem.TryCall(transform.position);
+        }
     }
     
     /*private void ReturnToPatrol()

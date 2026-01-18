@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: PhaseAdvanced
   m_EditorClassIdentifier: Assembly-CSharp::InfectionPhaseData
   phaseName: PhaseAdvanced
+  rank: 2
   minInfection: 100
   maxInfection: 100
+  viewDistance: 10
+  viewAngle: 60
   moveSpeedMultiplier: 1
   perceptionMultiplier: 1
   attackCooldown: 1.5

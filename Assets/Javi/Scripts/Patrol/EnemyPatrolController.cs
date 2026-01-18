@@ -23,6 +23,8 @@ public class EnemyPatrolController : MonoBehaviour
     private SimpleMovementAgent movement;
     private Coroutine patrolRoutine;
     private Coroutine lookAroundRoutine;
+    private Coroutine watchInPlaceRoutine;
+    private bool isWatchingInPlace = false;
 
     private PatrolZone currentZone;
     private Transform currentPoint;
@@ -90,6 +92,12 @@ public class EnemyPatrolController : MonoBehaviour
         {
             StopCoroutine(patrolRoutine);
             patrolRoutine = null;
+        }
+        
+        if (watchInPlaceRoutine != null)
+        {
+            StopCoroutine(watchInPlaceRoutine);
+            watchInPlaceRoutine = null;
         }
     }
 
@@ -190,7 +198,7 @@ public class EnemyPatrolController : MonoBehaviour
             
             while (elapsedTime < rotationTime)
             {
-                if (!isPatrolling) yield break;
+                if (!isPatrolling && !isWatchingInPlace) yield break;
                 
                 transform.rotation = Quaternion.Slerp(
                     transform.rotation,
@@ -260,5 +268,47 @@ public class EnemyPatrolController : MonoBehaviour
         movement.SetMovementState(SimpleMovementAgent.MovementState.Patrolling);
         
         StartPatrol();
+    }
+    
+    public bool CanPatrolZone(PatrolZone zone)
+    {
+        if (zone == null) return false;
+        return allowedZones.Contains(zone);
+    }
+    
+    public void WatchInPlace(float duration)
+    {
+        StopPatrol();
+
+        if (watchInPlaceRoutine != null)
+            StopCoroutine(watchInPlaceRoutine);
+        if (patrolRoutine != null)
+            StopCoroutine(patrolRoutine);
+        if (lookAroundRoutine != null)
+            StopCoroutine(lookAroundRoutine);
+        
+        isWatchingInPlace = true;
+        watchInPlaceRoutine = StartCoroutine(WatchInPlaceRoutine(duration));
+    }
+
+    private IEnumerator WatchInPlaceRoutine(float duration)
+    {
+        if (movement != null)
+            movement.SetMovementState(SimpleMovementAgent.MovementState.Idle);
+
+        Quaternion initialRotation = transform.rotation;
+
+        lookAroundRoutine = StartCoroutine(LookAroundRoutine(initialRotation));
+
+        yield return new WaitForSeconds(duration);
+
+        if (lookAroundRoutine != null)
+        {
+            StopCoroutine(lookAroundRoutine);
+            lookAroundRoutine = null;
+        }
+        
+        isWatchingInPlace = false;
+        transform.rotation = initialRotation;
     }
 }
