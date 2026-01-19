@@ -40,6 +40,7 @@ public class SaveData
     public string PROGRESSION_ObjectiveStatuses;
     public string PROGRESSION_EnemiesDefeated;
     public string PROGRESSION_SceneName;
+    public string PROGRESSION_ExhaustedBreakables;
 
     public bool PROGRESSION_DataDelivered;
     public bool PROGRESSION_CentralCorridorDiscovered;
