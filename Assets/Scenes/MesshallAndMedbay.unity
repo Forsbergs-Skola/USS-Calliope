@@ -1047,7 +1047,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d11d1876a95481445a2f2d3a152dce3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyProjectileSpawner
-  firePoint: {fileID: 1436407682}
 --- !u!1001 &36296406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4799,7 +4798,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d11d1876a95481445a2f2d3a152dce3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyProjectileSpawner
-  firePoint: {fileID: 1851532220}
 --- !u!1001 &738473959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6710,7 +6708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32eec4043f79db64a9d4bc61c354de2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PatrolPoint
-  patrolZone: {fileID: 0}
+  patrolZone: {fileID: 11400000, guid: 9ddaf94661c4bec49a909b2c79bfc568, type: 2}
 --- !u!1 &979953361
 GameObject:
   m_ObjectHideFlags: 0
@@ -8084,7 +8082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32eec4043f79db64a9d4bc61c354de2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PatrolPoint
-  patrolZone: {fileID: 0}
+  patrolZone: {fileID: 11400000, guid: 9ddaf94661c4bec49a909b2c79bfc568, type: 2}
 --- !u!1 &1228749358
 GameObject:
   m_ObjectHideFlags: 0
@@ -9363,7 +9361,7 @@ Transform:
   m_GameObject: {fileID: 1436407681}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.35, y: 0.34, z: 0}
+  m_LocalPosition: {x: 0.35, y: 0.34, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13235,7 +13233,7 @@ Transform:
   m_GameObject: {fileID: 1851532219}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.35, y: 0.34, z: 0}
+  m_LocalPosition: {x: 0.35, y: 0.34, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

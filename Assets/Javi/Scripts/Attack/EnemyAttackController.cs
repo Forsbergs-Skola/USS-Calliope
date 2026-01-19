@@ -8,6 +8,7 @@ public class EnemyAttackController : MonoBehaviour
     
     [SerializeField]  private List<EnemyAttackInstance> currentAttacks = new();
     private EnemyAttackContext context;
+    private EnemyAIStateController ai;
 
     private void Awake()
     {
@@ -15,13 +16,50 @@ public class EnemyAttackController : MonoBehaviour
         {
             enemy = transform.root,
             movement = GetComponent<EnemyFollowPlayer>(),
-            coroutineRunner = this
+            coroutineRunner = this,
+            firePoint = transform.root.Find("FirePoint"),
         };
+        
+        if (context.firePoint == null)
+        {
+            Debug.LogError($"[{name}] FirePoint not found!");
+        }
+        
+        ai = GetComponent<EnemyAIStateController>();
     }
     
     private void Start()
     {
         FindAndSetPlayer();
+    }
+    
+    private void Update()
+    {
+        if (context.player == null)
+            return;
+
+        if (currentAttacks == null || currentAttacks.Count == 0)
+            return;
+        
+        if(ai.CurrentState != EnemyAIStateController.State.Attacking)
+            return;
+
+        foreach (var attackInstance in currentAttacks)
+        {
+            if (attackInstance == null || attackInstance.attack == null)
+                continue;
+
+            if (attackInstance.IsOnCooldown())
+                continue;
+
+            if (attackInstance.attack.CanExecute(context))
+            {
+                Debug.Log($"{name} Executing attack: {attackInstance.attack.name}");
+                attackInstance.attack.Execute(context);
+                attackInstance.MarkUsed();
+                break; // Only one attack per frame
+            }
+        }
     }
     
     private void FindAndSetPlayer()
@@ -61,31 +99,4 @@ public class EnemyAttackController : MonoBehaviour
         }
         Debug.Log($"[EnemyAttackController] Attack instances created: {currentAttacks.Count}");
     }
-
-    private void Update()
-    {
-        if (context.player == null)
-            return;
-
-        if (currentAttacks == null || currentAttacks.Count == 0)
-            return;
-
-        foreach (var attackInstance in currentAttacks)
-        {
-            if (attackInstance == null || attackInstance.attack == null)
-                continue;
-
-            if (attackInstance.IsOnCooldown())
-                continue;
-
-            if (attackInstance.attack.CanExecute(context))
-            {
-                Debug.Log($"Executing attack: {attackInstance.attack.name}");
-                attackInstance.attack.Execute(context);
-                attackInstance.MarkUsed();
-                break; // Only one attack per frame
-            }
-        }
-    }
-
 }

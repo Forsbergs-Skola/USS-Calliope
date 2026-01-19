@@ -2,14 +2,16 @@ using UnityEngine;
 
 public class EnemyProjectileSpawner : MonoBehaviour
 {
-    [SerializeField] private Transform firePoint;
+    //[SerializeField] private Transform firePoint;
 
-    public void SpawnProjectile(GameObject prefab, Vector3 targetPosition, float speed, float damage, float spread)
+    public void SpawnProjectile(GameObject prefab, Transform firePoint, Vector3 targetPosition, float speed, float damage/*, float spread*/)
     {
         if (prefab == null || firePoint == null) return;
-
+        //Debug.Log($"{name} Spawn: yes");
+        //Debug.Log($"FirePoint pos: {firePoint.position}");
+        //Debug.Log($"Enemy pos: {transform.position}");
         Vector3 dir = (targetPosition - firePoint.position).normalized;
-        dir += Random.insideUnitSphere * spread;
+       //dir += Random.insideUnitSphere * spread;
 
         GameObject proj = Instantiate(
             prefab,

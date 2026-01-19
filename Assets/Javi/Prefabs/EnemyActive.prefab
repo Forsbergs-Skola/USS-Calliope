@@ -333,6 +333,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0.055007935, y: 0}
   m_SizeDelta: {x: -0.10999134, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &5917755976602633651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8025616348554218993}
+  m_Layer: 7
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8025616348554218993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5917755976602633651}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.35, y: 0.34, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3709878699956416442}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6566595255413055139
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,6 +391,10 @@ GameObject:
   - component: {fileID: 8450497102381977089}
   - component: {fileID: 162469301566641599}
   - component: {fileID: 5357395400108132343}
+  - component: {fileID: 8232016056550058843}
+  - component: {fileID: 2934151199893341687}
+  - component: {fileID: 8050772852888705374}
+  - component: {fileID: 6200545938181875430}
   m_Layer: 7
   m_Name: EnemyActive
   m_TagString: Untagged
@@ -382,6 +417,7 @@ Transform:
   m_Children:
   - {fileID: 3403321381946871916}
   - {fileID: 4926100477417901527}
+  - {fileID: 8025616348554218993}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4944885839837892942
@@ -637,6 +673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7943d63740636f84eb0b8cb3ee7da608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPatrolController
+  mainZones: []
   allowedZones:
   - {fileID: 11400000, guid: 29d1a4695fa60ff4e95588f9b2a6ff14, type: 2}
   waitTimeAtPoint: 10
@@ -675,6 +712,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 866bead6f08829a46a25d2f29bed2ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAIStateController
+  watchfulDuration: 60
+  watchfulTimer: 8
+  callInterval: 20
 --- !u!114 &5357395400108132343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,7 +731,66 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 24897
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 0
   drawGizmos: 1
+--- !u!114 &8232016056550058843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566595255413055139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e50f337a6278ab4f9b8eedd52707666, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCallSystem
+  firstCallChance: 1
+  repeatCallChance: 0
+  callCooldown: 20
+  preCallPause: 1
+  postCallPause: 2
+  callRadius: 22
+  callableRanks: 00000000
+--- !u!114 &2934151199893341687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566595255413055139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3303a33c9d18ec4c8c0fd2b3ec8a18e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCallReceiver
+--- !u!114 &8050772852888705374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566595255413055139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63f69ac555f9c04bb748e46e137c824, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStunController
+  defaultStunTime: 8
+--- !u!114 &6200545938181875430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566595255413055139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d11d1876a95481445a2f2d3a152dce3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyProjectileSpawner
 --- !u!1 &7681951782638355072
 GameObject:
   m_ObjectHideFlags: 0

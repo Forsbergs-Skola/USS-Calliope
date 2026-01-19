@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20d5bca9665a7d41947835d8c62d36c, type: 3}
   m_Name: RangedAttack
   m_EditorClassIdentifier: Assembly-CSharp::SO_RangedEnemyAttack
-  projectilePrefab: {fileID: 1844473362032847600, guid: 048e2c1916ec03941a3ed19591f94e72, type: 3}
-  projectileSpeed: 8
-  damage: 15
+  cooldown: 2
   minRange: 3
   maxRange: 12
-  cooldown: 2
-  spread: 3.08
+  projectilePrefab: {fileID: 1844473362032847600, guid: 048e2c1916ec03941a3ed19591f94e72, type: 3}
+  projectileSpeed: 20
+  damage: 15

@@ -9,8 +9,9 @@ public class EnemyAIStateController : MonoBehaviour
 
     private Transform player;
 
-    private enum State { Wandering, Watchful, Attacking }
+    public enum State { Wandering, Watchful, Attacking }
     private State currentState = State.Wandering;
+    public State CurrentState => currentState;
     
     [SerializeField] private float watchfulDuration = 60f;
     [SerializeField] private float watchfulTimer = 8f;
@@ -285,12 +286,12 @@ public class EnemyAIStateController : MonoBehaviour
         stunPosition = transform.position;
         stunZone = patrol != null ? patrol.GetCurrentZone() : PatrolPointRegistry.GetClosestZone(transform.position);
         
-        // Paramos persecución y patrulla
+        // stop patrol
         patrol.StopPatrol();
         chase.SetFollow(false);
         chase.SetTarget(null);
 
-        // Opcional: desactivar llamadas para que no griten mientras están aturdidos
+        // deactivate calls
         StopCallLoop();
 
         if (watchfulRoutine != null)

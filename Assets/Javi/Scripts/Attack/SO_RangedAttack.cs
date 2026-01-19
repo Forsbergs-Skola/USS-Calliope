@@ -11,7 +11,7 @@ public class SO_RangedEnemyAttack : EnemyAttackSOClass
     public GameObject projectilePrefab;
     public float projectileSpeed = 15f;
     public float damage = 10f;
-    public float spread = 0.1f;
+    //public float spread = 0.1f;
 
     public override bool CanExecute(EnemyAttackContext context)
     {
@@ -22,11 +22,11 @@ public class SO_RangedEnemyAttack : EnemyAttackSOClass
             context.player.position
         );
 
-        // Muy cerca → no usar (melee gana)
+        // Too close 
         if (distance < minRange)
             return false;
 
-        // Muy lejos → acercarse
+        // too far
         if (distance > maxRange)
         {
             context.movement?.SetTarget(context.player);
@@ -43,13 +43,14 @@ public class SO_RangedEnemyAttack : EnemyAttackSOClass
 
         var spawner = context.enemy.GetComponent<EnemyProjectileSpawner>();
         if (spawner == null) return;
-
+        
         spawner.SpawnProjectile(
             projectilePrefab,
+            context.firePoint,
             context.player.position,
             projectileSpeed,
-            damage,
-            spread
+            damage
+            //spread
         );
     }
 }
