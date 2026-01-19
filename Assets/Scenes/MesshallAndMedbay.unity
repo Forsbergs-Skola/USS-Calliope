@@ -952,16 +952,9 @@ PrefabInstance:
       propertyPath: 'allowedZones.Array.data[2]'
       value: 
       objectReference: {fileID: 11400000, guid: fd7616f4b49f42f40a6a78b9ce53014a, type: 2}
-    - target: {fileID: 9216893365008673908, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
-      propertyPath: targetCamera
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3709878699956416442, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1436407682}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6566595255413055139, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
       insertIndex: -1
@@ -969,12 +962,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6566595255413055139, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 24191596}
-    - targetCorrespondingSourceObject: {fileID: 6566595255413055139, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 24191617}
-    - targetCorrespondingSourceObject: {fileID: 6566595255413055139, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 24191618}
   m_SourcePrefab: {fileID: 100100000, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
 --- !u!4 &24191594 stripped
 Transform:
@@ -1017,37 +1004,6 @@ MonoBehaviour:
   postCallPause: 2
   callRadius: 22
   callableRanks: 00000000
---- !u!4 &24191616 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3709878699956416442, guid: abdceff272f1a7b4482b47a24f121e0a, type: 3}
-  m_PrefabInstance: {fileID: 24191593}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &24191617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 24191595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d63f69ac555f9c04bb748e46e137c824, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyStunController
-  defaultStunTime: 8
---- !u!114 &24191618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 24191595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d11d1876a95481445a2f2d3a152dce3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyProjectileSpawner
-  firePoint: {fileID: 1436407682}
 --- !u!1001 &36296406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2971,9 +2927,8 @@ GameObject:
   m_Component:
   - component: {fileID: 331373325}
   - component: {fileID: 331373324}
-  - component: {fileID: 331373326}
   m_Layer: 0
-  m_Name: TestingObject
+  m_Name: TestingDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3008,23 +2963,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &331373326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 331373323}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ab5f75af8620a44a178aa4bee482c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TaserTestStun
-  stunRadius: 10
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  stunDurationOverride: 0
 --- !u!1 &336243759
 GameObject:
   m_ObjectHideFlags: 0
@@ -4648,10 +4586,6 @@ PrefabInstance:
       propertyPath: playerMask.m_Bits
       value: 32768
       objectReference: {fileID: 0}
-    - target: {fileID: 2048822556510524280, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
-      propertyPath: targetCamera
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 2126473478715626084, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
       propertyPath: mainZones.Array.size
       value: 1
@@ -4710,10 +4644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 294805872955266305, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1851532220}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5585744665537500015, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
       insertIndex: -1
@@ -4721,12 +4652,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5585744665537500015, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 728035762}
-    - targetCorrespondingSourceObject: {fileID: 5585744665537500015, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 728035783}
-    - targetCorrespondingSourceObject: {fileID: 5585744665537500015, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 728035784}
   m_SourcePrefab: {fileID: 100100000, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
 --- !u!4 &728035760 stripped
 Transform:
@@ -4769,37 +4694,6 @@ MonoBehaviour:
   postCallPause: 2
   callRadius: 15
   callableRanks: 
---- !u!4 &728035782 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 294805872955266305, guid: 64fe1de1472f9a740a7f4d46107d260f, type: 3}
-  m_PrefabInstance: {fileID: 728035759}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &728035783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728035761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d63f69ac555f9c04bb748e46e137c824, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyStunController
-  defaultStunTime: 8
---- !u!114 &728035784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728035761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d11d1876a95481445a2f2d3a152dce3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyProjectileSpawner
-  firePoint: {fileID: 1851532220}
 --- !u!1001 &738473959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9338,37 +9232,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1 &1436407681
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1436407682}
-  m_Layer: 7
-  m_Name: FirePoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1436407682
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1436407681}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.35, y: 0.34, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 24191616}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1451793525
 GameObject:
   m_ObjectHideFlags: 0
@@ -13210,37 +13073,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1846535618}
   m_Mesh: {fileID: 4300002, guid: c9899e9cbdb1b4efeacf7018543d5067, type: 3}
---- !u!1 &1851532219
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1851532220}
-  m_Layer: 7
-  m_Name: FirePoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1851532220
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851532219}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.35, y: 0.34, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 728035782}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1862340856
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15741,9 +15573,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6475783448891758247, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2775064928562844087}
-    - targetCorrespondingSourceObject: {fileID: 6475783448891758247, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2775064928562844116}
   m_SourcePrefab: {fileID: 100100000, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
 --- !u!4 &2775064928562844085 stripped
 Transform:
@@ -15775,23 +15604,6 @@ MonoBehaviour:
   rendersToHide: []
   invisIcon: {fileID: 0}
   iconGroup: {fileID: 0}
---- !u!114 &2775064928562844116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2775064928562844086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ab5f75af8620a44a178aa4bee482c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TaserTestStun
-  stunRadius: 20
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  stunDurationOverride: 0
 --- !u!1001 &6564196485049729017
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15873,7 +15685,7 @@ SceneRoots:
   - {fileID: 1964509856}
   - {fileID: 47774728}
   - {fileID: 635431912}
+  - {fileID: 331373325}
   - {fileID: 1834810715}
   - {fileID: 24191593}
   - {fileID: 728035759}
-  - {fileID: 331373325}
