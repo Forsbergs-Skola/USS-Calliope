@@ -15,6 +15,7 @@ public class ProgressionData : IRuntimeData
     private string _sceneName;
 
     private List<string> _defeatedEnemiesList;
+    private List<string> _exhaustedBrakables;
     private Dictionary<string, EnumObjectiveStatus> _objectivesAndStatusesDict;
 
     private bool _dataDelivered = false;
@@ -121,6 +122,21 @@ public class ProgressionData : IRuntimeData
     public void ReplaceDefeatedEnemiesList(List<string> inList)
     {
         _defeatedEnemiesList = new List<string>(inList);
+    }
+
+    public List<string> GetExhaustedBreakablesList()
+    {
+        return new List<string>(_exhaustedBrakables);
+    }
+    public void AddExhaustedBreakable(string worldID)
+    {
+        if (_exhaustedBrakables.Contains(worldID)) return;
+        _exhaustedBrakables.Add(worldID);
+        DataTools.HandleOnDataChanged(this);
+    }
+    public void ReplaceExhaustedBreakablesList(List<string> inList)
+    {
+        _exhaustedBrakables = new List<string>(inList);
     }
 
 

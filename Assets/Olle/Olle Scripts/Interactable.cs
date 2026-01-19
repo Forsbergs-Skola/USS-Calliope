@@ -13,6 +13,11 @@ namespace Olle.Scripts
                 noise.EmitRun();
             }
 
+            if (TryGetComponent<BreakableProgressionDataHandler>(out BreakableProgressionDataHandler handler))
+            {
+                handler.UpdateBackend();
+            }
+
             Destroy(gameObject);
         }
     }
