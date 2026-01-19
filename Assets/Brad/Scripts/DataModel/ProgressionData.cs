@@ -149,6 +149,7 @@ public class ProgressionData : IRuntimeData
         SceneName = "Bootstrap";
         _defeatedEnemiesList = new List<string>();
         _objectivesAndStatusesDict = new Dictionary<string, EnumObjectiveStatus>();
+        _exhaustedBrakables = new List<string>();
 
         _dataDelivered = false;
         _centralCorridorDiscovered = false;
@@ -164,6 +165,7 @@ public class ProgressionData : IRuntimeData
         SceneName = "Bootstrap";
         _defeatedEnemiesList = new List<string>();
         _objectivesAndStatusesDict = new Dictionary<string, EnumObjectiveStatus>();
+        _exhaustedBrakables = new List<string>();
 
 
         _dataDelivered = false;
@@ -181,7 +183,7 @@ public class ProgressionData : IRuntimeData
         SceneName = inData.SceneName;
         _defeatedEnemiesList = new List<string>(inData.GetDefeatedEnemiesList());
         _objectivesAndStatusesDict = new Dictionary<string, EnumObjectiveStatus>(inData.ObjectivesAndStatusesDict);
-
+        _exhaustedBrakables = inData.GetExhaustedBreakablesList();
 
         _dataDelivered = inData.DataDelivered;
         _centralCorridorDiscovered = inData.CentralCorridorDiscovered;
