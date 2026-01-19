@@ -3,11 +3,13 @@ using UnityEngine;
 public class PlayerDataHandler : MonoBehaviour
 {
     [SerializeField] private PlayerRuntimeData runtimeData;
+    [SerializeField] private InventoryRuntimeData invRuntimeData;
     public PlayerRuntimeData RuntimeData { get => runtimeData; }
+    public InventoryRuntimeData InvRuntimeData { get => invRuntimeData; }
 
     private void Start()
     {
-        StartCoroutine(TestRoutine());
+        //StartCoroutine(TestRoutine());
     }
 
     private void TakeDamage(int damageAmount)
