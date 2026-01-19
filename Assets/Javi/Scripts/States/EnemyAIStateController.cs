@@ -24,10 +24,6 @@ public class EnemyAIStateController : MonoBehaviour
     [SerializeField] private float callInterval = 20f;
     private Coroutine callLoopRoutine;
     private Vector3 lastCallPosition;
-    
-    private bool isStunned;
-    private Vector3 stunPosition;
-    private PatrolZone stunZone;
 
     private void Awake()
     {
@@ -52,7 +48,6 @@ public class EnemyAIStateController : MonoBehaviour
     private void Update()
     {
         if (player == null) return;
-        if (isStunned) return; 
         
         playerInvisibility = player != null 
             ? player.GetComponent<Olle.Scripts.CrouchInvisibility>() 
@@ -276,48 +271,6 @@ public class EnemyAIStateController : MonoBehaviour
             }
 
             callSystem.TryCall(transform.position);
-        }
-    }
-    
-    public void OnStunnedStart()
-    {
-        isStunned = true;
-        stunPosition = transform.position;
-        stunZone = patrol != null ? patrol.GetCurrentZone() : PatrolPointRegistry.GetClosestZone(transform.position);
-        
-        // Paramos persecución y patrulla
-        patrol.StopPatrol();
-        chase.SetFollow(false);
-        chase.SetTarget(null);
-
-        // Opcional: desactivar llamadas para que no griten mientras están aturdidos
-        StopCallLoop();
-
-        if (watchfulRoutine != null)
-        {
-            StopCoroutine(watchfulRoutine);
-            watchfulRoutine = null;
-        }
-
-        if (watchfulFromCallRoutine != null)
-        {
-            StopCoroutine(watchfulFromCallRoutine);
-            watchfulFromCallRoutine = null;
-        }
-    }
-
-    public void OnStunnedEnd()
-    {
-        isStunned = false;
-        PatrolZone zoneToWatch = stunZone != null ? stunZone : PatrolPointRegistry.GetClosestZone(stunPosition);
-        
-        if (zoneToWatch != null)
-        {
-            ForceWatchfulFromCall(zoneToWatch, stunPosition);
-        }
-        else
-        {
-            EnterWandering(); // Patrolling normally if no zone is found
         }
     }
     
