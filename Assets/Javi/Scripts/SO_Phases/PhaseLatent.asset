@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PhaseLatent
   m_EditorClassIdentifier: Assembly-CSharp::InfectionPhaseData
   phaseName: PhaseLatent
+  rank: 0
   minInfection: 0
   maxInfection: 49
   viewDistance: 10
@@ -21,6 +22,6 @@ MonoBehaviour:
   perceptionMultiplier: 1
   attackCooldown: 1.5
   availableAttacks:
-  - {fileID: 11400000, guid: 0a884743d1500154a887096cb7bcd11a, type: 2}
+  - {fileID: 11400000, guid: 44a8268fbc406884c8b225bde55b669b, type: 2}
   idleClip: {fileID: 0}
   alertClip: {fileID: 0}
