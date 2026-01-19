@@ -8,7 +8,7 @@ public class Flashlight : MonoBehaviour
 
     [SerializeField] Transform player;
     [SerializeField] private Light lightSource;
-    
+
     private EventRelay eventRelay = EventRelay.Instance;
 
     void Start()

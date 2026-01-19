@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public enum DoorLockType
 {
@@ -17,15 +18,30 @@ public class SlidingDoor : MonoBehaviour
 
     [Header("Locking")]
     public DoorLockType lockType = DoorLockType.None;
+
     public bool isLocked = false;
-    public int keyId = 0;   // Which keycard opens this door
+
+    //public int keyId = 0;   // Which keycard opens this door
+    [SerializeField] private string keyID = string.Empty;
+    [SerializeField] private InventoryRuntimeData inventoryRuntime;
+
 
     private Vector3 _closedPos;
     private Vector3 _openPos;
-    private bool _isOpen;
+
+    //private bool _isOpen;
 
     void Start()
     {
+
+        if (string.IsNullOrEmpty(keyID))
+        {
+            Debug.LogWarning("You forgot to put the key id in!");
+        }
+
+        if(!isLocked) { SetOpen(true); }
+
+
         if (doorTransform == null)
             doorTransform = transform;
 
@@ -35,15 +51,15 @@ public class SlidingDoor : MonoBehaviour
 
     void Update()
     {
-        Vector3 target = _isOpen ? _openPos : _closedPos;
+        Vector3 target = !isLocked ? _openPos : _closedPos;
         doorTransform.position = Vector3.MoveTowards(
             doorTransform.position, target, openCloseSpeed * Time.deltaTime);
     }
 
     public void SetOpen(bool open)
     {
-        if (isLocked) return;
-        _isOpen = open;
+        if (!isLocked) return;
+        isLocked = false;
     }
 
     public void UnlockDoor()
@@ -54,9 +70,33 @@ public class SlidingDoor : MonoBehaviour
     public void LockDoor()
     {
         isLocked = true;
-        _isOpen = false;
     }
-    
+
+    public bool TryUnlock()
+    {
+
+        //return (inventoryRuntime.Value.GetQuestItemIDs().Contains(keyID));
+
+        
+        InventoryData invData = inventoryRuntime.Value;
+        List<string> questItemIDs = invData.GetQuestItemIDs();
+        if (questItemIDs.Contains(keyID))
+        {
+            Debug.Log("I AM NOW UNLOCKED!");
+            return true;
+        }
+
+
+
+
+        //DataController dataController = DataController.Instance;
+        //if(dataController == null)
+        Debug.Log("I AM STILL LOCKED :(");
+        return false;
+        
+    }
+
+    /*
     public bool TryUnlockWithKeycard(int cardKeyId)
     {
         if (!isLocked || lockType != DoorLockType.Keycard) return false;
@@ -72,7 +112,8 @@ public class SlidingDoor : MonoBehaviour
         }
         return false;
     }
-    
+    */
+
     public void UnlockAndBecomeFreeDoor()
     {
         UnlockDoor();
