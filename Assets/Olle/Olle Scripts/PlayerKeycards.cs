@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class PlayerKeycards : MonoBehaviour
 {
+    /*
     [System.Serializable]
     public class KeycardData
     {
@@ -31,6 +32,7 @@ public class PlayerKeycards : MonoBehaviour
 
     public bool TryUseKeycardForDoor(SlidingDoor door)
     {
+        
         if (door.lockType != DoorLockType.Keycard || !door.isLocked) return false;
 
         KeycardData data = keycards.Find(k => k.keyId == door.keyId);
@@ -38,6 +40,9 @@ public class PlayerKeycards : MonoBehaviour
         {
             return door.TryUnlockWithKeycard(door.keyId);
         }
+        
         return false;
+        
     }
+    */
 }
