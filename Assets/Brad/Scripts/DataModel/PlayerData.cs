@@ -7,7 +7,8 @@ public class PlayerData : IRuntimeData
 {
     public bool IsSandbox { get; private set; }
 
-    private int _health;
+    private float _health;
+    private float _maxHealth;
     private int _xp;
     private int _stamina;
     private EnumWeaponType _equippedWeapon;
@@ -62,13 +63,23 @@ public class PlayerData : IRuntimeData
     // ATOMIC FIELDS
 
 
-    public int Health
+    public float Health
     {
         get => _health;
         set
         {
             if (_health == value) return;
-            _health = Mathf.Clamp(value, 0, Constants.MAX_PLAYER_HEALTH);
+            _health = Mathf.Clamp(value, 0f, Constants.MAX_PLAYER_HEALTH);
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+    public float MaxHealth
+    {
+        get => _maxHealth;
+        set
+        {
+            if (_maxHealth == value) return;
+            _maxHealth = Mathf.Max(0f, value);
             DataTools.HandleOnDataChanged(this);
         }
     }
@@ -210,6 +221,7 @@ public class PlayerData : IRuntimeData
     {
         IsSandbox = false;
         Health = Constants.MAX_PLAYER_HEALTH;
+        MaxHealth = Constants.MAX_PLAYER_HEALTH;
         XP = 0;
         Stamina = Constants.MAX_PLAYER_STAMINA;
         EquippedWeapon = EnumWeaponType.NONE;
@@ -231,6 +243,7 @@ public class PlayerData : IRuntimeData
     {
         IsSandbox = isSandbox;
         Health = Constants.MAX_PLAYER_HEALTH;
+        MaxHealth = Constants.MAX_PLAYER_HEALTH;
         XP = 0;
         Stamina = Constants.MAX_PLAYER_STAMINA;
         EquippedWeapon = EnumWeaponType.NONE;
@@ -253,6 +266,7 @@ public class PlayerData : IRuntimeData
     {
         IsSandbox = false;
         Health = inData.Health;
+        MaxHealth = inData.MaxHealth;
         XP = inData.XP;
         Stamina = inData.Stamina;
         EquippedWeapon = inData.EquippedWeapon;

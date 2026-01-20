@@ -65,7 +65,7 @@ RectTransform:
   m_Father: {fileID: 4724373158548513366}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5959,9 +5959,6 @@ PrefabInstance:
       addedObject: {fileID: 5235377874016009929}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6580709613499185913}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 8372036221246018924}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
@@ -5983,7 +5980,13 @@ PrefabInstance:
       addedObject: {fileID: 4763404639357821555}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -4356318923780843069}
+      addedObject: {fileID: 1119280158139698749}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 836093545134279187}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5859877226595765434}
     - targetCorrespondingSourceObject: {fileID: -2851149267613598858, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6010156154803002617}
@@ -6125,7 +6128,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!82 &2085235312166035712
 AudioSource:
@@ -6354,8 +6357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7d9132c1d1475438b6ee7aba326770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Olle.Scripts.PlayerController
-  moveSpeed: 10
-  runMoveSpeed: 15
+  moveSpeed: 2.5
+  runMoveSpeed: 4.7
   crouchMoveSpeed: 2
   rotationSpeed: 10
   mouse: 0
@@ -6509,8 +6512,6 @@ MonoBehaviour:
   smoothSpeed: 3
   cameraOffsetDistance: 10
   crosshairImage: {fileID: 0}
-  maxNoiseOffset: 25.6
-  noiseSmoothSpeed: 9.02
   cineMachineCam: {fileID: 0}
 --- !u!114 &4611357923210010808
 MonoBehaviour:
@@ -6540,8 +6541,8 @@ MonoBehaviour:
   firePoint: {fileID: 3555908911261273807}
   weaponDatabase: {fileID: 11400000, guid: 3cc863e5416a2144291cdfd16f05fa3f, type: 2}
   unarmedAttack: {fileID: 6198528076392098426}
+  rightHand: {fileID: 2228809539555221487}
   animator: {fileID: 321275942813144679}
-  weaponReload: {fileID: -4356318923780843069}
 --- !u!114 &5311986332042757762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6557,7 +6558,7 @@ MonoBehaviour:
   stamina: {fileID: 8659560189394249738}
   health: {fileID: 5235377874016009929}
   input: {fileID: 3337265790887514486}
-  controller: {fileID: 8933689367220383931}
+  controller: {fileID: 0}
 --- !u!114 &5235377874016009929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6577,22 +6578,6 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6580709613499185913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6475783448891758247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e247ae22880ad114aa876423d6d87da7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthBarSlider
-  playerHealth: {fileID: 5235377874016009929}
-  playerHealthSlider: {fileID: 7876142849472875014}
-  playerRenderer: {fileID: 0}
-  targetCamera: {fileID: 0}
 --- !u!114 &8372036221246018924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6626,7 +6611,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9377005fa1543d41b6a30b9a4389730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnarmedAttack
-  data: {fileID: 11400000, guid: 5671d560099c488488d019021f588176, type: 2}
+  damage: 50
+  reach: 1.5
+  radius: 0.5
+  attackCooldown: 1
   impactProcessor: {fileID: 4210617535973815479}
   isUnarmed: 1
   force: 5
@@ -6657,7 +6645,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 808fff32cba46394094075de1e07f834, type: 3}
   - {fileID: 8300000, guid: d5c4422899359324ca334a9bde08bcb1, type: 3}
   - {fileID: 8300000, guid: 7984e10c00d8e9d4aaef5a7bb2df0a94, type: 3}
-  volume: 0.05
+  volume: 0.3
   pitchVariation: 0.4
 --- !u!114 &5517207398987385911
 MonoBehaviour:
@@ -6718,7 +6706,7 @@ MonoBehaviour:
   damageTextPrefab: {fileID: 2076834550311892472, guid: de321cc44df38414a8f06f37c47de266, type: 3}
   spawnPoint: {fileID: 5950743915408411677}
   verticalOffset: 2
---- !u!114 &-4356318923780843069
+--- !u!114 &1119280158139698749
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6727,9 +6715,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 6475783448891758247}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 703d96903635d2b4da757559f8e2a370, type: 3}
+  m_Script: {fileID: 11500000, guid: e2d885f905a512941a90d928a2c1a415, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponReload
+  m_EditorClassIdentifier: Assembly-CSharp::Olle.Scripts.CrouchInvisibility
+  crouchTimeToInvisible: 0.1
+  invisibleDuration: 30
+  invisibleAlpha: 0.25
+  staminaTickAmount: 30
+  staminaTickInterval: 2
+  rendersToHide: []
+--- !u!114 &836093545134279187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6475783448891758247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 317d07611fd4ea94598626014faae926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthBarOlle
+  playerHealthSlider: {fileID: 0}
+  targetCamera: {fileID: 0}
+--- !u!114 &5859877226595765434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6475783448891758247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88781f8259fd1964cbda1661e0f52b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStaminaBar
+  playerStaminaSlider: {fileID: 0}
+  normalColor: {r: 0.043137256, g: 0.92156863, b: 0.015686275, a: 1}
+  adrenalineColor: {r: 3.3962264, g: 2.6152546, b: 0.27233896, a: 1}
 --- !u!4 &7246013604886153025 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5651751901618623305, guid: 039b9d116bbe683469dc40576050134e, type: 3}

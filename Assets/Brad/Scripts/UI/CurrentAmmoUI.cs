@@ -4,6 +4,7 @@ using TMPro;
 public class CurrentAmmoUI : MonoBehaviour
 {
     [SerializeField] private PlayerRuntimeData playerRuntimeData;
+    [SerializeField] private InventoryRuntimeData inventoryRuntimeData;
     [SerializeField] private TMP_Text currentAmmoText;
 
 
@@ -34,8 +35,11 @@ public class CurrentAmmoUI : MonoBehaviour
 
     private void UpdateUI(int currentAmmo)
     {
+
+        Debug.Log(inventoryRuntimeData.Value.GetWeaponItemIDs().Count > 0);
+
+        //string ammoStr = inventoryRuntimeData.Value.GetWeaponItemIDs().Count > 0 ? currentAmmo.ToString() : string.Empty;
+        //currentAmmoText.text = ammoStr;
         currentAmmoText.text = currentAmmo.ToString();
     }
-
-
 }

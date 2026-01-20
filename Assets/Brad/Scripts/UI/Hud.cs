@@ -22,6 +22,12 @@ public class Hud : MonoBehaviour, ICanvasUI
     [SerializeField] private Slider healthSlider;
     [SerializeField] private GridLayoutGroup statusEffectsGrid;
     [SerializeField] private TMP_Text xpText;
+    [SerializeField] private YouDead youDead;
+
+    [SerializeField] private TMP_Text currentHealthText;
+    [SerializeField] private TMP_Text maxHealthText;
+
+    [SerializeField] private bool devMode = true;
 
     [Header("Prefabs")]
     [SerializeField] private List<StructStatusEffectIcon> effectIcons;
@@ -33,6 +39,12 @@ public class Hud : MonoBehaviour, ICanvasUI
 
     private void OnEnable()
     {
+
+        Color devTextCol = devMode ? new Color(1f, 0f, 0f, 1f) : new Color(0f, 0f, 0f, 0f);
+        currentHealthText.color = devTextCol;
+        maxHealthText.color = devTextCol;
+
+
         runtimeDataUpdatedEvent.OnEventTriggered += HandleRuntimeDataUpdatedEvent;
 
         if (DataController.Instance != null)
@@ -64,10 +76,22 @@ public class Hud : MonoBehaviour, ICanvasUI
 
     private void FixHudPlayerData(PlayerData playerData)
     {
-        int max = Constants.MAX_PLAYER_HEALTH;
-        int health = playerData.Health;
+
+       
+
+        float max = playerData.MaxHealth;
+        float health = playerData.Health;
+
+
+        youDead.gameObject.SetActive(health <= 0f);
+
         healthSlider.maxValue = max;
         healthSlider.value = health;
+
+        currentHealthText.text = $"CURRENT: {(int)health}";
+        maxHealthText.text = $"MAX: {(int)max}";
+
+
 
         int xp = playerData.XP;
         xpText.text = $"XP: {xp.ToString()}";
