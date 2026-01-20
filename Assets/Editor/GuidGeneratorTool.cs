@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 public class GuidGeneratorTool : EditorWindow
 {
-    private string guid = "";
+    private string guid;
+
+    private List<string> loggedIds = new();
     
     [MenuItem("Tools/GUID Generator")]
     public static void OpenWindow()
@@ -26,21 +29,29 @@ public class GuidGeneratorTool : EditorWindow
         
         GUILayout.Space(10);
 
-        if (!string.IsNullOrEmpty(guid))
+        if (string.IsNullOrEmpty(guid)) return;
+        if (GUILayout.Button("Copy GUID"))
         {
-            if (GUILayout.Button("Copy GUID"))
-            {
-                EditorGUIUtility.systemCopyBuffer = guid;
-            }
-
-            GUILayout.Space(30);
-
-            if (GUILayout.Button("To Console"))
-            {
-                Debug.Log(guid);
-            }
+            EditorGUIUtility.systemCopyBuffer = guid;
         }
+
+        GUILayout.Space(20);
+
         
+        if (DoesIdExist(guid)) return;
+        if (!GUILayout.Button("Log to console")) return;
+        Debug.Log(guid);
+        loggedIds.Add(guid);
         
+    }
+    
+    private bool DoesIdExist(string id)
+    {
+        return loggedIds.Contains(id);
+    }
+
+    private void OnDisable()
+    {
+        loggedIds.Clear();
     }
 }
