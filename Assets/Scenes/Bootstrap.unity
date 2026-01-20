@@ -844,6 +844,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3443378974484893375, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
+      propertyPath: canvasPrefabs.Array.data[5].canvasName
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443378974484893375, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
       propertyPath: canvasPrefabs.Array.data[0].canvasPrefab
       value: 
       objectReference: {fileID: 9113829976406634048, guid: 2c500bb962a6eb143b9c092b12f20d00, type: 3}
@@ -863,6 +867,10 @@ PrefabInstance:
       propertyPath: canvasPrefabs.Array.data[4].canvasPrefab
       value: 
       objectReference: {fileID: 6104168054730122124, guid: 592552f6166d9ea4a8d4a68320e973a0, type: 3}
+    - target: {fileID: 3443378974484893375, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
+      propertyPath: canvasPrefabs.Array.data[5].canvasPrefab
+      value: 
+      objectReference: {fileID: 7051032659478197696, guid: bbbd9db1827bef344be8ed59b22c6356, type: 3}
     - target: {fileID: 3556121491207204018, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
@@ -1035,7 +1043,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
       propertyPath: skipSplash
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
       propertyPath: newGamePressedEvent
