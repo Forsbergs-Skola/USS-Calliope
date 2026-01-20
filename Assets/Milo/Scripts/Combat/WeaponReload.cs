@@ -5,9 +5,7 @@ public class WeaponReload : MonoBehaviour
 {
     public Coroutine reloadCoroutine { get; set; }
 
-
-    public void TryReload
-        (SO_WeaponType data, AmmoModel ammo, InventoryData invData)
+    public void TryReload (SO_WeaponType data, AmmoModel ammo, InventoryData invData)
     {
         if (!data || !data.HasAmmo) return;
         if (reloadCoroutine != null) return;
@@ -17,14 +15,17 @@ public class WeaponReload : MonoBehaviour
     private IEnumerator ReloadRoutine(AmmoModel ammo, SO_WeaponType data, InventoryData invData)
     {
         if (data == null) yield break;
+        
+        var ammoID = data.AmmoType.AmmoID;
+        if (invData.GetConsumableIDsAndQuantities().TryGetValue(ammoID, out var count) && count <= 0)
+            yield break;
 
         if (ammo.CurrentAmmo >= ammo.MaxAmmo)
         {
             reloadCoroutine = null;
             yield break;
         }
-      
-        string ammoID = data.AmmoType.AmmoID;
+        
         yield return new WaitForSeconds(data.ReloadTime);
 
         if (data == null) yield break;
