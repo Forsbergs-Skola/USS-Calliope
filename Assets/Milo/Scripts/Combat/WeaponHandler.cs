@@ -102,9 +102,6 @@ public class PlayerWeaponHandler : MonoBehaviour
         unarmedAttack.isUnarmed = true;
     }
 
-    // Add:
-    // Check if it is the first time equipping a weapon and add ammo 
-    // If not ammo should not be added automatically from the inventory 
     private void EquipNextWeapon()
     {
         var availableWeapons = GetAvailableWeapons();
