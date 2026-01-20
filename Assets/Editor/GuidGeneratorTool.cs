@@ -5,8 +5,6 @@ public class GuidGeneratorTool : EditorWindow
 {
     private string guid = "";
     
-    
-    
     [MenuItem("Tools/GUID Generator")]
     public static void OpenWindow()
     {
@@ -15,7 +13,6 @@ public class GuidGeneratorTool : EditorWindow
 
     private void OnGUI()
     {
-        
         GUILayout.Space(20);
         
         if (GUILayout.Button("Generate GUID"))
@@ -35,6 +32,15 @@ public class GuidGeneratorTool : EditorWindow
             {
                 EditorGUIUtility.systemCopyBuffer = guid;
             }
+
+            GUILayout.Space(30);
+
+            if (GUILayout.Button("To Console"))
+            {
+                Debug.Log(guid);
+            }
         }
+        
+        
     }
 }
