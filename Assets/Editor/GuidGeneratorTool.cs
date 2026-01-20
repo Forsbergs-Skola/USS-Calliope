@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GuidGeneratorTool : EditorWindow
 {
-    private string guid;
+    private string guid = "";
 
     private List<string> loggedIds = new();
     
