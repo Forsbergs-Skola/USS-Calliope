@@ -13941,6 +13941,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 418395c06b3ddca47ada01e2e3d56649, type: 3}
+--- !u!114 &1899807941 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8189779728331644473, guid: 418395c06b3ddca47ada01e2e3d56649, type: 3}
+  m_PrefabInstance: {fileID: 1899807940}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
 --- !u!1 &1926897955
 GameObject:
   m_ObjectHideFlags: 0
@@ -16407,10 +16418,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 329100378713667837, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
+      propertyPath: weaponReload
+      value: 
+      objectReference: {fileID: 2775064928562844089}
     - target: {fileID: 1355873507275073162, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
       propertyPath: m_Constraints
       value: 112
       objectReference: {fileID: 0}
+    - target: {fileID: 1611856423198601936, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
+      propertyPath: cineMachineCam
+      value: 
+      objectReference: {fileID: 1899807941}
     - target: {fileID: 1611856423198601936, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
       propertyPath: crosshairImage
       value: 
@@ -16467,6 +16486,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6198528076392098426, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 5671d560099c488488d019021f588176, type: 2}
     - target: {fileID: 6475783448891758247, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
       propertyPath: m_Name
       value: TestPlayer (1)
@@ -16485,6 +16508,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6475783448891758247, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2775064928562844088}
+    - targetCorrespondingSourceObject: {fileID: 6475783448891758247, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2775064928562844089}
   m_SourcePrefab: {fileID: 100100000, guid: c0cbe9c1054eae745a476cabd9c258bf, type: 3}
 --- !u!4 &2775064928562844085 stripped
 Transform:
@@ -16529,6 +16555,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFlashlight
   lightPrefab: {fileID: 5701897920974607426, guid: 1e1396b602b9015478abb109ecd7b434, type: 3}
+--- !u!114 &2775064928562844089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2775064928562844086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703d96903635d2b4da757559f8e2a370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponReload
 --- !u!1001 &5418013671299839745
 PrefabInstance:
   m_ObjectHideFlags: 0

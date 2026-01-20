@@ -27,11 +27,9 @@ public class PlayerWeaponHandler : MonoBehaviour
     private WeaponCooldown weaponCooldown;
     private GameObject currentWeaponPrefab;
     private int equippedWeaponIndex = -1;
+
+    private const int UNARMED = 0;
     
-
-
-
-
     private InventoryData invData
     {
         get
@@ -94,7 +92,7 @@ public class PlayerWeaponHandler : MonoBehaviour
             weaponReload.CancelReload();
         }
 
-        animator.SetInteger("WeaponType", (int)0);
+        animator.SetInteger("WeaponType", (int)UNARMED);
 
         OnFireStopped();
 
@@ -102,9 +100,6 @@ public class PlayerWeaponHandler : MonoBehaviour
         unarmedAttack.isUnarmed = true;
     }
 
-    // Add:
-    // Check if it is the first time equipping a weapon and add ammo 
-    // If not ammo should not be added automatically from the inventory 
     private void EquipNextWeapon()
     {
         var availableWeapons = GetAvailableWeapons();
