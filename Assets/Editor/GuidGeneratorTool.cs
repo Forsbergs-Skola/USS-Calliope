@@ -38,14 +38,14 @@ public class GuidGeneratorTool : EditorWindow
         GUILayout.Space(20);
 
         
-        if (DoesIdExist(guid)) return;
+        if (HasBeenLogged(guid)) return;
         if (!GUILayout.Button("Log to console")) return;
         Debug.Log(guid);
         loggedIds.Add(guid);
         
     }
     
-    private bool DoesIdExist(string id)
+    private bool HasBeenLogged(string id)
     {
         return loggedIds.Contains(id);
     }
