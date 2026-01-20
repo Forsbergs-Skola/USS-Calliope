@@ -11,8 +11,6 @@ namespace Olle.Scripts
         private static readonly int MoveYHash = Animator.StringToHash("MoveY");
         private static readonly int SpeedHash = Animator.StringToHash("Speed");
         private static readonly int SprintHash = Animator.StringToHash("IsSprinting");
-        private static readonly int TurnLeftHash = Animator.StringToHash("TurnLeft90");
-        private static readonly int TurnRightHash = Animator.StringToHash("TurnRight90");
 
         private void Reset()
         {
@@ -42,16 +40,6 @@ namespace Olle.Scripts
             animator.SetFloat(MoveYHash, 0f);
             animator.SetFloat(SpeedHash, 0f);
             animator.SetBool(SprintHash, false);
-        }
-
-        public void PlayTurnAnimation(float angle)
-        {
-            if (animator == null) return;
-
-            if (angle > 45f)
-                animator.SetTrigger(TurnRightHash);
-            else if (angle < -45f)
-                animator.SetTrigger(TurnLeftHash);
         }
 
         public void Punch()

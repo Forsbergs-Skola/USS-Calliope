@@ -863,6 +863,14 @@ PrefabInstance:
       propertyPath: canvasPrefabs.Array.data[4].canvasPrefab
       value: 
       objectReference: {fileID: 6104168054730122124, guid: 592552f6166d9ea4a8d4a68320e973a0, type: 3}
+    - target: {fileID: 3556121491207204018, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 7912568588756276505, guid: fabba5513a6054c4d8cc5a78afee8c17, type: 2}
+    - target: {fileID: 4757961031322407356, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 7912568588756276505, guid: fabba5513a6054c4d8cc5a78afee8c17, type: 2}
     - target: {fileID: 4848263659970045447, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -903,6 +911,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5636523477464594801, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 7912568588756276505, guid: fabba5513a6054c4d8cc5a78afee8c17, type: 2}
+    - target: {fileID: 8701971640521054965, guid: 6f53330271cb10e469d7ff07984d1228, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 7912568588756276505, guid: fabba5513a6054c4d8cc5a78afee8c17, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

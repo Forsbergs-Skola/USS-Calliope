@@ -18,6 +18,7 @@ public class SO_WeaponType : ScriptableObject
         SpreadPerShot,
     }
 
+    // For animator
     public enum WeaponType
     {
         Unarmed = 0,
