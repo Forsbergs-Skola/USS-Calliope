@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class DoorTrigger : MonoBehaviour
 {
+    
     public SlidingDoor door;
 
     void OnTriggerEnter(Collider other)
     {
+        
+
         if (!other.CompareTag("Player") || door == null) return;
         
         if (door.lockType == DoorLockType.None)
@@ -13,7 +16,21 @@ public class DoorTrigger : MonoBehaviour
             door.SetOpen(true);
             return;
         }
-        
+
+
+        if (!door.isLocked)
+        {
+            door.SetOpen(true);
+            return;
+        }
+
+        if (door.TryUnlock())
+        {
+            door.SetOpen(true);
+            return;
+        }
+
+        /*
         if (door.lockType == DoorLockType.Keycard)
         {
             var keycards = other.GetComponent<PlayerKeycards>();
@@ -23,6 +40,7 @@ public class DoorTrigger : MonoBehaviour
             }
             return;
         }
+        */
         
     }
 
@@ -35,4 +53,5 @@ public class DoorTrigger : MonoBehaviour
             door.SetOpen(false);
         }
     }
+    
 }

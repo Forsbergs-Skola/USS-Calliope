@@ -3,7 +3,7 @@ using UnityEngine;
 public class Constants
 {
     public const float MAX_PLAYER_HEALTH = 100f;
-    public const int MAX_PLAYER_STAMINA = 100;
+    public const float MAX_PLAYER_STAMINA = 100f;
     public const int MAX_PLAYER_XP = 1000000;
 
     // new

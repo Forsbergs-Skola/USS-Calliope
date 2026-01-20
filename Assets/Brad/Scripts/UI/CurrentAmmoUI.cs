@@ -36,7 +36,7 @@ public class CurrentAmmoUI : MonoBehaviour
     private void UpdateUI(int currentAmmo)
     {
 
-        Debug.Log(inventoryRuntimeData.Value.GetWeaponItemIDs().Count > 0);
+        //Debug.Log(inventoryRuntimeData.Value.GetWeaponItemIDs().Count > 0);
 
         //string ammoStr = inventoryRuntimeData.Value.GetWeaponItemIDs().Count > 0 ? currentAmmo.ToString() : string.Empty;
         //currentAmmoText.text = ammoStr;

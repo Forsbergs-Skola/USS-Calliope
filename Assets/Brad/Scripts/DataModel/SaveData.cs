@@ -15,7 +15,7 @@ public class SaveData
     public float PLAYER_Health;
     public float PLAYER_MaxHealth;
     public int PLAYER_XP;
-    public int PLAYER_Stamina;
+    public float PLAYER_Stamina;
     public int PLAYER_CurrentAmmo;
 
     public string PLAYER_EquippedWeapon;
@@ -40,6 +40,7 @@ public class SaveData
     public string PROGRESSION_ObjectiveStatuses;
     public string PROGRESSION_EnemiesDefeated;
     public string PROGRESSION_SceneName;
+    public string PROGRESSION_ExhaustedBreakables;
 
     public bool PROGRESSION_DataDelivered;
     public bool PROGRESSION_CentralCorridorDiscovered;

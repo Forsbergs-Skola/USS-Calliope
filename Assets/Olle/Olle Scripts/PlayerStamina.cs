@@ -7,8 +7,22 @@ public class PlayerStamina : MonoBehaviour
     public float regenAmount = 5f;
     public float regenInterval = 0.5f;
     public float regenDelay = 2f;
-    
-    public float currentStamina;
+
+    private float _currentStamina;
+    public float currentStamina
+    {
+        get
+        {
+            return _currentStamina;
+        }
+        set
+        {
+            _currentStamina = value;
+            UpdateBackend(_currentStamina);
+        }
+    }
+
+
     public bool isTired;
     public bool adrenalineRushActive;
     float _lastUseTime;
@@ -48,9 +62,10 @@ public class PlayerStamina : MonoBehaviour
         
         if (currentStamina <= 0f)
             isTired = true;
-
+        /*
         if (!Mathf.Approximately(before, currentStamina))
             Debug.Log($"Stamina DRAIN: {currentStamina:0}/{maxStamina}", this);
+        */
     }
 
     void HandleRegen(float deltaTime)
@@ -103,6 +118,28 @@ public class PlayerStamina : MonoBehaviour
                 currentStamina = maxStamina;
                 isTired = false;
             }
+            UpdateBackend(currentStamina);
         } 
     }
+
+    private void UpdateBackend(float _stamina)
+    {
+        if (TryGetPlayerData(out PlayerData pData))
+        {
+            pData.Stamina = _stamina;
+            pData.OnAdrenaline = adrenalineRushActive;
+        }
+    }
+
+    private bool TryGetPlayerData(out PlayerData pData)
+    {
+        if (TryGetComponent<PlayerDataHandler>(out PlayerDataHandler pDataHandler))
+        {
+            pData = pDataHandler.RuntimeData.Value;
+            return true;
+        }
+        pData = null;
+        return false;
+    }
+
 }
