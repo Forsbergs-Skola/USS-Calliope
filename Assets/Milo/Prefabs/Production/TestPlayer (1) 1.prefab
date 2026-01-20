@@ -5987,6 +5987,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5859877226595765434}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -700778433441163916}
     - targetCorrespondingSourceObject: {fileID: -2851149267613598858, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6010156154803002617}
@@ -6421,7 +6424,6 @@ MonoBehaviour:
   regenAmount: 20
   regenInterval: 0.5
   regenDelay: 2
-  currentStamina: 0
   isTired: 0
   adrenalineRushActive: 0
 --- !u!114 &2339370594210145214
@@ -6437,6 +6439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDataHandler
   runtimeData: {fileID: 11400000, guid: 196da1b0659886048a858bc4a1387987, type: 2}
+  invRuntimeData: {fileID: 0}
 --- !u!114 &3337265790887514486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6512,6 +6515,8 @@ MonoBehaviour:
   smoothSpeed: 3
   cameraOffsetDistance: 10
   crosshairImage: {fileID: 0}
+  maxNoiseOffset: 5
+  noiseSmoothSpeed: 10
   cineMachineCam: {fileID: 0}
 --- !u!114 &4611357923210010808
 MonoBehaviour:
@@ -6541,8 +6546,8 @@ MonoBehaviour:
   firePoint: {fileID: 3555908911261273807}
   weaponDatabase: {fileID: 11400000, guid: 3cc863e5416a2144291cdfd16f05fa3f, type: 2}
   unarmedAttack: {fileID: 6198528076392098426}
-  rightHand: {fileID: 2228809539555221487}
   animator: {fileID: 321275942813144679}
+  weaponReload: {fileID: -700778433441163916}
 --- !u!114 &5311986332042757762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6571,7 +6576,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1df9502a12115044d8e1563dcf6feae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthJavi
-  maxHealth: 100
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6611,13 +6615,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9377005fa1543d41b6a30b9a4389730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnarmedAttack
-  damage: 50
-  reach: 1.5
-  radius: 0.5
-  attackCooldown: 1
+  data: {fileID: 11400000, guid: 5671d560099c488488d019021f588176, type: 2}
   impactProcessor: {fileID: 4210617535973815479}
   isUnarmed: 1
-  force: 5
 --- !u!114 &3753332862450785857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6724,6 +6724,8 @@ MonoBehaviour:
   staminaTickAmount: 30
   staminaTickInterval: 2
   rendersToHide: []
+  invisIcon: {fileID: 0}
+  iconGroup: {fileID: 0}
 --- !u!114 &836093545134279187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6753,6 +6755,18 @@ MonoBehaviour:
   playerStaminaSlider: {fileID: 0}
   normalColor: {r: 0.043137256, g: 0.92156863, b: 0.015686275, a: 1}
   adrenalineColor: {r: 3.3962264, g: 2.6152546, b: 0.27233896, a: 1}
+--- !u!114 &-700778433441163916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6475783448891758247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703d96903635d2b4da757559f8e2a370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponReload
 --- !u!4 &7246013604886153025 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5651751901618623305, guid: 039b9d116bbe683469dc40576050134e, type: 3}
