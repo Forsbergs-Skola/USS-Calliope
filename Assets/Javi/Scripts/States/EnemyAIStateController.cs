@@ -5,7 +5,8 @@ public class EnemyAIStateController : MonoBehaviour
 {
     private EnemyPatrolController patrol;
     private EnemyFollowPlayer chase;
-    private EnemyPerceptionSystem perception;
+    //private EnemyPerceptionSystem perception;
+    private IPerceptionSystem perception;
 
     private Transform player;
 
@@ -34,7 +35,7 @@ public class EnemyAIStateController : MonoBehaviour
     {
         patrol = GetComponent<EnemyPatrolController>();
         chase = GetComponent<EnemyFollowPlayer>();
-        perception = GetComponent<EnemyPerceptionSystem>();
+        perception = GetComponent<IPerceptionSystem>();
 
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         
@@ -54,6 +55,7 @@ public class EnemyAIStateController : MonoBehaviour
     {
         if (player == null) return;
         if (isStunned) return; 
+        if (perception == null) return;
         
         playerInvisibility = player != null 
             ? player.GetComponent<Olle.Scripts.CrouchInvisibility>() 
@@ -124,7 +126,7 @@ public class EnemyAIStateController : MonoBehaviour
         //CancelInvoke(nameof(ReturnToPatrol));
         patrol.StopPatrol();
         chase.SetTarget(player);
-        chase.SetFollow(true);
+        //chase.SetFollow(true);
         currentState = State.Attacking;
         Debug.Log($"{name} entering Attacking state");
         
@@ -347,7 +349,7 @@ public class EnemyAIStateController : MonoBehaviour
         currentState = State.Watchful;
 
         // stay in place
-        patrol.WatchInPlace(3f);
+        patrol.WatchInPlace(6f);
 
         // Idle
         /*var movement = GetComponent<SimpleMovementAgent>();
@@ -372,6 +374,15 @@ public class EnemyAIStateController : MonoBehaviour
             movement.SetMovementState(SimpleMovementAgent.MovementState.Investigating);
 
         Debug.Log($"{name} forced into Boss Watchful state");
+    }
+    
+    public void OnLostPlayer()
+    {
+        currentState = State.Watchful;
+
+        var patrol = GetComponent<EnemyPatrolController>();
+        if (patrol != null)
+            patrol.WatchInPlace(4f);
     }
     
     /*private void ReturnToPatrol()

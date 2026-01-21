@@ -23,10 +23,10 @@ public class SO_BossFuryLeapAttack : EnemyAttackSOClass
         if (fury == null || perception == null)
             return false;
 
-        if (!fury.ConsumeLeap())
-            return false;
+        /*if (!fury.ConsumeLeap())
+            return false;*/
 
-        if (!perception.CanSeePlayer())
+        if (!perception.CanSeeTarget(context.player.transform))
             return false;
 
         float dist = Vector3.Distance(

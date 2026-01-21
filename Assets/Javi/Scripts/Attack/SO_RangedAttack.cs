@@ -4,13 +4,13 @@ using UnityEngine;
 public class SO_RangedEnemyAttack : EnemyAttackSOClass
 {
     [Header("Ranges")]
-    public float minRange = 3f;
-    public float maxRange = 12f;
+    public float minRange = 2f;
+    public float maxRange = 20f;
 
     [Header("Projectile")]
     public GameObject projectilePrefab;
-    public float projectileSpeed = 15f;
-    public float damage = 10f;
+    public float projectileSpeed = 20f;
+    public float damage = 15f;
     //public float spread = 0.1f;
 
     public override bool CanExecute(EnemyAttackContext context)
@@ -29,8 +29,9 @@ public class SO_RangedEnemyAttack : EnemyAttackSOClass
         // too far
         if (distance > maxRange)
         {
-            context.movement?.SetTarget(context.player);
-            context.movement?.SetFollow(true);
+            Debug.Log($"{context.enemy.name} distance: {distance} > maxRange: {maxRange}");
+            /*context.movement?.SetTarget(context.player);
+            context.movement?.SetFollow(true);*/
             return false;
         }
 

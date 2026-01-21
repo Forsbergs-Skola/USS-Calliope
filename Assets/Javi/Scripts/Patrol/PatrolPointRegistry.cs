@@ -62,7 +62,7 @@ public static class PatrolPointRegistry
     {
         if (zone == null) 
         {
-            Debug.LogWarning("Attempted to get points for null zone");
+            Debug.LogWarning($"Attempted to get points for null zone");
             return null;
         }
         
@@ -108,5 +108,15 @@ public static class PatrolPointRegistry
         Debug.Log("[PatrolPointRegistry] " + closestZone);
 
         return closestZone;
+    }
+    
+    public static List<Transform> GetClosestPoints(Vector3 position, int count)
+    {
+        // kvp == keyValuePair
+        return pointsByZone
+            .SelectMany(kvp => kvp.Value)
+            .OrderBy(p => Vector3.Distance(p.position, position))
+            .Take(count)
+            .ToList();
     }
 }

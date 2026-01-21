@@ -309,6 +309,8 @@ public class EnemyPatrolController : MonoBehaviour
         }
         
         isWatchingInPlace = false;
-        transform.rotation = initialRotation;
+        //transform.rotation = initialRotation;
+        
+        PatrolMainZones();
     }
 }
