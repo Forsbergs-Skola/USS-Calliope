@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: PhaseActive
   m_EditorClassIdentifier: Assembly-CSharp::InfectionPhaseData
   phaseName: PhaseActive
+  rank: 1
   minInfection: 50
-  maxInfection: 99
+  maxInfection: 98
   viewDistance: 15
   viewAngle: 120
   moveSpeedMultiplier: 1
   perceptionMultiplier: 1
   attackCooldown: 1.5
   availableAttacks:
-  - {fileID: 11400000, guid: ce564d776dd5e0e479461fd34db4a34c, type: 2}
+  - {fileID: 11400000, guid: 44a8268fbc406884c8b225bde55b669b, type: 2}
   idleClip: {fileID: 0}
   alertClip: {fileID: 0}

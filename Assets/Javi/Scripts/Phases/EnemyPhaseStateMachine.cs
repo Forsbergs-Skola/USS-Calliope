@@ -5,6 +5,8 @@ public class EnemyPhaseStateMachine : MonoBehaviour
 {
     [Header("Phase Data")]
     [SerializeField] private List<SO_InfectionPhaseData> phases;
+    
+    public EnemyRank CurrentRank { get; private set; }
 
     private IPhaseBehavior currentPhase;
     private InfectionController infection;
@@ -59,6 +61,7 @@ public class EnemyPhaseStateMachine : MonoBehaviour
             return;
         }
 
+        CurrentRank = data.rank;
         currentPhase.OnEnterPhase(data);
     }
 

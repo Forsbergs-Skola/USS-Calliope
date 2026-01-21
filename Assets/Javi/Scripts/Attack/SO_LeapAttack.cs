@@ -20,10 +20,13 @@ public class SO_LeapAttack : EnemyAttackSOClass
 
     [Header("Combat")]
     public float damage = 20f;
+    
+    [Header("Impact")]
+    public float pushForce = 45f;
 
-    [Header("Probability")]
+    /*[Header("Probability")]
     [Range(0f, 1f)]
-    public float maxProbability = 0.6f;
+    public float maxProbability = 0.6f;*/
 
     public override bool CanExecute(EnemyAttackContext context)
     {
@@ -41,8 +44,8 @@ public class SO_LeapAttack : EnemyAttackSOClass
             return false;
 
         // Infection-based probability
-        float infection01 = context.infectionPercentage / 100f;
-        float chance = Mathf.Lerp(0f, maxProbability, infection01);
+        /*float infection01 = context.infectionPercentage / 100f;
+        float chance = Mathf.Lerp(0f, maxProbability, infection01);*/
         
         return true;
         //return Random.value <= chance;
@@ -50,18 +53,59 @@ public class SO_LeapAttack : EnemyAttackSOClass
 
     public override void Execute(EnemyAttackContext context)
     {
-        context.coroutineRunner.StartCoroutine(
+        /*context.coroutineRunner.StartCoroutine(
             LeapRoutine(context)
+        );*/
+        
+        var leapRuntime = context.enemy.GetComponent<EnemyLeapRuntime>();
+        if (leapRuntime == null)
+        {
+            Debug.LogError("EnemyLeapRuntime not found");
+            return;
+        }
+
+        Vector3 dir = (context.player.position - context.enemy.position).normalized;
+
+        leapRuntime.StartLeap(dir, damage, pushForce);
+
+        context.coroutineRunner.StartCoroutine(
+            LeapMovement(context, dir, leapRuntime)
         );
     }
+    
+    private IEnumerator LeapMovement(EnemyAttackContext context, Vector3 direction, EnemyLeapRuntime runtime)
+    {
+        var rb = context.enemy.GetComponent<Rigidbody>();
 
-    private IEnumerator LeapRoutine(EnemyAttackContext context)
+        float timer = 0f;
+
+        while (timer < crouchRunDuration && runtime.IsLeapActive)
+        {
+            rb.linearVelocity = direction * crouchRunSpeed;
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        rb.linearVelocity = Vector3.zero;
+
+        // end
+        if (runtime.IsLeapActive)
+        {
+            runtime.EndLeap();
+        }
+    }
+
+
+    /*private IEnumerator LeapRoutine(EnemyAttackContext context)
     {
         var enemy = context.enemy;
         var player = context.player;
         var movement = context.movement;
+        var ai = enemy.GetComponent<EnemyAIStateController>();
+        var rb = enemy.GetComponent<Rigidbody>();
 
         Debug.Log("[Leap] Started");
+        Vector3 dir = (context.player.position - enemy.position).normalized;
 
         //float originalSpeed = movement.MoveSpeed;
 
@@ -69,11 +113,11 @@ public class SO_LeapAttack : EnemyAttackSOClass
         //movement.MoveSpeed = crouchRunSpeed;
 
         float timer = 0f;
+        bool hitSomething = false;
+        
         while (timer < crouchRunDuration)
         {
-            // If we are close -> hit
-            if (Vector3.Distance(enemy.position, player.position) <= headbuttDistance)
-                break;
+            rb.linearVelocity = dir * crouchRunSpeed;
 
             timer += Time.deltaTime;
             yield return null;
@@ -98,5 +142,5 @@ public class SO_LeapAttack : EnemyAttackSOClass
 
         // Restore movement
         //movement.MoveSpeed = originalSpeed;
-    }
+    }*/
 }

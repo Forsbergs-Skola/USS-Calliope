@@ -36,6 +36,14 @@ public class ImpactProcessor : MonoBehaviour
         }
 
         var stunTime = currentWeapon.StunEffectTime;
+        
+        //
+        EnemyStunController stunController = hit.collider.GetComponentInParent<EnemyStunController>();
+        if (stunController != null)
+        {
+            stunController.ApplyStun(stunTime);
+        }
+        //
 
     }
 
