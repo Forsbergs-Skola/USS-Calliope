@@ -29,6 +29,9 @@ public class SlidingDoor : MonoBehaviour
     [SerializeField] private string keyID = string.Empty;
     [SerializeField] private InventoryRuntimeData inventoryRuntime;
 
+    [SerializeField] private string openedWithTerminalWorldID;
+    [SerializeField] private ProgressionRuntimeData progressionRuntimeData;
+
 
     private Vector3 _closedPos;
     private Vector3 _openPos;
@@ -37,6 +40,18 @@ public class SlidingDoor : MonoBehaviour
 
     void Start()
     {
+
+        if (lockType == DoorLockType.Terminal)
+        {
+            bool alreadyGot = progressionRuntimeData.Value.GetUnlockedTerminalWorldIDs().Contains(openedWithTerminalWorldID);
+            if (alreadyGot)
+            {
+                UnlockAndBecomeFreeDoor();
+            }
+
+            return;
+        }
+
 
         if (string.IsNullOrEmpty(keyID))
         {
