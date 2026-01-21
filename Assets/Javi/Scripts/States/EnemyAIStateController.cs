@@ -322,6 +322,41 @@ public class EnemyAIStateController : MonoBehaviour
         }
     }
     
+    public void OnStunnedEndAfterLeapAttack()
+    {
+        isStunned = false;
+
+        StopCallLoop();
+
+        // cut logic from before
+        if (watchfulRoutine != null)
+        {
+            StopCoroutine(watchfulRoutine);
+            watchfulRoutine = null;
+        }
+
+        if (watchfulFromCallRoutine != null)
+        {
+            StopCoroutine(watchfulFromCallRoutine);
+            watchfulFromCallRoutine = null;
+        }
+
+        chase.SetFollow(false);
+        chase.SetTarget(null);
+
+        currentState = State.Watchful;
+
+        // stay in place
+        patrol.WatchInPlace(3f);
+
+        // Idle
+        /*var movement = GetComponent<SimpleMovementAgent>();
+        if (movement != null)
+            movement.SetMovementState(SimpleMovementAgent.MovementState.Idle);*/
+
+        Debug.Log($"{name} finished Leap stun → Watchful (in place)");
+    }
+    
     /*private void ReturnToPatrol()
     {
         EnterWandering();

@@ -395,6 +395,8 @@ GameObject:
   - component: {fileID: 2934151199893341687}
   - component: {fileID: 8050772852888705374}
   - component: {fileID: 6200545938181875430}
+  - component: {fileID: 4480547952399078729}
+  - component: {fileID: 5954784745269296956}
   m_Layer: 7
   m_Name: EnemyActive
   m_TagString: Untagged
@@ -610,6 +612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackController
   playerTag: Player
   currentAttacks: []
+  attackRecheckInterval: 0.5
 --- !u!114 &4486414231570038934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -791,6 +794,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d11d1876a95481445a2f2d3a152dce3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyProjectileSpawner
+--- !u!114 &4480547952399078729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566595255413055139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66fbc2b826940d84489ee45f69a3975f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyLeapRuntime
+  stunDuration: 4
+--- !u!54 &5954784745269296956
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566595255413055139}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &7681951782638355072
 GameObject:
   m_ObjectHideFlags: 0
