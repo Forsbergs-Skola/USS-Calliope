@@ -384,7 +384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3287151592575540496}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071067}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -16.301905, y: 0.12, z: -22.252388}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -401,7 +401,7 @@ Transform:
   - {fileID: 976618698147932092}
   - {fileID: 987787198356810496}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &4068246794295136300
 GameObject:
   m_ObjectHideFlags: 0
@@ -1120,9 +1120,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 166374, guid: 34300443486f64d6da09f6f748778306, type: 3}
       insertIndex: -1
       addedObject: {fileID: 785660549791235796}
-    - targetCorrespondingSourceObject: {fileID: 166372, guid: 34300443486f64d6da09f6f748778306, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 166374, guid: 34300443486f64d6da09f6f748778306, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2021742245137333825}
+      addedObject: {fileID: 1811479285237895476}
     - targetCorrespondingSourceObject: {fileID: 132572, guid: 34300443486f64d6da09f6f748778306, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4266893319542668890}
@@ -1164,29 +1164,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1 &4234214273802452056 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 166372, guid: 34300443486f64d6da09f6f748778306, type: 3}
-  m_PrefabInstance: {fileID: 4234214273802352060}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2021742245137333825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4234214273802452056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 828549d04a3979842b4026f3837e2101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
-  doorTransform: {fileID: 4234214273802807416}
-  openOffset: {x: 0, y: -5, z: 0}
-  openCloseSpeed: 6
-  lockType: 0
-  isLocked: 0
-  keyId: 0
 --- !u!1 &4234214273802452058 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 166374, guid: 34300443486f64d6da09f6f748778306, type: 3}
@@ -1204,7 +1181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa737ca603e412458969afa681a777c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorTrigger
-  door: {fileID: 2021742245137333825}
+  door: {fileID: 1811479285237895476}
 --- !u!65 &785660549791235796
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1226,6 +1203,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 7.065403, y: 3.8819697, z: 8.459083}
   m_Center: {x: -1.9105974, y: 1.4409848, z: 3.7295969}
+--- !u!114 &1811479285237895476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4234214273802452058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828549d04a3979842b4026f3837e2101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
+  doorTransform: {fileID: 4234214273802807416}
+  openOffset: {x: 0, y: -5, z: 0}
+  openCloseSpeed: 3
+  hideThresholdY: -1
+  lockType: 0
+  isLocked: 0
+  keyId: 0
 --- !u!1 &4234214273802481760 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 132572, guid: 34300443486f64d6da09f6f748778306, type: 3}

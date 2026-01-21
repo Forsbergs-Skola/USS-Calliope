@@ -12,7 +12,6 @@ public class PlayerHealthJavi : MonoBehaviour, IDamageable, IDamageEvents
     public UnityEvent<float, float> OnHealthChanged = new UnityEvent<float, float>();
     public UnityEvent OnDeath = new UnityEvent();
     public event Action<float> OnDamaged;
-    public event Action<float> OnHealed;
 
     private void Awake()
     {
@@ -59,6 +58,8 @@ public class PlayerHealthJavi : MonoBehaviour, IDamageable, IDamageEvents
 
     public void RecoverDamage(float recoverAmount)
     {
+
+        // blah blah
         if (recoverAmount <= 0) return;
         if (recoverAmount + currentHealth > maxHealth)
         {

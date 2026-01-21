@@ -13,8 +13,12 @@ public class SlidingDoor : MonoBehaviour
 {
     [Header("Door Movement")]
     public Transform doorTransform;
-    public Vector3 openOffset = new Vector3(2f, 0f, 0f);
+    public Vector3 openOffset = new Vector3(0f, -5f, 0f);
     public float openCloseSpeed = 3f;
+
+    [Header("Door Visual")] 
+    public float hideThresholdY = -1F;
+    
 
     [Header("Locking")]
     public DoorLockType lockType = DoorLockType.None;
@@ -25,6 +29,9 @@ public class SlidingDoor : MonoBehaviour
     [SerializeField] private string keyID = string.Empty;
     [SerializeField] private InventoryRuntimeData inventoryRuntime;
 
+    [SerializeField] private string openedWithTerminalWorldID;
+    [SerializeField] private ProgressionRuntimeData progressionRuntimeData;
+
 
     private Vector3 _closedPos;
     private Vector3 _openPos;
@@ -33,6 +40,18 @@ public class SlidingDoor : MonoBehaviour
 
     void Start()
     {
+
+        if (lockType == DoorLockType.Terminal)
+        {
+            bool alreadyGot = progressionRuntimeData.Value.GetUnlockedTerminalWorldIDs().Contains(openedWithTerminalWorldID);
+            if (alreadyGot)
+            {
+                UnlockAndBecomeFreeDoor();
+            }
+
+            return;
+        }
+
 
         if (string.IsNullOrEmpty(keyID))
         {
@@ -54,7 +73,20 @@ public class SlidingDoor : MonoBehaviour
         Vector3 target = !isLocked ? _openPos : _closedPos;
         doorTransform.position = Vector3.MoveTowards(
             doorTransform.position, target, openCloseSpeed * Time.deltaTime);
+
+        //For hiding door
+        if (!isLocked && doorTransform.position.y < hideThresholdY)
+        {
+            if (doorTransform.gameObject.activeSelf)
+                doorTransform.gameObject.SetActive(false);
+        }
+        else if (isLocked && doorTransform.position.y > hideThresholdY)
+        {
+            if (!doorTransform.gameObject.activeSelf)
+                doorTransform.gameObject.SetActive(true);
+        }
     }
+    
 
     public void SetOpen(bool open)
     {

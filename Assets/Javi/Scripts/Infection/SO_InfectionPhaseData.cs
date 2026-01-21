@@ -6,6 +6,10 @@ public class SO_InfectionPhaseData : ScriptableObject
 {
     [Header("Phase Info")]
     public string phaseName;
+    [Header("Rank")]
+    public EnemyRank rank;
+    
+    [Header("Infection Settings")]
     [Range(0,100)] public float minInfection;
     [Range(0,100)] public float maxInfection;
     

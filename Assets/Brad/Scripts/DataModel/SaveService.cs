@@ -220,6 +220,11 @@ public static class SaveService
         StringListWrapper breakablesWrapper = DataTools.GetWrapperizedStringList(exhaustedBreakables);
         string breakablesString = JsonUtility.ToJson(breakablesWrapper);
 
+        // UnlockedTerminalWorldIDs
+        List<string> ids = new List<string>(progressionData.GetUnlockedTerminalWorldIDs());
+        StringListWrapper terminalsWrapper = DataTools.GetWrapperizedStringList(ids);
+        string terminalIdsString = JsonUtility.ToJson(terminalsWrapper);
+
         // other progression variables
         List<string> defeatedEnemies = new List<string>(progressionData.GetDefeatedEnemiesList());
         StringListWrapper enemiesDefeatedStringWrapper = DataTools.GetWrapperizedStringList(defeatedEnemies);
@@ -351,6 +356,9 @@ public static class SaveService
         // Breakables
         List<string> breakablesList = DataTools.GetStringListFromJson(saveData.PROGRESSION_ExhaustedBreakables);
         _progressionData.ReplaceDefeatedEnemiesList(breakablesList);
+
+        List<string> terminalsList = DataTools.GetStringListFromJson(saveData.PROGRESSION_UnlockedTerminalWorldIDs);
+        _progressionData.ReplaceUnlockedTerminalWorldIDs(terminalsList);
 
         // other prog variables
         List<string> defeatedEnemiesList = DataTools.GetStringListFromJson(saveData.PROGRESSION_EnemiesDefeated);
