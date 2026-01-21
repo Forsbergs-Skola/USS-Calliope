@@ -67,7 +67,7 @@ public class PlayerHealthJavi : MonoBehaviour, IDamageable, IDamageEvents
         }
         currentHealth = MathF.Min(maxHealth, currentHealth + recoverAmount);
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        OnHealed?.Invoke(recoverAmount);
+        //OnHealed?.Invoke(recoverAmount);
 
         Debug.Log(
             $"[PlayerHealth] Recovered {recoverAmount} damage → {currentHealth}/{maxHealth}"
