@@ -41,6 +41,7 @@ public class SaveData
     public string PROGRESSION_EnemiesDefeated;
     public string PROGRESSION_SceneName;
     public string PROGRESSION_ExhaustedBreakables;
+    public string PROGRESSION_UnlockedTerminalWorldIDs;
 
     public bool PROGRESSION_DataDelivered;
     public bool PROGRESSION_CentralCorridorDiscovered;

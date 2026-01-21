@@ -18,6 +18,10 @@ public class Terminal : MonoBehaviour
 
     InputAction interactAction;
 
+    [SerializeField] private string terminalWorldID;
+    [SerializeField] private ProgressionRuntimeData progressionRuntimeData;
+
+
     void Awake()
     {
         var actionsAsset = inputActionsAsset;
@@ -67,6 +71,8 @@ public class Terminal : MonoBehaviour
         if (lockedDoor != null)
         {
             lockedDoor.UnlockAndBecomeFreeDoor();
+            progressionRuntimeData.Value.AddUnlockedTerminalWorldID(terminalWorldID);
+            
         }
 
         Debug.Log("Terminal activated! Door unlocked and behaves like a normal door.");

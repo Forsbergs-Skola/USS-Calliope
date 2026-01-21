@@ -1187,7 +1187,10 @@ MonoBehaviour:
   hideThresholdY: -2
   lockType: 2
   isLocked: 1
-  keyId: 0
+  keyID: 
+  inventoryRuntime: {fileID: 11400000, guid: dd7b9f8b2691e0446b0a65aad0a865d4, type: 2}
+  openedWithTerminalWorldID: 
+  progressionRuntimeData: {fileID: 11400000, guid: ade4d492fc958da4185a95ecfaf803cd, type: 2}
 --- !u!1 &5180234607843925095 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 132572, guid: 34300443486f64d6da09f6f748778306, type: 3}
