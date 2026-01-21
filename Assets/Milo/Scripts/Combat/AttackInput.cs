@@ -11,9 +11,6 @@ public class AttackInput : MonoBehaviour
     [SerializeField] private InputActionReference switchWeaponAction;
     [SerializeField] private InputActionReference reloadAction;
     [SerializeField] private InputActionReference unEquipWeaponAction;
-
-    [Header("Extras, later make full PlayerInput script")]
-    // for the movement inaccuracy
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference sprintAction;
 

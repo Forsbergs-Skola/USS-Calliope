@@ -5,7 +5,7 @@ using UnityEngine;
 public class GuidGeneratorTool : EditorWindow
 {
     private string guid = "";
-
+    
     private List<string> loggedIds = new();
     
     [MenuItem("Tools/GUID Generator")]
@@ -36,13 +36,12 @@ public class GuidGeneratorTool : EditorWindow
         }
 
         GUILayout.Space(20);
-
         
         if (HasBeenLogged(guid)) return;
         if (!GUILayout.Button("Log to console")) return;
         Debug.Log(guid);
-        loggedIds.Add(guid);
         
+        loggedIds.Add(guid);
     }
     
     private bool HasBeenLogged(string id)
