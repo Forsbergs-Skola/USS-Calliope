@@ -60,12 +60,12 @@ public class SlidingDoor : MonoBehaviour
             doorTransform.position, target, openCloseSpeed * Time.deltaTime);
 
         //For hiding door
-        if (_isOpen && doorTransform.position.y < hideThresholdY)
+        if (!isLocked && doorTransform.position.y < hideThresholdY)
         {
             if (doorTransform.gameObject.activeSelf)
                 doorTransform.gameObject.SetActive(false);
         }
-        else if (!_isOpen && doorTransform.position.y > hideThresholdY)
+        else if (isLocked && doorTransform.position.y > hideThresholdY)
         {
             if (!doorTransform.gameObject.activeSelf)
                 doorTransform.gameObject.SetActive(true);
