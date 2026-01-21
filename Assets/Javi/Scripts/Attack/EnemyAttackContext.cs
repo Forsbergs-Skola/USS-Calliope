@@ -7,4 +7,5 @@ public class EnemyAttackContext
     public float infectionPercentage;
     public EnemyFollowPlayer movement;
     public MonoBehaviour coroutineRunner;
+    public Transform firePoint;
 }

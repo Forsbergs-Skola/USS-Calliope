@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class EnemyPatrolController : MonoBehaviour
 {
+    [Header("Main Patrol Zones")]
+    [SerializeField] private List<PatrolZone> mainZones = new();
+    
     [Header("Allowed Patrol Zones")]
     [SerializeField] private List<PatrolZone> allowedZones = new List<PatrolZone>();
 
@@ -11,7 +14,6 @@ public class EnemyPatrolController : MonoBehaviour
     [SerializeField] private float waitTimeAtPoint = 10f;
     [SerializeField] private float rotationSpeed = 45f;
     [SerializeField] private float reachTolerance = 0.3f;
-    
     [SerializeField] private float retryDelay = 2f; //Time if there aren't points
     
     [Header("Look Around Settings")]
@@ -21,6 +23,8 @@ public class EnemyPatrolController : MonoBehaviour
     private SimpleMovementAgent movement;
     private Coroutine patrolRoutine;
     private Coroutine lookAroundRoutine;
+    private Coroutine watchInPlaceRoutine;
+    private bool isWatchingInPlace = false;
 
     private PatrolZone currentZone;
     private Transform currentPoint;
@@ -37,6 +41,15 @@ public class EnemyPatrolController : MonoBehaviour
     {
         StartCoroutine(DelayedStart());
     }
+    
+    public enum PatrolMode
+    {
+        Main,
+        AllowedSingleZone
+    }
+
+    private PatrolMode currentMode = PatrolMode.Main;
+    private PatrolZone forcedZone; // Zone where the player was lost
     
     private IEnumerator DelayedStart()
     {
@@ -55,7 +68,7 @@ public class EnemyPatrolController : MonoBehaviour
     {
         StopPatrol();
 
-        if (allowedZones.Count == 0)
+        if (mainZones.Count == 0)
         {
             Debug.LogWarning($"{name} has no patrol zones assigned");
             return;
@@ -80,13 +93,37 @@ public class EnemyPatrolController : MonoBehaviour
             StopCoroutine(patrolRoutine);
             patrolRoutine = null;
         }
+        
+        if (watchInPlaceRoutine != null)
+        {
+            StopCoroutine(watchInPlaceRoutine);
+            watchInPlaceRoutine = null;
+        }
     }
 
     private IEnumerator PatrolRoutine()
     {
         while (isPatrolling)
         {
-            currentZone = allowedZones[Random.Range(0, allowedZones.Count)];
+            //currentZone = allowedZones[Random.Range(0, allowedZones.Count)];
+            switch (currentMode)
+            {
+                case PatrolMode.Main:
+                    if (mainZones.Count == 0) yield break;
+                    currentZone = mainZones[Random.Range(0, mainZones.Count)];
+                    break;
+
+                case PatrolMode.AllowedSingleZone:
+                    if (forcedZone == null)
+                    {
+                        Debug.LogWarning($"{name}: Forced zone is null, falling back to main patrol");
+                        currentMode = PatrolMode.Main;
+                        continue;
+                    }
+                    currentZone = forcedZone;
+                    break;
+            }
+            
             List<Transform> points = PatrolPointRegistry.GetPointsForZone(currentZone);
 
             if (points == null || points.Count == 0)
@@ -161,7 +198,7 @@ public class EnemyPatrolController : MonoBehaviour
             
             while (elapsedTime < rotationTime)
             {
-                if (!isPatrolling) yield break;
+                if (!isPatrolling && !isWatchingInPlace) yield break;
                 
                 transform.rotation = Quaternion.Slerp(
                     transform.rotation,
@@ -179,36 +216,8 @@ public class EnemyPatrolController : MonoBehaviour
             yield return new WaitForSeconds(lookPauseTime);
             
             initialRotation = transform.rotation;
-            
-            // change direction
-            //LookLeft = !LookLeft;
-            
-            // coming back to initial rotation
-            /*targetRotation = initialRotation * Quaternion.Euler(0, targetAngle, 0);
-            rotationTime = Mathf.Abs(lookAngle) / rotationSpeed;
-            elapsedTime = 0f;
-            
-            while (elapsedTime < rotationTime)
-            {
-                if (!isPatrolling) yield break;
-                
-                transform.rotation = Quaternion.Slerp(
-                    transform.rotation,
-                    targetRotation,
-                    elapsedTime / rotationTime
-                );
-                
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-            
-            transform.rotation = initialRotation;*/
-            
-            // wait
-            //yield return new WaitForSeconds(lookPauseTime / 2f);
         }
     }
-
 
     private Transform GetRandomPoint(List<Transform> points)
     {
@@ -222,5 +231,84 @@ public class EnemyPatrolController : MonoBehaviour
 
         currentPoint = selected;
         return selected;
+    }
+    
+    public void PatrolMainZones()
+    {
+        currentMode = PatrolMode.Main;
+        forcedZone = null;
+        Debug.Log($"{name} returning to MAIN patrol zones");
+        RestartPatrol();
+    }
+
+    public void PatrolSingleZone(PatrolZone zone)
+    {
+        if (zone == null)
+        {
+            Debug.LogWarning($"{name}: PatrolSingleZone called with null zone");
+            return;
+        }
+
+        if (!allowedZones.Contains(zone))
+        {
+            Debug.LogWarning($"{name}: Zone {zone.name} is not in allowed zones");
+            return;
+        }
+
+        currentMode = PatrolMode.AllowedSingleZone;
+        forcedZone = zone;
+        RestartPatrol();
+    }
+    
+    private void RestartPatrol()
+    {
+        StopPatrol();
+        
+        currentPoint = null;
+        movement.SetMovementState(SimpleMovementAgent.MovementState.Patrolling);
+        
+        StartPatrol();
+    }
+    
+    public bool CanPatrolZone(PatrolZone zone)
+    {
+        if (zone == null) return false;
+        return allowedZones.Contains(zone);
+    }
+    
+    public void WatchInPlace(float duration)
+    {
+        StopPatrol();
+
+        if (watchInPlaceRoutine != null)
+            StopCoroutine(watchInPlaceRoutine);
+        if (patrolRoutine != null)
+            StopCoroutine(patrolRoutine);
+        if (lookAroundRoutine != null)
+            StopCoroutine(lookAroundRoutine);
+        
+        isWatchingInPlace = true;
+        watchInPlaceRoutine = StartCoroutine(WatchInPlaceRoutine(duration));
+    }
+
+    private IEnumerator WatchInPlaceRoutine(float duration)
+    {
+        if (movement != null)
+            movement.SetMovementState(SimpleMovementAgent.MovementState.Idle);
+
+        Quaternion initialRotation = transform.rotation;
+
+        lookAroundRoutine = StartCoroutine(LookAroundRoutine(initialRotation));
+
+        yield return new WaitForSeconds(duration);
+
+        if (lookAroundRoutine != null)
+        {
+            StopCoroutine(lookAroundRoutine);
+            lookAroundRoutine = null;
+        }
+        
+        isWatchingInPlace = false;
+        transform.rotation = initialRotation;
     }
 }

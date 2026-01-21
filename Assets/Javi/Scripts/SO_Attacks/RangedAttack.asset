@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f20d5bca9665a7d41947835d8c62d36c, type: 3}
+  m_Name: RangedAttack
+  m_EditorClassIdentifier: Assembly-CSharp::SO_RangedEnemyAttack
+  cooldown: 2
+  minRange: 3
+  maxRange: 20
+  projectilePrefab: {fileID: 1844473362032847600, guid: 048e2c1916ec03941a3ed19591f94e72, type: 3}
+  projectileSpeed: 20
+  damage: 1

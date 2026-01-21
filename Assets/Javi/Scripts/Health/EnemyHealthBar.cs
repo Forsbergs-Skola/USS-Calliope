@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class EnemyHealthBarSlider : MonoBehaviour
 {
     [SerializeField] private EnemyHealth enemyHealth;
+    [SerializeField] private BossHealth bossHealth;
     [SerializeField] private Slider enemyHealthSlider;
     [SerializeField] private Renderer enemyRenderer;
     
@@ -12,9 +13,10 @@ public class EnemyHealthBarSlider : MonoBehaviour
 
     private void Awake()
     {
-        if (enemyHealth == null)
+        if (enemyHealth == null && bossHealth == null)
         {
             enemyHealth = GetComponentInParent<EnemyHealth>();
+            bossHealth = GetComponentInParent<BossHealth>();
         }
         if (enemyRenderer == null)
             enemyRenderer = GetComponentInParent<Renderer>();
@@ -26,6 +28,10 @@ public class EnemyHealthBarSlider : MonoBehaviour
         if (enemyHealth != null)
         {
             enemyHealth.OnHealthChanged.AddListener(UpdateHealthBar);
+        }
+        if (bossHealth != null)
+        {
+            bossHealth.OnHealthChanged.AddListener(UpdateHealthBar);
         }
     }
     
@@ -52,14 +58,16 @@ public class EnemyHealthBarSlider : MonoBehaviour
 
     private void Start()
     {
-        UpdateHealthBar(enemyHealth.GetCurrentHealth(), enemyHealth.GetMaxHealth());
+        if(enemyHealth != null)
+            UpdateHealthBar(enemyHealth.GetCurrentHealth(), enemyHealth.GetMaxHealth());
+        if(bossHealth != null)
+            UpdateHealthBar(bossHealth.GetCurrentHealth(), bossHealth.GetMaxHealth());
     }
 
     private void UpdateHealthBar(float current, float max)
     {
         enemyHealthSlider.maxValue = max;
         enemyHealthSlider.value = current;
-
     }
 
     private void OnDestroy()
@@ -67,6 +75,10 @@ public class EnemyHealthBarSlider : MonoBehaviour
         if (enemyHealth != null)
         {
             enemyHealth.OnHealthChanged.RemoveListener(UpdateHealthBar);
+        }
+        if (bossHealth != null)
+        {
+            bossHealth.OnHealthChanged.RemoveListener(UpdateHealthBar);
         }
     }
 }
