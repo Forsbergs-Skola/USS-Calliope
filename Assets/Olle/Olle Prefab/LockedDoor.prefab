@@ -1184,10 +1184,13 @@ MonoBehaviour:
   doorTransform: {fileID: 4234214273802807416}
   openOffset: {x: 0, y: -5, z: 0}
   openCloseSpeed: 6
+  hideThresholdY: -1
   lockType: 1
   isLocked: 1
   keyID: 3d92ec05-bb06-4964-b865-815664154bda
   inventoryRuntime: {fileID: 11400000, guid: dd7b9f8b2691e0446b0a65aad0a865d4, type: 2}
+  openedWithTerminalWorldID: 
+  progressionRuntimeData: {fileID: 11400000, guid: ade4d492fc958da4185a95ecfaf803cd, type: 2}
 --- !u!1 &4234214273802452058 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 166374, guid: 34300443486f64d6da09f6f748778306, type: 3}

@@ -17,6 +17,7 @@ public class ProgressionData : IRuntimeData
     private List<string> _defeatedEnemiesList;
     private List<string> _exhaustedBrakables;
     private Dictionary<string, EnumObjectiveStatus> _objectivesAndStatusesDict;
+    private List<string> _unlockedTerminalWorldIDs;
 
     private bool _dataDelivered = false;
     private bool _centralCorridorDiscovered;
@@ -101,6 +102,8 @@ public class ProgressionData : IRuntimeData
         }
     }
 
+    
+
     // Objectives
     public void UpdateObjectivesAndStatuses(Dictionary<string, EnumObjectiveStatus> inDict)
     {
@@ -124,6 +127,8 @@ public class ProgressionData : IRuntimeData
         _defeatedEnemiesList = new List<string>(inList);
     }
 
+    // BREAKABLES
+
     public List<string> GetExhaustedBreakablesList()
     {
         return new List<string>(_exhaustedBrakables);
@@ -139,6 +144,22 @@ public class ProgressionData : IRuntimeData
         _exhaustedBrakables = new List<string>(inList);
     }
 
+    // TERMINALS
+    public List<string> GetUnlockedTerminalWorldIDs()
+    {
+        return new List<string>(_unlockedTerminalWorldIDs);
+    }
+    public void AddUnlockedTerminalWorldID(string worldID)
+    {
+        if (_unlockedTerminalWorldIDs.Contains(worldID)) return;
+        _unlockedTerminalWorldIDs.Add(worldID);
+        DataTools.HandleOnDataChanged(this);
+    }
+    public void ReplaceUnlockedTerminalWorldIDs(List<string> ids)
+    {
+        _unlockedTerminalWorldIDs = new List<string>(ids);
+    }
+
 
     //////////////////
     // Constructors //
@@ -150,6 +171,7 @@ public class ProgressionData : IRuntimeData
         _defeatedEnemiesList = new List<string>();
         _objectivesAndStatusesDict = new Dictionary<string, EnumObjectiveStatus>();
         _exhaustedBrakables = new List<string>();
+        _unlockedTerminalWorldIDs = new List<string>();
 
         _dataDelivered = false;
         _centralCorridorDiscovered = false;
@@ -166,7 +188,7 @@ public class ProgressionData : IRuntimeData
         _defeatedEnemiesList = new List<string>();
         _objectivesAndStatusesDict = new Dictionary<string, EnumObjectiveStatus>();
         _exhaustedBrakables = new List<string>();
-
+        _unlockedTerminalWorldIDs = new List<string>();
 
         _dataDelivered = false;
         _centralCorridorDiscovered = false;
@@ -189,6 +211,7 @@ public class ProgressionData : IRuntimeData
         _centralCorridorDiscovered = inData.CentralCorridorDiscovered;
         _bobContacted = inData.BobContacted;
         _crewQuartersUnlocked = inData.CrewQuartersUnlocked;
+        _unlockedTerminalWorldIDs = inData.GetUnlockedTerminalWorldIDs();
 
 
         AliceAndBobFuneralHeld = inData.AliceAndBobFuneralHeld;
