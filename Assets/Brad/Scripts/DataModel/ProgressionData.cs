@@ -151,6 +151,7 @@ public class ProgressionData : IRuntimeData
     }
     public void AddUnlockedTerminalWorldID(string worldID)
     {
+        Debug.Log("Adding unlocked terminal world ID: " + worldID);
         if (_unlockedTerminalWorldIDs.Contains(worldID)) return;
         _unlockedTerminalWorldIDs.Add(worldID);
         DataTools.HandleOnDataChanged(this);

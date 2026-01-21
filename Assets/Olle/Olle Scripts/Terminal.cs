@@ -72,7 +72,7 @@ public class Terminal : MonoBehaviour
         {
             lockedDoor.UnlockAndBecomeFreeDoor();
             progressionRuntimeData.Value.AddUnlockedTerminalWorldID(terminalWorldID);
-            
+            Debug.Log("Didnt write terminal ID");
         }
 
         Debug.Log("Terminal activated! Door unlocked and behaves like a normal door.");

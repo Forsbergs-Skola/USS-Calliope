@@ -16030,10 +16030,26 @@ PrefabInstance:
       propertyPath: lockedDoor
       value: 
       objectReference: {fileID: 443153541}
+    - target: {fileID: 3322407599793418152, guid: a17e0e27238d897469d67033e9f8ba13, type: 3}
+      propertyPath: terminalWorldID
+      value: e78eb790-1775-480f-ab70-41b6c232e3de
+      objectReference: {fileID: 0}
+    - target: {fileID: 3322407599793418152, guid: a17e0e27238d897469d67033e9f8ba13, type: 3}
+      propertyPath: progressionRuntimeData
+      value: 
+      objectReference: {fileID: 11400000, guid: ade4d492fc958da4185a95ecfaf803cd, type: 2}
     - target: {fileID: 7381446857467680126, guid: a17e0e27238d897469d67033e9f8ba13, type: 3}
       propertyPath: lockedDoor
       value: 
       objectReference: {fileID: 281694195}
+    - target: {fileID: 7381446857467680126, guid: a17e0e27238d897469d67033e9f8ba13, type: 3}
+      propertyPath: terminalWorldID
+      value: 2f09fc8b-c11b-47dc-9e41-427d7abb498e
+      objectReference: {fileID: 0}
+    - target: {fileID: 7381446857467680126, guid: a17e0e27238d897469d67033e9f8ba13, type: 3}
+      propertyPath: progressionRuntimeData
+      value: 
+      objectReference: {fileID: 11400000, guid: ade4d492fc958da4185a95ecfaf803cd, type: 2}
     - target: {fileID: 8039955714723044405, guid: a17e0e27238d897469d67033e9f8ba13, type: 3}
       propertyPath: m_LocalPosition.x
       value: 37.69546
@@ -16130,6 +16146,18 @@ PrefabInstance:
     - target: {fileID: 4259984400436621540, guid: 4d61e9bec84aafd45a72c2fbdb69ab17, type: 3}
       propertyPath: m_Name
       value: CAGE
+      objectReference: {fileID: 0}
+    - target: {fileID: 9200605112340494766, guid: 4d61e9bec84aafd45a72c2fbdb69ab17, type: 3}
+      propertyPath: inventoryRuntime
+      value: 
+      objectReference: {fileID: 11400000, guid: dd7b9f8b2691e0446b0a65aad0a865d4, type: 2}
+    - target: {fileID: 9200605112340494766, guid: 4d61e9bec84aafd45a72c2fbdb69ab17, type: 3}
+      propertyPath: progressionRuntimeData
+      value: 
+      objectReference: {fileID: 11400000, guid: ade4d492fc958da4185a95ecfaf803cd, type: 2}
+    - target: {fileID: 9200605112340494766, guid: 4d61e9bec84aafd45a72c2fbdb69ab17, type: 3}
+      propertyPath: openedWithTerminalWorldID
+      value: e78eb790-1775-480f-ab70-41b6c232e3de
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16245,6 +16273,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerminalDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 8512102063787272081, guid: d7b783b22882bea4e869842fc1daa385, type: 3}
+      propertyPath: openedWithTerminalWorldID
+      value: 2f09fc8b-c11b-47dc-9e41-427d7abb498e
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16258,6 +16290,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1811479285237895476, guid: 1bd17067568a5a14185a3a03949b4758, type: 3}
+      propertyPath: inventoryRuntime
+      value: 
+      objectReference: {fileID: 11400000, guid: dd7b9f8b2691e0446b0a65aad0a865d4, type: 2}
+    - target: {fileID: 1811479285237895476, guid: 1bd17067568a5a14185a3a03949b4758, type: 3}
+      propertyPath: progressionRuntimeData
+      value: 
+      objectReference: {fileID: 11400000, guid: ade4d492fc958da4185a95ecfaf803cd, type: 2}
     - target: {fileID: 2370166005864277760, guid: 1bd17067568a5a14185a3a03949b4758, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.301905

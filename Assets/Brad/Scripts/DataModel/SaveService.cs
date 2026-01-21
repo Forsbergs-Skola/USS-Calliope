@@ -243,6 +243,7 @@ public static class SaveService
         outData.PROGRESSION_CentralCorridorDiscovered = progressionData.CentralCorridorDiscovered;
         outData.PROGRESSION_CrewQuartersUnlocked = progressionData.CrewQuartersUnlocked;
         outData.PROGRESSION_SceneName = progressionData.SceneName;
+        outData.PROGRESSION_UnlockedTerminalWorldIDs = terminalIdsString;
 
         // return outData
         return outData;
