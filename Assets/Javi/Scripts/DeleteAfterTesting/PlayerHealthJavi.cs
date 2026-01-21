@@ -56,6 +56,30 @@ public class PlayerHealthJavi : MonoBehaviour, IDamageable, IDamageEvents
 
     }
 
+    public void RecoverDamage(float recoverAmount)
+    {
+
+        // blah blah
+        if (recoverAmount <= 0) return;
+        if (recoverAmount + currentHealth > maxHealth)
+        {
+            recoverAmount = maxHealth - currentHealth;
+        }
+        currentHealth = MathF.Min(maxHealth, currentHealth + recoverAmount);
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        OnHealed?.Invoke(recoverAmount);
+
+        Debug.Log(
+            $"[PlayerHealth] Recovered {recoverAmount} damage → {currentHealth}/{maxHealth}"
+        );
+        TryUpdateBackend(currentHealth, maxHealth);
+        if (currentHealth <= 0f)
+        {
+            Die();
+        }
+
+    }
+
     private void Die()
     {
         Debug.Log("[PlayerHealth] Player is DEAD");
