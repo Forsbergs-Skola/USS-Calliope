@@ -26,7 +26,6 @@ public class SlidingDoor : MonoBehaviour
 
     private Vector3 _closedPos;
     private Vector3 _openPos;
-    private bool _isOpen;
 
     void Start()
     {
@@ -39,28 +38,22 @@ public class SlidingDoor : MonoBehaviour
 
     void Update()
     {
-        Vector3 target = _isOpen ? _openPos : _closedPos;
+        Vector3 target = isLocked ? _closedPos : _openPos;
         doorTransform.position = Vector3.MoveTowards(
             doorTransform.position, target, openCloseSpeed * Time.deltaTime);
 
         //For hiding door
-        if (_isOpen && doorTransform.position.y < hideThresholdY)
-        {
-            if (doorTransform.gameObject.activeSelf)
-                doorTransform.gameObject.SetActive(false);
-        }
-        else if (!_isOpen && doorTransform.position.y > hideThresholdY)
-        {
-            if (!doorTransform.gameObject.activeSelf)
-                doorTransform.gameObject.SetActive(true);
-        }
+        bool isOpenPos = doorTransform.position.y < hideThresholdY;
+        if (isOpenPos && doorTransform.gameObject.activeSelf)
+            doorTransform.gameObject.SetActive(false);
+        else if (!isOpenPos && !doorTransform.gameObject.activeSelf)
+            doorTransform.gameObject.SetActive(true);
     }
     
 
     public void SetOpen(bool open)
     {
         if (isLocked) return;
-        _isOpen = open;
     }
 
     public void UnlockDoor()
@@ -71,7 +64,6 @@ public class SlidingDoor : MonoBehaviour
     public void LockDoor()
     {
         isLocked = true;
-        _isOpen = false;
     }
     
     public bool TryUnlockWithKeycard(int cardKeyId)
@@ -84,7 +76,7 @@ public class SlidingDoor : MonoBehaviour
             
             lockType = DoorLockType.None;
 
-            SetOpen(true);
+            //SetOpen(true);
             return true;
         }
         return false;
@@ -94,6 +86,6 @@ public class SlidingDoor : MonoBehaviour
     {
         UnlockDoor();
         lockType = DoorLockType.None;
-        SetOpen(true);
+        //SetOpen(true);
     }
 }
