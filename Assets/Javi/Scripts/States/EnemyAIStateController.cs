@@ -357,6 +357,23 @@ public class EnemyAIStateController : MonoBehaviour
         Debug.Log($"{name} finished Leap stun → Watchful (in place)");
     }
     
+    public void ForceBossState()
+    {
+        StopAllCoroutines();
+        StopCallLoop();
+
+        currentState = State.Watchful;
+
+        chase.SetFollow(false);
+        chase.SetTarget(null);
+
+        var movement = GetComponent<SimpleMovementAgent>();
+        if (movement != null)
+            movement.SetMovementState(SimpleMovementAgent.MovementState.Investigating);
+
+        Debug.Log($"{name} forced into Boss Watchful state");
+    }
+    
     /*private void ReturnToPatrol()
     {
         EnterWandering();

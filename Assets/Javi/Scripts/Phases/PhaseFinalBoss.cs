@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PhaseFinalBoss : MonoBehaviour
+public class PhaseFinalBoss : MonoBehaviour, IPhaseBehavior
 {
     public void OnEnterPhase(SO_InfectionPhaseData data)
     {

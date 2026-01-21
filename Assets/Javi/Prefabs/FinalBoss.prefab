@@ -340,6 +340,7 @@ GameObject:
   - component: {fileID: 7384338302860326783}
   - component: {fileID: 4317433437264479070}
   - component: {fileID: 1459176241190138871}
+  - component: {fileID: 410892300415410424}
   - component: {fileID: 2270072672159828556}
   - component: {fileID: 8247498290952140301}
   - component: {fileID: 366866097658371777}
@@ -360,6 +361,8 @@ GameObject:
   - component: {fileID: 2709461558022909505}
   - component: {fileID: 874875458739179267}
   - component: {fileID: 6975736096765551894}
+  - component: {fileID: 5887416341147942605}
+  - component: {fileID: 3537915011589269454}
   m_Layer: 0
   m_Name: FinalBoss
   m_TagString: Untagged
@@ -464,6 +467,33 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &410892300415410424
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7877151858598348904}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!114 &2270072672159828556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,6 +796,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossFuryCounter
   damageThreshold: 20
+--- !u!114 &5887416341147942605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7877151858598348904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9da40b5ed86774aade73863bde4e86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossWatchfulController
+--- !u!114 &3537915011589269454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7877151858598348904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7943d63740636f84eb0b8cb3ee7da608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyPatrolController
+  mainZones:
+  - {fileID: 11400000, guid: ba00b5f369a7e234d94bded2af9c1c8b, type: 2}
+  - {fileID: 11400000, guid: 29d1a4695fa60ff4e95588f9b2a6ff14, type: 2}
+  - {fileID: 11400000, guid: 9ddaf94661c4bec49a909b2c79bfc568, type: 2}
+  - {fileID: 11400000, guid: fd7616f4b49f42f40a6a78b9ce53014a, type: 2}
+  - {fileID: 11400000, guid: d9dff5fbfaf76694498ebc7cfa8e4b0b, type: 2}
+  allowedZones:
+  - {fileID: 11400000, guid: ba00b5f369a7e234d94bded2af9c1c8b, type: 2}
+  - {fileID: 11400000, guid: 29d1a4695fa60ff4e95588f9b2a6ff14, type: 2}
+  - {fileID: 11400000, guid: 9ddaf94661c4bec49a909b2c79bfc568, type: 2}
+  - {fileID: 11400000, guid: fd7616f4b49f42f40a6a78b9ce53014a, type: 2}
+  - {fileID: 11400000, guid: d9dff5fbfaf76694498ebc7cfa8e4b0b, type: 2}
+  waitTimeAtPoint: 10
+  rotationSpeed: 45
+  reachTolerance: 0.3
+  retryDelay: 2
+  lookAngle: 60
+  lookPauseTime: 1.5
 --- !u!1 &8208439218157800367
 GameObject:
   m_ObjectHideFlags: 0
