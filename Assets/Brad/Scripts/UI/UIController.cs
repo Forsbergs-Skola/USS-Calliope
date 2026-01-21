@@ -18,6 +18,7 @@ public enum EnumCanvasUIName
     DIALOGUE,
     PAUSE,
     LOGO_SPLASH,
+    ABOUT
 }
 [System.Serializable]
 public struct StructCanvasUIPrefab

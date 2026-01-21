@@ -23,7 +23,9 @@ public class UIButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerEnter(PointerEventData data)
     {
         buttonText.fontSize = defaultTextSize * (1f + embiggenFactor);
-        soundPlayer.PlayUISound(EnumUISound.HOVER);
+
+        if (UIController.Instance != null) { soundPlayer.PlayUISound(EnumUISound.HOVER); }
+        
     }
     public void OnPointerExit(PointerEventData data)
     {
@@ -37,7 +39,8 @@ public class UIButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerDown(PointerEventData data)
     {
         buttonText.color = downColor;
-        soundPlayer.PlayUISound(EnumUISound.PRESS);
+        if (UIController.Instance != null) { soundPlayer.PlayUISound(EnumUISound.PRESS); }
+        
     }
 
 }

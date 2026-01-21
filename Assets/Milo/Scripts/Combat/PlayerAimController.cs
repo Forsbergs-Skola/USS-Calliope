@@ -13,8 +13,13 @@ public class PlayerAimController : MonoBehaviour
     [SerializeField] private float smoothSpeed = 3f;
     [SerializeField] private float cameraOffsetDistance = 10f;
 
-    [Header("UI")]
+    [Header("Crosshair")]
     [SerializeField] private Image crosshairImage;
+    [SerializeField, Range(0f, 40f)] private float maxNoiseOffset = 5f; 
+    [SerializeField, Range(1f, 20f)] private float noiseSmoothSpeed = 10f;
+
+    private Vector2 currentNoiseOffset;
+
 
     [SerializeField] private CinemachineCamera cineMachineCam;
 
@@ -192,11 +197,32 @@ public class PlayerAimController : MonoBehaviour
 
         Vector3 screenPos = mainCamera.WorldToScreenPoint(worldPos);
 
+        if (weaponHandler.CurrentWeaponData != null)
+        {
+            bool hitEnemy = Physics.Raycast(mainCamera.ScreenPointToRay(lastMousePos), out RaycastHit enemyHit, camRayDistance, enemyLayer);
+            float hitChanceScore = 1f;
+
+            if (hitEnemy && weaponHandler.CurrentWeaponData != null)
+            {
+                var dist = Vector3.Distance(transform.position, enemyHit.collider.bounds.center);
+                hitChanceScore = HitChance.GetHitChanceScore(playerState, weaponHandler.CurrentWeaponData, dist);
+            }
+
+            float targetNoise = maxNoiseOffset * (1f - hitChanceScore);
+            Vector2 noise = Random.insideUnitCircle * targetNoise;
+
+            currentNoiseOffset = Vector2.Lerp(currentNoiseOffset, noise, Time.deltaTime * noiseSmoothSpeed);
+        }
+
+        screenPos.x += currentNoiseOffset.x;
+        screenPos.y += currentNoiseOffset.y;
+
         screenPos.x = Mathf.Clamp(screenPos.x, 0, Screen.width);
         screenPos.y = Mathf.Clamp(screenPos.y, 0, Screen.height);
 
         crosshairImage.transform.position = screenPos;
     }
+
 
     public bool TryGetAimDirection(Vector3 origin, out Vector3 direction)
     {

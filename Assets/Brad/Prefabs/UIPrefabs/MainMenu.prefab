@@ -1352,8 +1352,10 @@ MonoBehaviour:
   newGameButton: {fileID: 5452358315012547035}
   quitButton: {fileID: 8903566788576758180}
   continueButton: {fileID: 429484289039133825}
+  aboutButton: {fileID: 5584661437358080025}
   newGamePressedEvent: {fileID: 11400000, guid: c069b11bc30bb0c4a9b4afde452373a1, type: 2}
   loadGamePressedEvent: {fileID: 11400000, guid: b1e6591e25d97734b81fdc01f4f0fd7d, type: 2}
+  aboutPrefab: {fileID: 6944074929585036222, guid: bbbd9db1827bef344be8ed59b22c6356, type: 3}
 --- !u!1 &9169357853108284600
 GameObject:
   m_ObjectHideFlags: 0

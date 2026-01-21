@@ -7,8 +7,11 @@ public class MainMenu : MonoBehaviour, ICanvasUI
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button quitButton;
     [SerializeField] private Button continueButton;
+    [SerializeField] private Button aboutButton;
     [SerializeField] private EmptyPayloadEvent newGamePressedEvent;
     [SerializeField] private EmptyPayloadEvent loadGamePressedEvent;
+
+    [SerializeField] private AboutUI aboutPrefab; 
 
     private void OnEnable()
     {
@@ -17,12 +20,14 @@ public class MainMenu : MonoBehaviour, ICanvasUI
 
         newGameButton.onClick.AddListener(HandleNewGamePressed);
         continueButton.onClick.AddListener(HandleContinuePressed);
+        aboutButton.onClick.AddListener(HandleAboutPressed);
         quitButton.onClick.AddListener(HandleQuit);
     }
     private void OnDisable()
     {
         newGameButton.onClick.RemoveAllListeners();
         continueButton.onClick.RemoveAllListeners();
+        aboutButton.onClick.RemoveAllListeners();
         quitButton.onClick.RemoveAllListeners();
     }
 
@@ -41,6 +46,11 @@ public class MainMenu : MonoBehaviour, ICanvasUI
     private void HandleContinuePressed()
     {
         loadGamePressedEvent.TriggerEvent();
+    }
+
+    private void HandleAboutPressed()
+    {
+        Instantiate(aboutPrefab);
     }
 
     // Interface Methods //

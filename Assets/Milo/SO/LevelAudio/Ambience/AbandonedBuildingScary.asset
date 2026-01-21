@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3415080864c9604a992bb2fd9dff3f7, type: 3}
+  m_Name: AbandonedBuildingScary
+  m_EditorClassIdentifier: Assembly-CSharp::SO_LevelAudioClip
+  id: f57a665e-478a-4d6d-91a8-3cbc09df82a2
+  audioClip: {fileID: 8300000, guid: e809e091346b2b44aada7de7dba17d7f, type: 3}
+  hasBeenPlayed: 0

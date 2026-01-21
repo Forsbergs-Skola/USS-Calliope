@@ -20,14 +20,14 @@ MonoBehaviour:
   ammoCategory: Pistol Ammo
   icon: {fileID: 0}
   description: 
-  damage: 40
+  damage: 70
   fireRate: 0.2
   isSemiAutomatic: 1
   attackCategory: 0
   hasAmmo: 1
-  magSize: 5
+  magSize: 8
   ammoType: {fileID: 11400000, guid: 691fdfec37c81b043a98ea330a08e097, type: 2}
-  reloadTime: 2
+  reloadTime: 1.86
   hasBallistics: 1
   impactRange: 50
   spreadStandardDeviation: 0
@@ -74,7 +74,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   pelletCount: 1
-  recoilType: 0
+  recoilType: 1
   recoilPerShotMin: 0
   recoilPerShotMax: 0
   recoilRecoverySpeed: 0

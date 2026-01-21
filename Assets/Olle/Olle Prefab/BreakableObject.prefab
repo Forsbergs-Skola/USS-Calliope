@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 709063836637320240}
   - component: {fileID: 2665746501047131079}
   - component: {fileID: 1841944209481713450}
+  - component: {fileID: 6340186938173207811}
   m_Layer: 0
   m_Name: BreakableObject
   m_TagString: Untagged
@@ -145,6 +146,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   ringParticles: {fileID: 0}
+--- !u!114 &6340186938173207811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175010379425462323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b966045bce926ef4b95be0f0cf9de862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BreakableProgressionDataHandler
+  worldID: 
+  progressionRuntimeData: {fileID: 11400000, guid: ade4d492fc958da4185a95ecfaf803cd, type: 2}
 --- !u!1001 &6053498238421866159
 PrefabInstance:
   m_ObjectHideFlags: 0

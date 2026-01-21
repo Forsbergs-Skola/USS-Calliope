@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb81a4a5ddbd41e469fd7f1c2fed558c, type: 3}
+  m_Name: PhaseFinalBoss
+  m_EditorClassIdentifier: Assembly-CSharp::SO_InfectionPhaseData
+  phaseName: FinalBossPhase
+  rank: 3
+  minInfection: 100
+  maxInfection: 100
+  viewDistance: 35
+  viewAngle: 160
+  moveSpeedMultiplier: 2
+  perceptionMultiplier: 2
+  attackCooldown: 1.5
+  availableAttacks:
+  - {fileID: 11400000, guid: e785c28aaade8e34ca58931b74b91f4d, type: 2}
+  - {fileID: 11400000, guid: 4ced858c84053774686488ba54bc29c9, type: 2}
+  - {fileID: 11400000, guid: db07705c27c13a5478efcefac9b78121, type: 2}
+  idleClip: {fileID: 0}
+  alertClip: {fileID: 0}

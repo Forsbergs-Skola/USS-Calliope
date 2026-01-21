@@ -12,7 +12,6 @@ public class PlayerHealthJavi : MonoBehaviour, IDamageable, IDamageEvents
     public UnityEvent<float, float> OnHealthChanged = new UnityEvent<float, float>();
     public UnityEvent OnDeath = new UnityEvent();
     public event Action<float> OnDamaged;
-    public event Action<float> OnHealed;
 
     private void Awake()
     {
@@ -50,28 +49,6 @@ public class PlayerHealthJavi : MonoBehaviour, IDamageable, IDamageEvents
 
         TryUpdateBackend(currentHealth, maxHealth);
 
-        if (currentHealth <= 0f)
-        {
-            Die();
-        }
-
-    }
-
-    public void RecoverDamage(float recoverAmount)
-    {
-        if (recoverAmount <= 0) return;
-        if (recoverAmount + currentHealth > maxHealth)
-        {
-            recoverAmount = maxHealth - currentHealth;
-        }
-        currentHealth = MathF.Min(maxHealth, currentHealth + recoverAmount);
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        OnHealed?.Invoke(recoverAmount);
-
-        Debug.Log(
-            $"[PlayerHealth] Recovered {recoverAmount} damage → {currentHealth}/{maxHealth}"
-        );
-        TryUpdateBackend(currentHealth, maxHealth);
         if (currentHealth <= 0f)
         {
             Die();

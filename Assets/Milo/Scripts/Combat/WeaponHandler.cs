@@ -1,6 +1,8 @@
 using Olle.Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerWeaponHandler : MonoBehaviour
@@ -12,9 +14,9 @@ public class PlayerWeaponHandler : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private SO_WeaponList weaponDatabase;
     [SerializeField] private UnarmedAttack unarmedAttack;
-    [SerializeField] private Transform rightHand; // Defined this so the weapon has a parent!
     [SerializeField] private Animator animator;
-
+    [SerializeField] private WeaponReload weaponReload;
+ 
     private AttackInput attackInput;
     private SO_WeaponType currentWeaponData;
     private SO_FlashLight flashlightData;
@@ -24,7 +26,6 @@ public class PlayerWeaponHandler : MonoBehaviour
     private PlayerAimController aimController;
     private WeaponCooldown weaponCooldown;
     private GameObject currentWeaponPrefab;
-    private Coroutine reloadCoroutine;
     private int equippedWeaponIndex = -1;
     
 
@@ -88,10 +89,9 @@ public class PlayerWeaponHandler : MonoBehaviour
             Destroy(currentWeaponPrefab);
         }
 
-        if (reloadCoroutine != null)
+        if (weaponReload != null)
         {
-            StopCoroutine(reloadCoroutine);
-            reloadCoroutine = null;
+            weaponReload.CancelReload();
         }
 
         animator.SetInteger("WeaponType", (int)0);
@@ -158,10 +158,8 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private void OnFireStarted()
     {
-        // 1. Check if we have any way to attack at all
         if (!currentWeaponData && !unarmedAttack.isUnarmed) return;
 
-        // 2. CHECK UNARMED FIRST (Prevents null crash)
         if (unarmedAttack.isUnarmed)
         {
             Debug.Log("WeaponHandler: TryUnarmedAttack Called");
@@ -169,14 +167,12 @@ public class PlayerWeaponHandler : MonoBehaviour
             return;
         }
 
-        // 3. Now it is safe to check weapon categories because we know a weapon exists
         if (currentWeaponData.AttackCategories == SO_WeaponType.AttackCategory.Melee)
         {
             TryMeleeAttack();
             return;
         }
 
-        // 4. Hitscan/Taser Logic
         if (!aimController.IsAiming) return;
 
         if (!currentWeaponData.IsSemiAutomatic)
@@ -205,6 +201,7 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private void TryHitScanAttack()
     {
+        if (weaponReload.reloadCoroutine != null) return;
         if (!currentWeaponData || !firePoint) return;
         if (!weaponCooldown.CanFire() || !currentWeaponData.HasAmmo) return;
 
@@ -250,27 +247,6 @@ public class PlayerWeaponHandler : MonoBehaviour
 
     private void TryReload()
     {
-        if (!currentWeaponData || !currentWeaponData.HasAmmo) return;
-        if (reloadCoroutine != null) return;
-        reloadCoroutine = StartCoroutine(ReloadRoutine());
-    }
-
-    private IEnumerator ReloadRoutine()
-    {
-        yield return new WaitForSeconds(currentWeaponData.ReloadTime);
-        string ammoID = currentWeaponData.AmmoType.AmmoID;
-
-        if (invData.GetConsumableIDsAndQuantities().TryGetValue(ammoID, out int ammoAvailable) && ammoAvailable > 0)
-        {
-            var ammoNeeded = AmmoModel.MaxAmmo - AmmoModel.CurrentAmmo;
-            var ammoToLoad = Mathf.Min(ammoAvailable, ammoNeeded);
-
-            invData.DepleteConsumable(ammoID, ammoToLoad);
-            AmmoModel.AddAmmo(AmmoModel.CurrentAmmoType, ammoToLoad);
-        }
-
-        reloadCoroutine = null;
-
-        // WeaponHandler.AmmoModel.CurrentA
+        weaponReload.TryReload(currentWeaponData, AmmoModel, invData);
     }
 }

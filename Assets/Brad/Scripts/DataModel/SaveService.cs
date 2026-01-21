@@ -215,6 +215,11 @@ public static class SaveService
         string objectiveIDsString = JsonUtility.ToJson(objectiveIDsWrapper);
         string objectiveStatusesString = JsonUtility.ToJson(statusesWrapper);
 
+        // Breakables
+        List<string> exhaustedBreakables = new List<string>(progressionData.GetExhaustedBreakablesList());
+        StringListWrapper breakablesWrapper = DataTools.GetWrapperizedStringList(exhaustedBreakables);
+        string breakablesString = JsonUtility.ToJson(breakablesWrapper);
+
         // other progression variables
         List<string> defeatedEnemies = new List<string>(progressionData.GetDefeatedEnemiesList());
         StringListWrapper enemiesDefeatedStringWrapper = DataTools.GetWrapperizedStringList(defeatedEnemies);
@@ -226,6 +231,7 @@ public static class SaveService
         // write to outData
         outData.PROGRESSION_ObjectiveIDs = objectiveIDsString;
         outData.PROGRESSION_ObjectiveStatuses = objectiveStatusesString;
+        outData.PROGRESSION_ExhaustedBreakables = breakablesString;
         outData.PROGRESSION_EnemiesDefeated = defeatedEnemiesString;
         outData.PROGRESSION_AlicaAndBobFuneralHeld = progressionData.AliceAndBobFuneralHeld;
         outData.PROGRESSION_AlicaAndBobFuneralHeld = progressionData.BobContacted;
@@ -325,6 +331,7 @@ public static class SaveService
 
         List<string> idStrings = DataTools.GetStringListFromJson(saveData.PROGRESSION_ObjectiveIDs);
         List<string> statusStrings = DataTools.GetStringListFromJson(saveData.PROGRESSION_ObjectiveStatuses);
+        
 
         Dictionary<string, EnumObjectiveStatus> statusDict = new();
         for (int i = 0; i< idStrings.Count; i++)
@@ -340,6 +347,10 @@ public static class SaveService
             }
         }
         _progressionData.UpdateObjectivesAndStatuses(statusDict);
+
+        // Breakables
+        List<string> breakablesList = DataTools.GetStringListFromJson(saveData.PROGRESSION_ExhaustedBreakables);
+        _progressionData.ReplaceDefeatedEnemiesList(breakablesList);
 
         // other prog variables
         List<string> defeatedEnemiesList = DataTools.GetStringListFromJson(saveData.PROGRESSION_EnemiesDefeated);
