@@ -11,7 +11,7 @@ The objectives system follows a modular architecture with clear separation of co
 - **Data Layer**: ScriptableObjects define objective definitions and completion criteria
 - **Controller Layer**: `ObjectivesTracker` manages objective lifecycle, status tracking, and completion evaluation
 - **Presentation Layer**: `ObjectivesPanel` and `ObjectiveUIElement` handle UI display (currently in early development)
-- **Integration Layer**: [Event_System_Documentation.md](Event-driven) updates from `ProgressionData` trigger objective evaluation
+- **Integration Layer**: [Event-driven](Event_System_Documentation.md) updates from `ProgressionData` trigger objective evaluation
 
 ## Core Components
 
@@ -157,7 +157,7 @@ The objectives system integrates tightly with `ProgressionData`, which serves as
 - When enemy is defeated, objectives automatically evaluate and may complete
 
 ### 4. UI Components
-[UI_System_Documentation.md](UI system documentation)
+[UI system documentation](UI_System_Documentation.md)
 
 #### `ObjectivesPanel`
 **Location**: `Assets/Brad/Scripts/UI/ObjectivesPanel.cs`
