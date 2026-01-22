@@ -41,6 +41,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8039955714723044405}
     m_Modifications:
+    - target: {fileID: 219714275410125171, guid: 3da97590dbf14c24cb55c374b40bf1d1, type: 3}
+      propertyPath: terminalWorldID
+      value: e78eb790-1775-480f-ab70-41b6c232e3de
+      objectReference: {fileID: 0}
+    - target: {fileID: 219714275410125171, guid: 3da97590dbf14c24cb55c374b40bf1d1, type: 3}
+      propertyPath: progressionRuntimeData
+      value: 
+      objectReference: {fileID: 11400000, guid: ade4d492fc958da4185a95ecfaf803cd, type: 2}
     - target: {fileID: 1208851707017397406, guid: 3da97590dbf14c24cb55c374b40bf1d1, type: 3}
       propertyPath: m_Name
       value: TERMINAL FOR CAGE
@@ -119,6 +127,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8039955714723044405}
     m_Modifications:
+    - target: {fileID: 219714275410125171, guid: 3da97590dbf14c24cb55c374b40bf1d1, type: 3}
+      propertyPath: terminalWorldID
+      value: 2f09fc8b-c11b-47dc-9e41-427d7abb498e
+      objectReference: {fileID: 0}
+    - target: {fileID: 219714275410125171, guid: 3da97590dbf14c24cb55c374b40bf1d1, type: 3}
+      propertyPath: progressionRuntimeData
+      value: 
+      objectReference: {fileID: 11400000, guid: ade4d492fc958da4185a95ecfaf803cd, type: 2}
     - target: {fileID: 1208851707017397406, guid: 3da97590dbf14c24cb55c374b40bf1d1, type: 3}
       propertyPath: m_Name
       value: TERMINAL FOR DOOR
