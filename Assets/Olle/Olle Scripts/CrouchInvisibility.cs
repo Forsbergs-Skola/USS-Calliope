@@ -55,7 +55,7 @@ namespace Olle.Scripts
         void Update()
         {
             if (_controller == null) return;
-            
+    
             if (_controller.IsCrouching)
             {
                 _crouchTimer += Time.deltaTime;
@@ -81,16 +81,17 @@ namespace Olle.Scripts
             
             if (_isInvisible)
             {
-               _invisibleTimer += Time.deltaTime;
-               if (_invisibleTimer >= invisibleDuration)
+                HandleStaminaDrain();
+        
+                _invisibleTimer += Time.deltaTime;
+                if (_invisibleTimer >= invisibleDuration)
                 {
                     SetInvisible(false);
                     return;
                 }
-
-                HandleStaminaDrain();
             }
         }
+
         
         void HandleStaminaDrain()
         {
