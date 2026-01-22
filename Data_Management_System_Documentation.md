@@ -1,16 +1,17 @@
 # Data Management
 
-*This guide explains how to use the shared data and data events in our project. It assumes the current architecture: runtime ScriptableObjects, a DataController & an EventRelay servicein the bootstrap scene.*
+## Overview
+This guide explains how to use the shared data and data events in our project. It assumes the current architecture: runtime ScriptableObjects, a DataController & an EventRelay service in the bootstrap scene.
 
 ## Core concepts
 
-* Runtime data classes (e.g., `PlayerData`, `InventoryData`, `ProgressionData`) are plain C# classes that hold save-worthy state and know whether they’re sandbox or not (`IsSandbox`).
+* Runtime data classes (e.g., `PlayerData`, `InventoryData`, `ProgressionData`) are plain C# classes that hold save-worthy state and know whether or not they’re in sandbox, i.e. unit testing, mode (`IsSandbox`).
 
 * Runtime data assets (`PlayerRuntimeData`, `InventoryRuntimeData`, `ProgressionRuntimeData`) are ScriptableObjects that hold a runtime instance of those classes in their Value field.
 
 * `DataController` exists in the bootstrap scene, owns the runtime assets, and sets them up for “real” games (non-sandbox).
 
-* `EventRelay` is the global event hub; when non-sandbox data changes, it fires `DataUpdatedEvent`.
+* `EventRelay` [Event_System_Documentation.md](link) is the global event hub; when non-sandbox data changes, it fires `DataUpdatedEvent`.
 
 ## Where to put gameplay logic
 
@@ -60,9 +61,9 @@ The `DataController` exists and will:
 
 Key points:
 
-* Always access runtime data through `DataController.Instance.[Player/Inventory/Progression]RuntimeData.Value` in real game scenes.
-
-* Assume `Value` is non-null once the game has started, but always null-check defensively.
+* Always access runtime by one of the following means:
+** Through `DataController.Instance.[Player/Inventory/Progression]RuntimeData.Value` in real game scenes. Here, assume `Value` is non-null once the game has started, but always null-check defensively.
+** By serializing a reference to the appropriate runtime data SO in your script. Here, the data holder will detect whether or not it's in sandbox mode and initialize accordingly (see below). 
 
 ## Using runtime data in sandbox scenes
 
@@ -104,6 +105,7 @@ Sandbox rules:
 * Changes still go through the same runtime data API, but `IsSandbox` == true, so they will not trigger global data-updated logic that relies on the controller.
 
 ## How data change events work
+[Event_System_Documentation.md](EventRelay documentation)
 
 `PlayerData`, `InventoryData` & `ProgressionData` (and other future data classes, as needed) call `DataTools.HandleOnDataChanged(this);` from their property setters when values change.
 

@@ -577,7 +577,7 @@ Choose direction based on animation intent:
 
 ## Integration Points
 
-### With UI System
+### With [UI_System_Documentation.md](UI) System
 - Used extensively in `LogoSplashCanvas` for fade effects
 - Can animate any UI element property
 - Works with Canvas-based UI
