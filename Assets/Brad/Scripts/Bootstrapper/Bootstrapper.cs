@@ -11,7 +11,12 @@ public class Bootstrapper : Singleton<Bootstrapper>
     [SerializeField] private EmptyPayloadEvent newGamePressedEvent;
     [SerializeField] private EmptyPayloadEvent loadGamePressedEvent;
     [SerializeField] private EmptyPayloadEvent logoSplashFinishedEvent;
+    [SerializeField] private EmptyPayloadEvent introCutsceneFinished;
+
+    [SerializeField] private string introCutsceneName = string.Empty;
+
     [SerializeField] private bool skipSplash = false;
+    [SerializeField] private bool skipIntroCutscene = false;
 
     private bool pressedInputDampened = false;
     private bool isFreshStart = true;
@@ -35,6 +40,7 @@ public class Bootstrapper : Singleton<Bootstrapper>
         newGamePressedEvent.OnEventTriggered += HandleNewGamePressedEvent;
         loadGamePressedEvent.OnEventTriggered += HandleLoadGamePressedEvent;
         logoSplashFinishedEvent.OnEventTriggered += HandleOnLogoSplashFinished;
+        introCutsceneFinished.OnEventTriggered += HandleIntroCutsceneFinished;
         SceneManager.sceneLoaded += HandleOnSceneLoaded;
     }
     private void OnDisable()
@@ -42,6 +48,7 @@ public class Bootstrapper : Singleton<Bootstrapper>
         newGamePressedEvent.OnEventTriggered -= HandleNewGamePressedEvent;
         loadGamePressedEvent.OnEventTriggered -= HandleLoadGamePressedEvent;
         logoSplashFinishedEvent.OnEventTriggered -= HandleOnLogoSplashFinished;
+        introCutsceneFinished.OnEventTriggered -= HandleIntroCutsceneFinished;
         SceneManager.sceneLoaded -= HandleOnSceneLoaded;
     }
 
@@ -93,8 +100,16 @@ public class Bootstrapper : Singleton<Bootstrapper>
 
     private void HandleNewGamePressedEvent()
     {
-        EventRelay.Instance.GameEvents.NewGameStartedEvent.TriggerEvent(); //Data controller initializes game data
-        SceneManager.LoadScene(defaultGameSceneName);
+        if (skipIntroCutscene)
+        {
+            EventRelay.Instance.GameEvents.NewGameStartedEvent.TriggerEvent(); //Data controller initializes game data
+            SceneManager.LoadScene(defaultGameSceneName);
+        }
+        else
+        {
+            SceneManager.LoadScene(introCutsceneName);
+        }
+        
     }
     private void HandleLoadGamePressedEvent()
     {
@@ -102,6 +117,12 @@ public class Bootstrapper : Singleton<Bootstrapper>
         //SceneManager.LoadScene(DataController.Instance.ProgressionRuntimeData.Value.SceneName);
         //Debug.Log(DataController.Instance.ProgressionRuntimeData.Value.SceneName);
         //SceneManager.LoadScene("NewLevel");
+    }
+
+    private void HandleIntroCutsceneFinished()
+    {
+        EventRelay.Instance.GameEvents.NewGameStartedEvent.TriggerEvent(); //Data controller initializes game data
+        SceneManager.LoadScene(defaultGameSceneName);
     }
 
     private System.Collections.IEnumerator StartPressedInputCooldown()
