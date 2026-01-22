@@ -26,6 +26,9 @@ public class SO_BossFastRangedAttack : EnemyAttackSOClass
         
         if (distance < baseRanged.minRange)
             return false;
+        
+        if (distance > baseRanged.maxRange)
+            return false;
 
         return true;
     }

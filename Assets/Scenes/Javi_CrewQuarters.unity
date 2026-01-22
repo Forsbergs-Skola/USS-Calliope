@@ -2884,13 +2884,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7877151858598348904, guid: 5177281d82f5db346ba74763f32160f8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 817591293}
-    - targetCorrespondingSourceObject: {fileID: 7877151858598348904, guid: 5177281d82f5db346ba74763f32160f8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 817591294}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5177281d82f5db346ba74763f32160f8, type: 3}
 --- !u!1 &200785322
 GameObject:
@@ -11260,52 +11254,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809810509}
   m_CullTransparentMesh: 1
---- !u!1 &817591262 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7877151858598348904, guid: 5177281d82f5db346ba74763f32160f8, type: 3}
-  m_PrefabInstance: {fileID: 197839197}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &817591280 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8055370389710704158, guid: 5177281d82f5db346ba74763f32160f8, type: 3}
   m_PrefabInstance: {fileID: 197839197}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 817591262}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59b8aa80064509e45b3066bf4aba4117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossHealth
---- !u!114 &817591293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 817591262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d2c52bdbc25f1443aac592874605dd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BossAIOverride
---- !u!114 &817591294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 817591262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cb05b8c93fb5ad449a4ec316eb4e159, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SimpleMovementAgent
-  baseSpeed: 2
-  rotationSpeed: 180
-  stoppingDistance: 0.1
-  patrolMultiplier: 0.8
-  chaseMultiplier: 1.5
-  investigateMultiplier: 1
 --- !u!1001 &823581796
 PrefabInstance:
   m_ObjectHideFlags: 0

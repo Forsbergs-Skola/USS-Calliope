@@ -39,7 +39,7 @@ public class SO_BossFuryLeapAttack : EnemyAttackSOClass
 
     public override void Execute(EnemyAttackContext context)
     {
-        Debug.Log($"{context.enemy.name} in leap attack");
+        //Debug.Log($"{context.enemy.name} in leap attack");
         var runtime = context.enemy.GetComponent<EnemyLeapRuntime>();
         if (runtime == null) return;
 

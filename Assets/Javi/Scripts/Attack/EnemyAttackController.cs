@@ -16,6 +16,7 @@ public class EnemyAttackController : MonoBehaviour
     [SerializeField] private float attackRecheckInterval = 0.5f;
     
     private bool isExecutingExclusiveAttack;
+    private bool shouldChaseTarget;
 
     private void Awake()
     {
@@ -239,6 +240,17 @@ public class EnemyAttackController : MonoBehaviour
         }*/
     }
     
+    private float GetRangedMax(EnemyAttackInstance attack)
+    {
+        if (attack.attack is SO_RangedEnemyAttack r)
+            return r.maxRange;
+
+        if (attack.attack is SO_BossFastRangedAttack b && b.baseRanged != null)
+            return b.baseRanged.maxRange;
+
+        return 0f;
+    }
+    
     private void HandleMovementForAttack(EnemyAttackInstance attack)
     {
         var follow = context.movement;
@@ -247,8 +259,29 @@ public class EnemyAttackController : MonoBehaviour
             attack.attack is SO_BossFastRangedAttack)
         {
             // stay in place and rotate
-            follow.SetFollow(false);
+            /*follow.SetFollow(false);
             RotateTowardsPlayer();
+            return;*/
+            float dist = Vector3.Distance(
+                context.enemy.position,
+                context.player.position
+            );
+
+            float maxRange = GetRangedMax(attack);
+            Debug.Log($"[HnadleMovement] dist: {dist}, maxrange: {maxRange}");
+            if (dist > maxRange)
+            {
+                // go to the player
+                follow.SetTarget(context.player);
+                follow.SetFollow(true);
+            }
+            else
+            {
+                // already close 
+                follow.SetFollow(false);
+                RotateTowardsPlayer();
+            }
+
             return;
         }
 

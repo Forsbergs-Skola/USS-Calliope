@@ -97,10 +97,10 @@ public class SimpleMovementAgent : MonoBehaviour, IMovementAgent
 
     public void MoveTo(Vector3 target)
     {
-        Debug.Log($"[MovementAgent] {name}: Moving to {target}");
+        //Debug.Log($"[MovementAgent] {name}: Moving to {target}");
         if (currentState == MovementState.Idle)
             return;
-        Debug.Log("[MovementAgent]: after if currentState");
+        //Debug.Log("[MovementAgent]: after if currentState");
         currentTarget = target;
         
         /*if (Vector3.Distance(transform.position, target) <= stoppingDistance)
@@ -110,16 +110,16 @@ public class SimpleMovementAgent : MonoBehaviour, IMovementAgent
 
         if (Vector3.Distance(flatPos, flatTarget) <= stoppingDistance)
             return;
-        Debug.Log("[MovementAgent]: after stoppingDistance");
+        //Debug.Log($"[MovementAgent] {name}: Moving to {target}, dist:{Vector3.Distance(flatPos, flatTarget)}");
         
         Vector3 direction = (target - transform.position).normalized;
         direction.y = 0f;
         
         transform.position += direction * CurrentSpeed * Time.deltaTime;
-        Debug.Log("[MovementAgent]: after transform");
+        //Debug.Log("[MovementAgent]: after transform");
         if (direction != Vector3.zero)
         {
-            Debug.Log("[MovementAgent]: inside if direction");
+            //Debug.Log("[MovementAgent]: inside if direction");
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.RotateTowards(
                 transform.rotation, 
@@ -127,7 +127,7 @@ public class SimpleMovementAgent : MonoBehaviour, IMovementAgent
                 rotationSpeed * Time.deltaTime
             );
         }
-        Debug.Log("[MovementAgent]: outside if direction");
+        //Debug.Log("[MovementAgent]: outside if direction");
     }
     
     // Debugging

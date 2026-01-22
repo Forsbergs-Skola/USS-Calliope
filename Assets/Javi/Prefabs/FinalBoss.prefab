@@ -366,6 +366,8 @@ GameObject:
   - component: {fileID: 2658455643355360405}
   - component: {fileID: 7575664597531673261}
   - component: {fileID: 6368051357586252770}
+  - component: {fileID: 1176478074413870494}
+  - component: {fileID: 7595251044824968744}
   m_Layer: 0
   m_Name: FinalBoss
   m_TagString: Untagged
@@ -877,6 +879,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6022ff2d46ded2445b1999685d9444dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FinalBossBrain
+--- !u!114 &1176478074413870494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7877151858598348904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d2c52bdbc25f1443aac592874605dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossAIOverride
+--- !u!114 &7595251044824968744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7877151858598348904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cb05b8c93fb5ad449a4ec316eb4e159, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SimpleMovementAgent
+  baseSpeed: 2
+  rotationSpeed: 180
+  stoppingDistance: 0.1
+  patrolMultiplier: 0.8
+  chaseMultiplier: 1.5
+  investigateMultiplier: 1
 --- !u!1 &8208439218157800367
 GameObject:
   m_ObjectHideFlags: 0
