@@ -19279,6 +19279,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 590487851645275845}
+  - component: {fileID: 3339493212187553235}
+  - component: {fileID: 6647576518142612896}
   m_Layer: 0
   m_Name: Central Corridor
   m_TagString: Untagged
@@ -19314,6 +19316,40 @@ Transform:
   - {fileID: 7144913683806176693}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3339493212187553235
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4948581760273320462}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 19.85099, y: 3.8989875, z: 20.151672}
+  m_Center: {x: 8.965345, y: 1.4494938, z: 8.90374}
+--- !u!114 &6647576518142612896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4948581760273320462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e5f1d702de1ea44f976d1f7752d1a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MiniMapRoomTrigger
+  mapNode: {fileID: 0}
 --- !u!1 &4952308595933632038
 GameObject:
   m_ObjectHideFlags: 0

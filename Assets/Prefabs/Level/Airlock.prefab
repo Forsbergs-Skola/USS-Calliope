@@ -3768,6 +3768,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8247246276101440926}
+  - component: {fileID: 909923714431437679}
+  - component: {fileID: 4192834109700399031}
   m_Layer: 0
   m_Name: Airlock
   m_TagString: Untagged
@@ -3809,6 +3811,40 @@ Transform:
   - {fileID: 4203166935565769549}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &909923714431437679
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4668005298885171699}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 18.822628, y: 4.2732325, z: 18.74207}
+  m_Center: {x: 8.692194, y: 1.6366165, z: 8.871035}
+--- !u!114 &4192834109700399031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4668005298885171699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e5f1d702de1ea44f976d1f7752d1a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MiniMapRoomTrigger
+  mapNode: {fileID: 0}
 --- !u!1 &4682929467108706150
 GameObject:
   m_ObjectHideFlags: 0
