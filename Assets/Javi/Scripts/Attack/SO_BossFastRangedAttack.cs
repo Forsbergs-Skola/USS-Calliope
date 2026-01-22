@@ -32,15 +32,18 @@ public class SO_BossFastRangedAttack : EnemyAttackSOClass
 
     public override void Execute(EnemyAttackContext context)
     {
+        //Debug.Log($"{context.enemy.name} is shooting - pre firePoint");
         context.movement?.SetFollow(false);
 
         if (context.firePoint == null)
             return;
-
+        
+        //Debug.Log($"{context.enemy.name} is shooting - post firePoint");
         var spawner = context.enemy.GetComponent<EnemyProjectileSpawner>();
         if (spawner == null)
             return;
 
+        //Debug.Log($"{context.enemy.name} is shooting - post spawner");
         spawner.SpawnProjectile(baseRanged.projectilePrefab, context.firePoint, context.player.position, baseRanged.projectileSpeed, baseRanged.damage
         );
     }

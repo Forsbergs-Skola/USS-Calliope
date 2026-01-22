@@ -79,6 +79,13 @@ public class EnemyAttackController : MonoBehaviour
         {
             Debug.Log($"{name} ATTACKING but no activeAttack");
             TrySelectAttack();
+            
+            if (activeAttack == null &&
+                context.enemy.GetComponent<FinalBossBrain>() != null)
+            {
+                RotateTowardsPlayer();
+            }
+
             return;
         }
 
@@ -88,6 +95,7 @@ public class EnemyAttackController : MonoBehaviour
             activeAttack = null;
             //ai.OnLostPlayer(); // go to watchful
             recheckTimer = attackRecheckInterval;
+            //HandleMovementForAttack(activeAttack);
             return;
         }
         
@@ -109,7 +117,11 @@ public class EnemyAttackController : MonoBehaviour
         if (activeAttack.attack is SO_BossFuryLeapAttack)
         {
             var fury = context.enemy.GetComponent<BossFuryCounter>();
-            fury?.ConsumeLeap();
+            if (!fury.ConsumeLeap())
+            {
+                activeAttack = null;
+                return;
+            }
         }
         
         activeAttack.attack.Execute(context);
@@ -272,22 +284,16 @@ public class EnemyAttackController : MonoBehaviour
 
     private void TrySelectAttack()
     {
-        float dist = Vector3.Distance(
-            context.enemy.position,
-            context.player.position
-        );
+        float dist = Vector3.Distance(context.enemy.position, context.player.position);
 
         var ranged = GetAttack<SO_RangedEnemyAttack>() ?? GetAttack<SO_BossFastRangedAttack>();
         var melee = GetAttack<SO_MeleeAttack>() ?? GetAttack<SO_BossHeavyMeleeAttack>();
         var leap  = GetAttack<SO_LeapAttack>() ?? GetAttack<SO_BossFuryLeapAttack>();
         
-        var director = context.enemy.GetComponent<BossAttackDirector>();
-        if (director != null)
+        var decisionSystem = context.enemy.GetComponent<IAttackDecisionSystem>();
+        if (decisionSystem != null)
         {
-            activeAttack = director.ChooseBossAttack(ranged, melee, leap, context);
-            
-            if (activeAttack == null)
-                activeAttack = ranged;
+            activeAttack = decisionSystem.ChooseAttack(ranged, melee, leap, context);
             
             return;
         }

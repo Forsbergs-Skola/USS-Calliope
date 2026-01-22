@@ -36,7 +36,7 @@ public class EnemyProjectile : MonoBehaviour
             var dmg = other.GetComponent<IDamageable>();
             dmg?.TakeDamage(damage);
         }
-
+        
         Destroy(gameObject);
     }
 }

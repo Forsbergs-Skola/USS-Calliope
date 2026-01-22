@@ -11,6 +11,9 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IDamageEvents
     public UnityEvent<float, float> OnHealthChanged = new UnityEvent<float, float>();
     public UnityEvent OnDeath = new UnityEvent();
     public event Action<float> OnDamaged;
+    
+    public float GetCurrentHealth() => currentHealth;
+    public float GetMaxHealth() => maxHealth;
 
     private void Awake()
     {
@@ -41,7 +44,4 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IDamageEvents
         OnDeath.Invoke();
         Destroy(gameObject);
     }
-
-    public float GetCurrentHealth() => currentHealth;
-    public float GetMaxHealth() => maxHealth;
 }

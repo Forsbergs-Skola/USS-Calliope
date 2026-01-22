@@ -119,4 +119,22 @@ public static class PatrolPointRegistry
             .Take(count)
             .ToList();
     }
+    
+    public static Transform GetRandomPointInZone(PatrolZone zone)
+    {
+        if (zone == null)
+            return null;
+
+        if (!isInitialized)
+            Initialize();
+
+        if (!pointsByZone.TryGetValue(zone, out var points))
+            return null;
+
+        if (points.Count == 0)
+            return null;
+
+        int index = Random.Range(0, points.Count);
+        return points[index];
+    }
 }

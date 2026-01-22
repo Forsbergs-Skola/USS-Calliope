@@ -16,6 +16,7 @@ public class SO_BossHeavyMeleeAttack : EnemyAttackSOClass
 
     public override void Execute(EnemyAttackContext context)
     {
+        Debug.Log($"{context.enemy.name} in melee");
         context.coroutineRunner.StartCoroutine(HeavyAttackRoutine(context));
     }
 

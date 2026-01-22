@@ -1,83 +1,74 @@
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyAttackController))]
-[RequireComponent(typeof(BossHealth))]
-[RequireComponent(typeof(BossFuryCounter))]
-public class BossAttackDirector : MonoBehaviour
+public class BossAttackDirector : MonoBehaviour, IAttackDecisionSystem
 {
-    private EnemyAttackController attackController;
     private BossHealth health;
     private BossFuryCounter fury;
 
-    private bool phase40Triggered = false;
-
     private void Awake()
     {
-        attackController = GetComponent<EnemyAttackController>();
         health = GetComponent<BossHealth>();
         fury = GetComponent<BossFuryCounter>();
-
-        health.OnDamageTaken.AddListener(OnDamageTaken);
-    }
-    
-    private void Update()
-    {
-        if (phase40Triggered) return;
-
-        if (health.GetCurrentHealth() <= 40f)
-        {
-            phase40Triggered = true;
-            TriggerFinalPhase();
-        }
     }
 
-    private void OnDamageTaken(float dmg)
+    public EnemyAttackInstance ChooseAttack(
+        EnemyAttackInstance ranged,
+        EnemyAttackInstance melee,
+        EnemyAttackInstance leap,
+        EnemyAttackContext context)
     {
-        // 
-    }
-
-    public EnemyAttackInstance ChooseBossAttack(EnemyAttackInstance ranged, EnemyAttackInstance melee, EnemyAttackInstance leap, EnemyAttackContext context)
-    {
-        Debug.Log("En ChooseBossAttack");
         float dist = Vector3.Distance(
             context.enemy.position,
             context.player.position
         );
-
-        // too close, melee
-        if (melee != null)
+        
+        if (melee != null /*&& dist < GetLeapMinDistance(leap)*/)
         {
-            Debug.Log("En melee");
-            float leapMin = GetLeapMin(leap);
-            if (dist < leapMin)
+            float meleeRange = 2.5f; // from SO????
+            if (dist <= meleeRange)
                 return melee;
         }
 
-        // leap
-        if (leap != null && fury.IsLeapReady)
+        if (leap != null /*&& fury.IsLeapReady && leap.attack.CanExecute(context)*/)
         {
-            Debug.Log("En leap");
-            return leap;
+            var fury = context.enemy.GetComponent<BossFuryCounter>();
+            var leapSO = leap.attack as SO_BossFuryLeapAttack;
+
+            if (fury != null &&
+                fury.IsLeapReady &&
+                dist >= leapSO.minDistance &&
+                dist <= leapSO.maxDistance)
+            {
+                return leap;
+            }
         }
 
-        // ranged by default
-        Debug.Log("En ranged");
-        return ranged;
-    }
-
-    private float GetLeapMin(EnemyAttackInstance leap)
-    {
-        if (leap.attack is SO_BossFuryLeapAttack l)
-            return l.minDistance;
-        return 0f;
+        if (ranged != null /*&& ranged.attack.CanExecute(context)*/)
+        {
+            float minRange = GetRangedMin(ranged);
+            if (dist >= minRange)
+                return ranged;
+        }
+        
+        return melee;
     }
     
-    private void TriggerFinalPhase()
+    private float GetRangedMin(EnemyAttackInstance ranged)
     {
-        GetComponent<EnemyCallSystem>()?.TryCall(transform.position);
-        GetComponent<BossEnemySpawner>()?.Spawn(
-            FindObjectOfType<PlayerHealthJavi>().transform.position,
-            false
-        );
+        if (ranged.attack is SO_RangedEnemyAttack r)
+            return r.minRange;
+
+        if (ranged.attack is SO_BossFastRangedAttack b)
+            return b.baseRanged.minRange;
+
+        return 0f;
+    }
+
+    private float GetLeapMinDistance(EnemyAttackInstance leap)
+    {
+        if (leap?.attack is SO_BossFuryLeapAttack l)
+            return l.minDistance;
+
+        return 0f;
     }
 }

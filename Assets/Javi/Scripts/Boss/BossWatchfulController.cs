@@ -7,13 +7,18 @@ public class BossWatchfulController : MonoBehaviour
 {
     private EnemyAIStateController ai;
     private SimpleMovementAgent movement;
+    private FinalBossBrain bossBrain;
+    
     private Transform player;
     private PatrolZone currentZone;
+    private Transform currentTargetPoint;
+    private bool hasDestination = false;
 
     private void Awake()
     {
         ai = GetComponent<EnemyAIStateController>();
         movement = GetComponent<SimpleMovementAgent>();
+        bossBrain = GetComponent<FinalBossBrain>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
@@ -23,15 +28,28 @@ public class BossWatchfulController : MonoBehaviour
             return;
 
         if (player == null) return;
+        
+        if (bossBrain != null && bossBrain.IsInvestigating)
+            return;
+        
+        if (hasDestination && currentTargetPoint != null)
+        {
+            float dist = Vector3.Distance(transform.position, currentTargetPoint.position);
+            if (dist < 0.5f)
+            {
+                hasDestination = false;
+                currentTargetPoint = null;
+            }
+            return;
+        }
 
-        PatrolZone zone = PatrolPointRegistry.GetClosestZone(player.position);
-        if (zone == null) return;
+        PatrolZone currentZone = PatrolPointRegistry.GetClosestZone(player.position);
+        if (currentZone == null) return;
         
         List<Transform> points = PatrolPointRegistry.GetPointsForZone(currentZone);
-
         if (points == null || points.Count == 0)
         {
-            Debug.LogWarning($"{name}: No points found for zone {currentZone.name}");
+            //Debug.LogWarning($"{name}: No points found for zone {currentZone.name}");
             return;
         }
 

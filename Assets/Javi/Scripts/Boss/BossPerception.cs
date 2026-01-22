@@ -5,18 +5,21 @@ public class BossPerception : MonoBehaviour, IPerceptionSystem
 {
     private Transform player;
     private CrouchInvisibility invis;
+    private EnemyVisionCone visionCone;
 
     private void Awake()
     {
+        visionCone = GetComponent<EnemyVisionCone>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        invis = player.GetComponent<CrouchInvisibility>();
+        if (player != null)
+            invis = player.GetComponent<CrouchInvisibility>();
     }
 
     public bool CanSeeTarget(Transform target)
     {
         if (target == null) return false;
         if (invis != null && invis.IsInvisible) return false;
-        return true;
+        return visionCone.CanSeePlayer();
     }
 
     public Vector3 GetLastKnownZone()

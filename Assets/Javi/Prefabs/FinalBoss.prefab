@@ -364,6 +364,8 @@ GameObject:
   - component: {fileID: 5887416341147942605}
   - component: {fileID: 3537915011589269454}
   - component: {fileID: 2658455643355360405}
+  - component: {fileID: 7575664597531673261}
+  - component: {fileID: 6368051357586252770}
   m_Layer: 0
   m_Name: FinalBoss
   m_TagString: Untagged
@@ -851,6 +853,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d60769fcdb82314d8a91db79e9b2cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossAttackDirector
+--- !u!114 &7575664597531673261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7877151858598348904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d11d1876a95481445a2f2d3a152dce3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyProjectileSpawner
+--- !u!114 &6368051357586252770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7877151858598348904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6022ff2d46ded2445b1999685d9444dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FinalBossBrain
 --- !u!1 &8208439218157800367
 GameObject:
   m_ObjectHideFlags: 0

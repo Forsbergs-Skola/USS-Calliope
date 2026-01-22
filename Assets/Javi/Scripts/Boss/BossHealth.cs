@@ -23,10 +23,16 @@ public class BossHealth : MonoBehaviour, IDamageable
         currentHealth -= amount;
         currentHealth = Mathf.Max(0, currentHealth);
 
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
         OnDamageTaken?.Invoke(amount);
 
         if (currentHealth <= 0)
-            OnDeath?.Invoke();
+            Die();
     }
-
+    
+    private void Die()
+    {
+        OnDeath.Invoke();
+        Destroy(gameObject);
+    }
 }
