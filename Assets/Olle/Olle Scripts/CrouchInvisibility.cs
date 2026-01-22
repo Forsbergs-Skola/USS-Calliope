@@ -90,6 +90,8 @@ namespace Olle.Scripts
                     return;
                 }
             }
+
+            UpdateIcon();
         }
 
         
@@ -106,6 +108,7 @@ namespace Olle.Scripts
             
             if (_stamina.currentStamina <= 0f)
             {
+                Debug.Log("INVIS OFF: stamina already 0");
                 MakeTiredFromStealth();
                 SetInvisible(false);
                 return;
@@ -119,6 +122,7 @@ namespace Olle.Scripts
 
             if (after <= 0f)
             {
+                Debug.Log("INVIS OFF: stamina drained to 0!");
                 MakeTiredFromStealth();
                 SetInvisible(false);
             }
