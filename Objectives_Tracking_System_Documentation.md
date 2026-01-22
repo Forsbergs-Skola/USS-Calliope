@@ -327,7 +327,7 @@ In the Unity Inspector for an `ObjectiveSO`:
 - Uses `IRuntimeDataPayloadEvent` for reactive updates
 - Could emit objective-specific events (currently placeholder)
 
-### With [UI_System_Documentation.md](UI System)
+### With [UI_System_Documentation.md](UI) System
 - `ObjectivesPanel` and `ObjectiveUIElement` prepared for UI integration
 - UI can query `ObjectivesTracker` for objective data
 - UI can display status from `ProgressionData`
