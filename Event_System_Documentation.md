@@ -530,16 +530,6 @@ EventRelay.Instance.GameEvents.NewGameStartedEvent.TriggerEvent();
 - `Events` namespace for event channel classes
 - Data model classes (`GameData`, `IRuntimeData`, etc.)
 
-## Known Limitations / Future Work
-
-1. **Event Ordering**: No built-in priority system for subscriber execution order
-2. **Event History**: No logging or history of triggered events (useful for debugging)
-3. **Conditional Subscriptions**: No built-in way to conditionally subscribe/unsubscribe
-4. **Event Validation**: No validation that required subscribers exist before triggering
-5. **Performance Monitoring**: No built-in performance metrics for event system usage
-6. **Editor Tools**: Could add custom editor tools for visualizing event connections
-7. **Event Batching**: No support for batching multiple events together
-
 ## Scene Setup
 
 ### Bootstrap Scene Configuration
