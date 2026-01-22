@@ -1046,6 +1046,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
+      propertyPath: introCutsceneName
+      value: IntroCutscene
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
+      propertyPath: skipIntroCutscene
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
       propertyPath: newGamePressedEvent
       value: 
       objectReference: {fileID: 11400000, guid: c069b11bc30bb0c4a9b4afde452373a1, type: 2}
@@ -1057,6 +1065,10 @@ PrefabInstance:
       propertyPath: loadGamePressedEvent
       value: 
       objectReference: {fileID: 11400000, guid: b1e6591e25d97734b81fdc01f4f0fd7d, type: 2}
+    - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
+      propertyPath: introCutsceneFinished
+      value: 
+      objectReference: {fileID: 11400000, guid: e3fd78f735df7634a9fd5be2a9bf4575, type: 2}
     - target: {fileID: 8572386633973389540, guid: 4968b9c4fc4fa954aa1229ad3a58cc0d, type: 3}
       propertyPath: logoSplashFinishedEvent
       value: 
