@@ -74,7 +74,7 @@ Central registry of all available conversations in the game.
   - Shows dialogue canvas via `UIController`
   - Launches conversation on the canvas
 
-**[Event_System_Documentation.md](Event) Handlers**:
+**[Event](Event_System_Documentation.md) Handlers**:
 - `HandleConvoStartedEvent`: Placeholder for future conversation start logic
 - `HandleConvoEndedEvent`: Removes dialogue canvas when conversation completes
 - `HandleLineStartedEvent`: Placeholder for line start logic
@@ -86,7 +86,7 @@ Central registry of all available conversations in the game.
 
 **Interface**: Implements `ICanvasUI` for integration with the UI management system
 
-**[UI_System_Documentation.md](UI) Elements**:
+**[UI](UI_System_Documentation.md) Elements**:
 - `dialogueText` (TMP_Text): Displays the dialogue line text
 - `speakerNameText` (TMP_Text): Displays the speaker's name
 - `continueButton` (Button): Button to advance to next line
@@ -113,7 +113,7 @@ Central registry of all available conversations in the game.
 - `OnEnable()`: Pauses game, sets up button listener, hides continue button
 - `OnDisable()`: Unloads unused assets, removes listeners, resumes game
 
-### 4. [UI_System_Documentation.md](UI) Integration: `UIController`
+### 4. [UI](UI_System_Documentation.md) Integration: `UIController`
 
 **Location**: `Assets/Brad/Scripts/UI/UIController.cs`
 
@@ -129,7 +129,7 @@ The dialogue system integrates with the project's centralized UI management syst
 - `DialogueController` uses `UIController.Instance` to show/remove dialogue canvas
 - Canvas is registered with `EnumCanvasUIName.DIALOGUE`
 
-## [Event_System_Documentation.md](Event System) Integration
+## [Event System](Event_System_Documentation.md) Integration
 
 The dialogue system uses an event-driven architecture for decoupled communication.
 
