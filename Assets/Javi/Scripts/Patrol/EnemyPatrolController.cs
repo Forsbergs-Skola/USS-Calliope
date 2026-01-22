@@ -13,7 +13,7 @@ public class EnemyPatrolController : MonoBehaviour
     [Header("Patrol Settings")]
     [SerializeField] private float waitTimeAtPoint = 10f;
     [SerializeField] private float rotationSpeed = 45f;
-    [SerializeField] private float reachTolerance = 0.3f;
+    [SerializeField] private float reachTolerance = 0.6f;
     [SerializeField] private float retryDelay = 2f; //Time if there aren't points
     
     [Header("Look Around Settings")]
@@ -29,6 +29,9 @@ public class EnemyPatrolController : MonoBehaviour
     private PatrolZone currentZone;
     private Transform currentPoint;
     private bool isPatrolling = false;
+    
+    private PatrolMode currentMode = PatrolMode.Main;
+    private PatrolZone forcedZone; // Zone where the player was lost
     
     public PatrolZone GetCurrentZone() => currentZone;
 
@@ -47,9 +50,6 @@ public class EnemyPatrolController : MonoBehaviour
         Main,
         AllowedSingleZone
     }
-
-    private PatrolMode currentMode = PatrolMode.Main;
-    private PatrolZone forcedZone; // Zone where the player was lost
     
     private IEnumerator DelayedStart()
     {
@@ -309,6 +309,15 @@ public class EnemyPatrolController : MonoBehaviour
         }
         
         isWatchingInPlace = false;
-        transform.rotation = initialRotation;
+        //transform.rotation = initialRotation;
+        
+        PatrolMainZones();
+    }
+    
+    public void GoToPoint(Transform point)
+    {
+        if (movement == null || point == null) return;
+
+        movement.MoveTo(point.position);
     }
 }

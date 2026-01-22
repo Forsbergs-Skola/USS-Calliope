@@ -6,7 +6,8 @@ public class BossFuryCounter : MonoBehaviour
     [SerializeField] private float damageThreshold = 20f;
 
     private float accumulatedDamage;
-    private bool leapReady = false;
+    private bool leapReady;
+    public bool IsLeapReady => leapReady;
 
     private void Awake()
     {

@@ -10,15 +10,44 @@ public class SO_BossFastRangedAttack : EnemyAttackSOClass
 
     public override bool CanExecute(EnemyAttackContext context)
     {
+        if (context.player == null)
+            return false;
+
         if (Time.time - lastFire < baseRanged.cooldown / fireRateMultiplier)
             return false;
 
-        return baseRanged.CanExecute(context);
+        /*if (!context.perception.CanSeeTarget(context.player))
+            return false;*/
+
+        float distance = Vector3.Distance(
+            context.enemy.position,
+            context.player.position
+        );
+        
+        if (distance < baseRanged.minRange)
+            return false;
+        
+        if (distance > baseRanged.maxRange)
+            return false;
+
+        return true;
     }
 
     public override void Execute(EnemyAttackContext context)
     {
-        lastFire = Time.time;
-        baseRanged.Execute(context);
+        //Debug.Log($"{context.enemy.name} is shooting - pre firePoint");
+        context.movement?.SetFollow(false);
+
+        if (context.firePoint == null)
+            return;
+        
+        //Debug.Log($"{context.enemy.name} is shooting - post firePoint");
+        var spawner = context.enemy.GetComponent<EnemyProjectileSpawner>();
+        if (spawner == null)
+            return;
+
+        //Debug.Log($"{context.enemy.name} is shooting - post spawner");
+        spawner.SpawnProjectile(baseRanged.projectilePrefab, context.firePoint, context.player.position, baseRanged.projectileSpeed, baseRanged.damage
+        );
     }
 }

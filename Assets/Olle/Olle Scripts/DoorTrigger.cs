@@ -2,56 +2,23 @@ using UnityEngine;
 
 public class DoorTrigger : MonoBehaviour
 {
-    
     public SlidingDoor door;
 
     void OnTriggerEnter(Collider other)
     {
-        
-
         if (!other.CompareTag("Player") || door == null) return;
         
-        if (door.lockType == DoorLockType.None)
+        if (door.isLocked)
         {
-            door.SetOpen(true);
-            return;
+            door.TryUnlock();
         }
-
-
-        if (!door.isLocked)
-        {
-            door.SetOpen(true);
-            return;
-        }
-
-        if (door.TryUnlock())
-        {
-            door.SetOpen(true);
-            return;
-        }
-
-        /*
-        if (door.lockType == DoorLockType.Keycard)
-        {
-            var keycards = other.GetComponent<PlayerKeycards>();
-            if (keycards != null)
-            {
-                keycards.TryUseKeycardForDoor(door);
-            }
-            return;
-        }
-        */
         
+        door.SetPlayerInTrigger(true);
     }
 
     void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("Player") || door == null) return;
-        
-        if (!door.isLocked)
-        {
-            door.SetOpen(false);
-        }
+        door.SetPlayerInTrigger(false);
     }
-    
 }

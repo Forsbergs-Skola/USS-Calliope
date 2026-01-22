@@ -6,23 +6,23 @@ public class SO_LeapAttack : EnemyAttackSOClass
 {
     [Header("Distances")]
     [Tooltip("If enemy is closer than this, Leap will NOT start")]
-    public float minExecuteDistance = 1.5f;
+    public float minExecuteDistance = 4f;
 
     [Tooltip("Max distance to start Leap")]
-    public float startRunDistance = 6f;
+    public float startRunDistance = 9f;
 
-    [Tooltip("Distance to hit the headbutt")]
-    public float headbuttDistance = 1.2f;
+    /*[Tooltip("Distance to hit the headbutt")]
+    public float headbuttDistance = 3f;*/
 
     [Header("Movement")]
     public float crouchRunSpeed = 6f;
-    public float crouchRunDuration = 4f;
+    public float crouchRunDuration = 3f;
 
     [Header("Combat")]
-    public float damage = 20f;
+    public float damage = 15f;
     
     [Header("Impact")]
-    public float pushForce = 45f;
+    public float pushForce = 150f;
 
     /*[Header("Probability")]
     [Range(0f, 1f)]
@@ -67,7 +67,7 @@ public class SO_LeapAttack : EnemyAttackSOClass
         Vector3 dir = (context.player.position - context.enemy.position).normalized;
 
         leapRuntime.StartLeap(dir, damage, pushForce);
-
+        
         context.coroutineRunner.StartCoroutine(
             LeapMovement(context, dir, leapRuntime)
         );
@@ -91,6 +91,7 @@ public class SO_LeapAttack : EnemyAttackSOClass
         // end
         if (runtime.IsLeapActive)
         {
+            Debug.Log($"{context.enemy.name} Leap ended");
             runtime.EndLeap();
         }
     }

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RangedAttack
   m_EditorClassIdentifier: Assembly-CSharp::SO_RangedEnemyAttack
   cooldown: 2
-  minRange: 3
-  maxRange: 20
+  minRange: 4
+  maxRange: 15
   projectilePrefab: {fileID: 1844473362032847600, guid: 048e2c1916ec03941a3ed19591f94e72, type: 3}
   projectileSpeed: 20
-  damage: 1
+  damage: 8

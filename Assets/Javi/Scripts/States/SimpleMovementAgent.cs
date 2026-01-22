@@ -61,7 +61,7 @@ public class SimpleMovementAgent : MonoBehaviour, IMovementAgent
                 currentSpeedMultiplier = 0f;
                 break;
             case MovementState.Custom:
-                // This doesnt change the modifier, use the current
+                // This doesnt change the modifier
                 break;
         }
     }
@@ -97,22 +97,29 @@ public class SimpleMovementAgent : MonoBehaviour, IMovementAgent
 
     public void MoveTo(Vector3 target)
     {
-        //Debug.Log($"[MovementAgent] {name}: Moving to {target} at speed {CurrentSpeed}");
+        //Debug.Log($"[MovementAgent] {name}: Moving to {target}");
         if (currentState == MovementState.Idle)
             return;
-    
+        //Debug.Log("[MovementAgent]: after if currentState");
         currentTarget = target;
         
-        if (Vector3.Distance(transform.position, target) <= stoppingDistance)
+        /*if (Vector3.Distance(transform.position, target) <= stoppingDistance)
+            return;*/
+        Vector3 flatPos = new Vector3(transform.position.x, 0f, transform.position.z);
+        Vector3 flatTarget = new Vector3(target.x, 0f, target.z);
+
+        if (Vector3.Distance(flatPos, flatTarget) <= stoppingDistance)
             return;
+        //Debug.Log($"[MovementAgent] {name}: Moving to {target}, dist:{Vector3.Distance(flatPos, flatTarget)}");
         
         Vector3 direction = (target - transform.position).normalized;
         direction.y = 0f;
         
         transform.position += direction * CurrentSpeed * Time.deltaTime;
-        
+        //Debug.Log("[MovementAgent]: after transform");
         if (direction != Vector3.zero)
         {
+            //Debug.Log("[MovementAgent]: inside if direction");
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.RotateTowards(
                 transform.rotation, 
@@ -120,6 +127,7 @@ public class SimpleMovementAgent : MonoBehaviour, IMovementAgent
                 rotationSpeed * Time.deltaTime
             );
         }
+        //Debug.Log("[MovementAgent]: outside if direction");
     }
     
     // Debugging
