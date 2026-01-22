@@ -266,7 +266,7 @@ Manages UI sound effects.
 
 **Audio Source Pooling**: Uses multiple AudioSource components to allow overlapping sounds without interruption.
 
-### 8. [Event_System_Documentation.md](EventSystem) Management
+### 8. [EventSystem](Event_System_Documentation.md) Management
 
 #### `EventSystemDDOL`
 Manages Unity EventSystem across scenes.
