@@ -58,7 +58,7 @@ public class FinalBossBrain : MonoBehaviour, IBossController
 
             if (dist > 0.5f)
             {
-                Debug.Log($"[finalBossBrain] {dist}");
+                //Debug.Log($"[finalBossBrain] {dist}");
                 var movement = GetComponent<SimpleMovementAgent>();
                 if (movement != null)
                 {

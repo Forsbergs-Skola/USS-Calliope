@@ -567,7 +567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b8aa80064509e45b3066bf4aba4117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossHealth
-  maxHealth: 300
+  maxHealth: 250
   OnDamageTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -590,7 +590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealthBarSlider
   enemyHealth: {fileID: 0}
-  bossHealth: {fileID: 0}
+  bossHealth: {fileID: 8055370389710704158}
   enemyHealthSlider: {fileID: 6071178165200087198}
   enemyRenderer: {fileID: 0}
   targetCamera: {fileID: 0}
@@ -761,8 +761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e50f337a6278ab4f9b8eedd52707666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCallSystem
-  firstCallChance: 0.6
-  repeatCallChance: 0.25
+  firstCallChance: 0.9
+  repeatCallChance: 0.7
   callCooldown: 20
   preCallPause: 1
   postCallPause: 2
@@ -783,7 +783,7 @@ MonoBehaviour:
   visionOrigin: {fileID: 3689060606882709455}
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 24704
+    m_Bits: 28737
   playerMask:
     serializedVersion: 2
     m_Bits: 32768

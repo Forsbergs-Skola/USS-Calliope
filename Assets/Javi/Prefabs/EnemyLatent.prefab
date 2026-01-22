@@ -560,6 +560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealthBarSlider
   enemyHealth: {fileID: 7876600125979415202}
+  bossHealth: {fileID: 0}
   enemyHealthSlider: {fileID: 8876339123502517768}
   enemyRenderer: {fileID: 0}
   targetCamera: {fileID: 0}
@@ -704,9 +705,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7943d63740636f84eb0b8cb3ee7da608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPatrolController
-  mainZones: []
+  mainZones:
+  - {fileID: 11400000, guid: 29d1a4695fa60ff4e95588f9b2a6ff14, type: 2}
   allowedZones:
   - {fileID: 11400000, guid: ba00b5f369a7e234d94bded2af9c1c8b, type: 2}
+  - {fileID: 11400000, guid: 29d1a4695fa60ff4e95588f9b2a6ff14, type: 2}
+  - {fileID: 11400000, guid: 9ddaf94661c4bec49a909b2c79bfc568, type: 2}
+  - {fileID: 11400000, guid: fd7616f4b49f42f40a6a78b9ce53014a, type: 2}
+  - {fileID: 11400000, guid: d9dff5fbfaf76694498ebc7cfa8e4b0b, type: 2}
   waitTimeAtPoint: 10
   rotationSpeed: 45
   reachTolerance: 0.3
