@@ -514,19 +514,6 @@ private void FadeIn()
 - Unity Time system (`Time.deltaTime`)
 - Unity Mathf utilities
 
-## Known Limitations / Future Work
-
-1. **Repeat Functionality**: `SetRepeat()` is not yet implemented (TODO)
-2. **Reset Functionality**: `ResetTween()` is not yet implemented (TODO)
-3. **Reverse Playback**: No built-in reverse/rewind functionality
-4. **Delay Support**: No start delay option
-5. **Callbacks**: Limited callback options (only OnFinished, no OnStart)
-6. **Chaining**: No built-in tween chaining/sequencing
-7. **Color Tweens**: No direct Color/RGBA tween support (must use Vector3/Vector4)
-8. **Rotation Tweens**: No Quaternion tween support
-9. **Path Animation**: No curve/path following support
-10. **Performance**: Creates GameObject per tween (could use object pooling)
-
 ## Best Practices
 
 ### Event Cleanup
@@ -577,7 +564,7 @@ Choose direction based on animation intent:
 
 ## Integration Points
 
-### With [UI_System_Documentation.md](UI) System
+### With [UI](UI_System_Documentation.md) System
 - Used extensively in `LogoSplashCanvas` for fade effects
 - Can animate any UI element property
 - Works with Canvas-based UI
