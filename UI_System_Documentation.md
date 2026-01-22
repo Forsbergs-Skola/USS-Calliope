@@ -182,7 +182,7 @@ Main menu screen with game start options.
 - Quit button
 - Cursor visibility management
 
-**Event Integration**: 
+**[Event_System_Documentation.md](Event) Integration**: 
 - Triggers `newGamePressedEvent` and `loadGamePressedEvent`
 - Integrates with save system to show/hide continue button
 
@@ -266,7 +266,7 @@ Manages UI sound effects.
 
 **Audio Source Pooling**: Uses multiple AudioSource components to allow overlapping sounds without interruption.
 
-### 8. EventSystem Management
+### 8. [Event_System_Documentation.md](EventSystem) Management
 
 #### `EventSystemDDOL`
 Manages Unity EventSystem across scenes.
@@ -556,17 +556,6 @@ UIController.Instance.ShowCanvas(EnumCanvasUIName.MY_NEW_CANVAS);
 - Project's data model (for reactive UI updates)
 - Unity TextMeshPro (for text rendering)
 - Unity UI system (Buttons, Sliders, etc.)
-
-## Known Limitations / Future Work
-
-1. **Canvas Stacking**: No explicit canvas stack/queue management (only foreground/background)
-2. **Animation Support**: No built-in canvas transition animations
-3. **Modal Dialogs**: No built-in modal dialog system
-4. **Canvas Groups**: Could use CanvasGroup for fade effects
-5. **Input Blocking**: No automatic input blocking for foreground canvases
-6. **Canvas History**: No history/back button support
-7. **Loading States**: No built-in loading screen management
-8. **Resolution Scaling**: Canvas scaling handled by Unity Canvas Scaler component
 
 ## Scene Setup
 

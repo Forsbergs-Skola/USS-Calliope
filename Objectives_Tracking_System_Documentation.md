@@ -11,7 +11,7 @@ The objectives system follows a modular architecture with clear separation of co
 - **Data Layer**: ScriptableObjects define objective definitions and completion criteria
 - **Controller Layer**: `ObjectivesTracker` manages objective lifecycle, status tracking, and completion evaluation
 - **Presentation Layer**: `ObjectivesPanel` and `ObjectiveUIElement` handle UI display (currently in early development)
-- **Integration Layer**: Event-driven updates from `ProgressionData` trigger objective evaluation
+- **Integration Layer**: [Event_System_Documentation.md](Event-driven) updates from `ProgressionData` trigger objective evaluation
 
 ## Core Components
 
@@ -156,14 +156,14 @@ The objectives system integrates tightly with `ProgressionData`, which serves as
 - Completion criteria can query `GetDefeatedEnemiesList()` to check conditions
 - When enemy is defeated, objectives automatically evaluate and may complete
 
-### 4. UI Components (Early Development)
+### 4. UI Components
+[UI_System_Documentation.md](UI system documentation)
 
 #### `ObjectivesPanel`
 **Location**: `Assets/Brad/Scripts/UI/ObjectivesPanel.cs`
 
 **Current State**: Basic structure in place, references `ProgressionRuntimeData`
-- Intended to display active objectives to the player
-- Currently minimal implementation
+- Intended to display active and completed objectives to the player
 
 #### `ObjectiveUIElement`
 **Location**: `Assets/Brad/Scripts/UI/ObjectiveUIElement.cs`
@@ -318,16 +318,16 @@ In the Unity Inspector for an `ObjectiveSO`:
 
 ## Integration Points
 
-### With Data System
+### With [Data_Management_System_Documentation](Data) System
 - Stores status in `ProgressionData.ObjectivesAndStatusesDict`
 - Listens to `runtimeDataUpdatedEvent` for state changes
 - Queries `ProgressionData` for completion criteria evaluation
 
-### With Event System
+### With [Event_System_Documentation.md](Event) System
 - Uses `IRuntimeDataPayloadEvent` for reactive updates
 - Could emit objective-specific events (currently placeholder)
 
-### With UI System
+### With [UI_System_Documentation.md](UI System)
 - `ObjectivesPanel` and `ObjectiveUIElement` prepared for UI integration
 - UI can query `ObjectivesTracker` for objective data
 - UI can display status from `ProgressionData`
@@ -359,12 +359,4 @@ The system is designed with extensibility in mind:
 - Project's event system (`IRuntimeDataPayloadEvent`, `IRuntimeData`)
 - Project's singleton base class
 - Unity TextMeshPro for UI text rendering (in UI components)
-
-## Known Limitations / Future Work
-
-1. **UI Implementation**: Objectives panel UI is not fully implemented
-2. **XP Distribution**: XP rewards are defined but not distributed
-3. **Event Emission**: No events emitted when objectives start/finish (placeholders exist)
-4. **Editor Scripts**: Commented-out editor script suggests a different criteria approach was considered
-5. **Performance**: All STARTED objectives are evaluated on every data change (could be optimized)
 
