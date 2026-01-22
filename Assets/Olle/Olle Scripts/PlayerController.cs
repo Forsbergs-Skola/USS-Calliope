@@ -349,11 +349,7 @@ namespace Olle.Scripts
         private void UseAdrenaline()
         {
             
-            //Debug.Log("Player go fast!");
-
-            // TODO: player observable behavior
-            // whatever else happens...
-            _stamina.adrenalineRushActive = true;
+            _stamina.AdrenalineRushActive = true;
 
             StartCoroutine(AdrenalineCoroutine());
         }
@@ -395,7 +391,7 @@ namespace Olle.Scripts
             
             // change stuff back
             Debug.Log("ADRENALINE OFF");
-            _stamina.adrenalineRushActive = false;
+            _stamina.AdrenalineRushActive = false;
             moveSpeed = oldSpeed;
             runMoveSpeed = oldRunSpeed;
             _rb.linearVelocity = new Vector3(0f, _rb.linearVelocity.y, 0f);
