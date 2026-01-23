@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15815f44e6040db419e2c801825408e3, type: 3}
+  m_Name: Objective_10
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectiveSO
+  objectiveID: 7df85bd6-86c0-43fa-ace0-00db57aaa29d
+  objectiveTitle: Enter the cargo bay
+  objectiveDescription: It's on the lower level.
+  defaultStatus: 0
+  xpReward: 0
+  prerequisiteObjectiveIDs:
+  - 70d515e1-8e84-49b8-b977-df27571b37c4
+  completionCriteria: {fileID: 11400000, guid: 3abd1345ce15dc04ba159046b801b25c, type: 2}
+  devNotes: 
