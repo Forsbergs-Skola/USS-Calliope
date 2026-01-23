@@ -32,6 +32,13 @@ public class BossHealth : MonoBehaviour, IDamageable
     
     private void Die()
     {
+        NamedEnemyKilledHandler.AddNameToList("Bob");
+
+        if(DialogueController.Instance != null)
+        {
+            DialogueController.Instance.StartConvoWithID(IDConstants.CONVERSATION_BOB_03);
+        }
+
         OnDeath.Invoke();
         Destroy(gameObject);
     }

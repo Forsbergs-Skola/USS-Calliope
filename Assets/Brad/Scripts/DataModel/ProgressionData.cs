@@ -27,6 +27,9 @@ public class ProgressionData : IRuntimeData
     private bool _linaxFound = false;
     private bool _bridgeUnlocked = false;
     private bool _liftAccessed = false;
+    private bool _cargoBayEntered = false;
+    private bool _noiseInvestigated = false;
+    private bool _escaped = false;
 
 
 
@@ -104,6 +107,36 @@ public class ProgressionData : IRuntimeData
         {
             if (value == _liftAccessed) return;
             _liftAccessed = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+    public bool CargoBayEntered
+    {
+        get => _cargoBayEntered;
+        set
+        {
+            if (value == _cargoBayEntered) return;
+            _cargoBayEntered = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+    public bool NoiseInvestigated
+    {
+        get => _noiseInvestigated;
+        set
+        {
+            if (value == _noiseInvestigated) return;
+            _noiseInvestigated = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+    public bool Escaped
+    {
+        get => _escaped;
+        set
+        {
+            if (value == _escaped) return;
+            _escaped = value;
             DataTools.HandleOnDataChanged(this);
         }
     }
@@ -214,7 +247,9 @@ public class ProgressionData : IRuntimeData
         _linaxFound = false;
         _bridgeUnlocked = false;
         _liftAccessed = false;
-
+        _cargoBayEntered = false;
+        _noiseInvestigated = false;
+        _escaped = false;
 
         AliceAndBobFuneralHeld = false;
     }
@@ -235,6 +270,9 @@ public class ProgressionData : IRuntimeData
         _linaxFound = false;
         _bridgeUnlocked = false;
         _liftAccessed = false;
+        _cargoBayEntered = false;
+        _noiseInvestigated = false;
+        _escaped = false;
 
         AliceAndBobFuneralHeld = false;
     }
@@ -256,6 +294,9 @@ public class ProgressionData : IRuntimeData
         _linaxFound = inData.LinaxFound;
         _bridgeUnlocked = inData.BridgeUnlocked;
         _liftAccessed = inData.LiftAccessed;
+        _cargoBayEntered = inData.CargoBayEntered;
+        _noiseInvestigated = inData.NoiseInvestigated;
+        _escaped = inData.Escaped;
 
         AliceAndBobFuneralHeld = inData.AliceAndBobFuneralHeld;
     }

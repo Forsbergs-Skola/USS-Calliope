@@ -42,7 +42,7 @@ public class DialogueController : Singleton<DialogueController>
     }
     private void HandleLineStartedEvent(string lineID)
     {
-
+        dialogueEventHandler.HandleLineStarted(lineID);
     }
     private void HandleLineFinishedEvent(string lineID)
     {

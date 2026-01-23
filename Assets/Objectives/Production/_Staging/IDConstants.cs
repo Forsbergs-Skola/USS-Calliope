@@ -54,6 +54,11 @@ public static class IDConstants
 
     public const string CONVERSATION_BOB_00 = "50791dc5-7571-4ef8-930c-08a63d7ebec5";
     public const string CONVERSATION_BOB_01 = "1fe47f51-40fc-4ef2-b03f-b6d2208e927c";
+    public const string CONVERSATION_BOB_03 = "4790b499-362a-4574-9739-bf5366148028";
+
+    public const string CONVERSATION_WHAT_THAT_NOISE = "58fba2a0-d48a-4037-81d8-e7c8987bf1bd";
+
+    public const string BIG_NOISE_LINE = "ce8065e4-7a78-4d2d-959f-e38f02d5ed9c";
 
 
 
