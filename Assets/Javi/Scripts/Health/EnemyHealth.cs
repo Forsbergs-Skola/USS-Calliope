@@ -41,6 +41,19 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IDamageEvents
 
     private void Die()
     {
+
+        if (TryGetComponent<BloodSampleGiver>(out BloodSampleGiver sampleGiver))
+        {
+            sampleGiver.TryGiveSample();
+        }
+        else
+        {
+            Debug.LogError("Add a BloodSampleGiver to this enemy");
+        }
+
+
+        // tell the sample giver to give the sample
+
         OnDeath.Invoke();
         Destroy(gameObject);
     }

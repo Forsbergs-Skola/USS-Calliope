@@ -397,6 +397,7 @@ GameObject:
   - component: {fileID: 6200545938181875430}
   - component: {fileID: 4480547952399078729}
   - component: {fileID: 5954784745269296956}
+  - component: {fileID: 2718447504455135426}
   m_Layer: 7
   m_Name: EnemyActive
   m_TagString: Untagged
@@ -840,6 +841,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2718447504455135426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566595255413055139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26e6af9777824da4fb94d4984ad0f4f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BloodSampleGiver
+  progressionRuntimeData: {fileID: 11400000, guid: ade4d492fc958da4185a95ecfaf803cd, type: 2}
+  inventoryRuntimeData: {fileID: 11400000, guid: dd7b9f8b2691e0446b0a65aad0a865d4, type: 2}
 --- !u!1 &7681951782638355072
 GameObject:
   m_ObjectHideFlags: 0
