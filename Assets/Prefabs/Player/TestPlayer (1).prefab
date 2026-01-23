@@ -5984,6 +5984,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3623592984613045112}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 039b9d116bbe683469dc40576050134e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5536134718286893340}
     - targetCorrespondingSourceObject: {fileID: -2851149267613598858, guid: 039b9d116bbe683469dc40576050134e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 776809041244391855}
@@ -6504,6 +6507,8 @@ MonoBehaviour:
   smoothSpeed: 3
   cameraOffsetDistance: 10
   crosshairImage: {fileID: 0}
+  maxNoiseOffset: 5
+  noiseSmoothSpeed: 10
   cineMachineCam: {fileID: 0}
 --- !u!114 &6498106701224673647
 MonoBehaviour:
@@ -6533,8 +6538,8 @@ MonoBehaviour:
   firePoint: {fileID: 491144879594038361}
   weaponDatabase: {fileID: 11400000, guid: 3cc863e5416a2144291cdfd16f05fa3f, type: 2}
   unarmedAttack: {fileID: 3432392073866066540}
-  rightHand: {fileID: 254450227827851635}
   animator: {fileID: 1809542776812144891}
+  weaponReload: {fileID: 5536134718286893340}
 --- !u!114 &5645883750524603270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6618,13 +6623,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9377005fa1543d41b6a30b9a4389730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnarmedAttack
-  damage: 50
-  reach: 1.5
-  radius: 0.5
-  attackCooldown: 1
+  data: {fileID: 0}
   impactProcessor: {fileID: 157174334958248004}
   isUnarmed: 1
-  force: 5
 --- !u!114 &2097090245529030442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6723,6 +6724,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFlashlight
   lightPrefab: {fileID: 5701897920974607426, guid: 1e1396b602b9015478abb109ecd7b434, type: 3}
+--- !u!114 &5536134718286893340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4951485592007247931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703d96903635d2b4da757559f8e2a370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponReload
 --- !u!4 &5763733711749042817 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 039b9d116bbe683469dc40576050134e, type: 3}
