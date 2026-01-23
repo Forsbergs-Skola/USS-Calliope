@@ -4,6 +4,7 @@ using Unity.Cinemachine;
 
 public class PlayerAimController : MonoBehaviour
 {
+    private static readonly int WeaponType = Animator.StringToHash("WeaponType");
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private LayerMask enemyLayer;
 
@@ -110,7 +111,7 @@ public class PlayerAimController : MonoBehaviour
 
         if (!IsAiming)
         {
-            animator.SetInteger("WeaponType", unEquippedAnim);
+            animator.SetInteger(WeaponType, unEquippedAnim);
         }
     }
 
@@ -137,9 +138,9 @@ public class PlayerAimController : MonoBehaviour
 
         if (IsAiming)
         {
-            if (weaponHandler.CurrentWeaponData != null)
+            if (weaponHandler.CurrentWeaponData)
             {
-                animator.SetInteger("WeaponType", (int)weaponHandler.CurrentWeaponData.TypeOfWeapon);
+                animator.SetInteger(WeaponType, (int)weaponHandler.CurrentWeaponData.TypeOfWeapon);
             }
                 
             var lookDir = targetPosition - transform.position;

@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
+    private static readonly int WeaponType = Animator.StringToHash("WeaponType");
     public SO_WeaponType CurrentWeaponData => currentWeaponData;
 
     [Header("References")]
@@ -94,7 +95,7 @@ public class PlayerWeaponHandler : MonoBehaviour
             weaponReload.CancelReload();
         }
 
-        animator.SetInteger("WeaponType", (int)0);
+        animator.SetInteger(WeaponType, (int)0);
 
         OnFireStopped();
 
@@ -162,7 +163,6 @@ public class PlayerWeaponHandler : MonoBehaviour
 
         if (unarmedAttack.isUnarmed)
         {
-            Debug.Log("WeaponHandler: TryUnarmedAttack Called");
             TryUnarmedAttack();
             return;
         }

@@ -24,14 +24,12 @@ public class WeaponPickupHandler : PickupBase
             handler = picker.GetComponent<PlayerWeaponHandler>();
             if (handler == null)
             {
-                Debug.LogWarning("No PlayerWeaponHandler found on picker or assigned in inspector.");
                 return;
             }
         }
 
         if (weaponView == null || weaponView.WeaponType == null)
         {
-            Debug.LogWarning("WeaponView or WeaponType is missing!");
             return;
         }
         

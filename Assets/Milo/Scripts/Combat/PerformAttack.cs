@@ -122,13 +122,11 @@ public class PerformAttack : MonoBehaviour
     {
         aimDirection = Vector3.zero;
 
-        // FIX: Allow the attack to proceed if we are unarmed, even if currentWeapon is null
         if (!firePoint) return false;
         if (!unarmedAttack.isUnarmed && currentWeapon == null) return false;
 
         var hasAim = aimController.TryGetAimDirection(firePoint.position, out aimDirection);
 
-        // Unarmed and Melee don't require a valid hitscan aim point (can just use forward)
         if (unarmedAttack.isUnarmed || (currentWeapon != null && currentWeapon.AttackCategories == SO_WeaponType.AttackCategory.Melee))
         {
             if (!hasAim) aimDirection = transform.forward;
