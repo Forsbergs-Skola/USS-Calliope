@@ -17,7 +17,6 @@ public class BloodSampleGiver : MonoBehaviour
 
         InventoryData invData = inventoryRuntimeData.Value;
         invData.AddQuestItem(IDConstants.INFECTED_SAMPLE);
-
     }
 
 }

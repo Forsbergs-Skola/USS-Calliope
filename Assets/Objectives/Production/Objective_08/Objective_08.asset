@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15815f44e6040db419e2c801825408e3, type: 3}
-  m_Name: Objective_06
+  m_Name: Objective_08
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveSO
-  objectiveID: 7f07fe96-6982-49fe-8027-32367337eb1e
-  objectiveTitle: Gain Access to the Crew Quarters
-  objectiveDescription: "Fulfill Bob\u2019s request to gain passage forward."
+  objectiveID: 306ad825-9a34-4a06-aedf-5d26756d1e7e
+  objectiveTitle: Enter the Bridge
+  objectiveDescription: I have the key, now I need to use it on the door.
   defaultStatus: 0
   xpReward: 0
   prerequisiteObjectiveIDs:
-  - c85d2b1e-29eb-418f-a70a-0976131276b8
-  completionCriteria: {fileID: 11400000, guid: c66d8997b60668548b8c51fff55b6ff6, type: 2}
+  - bdc5d19f-0392-4b12-9c74-82553e8695ba
+  completionCriteria: {fileID: 11400000, guid: d80a5379959d8704ab13353810847f8e, type: 2}
   devNotes: 

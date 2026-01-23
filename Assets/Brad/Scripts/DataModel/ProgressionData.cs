@@ -24,6 +24,9 @@ public class ProgressionData : IRuntimeData
     private bool _bobContacted = false;
     private bool _crewQuartersUnlocked = false;
     private bool _aliceAndBobFuneralHeld = false;
+    private bool _linaxFound = false;
+    private bool _bridgeUnlocked = false;
+    private bool _liftAccessed = false;
 
 
 
@@ -74,6 +77,36 @@ public class ProgressionData : IRuntimeData
         }
     }
 
+    public bool LinaxFound
+    {
+        get => _linaxFound;
+        set
+        {
+            if (value == _linaxFound) return;
+            _linaxFound = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+    public bool BridgeUnlocked
+    {
+        get => _bridgeUnlocked;
+        set
+        {
+            if (value == _bridgeUnlocked) return;
+            _bridgeUnlocked = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+    public bool LiftAccessed
+    {
+        get => _liftAccessed;
+        set
+        {
+            if (value == _liftAccessed) return;
+            _liftAccessed = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
     public string SceneName
     {
         get => _sceneName;
@@ -178,6 +211,9 @@ public class ProgressionData : IRuntimeData
         _centralCorridorDiscovered = false;
         _bobContacted = false;
         _crewQuartersUnlocked = false;
+        _linaxFound = false;
+        _bridgeUnlocked = false;
+        _liftAccessed = false;
 
 
         AliceAndBobFuneralHeld = false;
@@ -195,6 +231,10 @@ public class ProgressionData : IRuntimeData
         _centralCorridorDiscovered = false;
         _bobContacted = false;
         _crewQuartersUnlocked = false;
+        
+        _linaxFound = false;
+        _bridgeUnlocked = false;
+        _liftAccessed = false;
 
         AliceAndBobFuneralHeld = false;
     }
@@ -213,7 +253,9 @@ public class ProgressionData : IRuntimeData
         _bobContacted = inData.BobContacted;
         _crewQuartersUnlocked = inData.CrewQuartersUnlocked;
         _unlockedTerminalWorldIDs = inData.GetUnlockedTerminalWorldIDs();
-
+        _linaxFound = inData.LinaxFound;
+        _bridgeUnlocked = inData.BridgeUnlocked;
+        _liftAccessed = inData.LiftAccessed;
 
         AliceAndBobFuneralHeld = inData.AliceAndBobFuneralHeld;
     }

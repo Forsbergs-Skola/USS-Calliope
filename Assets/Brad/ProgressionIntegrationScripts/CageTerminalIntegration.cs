@@ -33,7 +33,7 @@ public class CageTerminalIntegration : MonoBehaviour
     {
         if (!(_data is ProgressionData)) return;
 
-        Debug.Log("FOO");
+        //Debug.Log("FOO");
 
 
         ProgressionData progData = progressionData.Value;

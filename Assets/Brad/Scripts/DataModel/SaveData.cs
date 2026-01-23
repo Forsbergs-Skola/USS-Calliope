@@ -48,6 +48,9 @@ public class SaveData
     public bool PROGRESSION_BobContacted;
     public bool PROGRESSION_CrewQuartersUnlocked;
     public bool PROGRESSION_AlicaAndBobFuneralHeld;
+    public bool PROGRESSION_LinaxFound;
+    public bool PROGRESSION_BridgeUnlocked;
+    public bool PROGRESSION_LiftAccessed;
 
     ///////////////////
     // InventoryData //
