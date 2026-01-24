@@ -18157,6 +18157,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5821188283455669607}
     - target: {fileID: 219714275410125171, guid: 3da97590dbf14c24cb55c374b40bf1d1, type: 3}
+      propertyPath: pressEText
+      value: 
+      objectReference: {fileID: 6310806264284422571}
+    - target: {fileID: 219714275410125171, guid: 3da97590dbf14c24cb55c374b40bf1d1, type: 3}
       propertyPath: terminalWorldID
       value: 4986f292-9578-4465-ba36-3b0877399c1b
       objectReference: {fileID: 0}
@@ -20776,6 +20780,11 @@ PrefabInstance:
 --- !u!4 &5988995567805787782 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3046873242356583284, guid: 3da97590dbf14c24cb55c374b40bf1d1, type: 3}
+  m_PrefabInstance: {fileID: 8743040137727665650}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6310806264284422571 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3369247167960499289, guid: 3da97590dbf14c24cb55c374b40bf1d1, type: 3}
   m_PrefabInstance: {fileID: 8743040137727665650}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8828445300771710282

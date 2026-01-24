@@ -52,8 +52,10 @@ MonoBehaviour:
   lockIndicator: {fileID: 0}
   lockedColor: {r: 1, g: 0, b: 0, a: 1}
   unlockedColor: {r: 0, g: 1, b: 0, a: 1}
+  pressEText: {fileID: 3369247167960499289}
   terminalWorldID: 
   progressionRuntimeData: {fileID: 0}
+  audioClip: {fileID: 0}
 --- !u!65 &5050803915346356730
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -153,6 +155,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49d5f9ac8c6b7749a634985e6e7e096, type: 3}
+--- !u!1 &3369247167960499289 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7258560487220128112, guid: d49d5f9ac8c6b7749a634985e6e7e096, type: 3}
+  m_PrefabInstance: {fileID: 5366723112152329513}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5365013940605540939 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000012622640994, guid: d49d5f9ac8c6b7749a634985e6e7e096, type: 3}

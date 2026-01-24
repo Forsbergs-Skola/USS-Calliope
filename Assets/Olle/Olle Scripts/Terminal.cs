@@ -13,6 +13,8 @@ public class Terminal : MonoBehaviour
     public Color lockedColor = Color.red;
     public Color unlockedColor = Color.green;
 
+    [Header("UI")] public GameObject pressEText;
+
     bool playerInRange;
     bool activated;
 
@@ -75,6 +77,11 @@ public class Terminal : MonoBehaviour
         if (!playerInRange || activated) return;
 
         activated = true;
+
+        if (pressEText != null)
+        {
+            Destroy(pressEText);
+        }
 
         if (lockIndicator != null)
             lockIndicator.material.color = unlockedColor;
