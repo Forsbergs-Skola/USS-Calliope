@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Bootstrap.unity
     guid: 853acfe6c43043e45b935de89e77c8a0
   - enabled: 0
@@ -38,8 +38,8 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Olle-MessHallMedBay.unity
     guid: 9dc4e2b2c75f40d46b45dac196a3d9cd
-  - enabled: 1
-    path: Assets/Scenes/EngineeringNoBridge.unity
+  - enabled: 0
+    path: Assets/Scenes/Engineering.unity
     guid: 0892d689d82f8bc4d997eb6b38857915
   - enabled: 0
     path: Assets/Milo/Scenes/MILOAUDIO.unity
@@ -47,15 +47,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MesshallAndMedbay.unity
     guid: 7438658ef80af8949926fc41a5c6d65c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Javi_CrewQuarters.unity
     guid: 2e4ef5ae32f4cbc4abc5d664a85d1ed7
-  - enabled: 1
+  - enabled: 0
     path: Assets/IntroCutscene/IntroCutscene.unity
     guid: aac0b7b201704214582b516914cf8a1e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Milo/Scenes/Milo-final-touches.unity
     guid: 19573a945457c4948aa8740b113aee31
+  - enabled: 1
+    path: Assets/IntroCutscene/OutroCutscene.unity
+    guid: 3327d8eb29d3bdd44bd014cea2a7a8d6
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

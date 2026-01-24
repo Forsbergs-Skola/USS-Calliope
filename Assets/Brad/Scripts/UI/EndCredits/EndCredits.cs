@@ -22,7 +22,7 @@ public class EndCredits : MonoBehaviour
 
 
 
-    private void HandleOnThankYouComplete()
+    public void HandleOnThankYouComplete()
     {
         Debug.Log("BEGIN SCROLL");
 
