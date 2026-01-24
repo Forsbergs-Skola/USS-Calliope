@@ -18,6 +18,16 @@ public class DialogueEventHandler
         }
     }
 
+    public void HandleLineStarted(string lineID)
+    {
+        switch (lineID)
+        {
+            case IDConstants.BIG_NOISE_LINE:
+                // TODO: play scary sound
+                break;
+        }
+    }
+
     private void Bob_00Finished()
     {
         progData.BobContacted = true;

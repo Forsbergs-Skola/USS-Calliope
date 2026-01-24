@@ -90,9 +90,10 @@ namespace Olle.Scripts
                     return;
                 }
             }
+
+            UpdateIcon();
         }
 
-        
         void HandleStaminaDrain()
         {
             if (_stamina == null) return;
@@ -106,6 +107,7 @@ namespace Olle.Scripts
             
             if (_stamina.currentStamina <= 0f)
             {
+                Debug.Log("INVIS OFF: stamina already 0");
                 MakeTiredFromStealth();
                 SetInvisible(false);
                 return;
@@ -119,6 +121,7 @@ namespace Olle.Scripts
 
             if (after <= 0f)
             {
+                Debug.Log("INVIS OFF: stamina drained to 0!");
                 MakeTiredFromStealth();
                 SetInvisible(false);
             }
@@ -138,12 +141,32 @@ namespace Olle.Scripts
         
         void SetInvisible(bool value)
         {
+            bool wasInvisible = _isInvisible;
             _isInvisible = value;
             _invisibleTimer = 0f;
             _staminaTickTimer = 0f;
             
             UpdateTransparency();
             UpdateIcon();
+            
+            // FIXED: Sync PlayerData for Hud icon
+            if (wasInvisible && !value && TryGetPlayerData(out PlayerData pData))
+            {
+                pData.RemoveActiveStatusEffect(EnumPlayerStatusEffect.IN_STEALTH);
+                Debug.Log("INVIS OFF: Removed IN_STEALTH status");
+            }
+        }
+
+        // NEW: Copy from PlayerController
+        private bool TryGetPlayerData(out PlayerData pData)
+        {
+            if (TryGetComponent<PlayerDataHandler>(out PlayerDataHandler handler))
+            {
+                pData = handler.RuntimeData.Value;
+                return true;
+            }
+            pData = null;
+            return false;
         }
         
         void UpdateTransparency()
