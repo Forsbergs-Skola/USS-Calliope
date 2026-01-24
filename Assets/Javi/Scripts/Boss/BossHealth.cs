@@ -39,6 +39,11 @@ public class BossHealth : MonoBehaviour, IDamageable
             DialogueController.Instance.StartConvoWithID(IDConstants.CONVERSATION_BOB_03);
         }
 
+        if(DataController.Instance != null)
+        {
+            DataController.Instance.InventoryRuntimeData.Value.AddQuestItem(IDConstants.STATION_DATA);
+        }
+
         OnDeath.Invoke();
         Destroy(gameObject);
     }
