@@ -13,6 +13,7 @@ public static class IDConstants
     public const string CREW_QUARTERS_KEY = "3d92ec05-bb06-4964-b865-815664154bda";
     public const string INFECTED_SAMPLE = "66603036-9a3d-4d39-9ee4-1539d00cbb6b";
     public const string BRIDGE_KEY = "05be5693-3432-4da3-9e32-89df470151c9";
+    public const string STATION_DATA = "e5f91c28-d50f-43a2-b167-a86c559f44cd";
 
     // WEAPONS //
     public const string PISTOL = "e0d787fd-841a-4d18-80aa-a714d392ec94";
@@ -57,6 +58,7 @@ public static class IDConstants
     public const string CONVERSATION_BOB_03 = "4790b499-362a-4574-9739-bf5366148028";
 
     public const string CONVERSATION_WHAT_THAT_NOISE = "58fba2a0-d48a-4037-81d8-e7c8987bf1bd";
+    public const string CONVERSATION_BOB_FINAL = "57442e47-c215-4a48-acfb-57c24e94dec4";
 
     public const string BIG_NOISE_LINE = "ce8065e4-7a78-4d2d-959f-e38f02d5ed9c";
 
