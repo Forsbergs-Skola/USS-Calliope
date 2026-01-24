@@ -1106,38 +1106,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   inactiveColor: {r: 0, g: 1, b: 0.5, a: 0.3}
   activeColor: {r: 0, g: 1, b: 0.7, a: 1}
---- !u!1 &3667541918864279367
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5490208968760241198}
-  m_Layer: 0
-  m_Name: MapBase
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5490208968760241198
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3667541918864279367}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.4, z: 0.5}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3149365545900928323}
-  m_Father: {fileID: 4438370849474774667}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4832557378749313050
 GameObject:
   m_ObjectHideFlags: 0
@@ -2115,16 +2083,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7109820818491667440}
   m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -44.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.055999987}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4277212406105074977}
-  m_Father: {fileID: 5490208968760241198}
+  m_Father: {fileID: 4438370849474774667}
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -872}
+  m_AnchoredPosition: {x: 0, y: -7.3198853}
   m_SizeDelta: {x: 1154.5, y: 649}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2023594208408953015
@@ -3205,6 +3173,7 @@ GameObject:
   - component: {fileID: 8508566762513119307}
   - component: {fileID: 2034431370941910367}
   - component: {fileID: 4765600848432083159}
+  - component: {fileID: 8904925270688018633}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -3225,7 +3194,7 @@ Transform:
   m_LocalScale: {x: 0.46, y: -0.08, z: 0.46}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5490208968760241198}
+  - {fileID: 3149365545900928323}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!33 &8508566762513119307
@@ -3307,3 +3276,20 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8904925270688018633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9008454182644467095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 166307803332c994e87f9733092f1c76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  isoCam: {fileID: 0}
+  mapCam: {fileID: 0}
+  toggleMapAction: {fileID: 2899774137570722205, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  player: {fileID: 0}
+  MinimapRoom: {fileID: 0}

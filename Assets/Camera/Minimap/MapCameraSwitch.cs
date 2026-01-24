@@ -9,7 +9,13 @@ public class MapCameraSwitch : MonoBehaviour
     public CinemachineCamera mapCam;
     
     public InputActionReference toggleMapAction;
+    public InputActionReference toggleLevelAction;
+    
     public Olle.Scripts.PlayerController player;
+
+    [SerializeField] private GameObject LevelOne;
+    [SerializeField] private GameObject LevelTwo;
+    private bool LevelOneActive = true;
 
     bool mapOpen;
     public GameObject MinimapRoom;
@@ -27,6 +33,11 @@ public class MapCameraSwitch : MonoBehaviour
 
         toggleMapAction.action.performed += OnToggleMap;
         toggleMapAction.action.Enable();
+        
+        if (toggleLevelAction == null) return;
+
+        toggleLevelAction.action.performed += OnToggleLevel;
+        toggleLevelAction.action.Enable();
     }
 
     void OnDisable()
@@ -35,11 +46,24 @@ public class MapCameraSwitch : MonoBehaviour
 
         toggleMapAction.action.performed -= OnToggleMap;
         toggleMapAction.action.Disable();
+        
+        if (toggleLevelAction == null) return;
+
+        toggleLevelAction.action.performed -= OnToggleLevel;
+        toggleLevelAction.action.Disable();
     }
 
     void OnToggleMap(InputAction.CallbackContext ctx)
     {
         ToggleMap();
+    }
+
+    void OnToggleLevel(InputAction.CallbackContext ctx)
+    {
+        if (!mapOpen) return;
+        
+        LevelOneActive = !LevelOneActive;
+        ApplyLevelToggle();
     }
 
     public void ToggleMap()
@@ -50,6 +74,12 @@ public class MapCameraSwitch : MonoBehaviour
         else ExitMap();
     }
 
+    void ApplyLevelToggle()
+    {
+        if (LevelOne) LevelOne.SetActive(LevelOneActive);
+        if(LevelTwo) LevelTwo.SetActive(!LevelOneActive);
+    }
+
     public void EnterMap()
     {
         mapCam.Priority = 20;
@@ -57,6 +87,8 @@ public class MapCameraSwitch : MonoBehaviour
         
         if (MinimapRoom) MinimapRoom.SetActive(true);
         if (player != null) player.LockMovement();
+        
+        ApplyLevelToggle();
     }
 
     public void ExitMap()
