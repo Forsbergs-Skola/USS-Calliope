@@ -21,6 +21,9 @@ public class Terminal : MonoBehaviour
     [SerializeField] private string terminalWorldID;
     [SerializeField] private ProgressionRuntimeData progressionRuntimeData;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip audioClip;
+    private AudioSource audioSource;
 
     void Awake()
     {
@@ -37,6 +40,8 @@ public class Terminal : MonoBehaviour
 
         if (interactAction == null)
             Debug.LogError("Could not find action 'Player/Interact' or 'Interact' in the asset.");
+        
+        audioSource = GetComponent<AudioSource>();
     }
 
     void OnEnable()
@@ -76,9 +81,12 @@ public class Terminal : MonoBehaviour
 
         if (lockedDoor != null)
         {
+            audioSource.PlayOneShot(audioClip);
+
             lockedDoor.UnlockAndBecomeFreeDoor();
             progressionRuntimeData.Value.AddUnlockedTerminalWorldID(terminalWorldID);
             Debug.Log("Didnt write terminal ID");
+            
         }
 
         //Debug.Log("BAR");
