@@ -1365,7 +1365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &292000835
 Transform:
   m_ObjectHideFlags: 0
@@ -3440,7 +3440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2684839796493005490, guid: 59b72fbb28f2749409eb4b1551e2e36b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.5911517
+      value: 6.881155
       objectReference: {fileID: 0}
     - target: {fileID: 2684839796493005490, guid: 59b72fbb28f2749409eb4b1551e2e36b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7273,7 +7273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5763733711749042817, guid: 07a23a6f790d5f9458daa3b4d7bbe140, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 48.11
+      value: 48.4
       objectReference: {fileID: 0}
     - target: {fileID: 5763733711749042817, guid: 07a23a6f790d5f9458daa3b4d7bbe140, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10819,7 +10819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7376360920656186498, guid: 418395c06b3ddca47ada01e2e3d56649, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.5911517
+      value: 6.881155
       objectReference: {fileID: 0}
     - target: {fileID: 7376360920656186498, guid: 418395c06b3ddca47ada01e2e3d56649, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12576,6 +12576,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5180234607843889245, guid: d7b783b22882bea4e869842fc1daa385, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5180234607844720487, guid: d7b783b22882bea4e869842fc1daa385, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6399707725870956361, guid: d7b783b22882bea4e869842fc1daa385, type: 3}
       propertyPath: m_LocalPosition.x
       value: 54.739998
@@ -12620,6 +12628,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerminalDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 8512102063787272081, guid: d7b783b22882bea4e869842fc1daa385, type: 3}
+      propertyPath: doorTransform
+      value: 
+      objectReference: {fileID: 2112143312}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12636,6 +12648,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828549d04a3979842b4026f3837e2101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
+--- !u!4 &2112143312 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5180234607844246653, guid: d7b783b22882bea4e869842fc1daa385, type: 3}
+  m_PrefabInstance: {fileID: 2112143310}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2112895605
 PrefabInstance:
   m_ObjectHideFlags: 0
