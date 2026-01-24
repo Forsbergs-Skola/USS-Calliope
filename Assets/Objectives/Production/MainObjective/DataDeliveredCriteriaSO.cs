@@ -6,7 +6,7 @@ public class DataDeliveredCriteriaSO : CompletionCriteriaSO
     public override bool IsCriteriaMet()
     {
         if (DataController.Instance == null) return false;
-        ProgressionData progData = DataController.Instance.ProgressionRuntimeData.Value;
-        return progData.DataDelivered;
+        InventoryData invData = DataController.Instance.InventoryRuntimeData.Value;
+        return invData.GetQuestItemIDs().Contains(IDConstants.STATION_DATA);
     }
 }
