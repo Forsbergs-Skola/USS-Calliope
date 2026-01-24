@@ -45,9 +45,13 @@ public static class IDConstants
     public const string OBJECTIVE_04_ID = "f7051371-8cfd-4c9c-acf8-6700da31cd66";
     public const string OBJECTIVE_05_ID = "c85d2b1e-29eb-418f-a70a-0976131276b8";
     public const string OBJECTIVE_06_ID = "7f07fe96-6982-49fe-8027-32367337eb1e"; // Gain access to the crew quarters
-    // 07
+    public const string OBJECTIVE_07_ID = "bdc5d19f-0392-4b12-9c74-82553e8695ba"; // find Linax
     // 08
     // 09
+    // 10
+    // 11
+    // 12
+    // 13
 
     ///////////////////
     // CONVERSATIONS //
