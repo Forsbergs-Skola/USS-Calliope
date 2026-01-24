@@ -56,6 +56,7 @@ public class Bootstrapper : Singleton<Bootstrapper>
     {
         if (UIController.Instance == null) return;
         if (!UIController.Instance.GetIsCanvasUp(EnumCanvasUIName.HUD)) return;
+        if (UIController.Instance.GetIsCanvasUp(EnumCanvasUIName.DIALOGUE)) return;
         if (pressedInputDampened) return;
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
