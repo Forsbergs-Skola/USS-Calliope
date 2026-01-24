@@ -57,6 +57,8 @@ namespace Olle.Scripts
         [SerializeField] private InventoryRuntimeData inventorySO;
         private PlayerPickupHandler pickupHandler = new PlayerPickupHandler();
 
+        public bool MovementLocked { get; private set; }
+        
         void Awake()
         {
             _rb = GetComponent<Rigidbody>();
@@ -152,7 +154,8 @@ namespace Olle.Scripts
                 }
             }
             */
-
+            
+            if (MovementLocked) return;
             if (Time.timeScale == 0f) return;
 
             Vector3 move = new Vector3(_moveInput.x, 0f, _moveInput.y);
@@ -245,7 +248,7 @@ namespace Olle.Scripts
 
         void FixedUpdate()
         {
-
+            if (MovementLocked) return;
             if (Time.timeScale == 0f) return;
 
             if (_dashing)
@@ -396,6 +399,17 @@ namespace Olle.Scripts
             runMoveSpeed = oldRunSpeed;
             _rb.linearVelocity = new Vector3(0f, _rb.linearVelocity.y, 0f);
             // normalize everything else...
+        }
+        
+        public void LockMovement()
+        {
+            MovementLocked = true;
+            _rb.linearVelocity = Vector3.zero;
+        }
+
+        public void UnlockMovement()
+        {
+            MovementLocked = false;
         }
 
 

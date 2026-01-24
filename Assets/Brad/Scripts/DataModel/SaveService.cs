@@ -242,6 +242,12 @@ public static class SaveService
         outData.PROGRESSION_AlicaAndBobFuneralHeld = progressionData.BobContacted;
         outData.PROGRESSION_CentralCorridorDiscovered = progressionData.CentralCorridorDiscovered;
         outData.PROGRESSION_CrewQuartersUnlocked = progressionData.CrewQuartersUnlocked;
+        outData.PROGRESSION_LinaxFound = progressionData.LinaxFound;
+        outData.PROGRESSION_BridgeUnlocked = progressionData.BridgeUnlocked;
+        outData.PROGRESSION_LiftAccessed = progressionData.LiftAccessed;
+        outData.PROGRESSION_CargoBayEntered = progressionData.CargoBayEntered;
+        outData.PROGRESSION_NoiseInvestigated = progressionData.NoiseInvestigated;
+        outData.PROGRESSION_Escaped = progressionData.Escaped;
         outData.PROGRESSION_SceneName = progressionData.SceneName;
         outData.PROGRESSION_UnlockedTerminalWorldIDs = terminalIdsString;
 
@@ -370,6 +376,12 @@ public static class SaveService
         _progressionData.CentralCorridorDiscovered = saveData.PROGRESSION_CentralCorridorDiscovered;
         _progressionData.CrewQuartersUnlocked = saveData.PROGRESSION_CrewQuartersUnlocked;
         _progressionData.DataDelivered = saveData.PROGRESSION_DataDelivered;
+        _progressionData.LinaxFound = saveData.PROGRESSION_LinaxFound;
+        _progressionData.BridgeUnlocked = saveData.PROGRESSION_BridgeUnlocked;
+        _progressionData.LiftAccessed = saveData.PROGRESSION_LiftAccessed;
+        _progressionData.CargoBayEntered = saveData.PROGRESSION_CargoBayEntered;
+        _progressionData.NoiseInvestigated = saveData.PROGRESSION_NoiseInvestigated;
+        _progressionData.Escaped = saveData.PROGRESSION_Escaped;
         _progressionData.SceneName = saveData.PROGRESSION_SceneName;
 
         // return the new progression data

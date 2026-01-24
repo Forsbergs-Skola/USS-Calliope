@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3046873242356583284}
   - component: {fileID: 219714275410125171}
   - component: {fileID: 5050803915346356730}
+  - component: {fileID: 3009428378922751991}
   m_Layer: 0
   m_Name: TERMINAL
   m_TagString: Untagged
@@ -51,6 +52,8 @@ MonoBehaviour:
   lockIndicator: {fileID: 0}
   lockedColor: {r: 1, g: 0, b: 0, a: 1}
   unlockedColor: {r: 0, g: 1, b: 0, a: 1}
+  terminalWorldID: 
+  progressionRuntimeData: {fileID: 0}
 --- !u!65 &5050803915346356730
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72,6 +75,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.050888, y: 1.9385653, z: 2.2988894}
   m_Center: {x: -0.05514717, y: 0.46928263, z: 0.6494448}
+--- !u!114 &3009428378922751991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208851707017397406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 097460f26465b6f43999024003c9b43c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CageTerminalIntegration
+  progressionData: {fileID: 11400000, guid: ade4d492fc958da4185a95ecfaf803cd, type: 2}
 --- !u!1001 &5366723112152329513
 PrefabInstance:
   m_ObjectHideFlags: 0

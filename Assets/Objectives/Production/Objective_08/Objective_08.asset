@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15815f44e6040db419e2c801825408e3, type: 3}
+  m_Name: Objective_08
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectiveSO
+  objectiveID: 306ad825-9a34-4a06-aedf-5d26756d1e7e
+  objectiveTitle: Enter the Bridge
+  objectiveDescription: I have the key, now I need to use it on the door.
+  defaultStatus: 0
+  xpReward: 0
+  prerequisiteObjectiveIDs:
+  - bdc5d19f-0392-4b12-9c74-82553e8695ba
+  completionCriteria: {fileID: 11400000, guid: d80a5379959d8704ab13353810847f8e, type: 2}
+  devNotes: 

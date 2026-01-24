@@ -24,6 +24,12 @@ public class ProgressionData : IRuntimeData
     private bool _bobContacted = false;
     private bool _crewQuartersUnlocked = false;
     private bool _aliceAndBobFuneralHeld = false;
+    private bool _linaxFound = false;
+    private bool _bridgeUnlocked = false;
+    private bool _liftAccessed = false;
+    private bool _cargoBayEntered = false;
+    private bool _noiseInvestigated = false;
+    private bool _escaped = false;
 
 
 
@@ -74,6 +80,66 @@ public class ProgressionData : IRuntimeData
         }
     }
 
+    public bool LinaxFound
+    {
+        get => _linaxFound;
+        set
+        {
+            if (value == _linaxFound) return;
+            _linaxFound = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+    public bool BridgeUnlocked
+    {
+        get => _bridgeUnlocked;
+        set
+        {
+            if (value == _bridgeUnlocked) return;
+            _bridgeUnlocked = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+    public bool LiftAccessed
+    {
+        get => _liftAccessed;
+        set
+        {
+            if (value == _liftAccessed) return;
+            _liftAccessed = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+    public bool CargoBayEntered
+    {
+        get => _cargoBayEntered;
+        set
+        {
+            if (value == _cargoBayEntered) return;
+            _cargoBayEntered = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+    public bool NoiseInvestigated
+    {
+        get => _noiseInvestigated;
+        set
+        {
+            if (value == _noiseInvestigated) return;
+            _noiseInvestigated = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
+    public bool Escaped
+    {
+        get => _escaped;
+        set
+        {
+            if (value == _escaped) return;
+            _escaped = value;
+            DataTools.HandleOnDataChanged(this);
+        }
+    }
     public string SceneName
     {
         get => _sceneName;
@@ -178,7 +244,12 @@ public class ProgressionData : IRuntimeData
         _centralCorridorDiscovered = false;
         _bobContacted = false;
         _crewQuartersUnlocked = false;
-
+        _linaxFound = false;
+        _bridgeUnlocked = false;
+        _liftAccessed = false;
+        _cargoBayEntered = false;
+        _noiseInvestigated = false;
+        _escaped = false;
 
         AliceAndBobFuneralHeld = false;
     }
@@ -195,6 +266,13 @@ public class ProgressionData : IRuntimeData
         _centralCorridorDiscovered = false;
         _bobContacted = false;
         _crewQuartersUnlocked = false;
+        
+        _linaxFound = false;
+        _bridgeUnlocked = false;
+        _liftAccessed = false;
+        _cargoBayEntered = false;
+        _noiseInvestigated = false;
+        _escaped = false;
 
         AliceAndBobFuneralHeld = false;
     }
@@ -213,7 +291,12 @@ public class ProgressionData : IRuntimeData
         _bobContacted = inData.BobContacted;
         _crewQuartersUnlocked = inData.CrewQuartersUnlocked;
         _unlockedTerminalWorldIDs = inData.GetUnlockedTerminalWorldIDs();
-
+        _linaxFound = inData.LinaxFound;
+        _bridgeUnlocked = inData.BridgeUnlocked;
+        _liftAccessed = inData.LiftAccessed;
+        _cargoBayEntered = inData.CargoBayEntered;
+        _noiseInvestigated = inData.NoiseInvestigated;
+        _escaped = inData.Escaped;
 
         AliceAndBobFuneralHeld = inData.AliceAndBobFuneralHeld;
     }

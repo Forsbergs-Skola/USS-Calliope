@@ -1,40 +1,40 @@
+using System;
 using UnityEngine;
 using Events;
 using TMPro;
+using UnityEngine.Playables;
 
 public class IntroCutscene : MonoBehaviour
 {
     [SerializeField] private EmptyPayloadEvent introCutsceneFinishedEvent;
-    [SerializeField] private TMP_Text countdownText;
+    [SerializeField] private PlayableDirector introCutscenePlayableDirector;
+    //[SerializeField] private TMP_Text countdownText;
 
 
     // Todo the whole cutscene...
     // when the cutscene is finished, call OnCutsceneFinished()
     // and the bootstrapper will load the game normally.
 
-
-    private void Start()
+    void Awake()
     {
-        StartCoroutine(FakeCutscene()); // placeholder
+        introCutscenePlayableDirector.stopped += CutsceneEnded;
     }
 
+    private void OnDisable()
+    {
+        introCutscenePlayableDirector.stopped -= CutsceneEnded;
+    }
+
+    void CutsceneEnded(PlayableDirector director)
+    {
+        OnCutsceneFinished();
+    }
 
     public void OnCutsceneFinished()
     {
         introCutsceneFinishedEvent.TriggerEvent();
     }
-
-
-    private System.Collections.IEnumerator FakeCutscene()
-    {
-        // placeholder code   
-        for (int i = 5; i > 0; i--)
-        {
-            countdownText.text = i.ToString();
-            yield return new WaitForSeconds(1f);
-        }
-        OnCutsceneFinished();
-    }
+    
 
 
 }

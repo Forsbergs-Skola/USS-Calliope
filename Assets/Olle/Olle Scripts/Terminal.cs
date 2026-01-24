@@ -61,6 +61,12 @@ public class Terminal : MonoBehaviour
 
     void OnInteract(InputAction.CallbackContext ctx)
     {
+
+        //Debug.Log("FOO");
+        //Debug.Log($"First condition: {!playerInRange}");
+        //Debug.Log($"Second condition: {activated}");
+
+
         if (!playerInRange || activated) return;
 
         activated = true;
@@ -75,18 +81,29 @@ public class Terminal : MonoBehaviour
             Debug.Log("Didnt write terminal ID");
         }
 
+        //Debug.Log("BAR");
+
         Debug.Log("Terminal activated! Door unlocked and behaves like a normal door.");
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
+            //Debug.Log("The player is in range.");
             playerInRange = true;
+        }
+            
+
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
+            //Debug.Log("The player is out of range");
             playerInRange = false;
+        }
+            
     }
 }

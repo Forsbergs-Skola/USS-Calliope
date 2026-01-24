@@ -93,50 +93,6 @@ public class SlidingDoor : MonoBehaviour
         {
             doorTransform.gameObject.SetActive(true);
         }
-
-        /*
-        if (isLocked)
-        {
-
-            //doorTransform.position = ClosedMarker.position;
-            float distanceToClosedMarker = Vector3.Distance(ClosedMarker.position, doorTransform.position);
-            if (distanceToClosedMarker > 1f)
-            {
-                Vector3 newPos = Vector3.Lerp(doorTransform.position, ClosedMarker.position, Time.deltaTime);
-                doorTransform.position = newPos;
-            }
-        }
-        else
-        {
-            //doorTransform.position = OpenMarker.position;
-            float distanceToOpenMarker = Vector3.Distance(OpenMarker.position, doorTransform.position);
-            if (distanceToOpenMarker > 1f)
-            {
-                Vector3 newPos = Vector3.Lerp(doorTransform.position, OpenMarker.position, Time.deltaTime);
-                doorTransform.position = newPos;
-            }
-        }
-
-        /*
-        Vector3 target = !isLocked ? _openPos : _closedPos;
-        doorTransform.position = Vector3.MoveTowards(
-            doorTransform.position, target, openCloseSpeed * Time.deltaTime);
-        Debug.Log(Vector3.Distance(doorTransform.position, target));
-
-
-
-        //For hiding door
-        if (!isLocked && doorTransform.position.y < hideThresholdY)
-        {
-            if (doorTransform.gameObject.activeSelf)
-                doorTransform.gameObject.SetActive(false);
-        }
-        else if (isLocked && doorTransform.position.y > hideThresholdY)
-        {
-            if (!doorTransform.gameObject.activeSelf)
-                doorTransform.gameObject.SetActive(true);
-        }
-        */
     }
 
     public void SetPlayerInTrigger(bool InTrigger)
@@ -176,37 +132,17 @@ public class SlidingDoor : MonoBehaviour
         if (questItemIDs.Contains(keyID))
         {
             Debug.Log("I AM NOW UNLOCKED!");
+
+            KeyedDoorProgressionHandler.HandleDoorUnlocked(keyID);
+
             UnlockDoor();
             return true;
         }
 
-
-
-
-        //DataController dataController = DataController.Instance;
-        //if(dataController == null)
         Debug.Log("I AM STILL LOCKED :(");
         return false;
         
     }
-
-    /*
-    public bool TryUnlockWithKeycard(int cardKeyId)
-    {
-        if (!isLocked || lockType != DoorLockType.Keycard) return false;
-
-        if (cardKeyId == keyId)
-        {
-            UnlockDoor();
-            
-            lockType = DoorLockType.None;
-
-            SetOpen(true);
-            return true;
-        }
-        return false;
-    }
-    */
 
     public void UnlockAndBecomeFreeDoor()
     {
