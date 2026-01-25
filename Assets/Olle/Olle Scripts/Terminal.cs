@@ -86,11 +86,14 @@ public class Terminal : MonoBehaviour
         if (lockIndicator != null)
             lockIndicator.material.color = unlockedColor;
 
-        if (lockedDoor != null)
-        {
-            audioSource.PlayOneShot(audioClip);
-
-            lockedDoor.UnlockAndBecomeFreeDoor();
+      if (lockedDoor != null)
+      {
+          if (audioSource != null && audioClip != null)
+              audioSource.PlayOneShot(audioClip);
+          else
+              Debug.LogWarning("Terminal audio missing!");
+      
+          lockedDoor.UnlockAndBecomeFreeDoor();
             progressionRuntimeData.Value.AddUnlockedTerminalWorldID(terminalWorldID);
             Debug.Log("Didnt write terminal ID");
             
