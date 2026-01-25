@@ -536,7 +536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyFollowPlayer
   playerTarget: {fileID: 0}
-  followPlayer: 1
+  followPlayer: 0
 --- !u!114 &7876600125979415202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,7 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b336cffc20a8f44a920c89e11fc58d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 200
+  maxHealth: 10
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -758,13 +758,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 249a2f9bacc6cde469da0dbf02eaddae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyVisionCone
-  visionOrigin: {fileID: 0}
+  visionOrigin: {fileID: 128052160898430706}
   obstacleMask:
     serializedVersion: 2
     m_Bits: 24897
   playerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 32768
   drawGizmos: 1
 --- !u!114 &8497554598289119208
 MonoBehaviour:
@@ -932,7 +932,7 @@ AudioSource:
   m_GameObject: {fileID: 5585744665537500015}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -193669872254618507, guid: fabba5513a6054c4d8cc5a78afee8c17, type: 2}
+  OutputAudioMixerGroup: {fileID: -1493594626285250326, guid: fabba5513a6054c4d8cc5a78afee8c17, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
@@ -1051,7 +1051,7 @@ AudioSource:
   m_GameObject: {fileID: 5585744665537500015}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 4952969404882606717, guid: fabba5513a6054c4d8cc5a78afee8c17, type: 2}
+  OutputAudioMixerGroup: {fileID: -1140926826297427205, guid: fabba5513a6054c4d8cc5a78afee8c17, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
