@@ -18,6 +18,9 @@ public class ThankYou : MonoBehaviour
     {
         thankYouText.gameObject.SetActive(false);
         gameNameText.gameObject.SetActive(false);
+
+        //Execute();
+
     }
 
     public void Execute()
