@@ -173,7 +173,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4552182648699376941}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3689060606882709455}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: VisionOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 6368051357586252770}
   - component: {fileID: 1176478074413870494}
   - component: {fileID: 7595251044824968744}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FinalBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -568,6 +568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossHealth
   maxHealth: 250
+  currentHealth: 0
   OnDamageTaken:
     m_PersistentCalls:
       m_Calls: []
