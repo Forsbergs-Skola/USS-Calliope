@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class BossHealth : MonoBehaviour, IDamageable
 {
     public float maxHealth = 300f;
-    private float currentHealth;
+    public float currentHealth;
 
     public UnityEvent<float> OnDamageTaken;
     public UnityEvent OnDeath;
@@ -12,6 +12,8 @@ public class BossHealth : MonoBehaviour, IDamageable
     public UnityEvent<float, float> OnHealthChanged = new UnityEvent<float, float>();
     public float GetCurrentHealth() => currentHealth;
     public float GetMaxHealth() => maxHealth;
+    
+    
 
     private void Awake()
     {
@@ -20,6 +22,8 @@ public class BossHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(float amount)
     {
+        Debug.Log($"TakeDamage: {amount}");
+        
         currentHealth -= amount;
         currentHealth = Mathf.Max(0, currentHealth);
 
@@ -47,4 +51,12 @@ public class BossHealth : MonoBehaviour, IDamageable
         OnDeath.Invoke();
         Destroy(gameObject);
     }
+
+    [ContextMenu("Kill Bob")]
+    void KillBob()
+    {
+        Die();
+    }
+    
+    
 }
