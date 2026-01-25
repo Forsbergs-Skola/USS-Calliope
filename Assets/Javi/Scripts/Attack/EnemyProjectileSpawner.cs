@@ -8,8 +8,8 @@ public class EnemyProjectileSpawner : MonoBehaviour
     {
         if (prefab == null || firePoint == null) return;
         //Debug.Log($"{name} Spawn: yes");
-        //Debug.Log($"FirePoint pos: {firePoint.position}");
-        //Debug.Log($"Enemy pos: {transform.position}");
+        Debug.Log($"jrv FirePoint pos: {firePoint.position}");
+        Debug.Log($"jrv Enemy pos: {transform.position}");
         Vector3 dir = (targetPosition - firePoint.position).normalized;
        //dir += Random.insideUnitSphere * spread;
 

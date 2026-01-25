@@ -572,5 +572,30 @@ public class EnemyAttackController : MonoBehaviour
         if (patrol != null)
             patrol.WatchInPlace(4f);*/
     }
+    
+    public bool HasActiveAttack(out int attackType)
+    {
+        attackType = 0;
 
+        if (activeAttack == null || activeAttack.attack == null)
+            return false;
+
+        if (activeAttack.attack is SO_MeleeAttack ||
+            activeAttack.attack is SO_BossHeavyMeleeAttack)
+            attackType = 1;
+        else if (activeAttack.attack is SO_RangedEnemyAttack ||
+                 activeAttack.attack is SO_BossFastRangedAttack)
+            attackType = 2;
+        else if (activeAttack.attack is SO_LeapAttack ||
+                 activeAttack.attack is SO_BossFuryLeapAttack)
+            attackType = 3;
+        
+        Debug.Log($"jrv {name} attackType {attackType}");
+        return attackType != 0;
+    }
+
+    public void deactivateAttacks()
+    {
+        activeAttack = null;
+    }
 }

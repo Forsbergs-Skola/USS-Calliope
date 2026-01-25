@@ -76,6 +76,12 @@ public class EnemyCallSystem : MonoBehaviour
         }
 
         Collider[] hits = Physics.OverlapSphere(position, callRadius);
+        
+        var audio = GetComponent<EnemyAudioController>();
+        if (audio != null)
+        {
+            audio.PlayBattleCry();
+        }
 
         foreach (var hit in hits)
         {

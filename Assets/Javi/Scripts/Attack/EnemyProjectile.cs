@@ -30,7 +30,7 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Projectile hit {other.name}");
+        Debug.Log($"jrv Projectile hit {other.name}");
         if (other.CompareTag("Player"))
         {
             var dmg = other.GetComponent<IDamageable>();
