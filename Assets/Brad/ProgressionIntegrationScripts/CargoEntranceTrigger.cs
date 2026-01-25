@@ -3,6 +3,13 @@ using UnityEngine;
 public class CargoEntranceTrigger : MonoBehaviour
 {
     [SerializeField] private ProgressionRuntimeData progressionData;
+    private Collider myCollider;
+
+    private void Awake()
+    {
+        myCollider = GetComponent<Collider>();
+    }
+
     private DialogueController dialogueController
     {
         get => DialogueController.Instance;
@@ -16,6 +23,7 @@ public class CargoEntranceTrigger : MonoBehaviour
         progressionData.Value.CargoBayEntered = true;
         if (dialogueController != null)
         {
+            myCollider.enabled = false;
             dialogueController.StartConvoWithID(IDConstants.CONVERSATION_WHAT_THAT_NOISE);
         }
 

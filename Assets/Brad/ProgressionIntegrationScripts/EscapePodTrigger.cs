@@ -28,7 +28,7 @@ public class EscapePodTrigger : MonoBehaviour
 
     private void HandleRuntimeUpdate(IRuntimeData runtimeData)
     {
-        Debug.Log("Runtime Data Updated");
+        //Debug.Log("Runtime Data Updated");
         
         if (!(runtimeData is ProgressionData)) return;
         
@@ -38,7 +38,7 @@ public class EscapePodTrigger : MonoBehaviour
 
     private void HandleProgressionData()
     {
-        Debug.Log("Progression Updated");
+        //Debug.Log("Progression Updated");
         
         myCollider.enabled = progressionRuntimeData.Value.ObjectivesAndStatusesDict[IDConstants.OBJECTIVE_13_ID] == EnumObjectiveStatus.STARTED;
     }

@@ -40,7 +40,7 @@ public class ObjectivesTracker : Singleton<ObjectivesTracker>
             EnumObjectiveStatus defaultStatus = objectiveData.DefaultStatus;
             if (!newStatusDict.Keys.ToList<string>().Contains(objID))
             {
-                Debug.Log($"Adding {objectiveData.ObjectiveTitle}");
+                //Debug.Log($"Adding {objectiveData.ObjectiveTitle}");
                 newStatusDict[objID] = defaultStatus;
             }
         }
@@ -120,7 +120,7 @@ public class ObjectivesTracker : Singleton<ObjectivesTracker>
                 CompletionCriteriaSO criteria = startedObj.CompletionCriteria;
                 if (criteria.IsCriteriaMet())
                 {
-                    Debug.Log($"{startedObj.ObjectiveTitle} is complete!!!");
+                    //Debug.Log($"{startedObj.ObjectiveTitle} is complete!!!");
                     FinishObjectiveWithID(startedObj.ObjectiveID);
                 }
             }
