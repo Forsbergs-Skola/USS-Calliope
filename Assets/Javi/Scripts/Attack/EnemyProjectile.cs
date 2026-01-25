@@ -11,14 +11,6 @@ public class EnemyProjectile : MonoBehaviour
         direction = dir;
         speed = spd;
         damage = dmg;
-        
-        Collider myCol = GetComponent<Collider>();
-        Collider enemyCol = GetComponentInParent<Collider>();
-
-        if (myCol != null && enemyCol != null)
-        {
-            Physics.IgnoreCollision(myCol, enemyCol);
-        }
 
         Destroy(gameObject, 8f);
     }
@@ -30,7 +22,8 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Projectile hit {other.name}");
+        Debug.Log($"jrv Projectile hit {other.name}");
+        
         if (other.CompareTag("Player"))
         {
             var dmg = other.GetComponent<IDamageable>();

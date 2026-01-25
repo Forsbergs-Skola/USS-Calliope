@@ -322,12 +322,14 @@ public class PlayerHealthUI : MonoBehaviour
 {
     private void OnEnable()
     {
+        if (EventRelay.Instance == null) return;
         EventRelay.Instance.GameEvents.DataUpdatedEvent.OnEventTriggered += HandleDataUpdated;
         HandleDataUpdated(); // Initial refresh
     }
     
     private void OnDisable()
     {
+        if (EventRelay.Instance == null) return;
         EventRelay.Instance.GameEvents.DataUpdatedEvent.OnEventTriggered -= HandleDataUpdated;
     }
     
@@ -478,17 +480,17 @@ public class ObjectivesTracker : MonoBehaviour
 
 ## Integration Points
 
-### With Event System
+### With [Event](Event_System_Documentation.md) System
 - `DataTools.HandleOnDataChanged()` triggers events automatically
 - `DataController` subscribes to game events
 - `SaveService` triggers save/load events
 
-### With Objectives System
+### With [Objectives](Objectives_Tracking_System_Documentation.md) System
 - `ObjectivesTracker` subscribes to `RuntimeDataUpdatedEvent`
 - Reacts to `ProgressionData` changes
 - Queries objective status from `ProgressionData`
 
-### With UI System
+### With [UI](UI_System_Documentation) System
 - UI systems subscribe to `DataUpdatedEvent`
 - Reactive UI updates based on data changes
 - HUD updates when player data changes
@@ -498,7 +500,7 @@ public class ObjectivesTracker : MonoBehaviour
 - Inventory changes trigger data events
 - UI updates reactively
 
-### With Dialogue System
+### With [Dialogue](Dialogue_System_Documentation.md) System
 - Dialogue system can query progression data
 - Story flags stored in `ProgressionData`
 - Enables conditional dialogue
@@ -542,19 +544,6 @@ public class ObjectivesTracker : MonoBehaviour
 - Unity ScriptableObject system
 - Unity JSON serialization (`JsonUtility`)
 - Unity file I/O (`System.IO`)
-
-## Known Limitations / Future Work
-
-1. **Single Save Slot**: Currently supports one save file
-2. **No Save Metadata**: No timestamp, screenshot, or description support
-3. **Manual Conversion**: Save/load conversion methods must be updated when data changes
-4. **No Versioning**: No save file version checking
-5. **No Compression**: Save files are plain JSON (could be compressed)
-6. **No Encryption**: Save files are unencrypted
-7. **Limited Validation**: Minimal validation of loaded data
-8. **No Cloud Saves**: Only local file system storage
-9. **No Auto-Save**: Manual save only
-10. **Collection Methods**: Must use dedicated methods for list/dictionary changes
 
 ## Best Practices
 

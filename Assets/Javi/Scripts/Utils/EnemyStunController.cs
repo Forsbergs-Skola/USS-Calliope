@@ -39,8 +39,6 @@ public class EnemyStunController : MonoBehaviour
         if (movement != null)
             movement.SetMovementState(SimpleMovementAgent.MovementState.Idle);
 
-        // TODO: animation
-
         yield return new WaitForSeconds(duration);
 
         isStunned = false;

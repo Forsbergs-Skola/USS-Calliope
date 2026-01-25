@@ -114,7 +114,7 @@ public class PlayerHealthJavi : MonoBehaviour, IDamageable, IDamageEvents
     {
         if (TryGetComponent<PlayerDataHandler>(out PlayerDataHandler pDataHandler))
         {
-            //Debug.Log("DATA FOUND");
+            Debug.Log("DATA FOUND");
 
             pData = pDataHandler.RuntimeData.Value;
             return true;

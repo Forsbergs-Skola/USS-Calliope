@@ -5,19 +5,21 @@ public class BossEnemySpawner : MonoBehaviour
     public GameObject activeEnemyPrefab;
     public GameObject latentEnemyPrefab;
 
-    public void Spawn(Vector3 playerPos, bool playerInvisible)
+    public void SpawnEnemyFacingPlayer(
+        GameObject prefab,
+        Vector3 spawnPos,
+        Vector3 playerPos
+    )
     {
-        var points = PatrolPointRegistry.GetClosestPoints(transform.position, 3);
+        if (prefab == null)
+            return;
 
-        if (points.Count < 3) return;
-        
-        SpawnEnemy(activeEnemyPrefab, points[0].position);
-        SpawnEnemy(latentEnemyPrefab, points[1].position);
-        SpawnEnemy(latentEnemyPrefab, points[2].position);
-    }
+        GameObject enemy = Instantiate(prefab, spawnPos, Quaternion.identity);
 
-    private void SpawnEnemy(GameObject prefab, Vector3 pos)
-    {
-        var enemy = Instantiate(prefab, pos, Quaternion.identity);
+        Vector3 dir = playerPos - spawnPos;
+        dir.y = 0f;
+
+        if (dir.sqrMagnitude > 0.01f)
+            enemy.transform.rotation = Quaternion.LookRotation(dir);
     }
 }

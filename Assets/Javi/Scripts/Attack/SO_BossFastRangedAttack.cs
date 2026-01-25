@@ -46,7 +46,7 @@ public class SO_BossFastRangedAttack : EnemyAttackSOClass
         if (spawner == null)
             return;
 
-        //Debug.Log($"{context.enemy.name} is shooting - post spawner");
+        Debug.Log($"JRV {context.enemy.name} is shooting - post spawner");
         spawner.SpawnProjectile(baseRanged.projectilePrefab, context.firePoint, context.player.position, baseRanged.projectileSpeed, baseRanged.damage
         );
     }

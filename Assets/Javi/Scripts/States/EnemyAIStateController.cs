@@ -10,7 +10,7 @@ public class EnemyAIStateController : MonoBehaviour
 
     private Transform player;
 
-    public enum State { Wandering, Watchful, Attacking }
+    public enum State { Wandering, Watchful, Attacking, Dead }
     private State currentState = State.Wandering;
     public State CurrentState => currentState;
     
@@ -23,6 +23,7 @@ public class EnemyAIStateController : MonoBehaviour
     private Coroutine watchfulFromCallRoutine;
     
     private EnemyCallSystem callSystem;
+    private EnemyCallReceiver callReceiver;
     [SerializeField] private float callInterval = 20f;
     private Coroutine callLoopRoutine;
     private Vector3 lastCallPosition;
@@ -30,6 +31,11 @@ public class EnemyAIStateController : MonoBehaviour
     private bool isStunned;
     private Vector3 stunPosition;
     private PatrolZone stunZone;
+    public bool IsStunned => isStunned;
+    
+    private bool isDead;
+    public bool IsDead => isDead;
+    private EnemyAttackController attackController;
 
     private void Awake()
     {
@@ -44,6 +50,8 @@ public class EnemyAIStateController : MonoBehaviour
             : null;
         
         callSystem = GetComponent<EnemyCallSystem>();
+        callReceiver = GetComponent<EnemyCallReceiver>();
+        attackController = GetComponent<EnemyAttackController>();
     }
 
     private void Start()
@@ -53,6 +61,7 @@ public class EnemyAIStateController : MonoBehaviour
 
     private void Update()
     {
+        if (currentState == State.Dead) return;
         if (player == null) return;
         if (isStunned) return; 
         if (perception == null) return;
@@ -88,6 +97,9 @@ public class EnemyAIStateController : MonoBehaviour
                         EnterWandering();
                     }
                 }*/
+                break;
+            case State.Dead:
+                //ImDead();
                 break;
         }
     }
@@ -379,8 +391,7 @@ public class EnemyAIStateController : MonoBehaviour
     public void OnLostPlayer()
     {
         currentState = State.Watchful;
-
-        var patrol = GetComponent<EnemyPatrolController>();
+        //var patrol = GetComponent<EnemyPatrolController>();
         if (patrol != null)
             patrol.WatchInPlace(4f);
     }
@@ -389,4 +400,38 @@ public class EnemyAIStateController : MonoBehaviour
     {
         EnterWandering();
     }*/
+    
+    public void OnDeath()
+    {
+        if (isDead) return;
+        
+        currentState = State.Dead;
+        
+        attackController.deactivateAttacks();
+        
+        //Debug.Log($"jrv {name} onDeath");
+        // stop all logic
+        StopAllCoroutines();
+
+        patrol.StopPatrol();
+        patrol.enabled = false;
+        chase?.SetFollow(false);
+        chase?.SetTarget(null);
+        callSystem.enabled = false;
+        callReceiver.enabled = false;
+
+        var cossBrain = GetComponent<FinalBossBrain>();
+        if (cossBrain != null)
+            cossBrain.enabled = false;
+        
+        var movement = GetComponent<SimpleMovementAgent>();
+        if (movement != null)
+            movement.enabled = false;
+        
+        var audio = GetComponent<EnemyAudioController>();
+        if (audio != null)
+            audio.StopAllAudio();
+        
+        isDead = true;
+    }
 }
