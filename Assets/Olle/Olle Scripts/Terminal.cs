@@ -88,7 +88,9 @@ public class Terminal : MonoBehaviour
 
         if (lockedDoor != null)
         {
-            audioSource.PlayOneShot(audioClip);
+            if (audioSource != null && audioClip != null)
+                audioSource.PlayOneShot(audioClip);
+            else
 
             lockedDoor.UnlockAndBecomeFreeDoor();
             progressionRuntimeData.Value.AddUnlockedTerminalWorldID(terminalWorldID);
