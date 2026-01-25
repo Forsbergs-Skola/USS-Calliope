@@ -29,28 +29,27 @@ public class MapCameraSwitch : MonoBehaviour
 
     void OnEnable()
     {
-        if (toggleMapAction == null) return;
+        if (toggleMapAction != null)
+        {
+            toggleMapAction.action.performed += OnToggleMap;
+            if (!toggleMapAction.action.enabled) toggleMapAction.action.Enable();
+        }
 
-        toggleMapAction.action.performed += OnToggleMap;
-        toggleMapAction.action.Enable();
-        
-        if (toggleLevelAction == null) return;
-
-        toggleLevelAction.action.performed += OnToggleLevel;
-        toggleLevelAction.action.Enable();
+        if (toggleLevelAction != null)
+        {
+            toggleLevelAction.action.performed += OnToggleLevel;
+            if (!toggleLevelAction.action.enabled) toggleLevelAction.action.Enable();
+        }
     }
 
     void OnDisable()
     {
-        if (toggleMapAction == null) return;
+        if (toggleMapAction != null)
+            toggleMapAction.action.performed -= OnToggleMap;
 
-        toggleMapAction.action.performed -= OnToggleMap;
-        toggleMapAction.action.Disable();
+        if (toggleLevelAction != null)
+            toggleLevelAction.action.performed -= OnToggleLevel;
         
-        if (toggleLevelAction == null) return;
-
-        toggleLevelAction.action.performed -= OnToggleLevel;
-        toggleLevelAction.action.Disable();
     }
 
     void OnToggleMap(InputAction.CallbackContext ctx)

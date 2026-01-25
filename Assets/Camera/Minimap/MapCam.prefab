@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032465771895152324}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.07852373, y: 0.011831468, z: -0.0008992171, w: -0.99684167}
+  m_LocalRotation: {x: 0.07852352, y: -0.011828652, z: 0.00089726166, w: 0.9968417}
   m_LocalPosition: {x: 0.56412506, y: 1.7405797, z: -0.7704792}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 9.008, y: -1.36, z: -0.004}
 --- !u!114 &1214241628108279794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,5 +91,8 @@ MonoBehaviour:
   isoCam: {fileID: 0}
   mapCam: {fileID: 1214241628108279794}
   toggleMapAction: {fileID: 2899774137570722205, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  toggleLevelAction: {fileID: -8863052629484719433, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   player: {fileID: 0}
+  LevelOne: {fileID: 0}
+  LevelTwo: {fileID: 0}
   MinimapRoom: {fileID: 0}
