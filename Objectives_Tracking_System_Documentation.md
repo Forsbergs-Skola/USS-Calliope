@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document describes the objectives tracking system implementation for the USS Calliope Unity project. The system provides a flexible, data-driven approach to managing game objectives (quests/missions) with support for prerequisites, completion criteria, status tracking, and automatic progression. The system integrates with the project's data persistence layer and event system.
+This document describes the objectives tracking system implementation for the USS Calliope Unity project. The system provides a flexible, data-driven approach to managing game objectives (quests/missions) with support for prerequisites, completion criteria, status tracking, and automatic progression. The system integrates with the project's [data persistence layer](Data_Management_System_Documentation.md) and [event system](Event_System_Documentation.md).
 
 ## Architecture
 
