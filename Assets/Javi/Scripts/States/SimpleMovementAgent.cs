@@ -135,5 +135,20 @@ public class SimpleMovementAgent : MonoBehaviour, IMovementAgent
     {
         return $"State: {currentState}, Base: {baseSpeed}, Multiplier: {currentSpeedMultiplier}, Current: {CurrentSpeed}";
     }
+    
+    public float NormalizedSpeed
+    {
+        get
+        {
+            if (currentState == MovementState.Idle)
+                return 0f;
+
+            float maxExpectedSpeed = baseSpeed * chaseMultiplier;
+            return Mathf.Clamp01(CurrentSpeed / maxExpectedSpeed);
+        }
+    }
+    
+    //navmesh
+    //agent.velocity.magnitude / agent.speed
 }
 

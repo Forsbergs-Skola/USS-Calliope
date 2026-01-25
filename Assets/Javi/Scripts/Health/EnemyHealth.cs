@@ -32,7 +32,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IDamageEvents
         OnDamaged?.Invoke(damage);
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
         
-        Debug.Log("Enemy took damage: " + damage);
+        Debug.Log($"Enemy {name} took damage: " + damage +", enemyHealth: " + currentHealth);
         if (currentHealth <= 0)
         {
             Die();
@@ -41,7 +41,12 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IDamageEvents
 
     private void Die()
     {
-
+        
+        if (TryGetComponent<EnemyAIStateController>(out var ai))
+        {
+            ai.OnDeath();
+        }
+        
         if (TryGetComponent<BloodSampleGiver>(out BloodSampleGiver sampleGiver))
         {
             sampleGiver.TryGiveSample();
@@ -50,10 +55,9 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IDamageEvents
         {
             Debug.LogError("Add a BloodSampleGiver to this enemy");
         }
-
-
+        
         // tell the sample giver to give the sample
-
+        
         OnDeath.Invoke();
         Destroy(gameObject);
     }

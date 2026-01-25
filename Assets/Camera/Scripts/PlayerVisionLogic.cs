@@ -71,6 +71,14 @@ public class PlayerVisionLogic : MonoBehaviour
         if (sneaky != null)
             sneaky.SetSeen(visible);
         
+        //////
+        Renderer[] renderers = enemy.GetComponentsInChildren<Renderer>();
+        foreach (Renderer render in renderers)
+        {
+            render.enabled = visible;
+        }
+
+        
     }
     
     
