@@ -31,7 +31,7 @@ public class DataController : Singleton<DataController>
     {
         if (ObjectivesTracker.Instance == null) return;
 
-        Debug.Log("Initializing Game Data");
+        //Debug.Log("Initializing Game Data");
 
 
         SaveService.ClearSave();
