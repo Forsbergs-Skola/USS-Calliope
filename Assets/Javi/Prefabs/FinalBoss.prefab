@@ -374,7 +374,9 @@ GameObject:
   - component: {fileID: 6666540556893248279}
   - component: {fileID: 3202642431171789836}
   - component: {fileID: 6491552942032804535}
-  m_Layer: 0
+  - component: {fileID: 1567782807113087541}
+  - component: {fileID: 2796348275742882767}
+  m_Layer: 7
   m_Name: FinalBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -432,8 +434,7 @@ MeshRenderer:
   m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1263,6 +1264,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1567782807113087541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7877151858598348904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b296e5db013d245971a56e0812d3b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageTextSpawner
+  damageTextPrefab: {fileID: 2076834550311892472, guid: de321cc44df38414a8f06f37c47de266, type: 3}
+  spawnPoint: {fileID: 272304171436434704}
+  verticalOffset: 2
+--- !u!114 &2796348275742882767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7877151858598348904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3af3b9e5b27ae408386ee51c8f063c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossSpawnOnLowHealth
+  spawner: {fileID: 4666181416111322627}
+  triggerHealth: 35
+  minBattleCries: 3
+  cryInterval: 2.5
 --- !u!1 &8208439218157800367
 GameObject:
   m_ObjectHideFlags: 0

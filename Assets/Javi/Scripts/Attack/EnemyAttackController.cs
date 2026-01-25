@@ -360,8 +360,9 @@ public class EnemyAttackController : MonoBehaviour
             return;
         }
 
-        // Solo uno
+        // only one
         activeAttack = ranged ?? melee ?? leap;
+        Debug.Log($"jrv activeAttack {activeAttack}");
     }
 
     private float GetLeapMinDistance(EnemyAttackInstance leap)
@@ -590,7 +591,7 @@ public class EnemyAttackController : MonoBehaviour
                  activeAttack.attack is SO_BossFuryLeapAttack)
             attackType = 3;
         
-        Debug.Log($"jrv {name} attackType {attackType}");
+        //Debug.Log($"jrv {name} attackType {attackType}");
         return attackType != 0;
     }
 
