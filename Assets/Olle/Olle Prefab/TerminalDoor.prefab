@@ -927,7 +927,7 @@ Transform:
   m_GameObject: {fileID: 8443279663413759739}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0.000000061817246, z: 0.000000061817246, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0.00000047683716, z: 0}
+  m_LocalPosition: {x: 0.07, y: -0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1174,6 +1174,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8267484, guid: 34300443486f64d6da09f6f748778306, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1245,14 +1249,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828549d04a3979842b4026f3837e2101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
-  doorTransform: {fileID: 5180234607844246655}
+  doorTransform: {fileID: 5180234607844246653}
   lerpSpeed: 3
   hideThresholdY: -2
   lockType: 2
   isLocked: 1
   keyID: 
   inventoryRuntime: {fileID: 11400000, guid: dd7b9f8b2691e0446b0a65aad0a865d4, type: 2}
-  openedWithTerminalWorldID: 2f09fc8b-c11b-47dc-9e41-427d7abb498e
+  openedWithTerminalWorldID: 341d9856-1f21-4799-ac3b-34e10b9f31e8
   progressionRuntimeData: {fileID: 11400000, guid: ade4d492fc958da4185a95ecfaf803cd, type: 2}
   OpenMarker: {fileID: 5712108431207001868}
   ClosedMarker: {fileID: 8061584329947601677}
@@ -1327,10 +1331,5 @@ MonoBehaviour:
 --- !u!4 &5180234607844246653 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 466374, guid: 34300443486f64d6da09f6f748778306, type: 3}
-  m_PrefabInstance: {fileID: 5180234607844055483}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5180234607844246655 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 466372, guid: 34300443486f64d6da09f6f748778306, type: 3}
   m_PrefabInstance: {fileID: 5180234607844055483}
   m_PrefabAsset: {fileID: 0}
