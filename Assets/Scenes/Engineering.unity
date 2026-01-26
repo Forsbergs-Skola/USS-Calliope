@@ -1239,7 +1239,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &292000835
 Transform:
   m_ObjectHideFlags: 0
@@ -8516,6 +8516,10 @@ PrefabInstance:
       propertyPath: playerTarget
       value: 
       objectReference: {fileID: 1399030006}
+    - target: {fileID: 2912683821243326361, guid: 5177281d82f5db346ba74763f32160f8, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4369195600631106476, guid: 5177281d82f5db346ba74763f32160f8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
