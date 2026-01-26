@@ -1174,6 +1174,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8267484, guid: 34300443486f64d6da09f6f748778306, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1245,7 +1249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828549d04a3979842b4026f3837e2101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlidingDoor
-  doorTransform: {fileID: 5180234607844246655}
+  doorTransform: {fileID: 5180234607844246653}
   lerpSpeed: 3
   hideThresholdY: -2
   lockType: 2
@@ -1327,10 +1331,5 @@ MonoBehaviour:
 --- !u!4 &5180234607844246653 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 466374, guid: 34300443486f64d6da09f6f748778306, type: 3}
-  m_PrefabInstance: {fileID: 5180234607844055483}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5180234607844246655 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 466372, guid: 34300443486f64d6da09f6f748778306, type: 3}
   m_PrefabInstance: {fileID: 5180234607844055483}
   m_PrefabAsset: {fileID: 0}
