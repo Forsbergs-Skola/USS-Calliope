@@ -30,7 +30,7 @@ MonoBehaviour:
   reloadTime: 1.86
   hasBallistics: 1
   impactRange: 50
-  spreadStandardDeviation: 0
+  spreadStandardDeviation: 0.0008
   damageOverDistance:
     serializedVersion: 2
     m_Curve:
@@ -79,7 +79,7 @@ MonoBehaviour:
   recoilPerShotMax: 0
   recoilRecoverySpeed: 0
   movementInaccuracyMultiplier: 0.485
-  sprintInaccuracyMultiplier: 0.101
+  sprintInaccuracyMultiplier: 0.082
   accuracyGracePeriod: 0.15
   stunEffectTime: 0
   isMelee: 0
