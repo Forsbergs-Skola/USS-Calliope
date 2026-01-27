@@ -150,9 +150,12 @@ public class PlayerWeaponHandler : MonoBehaviour
         if (data.WeaponModelPrefab != null && firePoint != null)
         {
             currentWeaponPrefab = Instantiate(data.WeaponModelPrefab, firePoint);
-            currentWeaponPrefab.transform.localPosition = Vector3.zero;
-            currentWeaponPrefab.transform.localRotation = Quaternion.identity;
-            currentWeaponPrefab.transform.localScale = Vector3.one;
+
+            currentWeaponPrefab.transform.localPosition = currentWeaponData.PelletCount == 1 ? new Vector3(0.05f, 0, 0) : Vector3.zero;
+            currentWeaponPrefab.transform.localRotation = Quaternion.Euler(-90f, 0f, 90f); 
+            
+            // Quick solution to scaling down shotgun 
+            currentWeaponPrefab.transform.localScale = currentWeaponData.PelletCount == 5 ? new Vector3(0.6f, 0.6f, 0.6f) : Vector3.one;
         }
     }
 
