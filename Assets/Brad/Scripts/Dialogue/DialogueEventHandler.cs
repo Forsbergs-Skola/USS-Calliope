@@ -23,7 +23,9 @@ public class DialogueEventHandler
         switch (lineID)
         {
             case IDConstants.BIG_NOISE_LINE:
-                // TODO: play scary sound
+                if (UIController.Instance == null) return;
+                UISoundPlayer soundPlayer = UIController.Instance.UISoundPlayer;
+                soundPlayer.PlayUISound(EnumUISound.SCARY_SOUND);
                 break;
         }
     }
