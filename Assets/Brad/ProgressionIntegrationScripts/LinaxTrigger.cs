@@ -16,6 +16,11 @@ public class LinaxTrigger : MonoBehaviour
         if (LinaxFinder.TrySetLinaxFound(true))
         {
             myCollider.enabled = false;
+            if (DialogueController.Instance != null)
+            {
+                DialogueController.Instance.StartConvoWithID(IDConstants.LINAX_MONOLOGUE);
+            }
+
         }
     }
 }
