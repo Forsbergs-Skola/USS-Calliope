@@ -7,7 +7,8 @@ public class EnemyProjectileSpawner : MonoBehaviour
     public void SpawnProjectile(GameObject prefab, Transform firePoint, Vector3 targetPosition, float speed, float damage/*, float spread*/)
     {
         if (prefab == null || firePoint == null) return;
-       
+
+        targetPosition.y += 1f;
         Vector3 dir = (targetPosition - firePoint.position).normalized;
        //dir += Random.insideUnitSphere * spread;
 

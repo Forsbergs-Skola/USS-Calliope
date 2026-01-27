@@ -311,7 +311,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1.229}
+  m_AnchoredPosition: {x: 0, y: 0.49}
   m_SizeDelta: {x: 2560, y: 1440}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6030886154891773753
@@ -760,7 +760,7 @@ MonoBehaviour:
   visionOrigin: {fileID: 128052160898430706}
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 24897
+    m_Bits: 24896
   playerMask:
     serializedVersion: 2
     m_Bits: 32768
@@ -1311,7 +1311,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35faa276da7360a4683a26617a6bc1d2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.817
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35faa276da7360a4683a26617a6bc1d2, type: 3}
       propertyPath: m_LocalPosition.z

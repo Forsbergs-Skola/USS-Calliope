@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
+    [Header("Collision")]
+    [SerializeField] private LayerMask ignoredLayers;
+    
     private Vector3 direction;
     private float speed;
     private float damage;
@@ -23,6 +26,11 @@ public class EnemyProjectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log($"jrv Projectile hit {other.name}");
+        
+        if ((ignoredLayers.value & (1 << other.gameObject.layer)) != 0)
+        {
+            return;
+        }
         
         if (other.CompareTag("Player"))
         {
