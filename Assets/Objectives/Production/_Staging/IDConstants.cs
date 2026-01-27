@@ -63,6 +63,7 @@ public static class IDConstants
 
     public const string CONVERSATION_WHAT_THAT_NOISE = "58fba2a0-d48a-4037-81d8-e7c8987bf1bd";
     public const string CONVERSATION_BOB_FINAL = "57442e47-c215-4a48-acfb-57c24e94dec4";
+    public const string LINAX_MONOLOGUE = "41f0f8a4-fb81-42e1-8315-002c48b88ee3";
 
     public const string BIG_NOISE_LINE = "ce8065e4-7a78-4d2d-959f-e38f02d5ed9c";
 

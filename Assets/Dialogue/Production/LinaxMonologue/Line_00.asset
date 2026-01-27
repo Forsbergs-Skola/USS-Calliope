@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2074b53732d54f94ca78a40d54b933ba, type: 3}
-  m_Name: Line_01
+  m_Name: Line_00
   m_EditorClassIdentifier: Assembly-CSharp::DialogueLineSO
-  lineID: 5b466da1-2524-418f-9933-3819c2d88ef5
-  speakerName: Infected Bob
-  lineText: You'll never leave here alive. There's only one ecape pod left and it's
-    mine.
+  lineID: 70c2db86-3bda-4500-8075-c80e8aadf13b
+  speakerName: Player
+  lineText: Looks like Linax is dead...
   characterRevealInterval: 0.002
-  portraitTexturePath: DialoguePortraitTextures/INFECTED_BOB
+  portraitTexturePath: DialoguePortraitTextures/NONE
