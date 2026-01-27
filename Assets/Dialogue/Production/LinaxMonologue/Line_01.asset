@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2074b53732d54f94ca78a40d54b933ba, type: 3}
   m_Name: Line_01
   m_EditorClassIdentifier: Assembly-CSharp::DialogueLineSO
-  lineID: 5b466da1-2524-418f-9933-3819c2d88ef5
-  speakerName: Infected Bob
-  lineText: You'll never leave here alive. There's only one ecape pod left and it's
-    mine.
+  lineID: d2f32415-4ba7-45fc-9bcc-6eca97683f5c
+  speakerName: Player
+  lineText: Maybe I can find the keycard on his corpse.
   characterRevealInterval: 0.002
-  portraitTexturePath: DialoguePortraitTextures/INFECTED_BOB
+  portraitTexturePath: DialoguePortraitTextures/NONE
