@@ -764,8 +764,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e50f337a6278ab4f9b8eedd52707666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCallSystem
-  firstCallChance: 1
-  repeatCallChance: 0
+  firstCallChance: 0.75
+  repeatCallChance: 0.5
   callCooldown: 20
   preCallPause: 1
   postCallPause: 2
