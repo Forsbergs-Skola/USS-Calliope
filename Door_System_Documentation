@@ -10,90 +10,90 @@ Terminals provide puzzle-based unlocking via player interaction, integrating wit
 ## Architecture
 The system uses a trigger-based interaction architecture.
 
-Door Layer: SlidingDoor handles movement, locking, and inventory unlocking.
+**Door Layer:** SlidingDoor handles movement, locking, and inventory unlocking.
 
-Terminal Layer: Terminal provides interaction UI, progression gating, and door activation.
+**Terminal Layer:** Terminal provides interaction UI, progression gating, and door activation.
 
-Integration Layer: InventoryRuntimeData, ProgressionRuntimeData for persistent state.
+**Integration Layer:** InventoryRuntimeData, ProgressionRuntimeData for persistent state.
 
 ## Core Components
 
 ### SlidingDoor
-Location: Assets/Olle/Scripts/SlidingDoor.cs
+**Location:** `Assets/Olle/Scripts/SlidingDoor.cs`
 
-Responsibilities:
+**Responsibilities:**
 - Automatic opening/closing based on player proximity when unlocked.
 - Multiple lock types with inventory/progression integration.
 - Smooth position lerping between open/closed markers.
 - Door hiding/showing based on Y position threshold.
 - Keycard unlocking via inventory check.
 
-Key Properties:
-- Movement: doorTransform, lerpSpeed, hideThresholdY.
-- Markers: OpenMarker, ClosedMarker (Transform positions).
-- Locking: lockType (DoorLockType enum), isLocked.
-- Integration: keyID (string), inventoryRuntime, openedWithTerminalWorldID, progressionRuntimeData.
+**Key Properties:**
+- Movement: `doorTransform`, `lerpSpeed`, `hideThresholdY`.
+- Markers: `OpenMarker`, `ClosedMarker` (Transform positions).
+- Locking: `lockType` (DoorLockType enum), `isLocked`.
+- Integration: `keyID` (string), `inventoryRuntime`, `openedWithTerminalWorldID`, `progressionRuntimeData`.
 
-Key Methods:
-- SetPlayerInTrigger(bool InTrigger): Called by player trigger.
-- TryUnlock(): Check inventory for keyID, unlock if found, trigger progression.
-- UnlockDoor() / LockDoor(): Toggle isLocked.
-- UnlockAndBecomeFreeDoor(): Unlock and set lockType = None.
+**Key Methods:**
+- `SetPlayerInTrigger(bool InTrigger)`: Called by player trigger.
+- `TryUnlock()`: Check inventory for keyID, unlock if found, trigger progression.
+- `UnlockDoor()` / `LockDoor()`: Toggle `isLocked`.
+- `UnlockAndBecomeFreeDoor()`: Unlock and set lockType = None.
 
 ### DoorLockType Enum
-- None: Always open on proximity.
-- Keycard: Requires matching keyID in inventory.
-- Terminal: Unlocked via progression data.
-- KeypadCode: Reserved for future implementation.
+- **None:** Always open on proximity.
+- **Keycard:** Requires matching keyID in inventory.
+- **Terminal:** Unlocked via progression data.
+- **KeypadCode:** Reserved for future implementation.
 
 ### Terminal
-Location: Assets/Olle/Scripts/Terminal.cs
+**Location:** `Assets/Olle/Scripts/Terminal.cs`
 
-Responsibilities:
+**Responsibilities:**
 - Player detection and interaction prompt.
 - Single-use activation that unlocks associated door.
 - Visual feedback via lock indicator color change.
 - Audio feedback and progression data persistence.
 - Input System integration for interact action.
 
-Key Properties:
-- Input: inputActionsAsset.
-- Door/UI: lockedDoor (SlidingDoor), lockIndicator (Renderer).
-- Colors: lockedColor, unlockedColor.
-- UI: pressEText (GameObject).
-- Integration: terminalWorldID, progressionRuntimeData.
-- Audio: audioClip, audioSource.
+**Key Properties:**
+- Input: `inputActionsAsset`.
+- Door/UI: `lockedDoor` (SlidingDoor), `lockIndicator` (Renderer).
+- Colors: `lockedColor`, `unlockedColor`.
+- UI: `pressEText` (GameObject).
+- Integration: `terminalWorldID`, `progressionRuntimeData`.
+- Audio: `audioClip`, `audioSource`.
 
-Key Methods:
-- OnInteract(InputAction.CallbackContext): Activation logic.
-- OnTriggerEnter/Exit(Collider): Player range detection.
+**Key Methods:**
+- `OnInteract(InputAction.CallbackContext)`: Activation logic.
+- `OnTriggerEnter/Exit(Collider)`: Player range detection.
 
 ## System Flow
 
 ### Door Operation
-Start():
-- If lockType == Terminal: Check progressionRuntimeData for openedWithTerminalWorldID.
-- If found: UnlockAndBecomeFreeDoor().
-- Validate keyID for keycard doors.
+**Start():**
+- If `lockType == Terminal`: Check `progressionRuntimeData` for `openedWithTerminalWorldID`.
+- If found: `UnlockAndBecomeFreeDoor()`.
+- Validate `keyID` for keycard doors.
 
-Update():
-- Compute shouldBeOpen = !isLocked && _playerInTrigger.
-- Lerp doorTransform.position toward OpenMarker or ClosedMarker.
-- Auto-hide door when position.y < hideThresholdY (SetActive false).
+**Update():**
+- Compute `shouldBeOpen = !isLocked && _playerInTrigger`.
+- Lerp `doorTransform.position` toward `OpenMarker` or `ClosedMarker`.
+- Auto-hide door when `position.y < hideThresholdY` (`SetActive(false)`).
 - Auto-show when returning above threshold.
 
 ### Terminal Activation
-OnTriggerEnter/Exit:
-- Set playerInRange true/false for tagged "Player".
+**OnTriggerEnter/Exit:**
+- Set `playerInRange` true/false for tagged "Player".
 
-OnInteract (performed):
-- If !playerInRange || activated: return.
-- Set activated = true.
-- Destroy pressEText.
-- Set lockIndicator.material.color = unlockedColor.
-- Play audioClip via audioSource.
-- Call lockedDoor.UnlockAndBecomeFreeDoor().
-- Add terminalWorldID to progressionRuntimeData.Value.unlockedTerminalWorldIDs.
+**OnInteract (performed):**
+- If `!playerInRange || activated`: return.
+- Set `activated = true`.
+- Destroy `pressEText`.
+- Set `lockIndicator.material.color = unlockedColor`.
+- Play `audioClip` via `audioSource`.
+- Call `lockedDoor.UnlockAndBecomeFreeDoor()`.
+- Add `terminalWorldID` to `progressionRuntimeData.Value.unlockedTerminalWorldIDs`.
 - Log activation.
 
 ## Asset Organization
@@ -105,23 +105,24 @@ Assets/Olle/Scripts/
 ```
 
 ## Scene Setup
-SlidingDoor GameObject:
-- Collider (Trigger)
-- doorTransform (child with MeshRenderer)
-- OpenMarker (empty Transform)
-- ClosedMarker (empty Transform)
 
-Terminal GameObject:
+**SlidingDoor GameObject:**
 - Collider (Trigger)
-- lockIndicator (child Renderer)
-- pressEText prefab instance
+- `doorTransform` (child with MeshRenderer)
+- `OpenMarker` (empty Transform)
+- `ClosedMarker` (empty Transform)
+
+**Terminal GameObject:**
+- Collider (Trigger)
+- `lockIndicator` (child Renderer)
+- `pressEText` prefab instance
 - AudioSource
 
 ## Scene Integration
-- Player Trigger: Player GameObject must have Collider tagged "Player".
-- Input Actions: "Player/Interact" or "Interact" action mapped to E key.
-- Runtime Data: InventoryRuntimeData and ProgressionRuntimeData singletons required.
-- Progression Handler: KeyedDoorProgressionHandler.HandleDoorUnlocked(keyID) called on keycard unlock.
+- **Player Trigger:** Player GameObject must have Collider tagged "Player".
+- **Input Actions:** "Player/Interact" or "Interact" action mapped to E key.
+- **Runtime Data:** InventoryRuntimeData and ProgressionRuntimeData singletons required.
+- **Progression Handler:** KeyedDoorProgressionHandler.HandleDoorUnlocked(keyID) called on keycard unlock.
 
 ## Usage Example
 ```csharp
@@ -136,11 +137,11 @@ slidingDoor.keyID = "keycard_blue_001";
 ```
 
 ## Design Patterns
-- State-Driven Movement: isLocked + proximity → target position.
-- Data-Driven Unlocking: Inventory/progression SOs as persistent gates.
-- Single Responsibility: Doors handle movement, terminals handle interaction.
-- Visual Hierarchy: Color-coded indicators, hide/show optimization.
-- Audio Integration: One-shot feedback on activation.
+- **State-Driven Movement:** `isLocked` + proximity → target position.
+- **Data-Driven Unlocking:** Inventory/progression SOs as persistent gates.
+- **Single Responsibility:** Doors handle movement, terminals handle interaction.
+- **Visual Hierarchy:** Color-coded indicators, hide/show optimization.
+- **Audio Integration:** One-shot feedback on activation.
 
 ## Future Extensibility
 - Implement DoorLockType.KeypadCode with code entry UI.
@@ -151,17 +152,17 @@ slidingDoor.keyID = "keycard_blue_001";
 - Expand KeyedDoorProgressionHandler for quest tracking.
 
 ## Technical Notes
-- Uses Vector3.Lerp with Time.deltaTime for frame-rate independent smooth movement.
-- Door hiding via SetActive(false) at hideThresholdY for performance.
+- Uses `Vector3.Lerp` with `Time.deltaTime` for frame-rate independent smooth movement.
+- Door hiding via `SetActive(false)` at `hideThresholdY` for performance.
 - Terminal input uses fallback action map search ("Player/Interact" or "Interact").
 - Progression data prevents terminal re-activation across sessions.
-- Inventory check uses GetQuestItemIDs() list containment.
-- Audio uses PlayOneShot for non-looping feedback.
+- Inventory check uses `GetQuestItemIDs()` list containment.
+- Audio uses `PlayOneShot` for non-looping feedback.
 - Debug logs provide unlock feedback during development.
 
 ## Dependencies
-- InventoryRuntimeData singleton for keycard inventory.
-- ProgressionRuntimeData singleton for terminal progression.
+- `InventoryRuntimeData` singleton for keycard inventory.
+- `ProgressionRuntimeData` singleton for terminal progression.
 - Unity Input System for interact action.
 - Player GameObject tagged "Player" with Collider.
-- KeyedDoorProgressionHandler static method for keycard progression.
+- `KeyedDoorProgressionHandler` static method for keycard progression.
