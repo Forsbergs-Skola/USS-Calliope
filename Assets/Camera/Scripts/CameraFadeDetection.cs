@@ -12,6 +12,7 @@ public class CameraFadeDetector : MonoBehaviour
     
     private HashSet<FadeObject> fadedSet = new HashSet<FadeObject>();
     
+    
     void Awake() => mainCam = Camera.main;
     
     void LateUpdate()
@@ -21,18 +22,29 @@ public class CameraFadeDetector : MonoBehaviour
         Vector3 camPosition = mainCam.transform.position;
         Vector3 target = player.position + Vector3.up * 1.2f;
         Vector3 direction = target - camPosition;
-        float distance = Vector3.Distance(camPosition, player.position);
+        //float distance = Vector3.Distance(camPosition, player.position);
+        float distance = direction.magnitude;
 
-        RaycastHit[] hits = Physics.SphereCastAll(camPosition, raycastRadius, direction.normalized, distance, fadeLayer);
+        RaycastHit[] hits = Physics.SphereCastAll(camPosition, raycastRadius, direction.normalized, distance, fadeLayer, QueryTriggerInteraction.Ignore);
+        
+        //RaycastHit[] hits = Physics.RaycastAll(camPosition, direction.normalized, distance, fadeLayer);
 
         foreach (RaycastHit hit in hits)
         {
-            FadeObject fade = hit.collider.GetComponent<FadeObject>();
-            if (fade != null && fadedSet.Add(fade))
+            //FadeObject fade = hit.collider.GetComponent<FadeObject>();
+            //if (fade != null && fadedSet.Add(fade))
+            //{
+             //   fade.FadeOut();
+             //   fadedObjects.Add(fade);
+            //}
+            
+            var fadeGroup = hit.collider.GetComponentInParent<FadeObject>();
+            if (fadeGroup != null && fadedSet.Add(fadeGroup))
             {
-                fade.FadeOut();
-                fadedObjects.Add(fade);
+                fadeGroup.FadeOut();
+                fadedObjects.Add(fadeGroup);
             }
+            
         }
         
     }
