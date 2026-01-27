@@ -14,6 +14,7 @@ public class LogoSplashCanvas : MonoBehaviour, ICanvasUI
     [SerializeField] private RawImage pegi18;
     [SerializeField] private GameObject logo;
 
+    //
     private UISoundPlayer soundPlayer { get => UIController.Instance.UISoundPlayer; }
 
     private int phase = 0;
