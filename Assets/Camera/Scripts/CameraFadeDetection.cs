@@ -58,9 +58,4 @@ public class CameraFadeDetector : MonoBehaviour
         fadedSet.Clear();
     }
     
-    void DrawHitPoint(RaycastHit hit)
-    {
-        Debug.DrawRay(hit.point, hit.normal * 0.3f, Color.green);
-    }
-    
 }

@@ -519,9 +519,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1
-  m_Height: 2
+  m_Height: 2.95
   m_Direction: 1
-  m_Center: {x: 0, y: 0.13, z: 0}
+  m_Center: {x: 0, y: 0.49, z: 0}
 --- !u!114 &4305647481763483050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,13 +714,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPatrolController
   mainZones:
-  - {fileID: 11400000, guid: 29d1a4695fa60ff4e95588f9b2a6ff14, type: 2}
-  allowedZones:
-  - {fileID: 11400000, guid: ba00b5f369a7e234d94bded2af9c1c8b, type: 2}
-  - {fileID: 11400000, guid: 29d1a4695fa60ff4e95588f9b2a6ff14, type: 2}
-  - {fileID: 11400000, guid: 9ddaf94661c4bec49a909b2c79bfc568, type: 2}
   - {fileID: 11400000, guid: fd7616f4b49f42f40a6a78b9ce53014a, type: 2}
-  - {fileID: 11400000, guid: d9dff5fbfaf76694498ebc7cfa8e4b0b, type: 2}
+  allowedZones:
+  - {fileID: 11400000, guid: fd7616f4b49f42f40a6a78b9ce53014a, type: 2}
   waitTimeAtPoint: 10
   rotationSpeed: 45
   reachTolerance: 0.3
@@ -979,7 +975,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.8
       inSlope: 0
       outSlope: 0
       tangentMode: 0
