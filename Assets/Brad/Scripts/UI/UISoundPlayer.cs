@@ -6,7 +6,8 @@ public enum EnumUISound
     HOVER,
     PRESS,
     PAUSE_SCREEN,
-    LOGO_SOUND
+    LOGO_SOUND,
+    SCARY_SOUND
 }
 
 public class UISoundPlayer : MonoBehaviour
@@ -22,6 +23,7 @@ public class UISoundPlayer : MonoBehaviour
         clipDict[EnumUISound.PRESS]         = uiSoundCatalog.PressClip;
         clipDict[EnumUISound.PAUSE_SCREEN]  = uiSoundCatalog.PauseScreenSound;
         clipDict[EnumUISound.LOGO_SOUND]    = uiSoundCatalog.LogoSound;
+        clipDict[EnumUISound.SCARY_SOUND] = uiSoundCatalog.ScarySound;
     }
 
     public void PlayUISound(EnumUISound sound)
