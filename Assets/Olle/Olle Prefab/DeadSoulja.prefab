@@ -1,0 +1,998 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2297174862464981891
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8160222066127095480}
+  m_Layer: 0
+  m_Name: DeadSoulja
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8160222066127095480
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2297174862464981891}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 95.17677, y: 1.10843, z: -85.09735}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8198882714466796642}
+  - {fileID: 8087064640592043193}
+  - {fileID: 6444336044074876276}
+  - {fileID: 6358746454376376845}
+  - {fileID: 279760227386038518}
+  - {fileID: 75399994332327769}
+  - {fileID: 6510547255017671356}
+  - {fileID: 6005659564325738698}
+  - {fileID: 534535495060576666}
+  - {fileID: 3382883324048847675}
+  - {fileID: 77059245593472986}
+  - {fileID: 2095339109064873649}
+  - {fileID: 15997935734638393}
+  - {fileID: 8099306548098279637}
+  - {fileID: 1792676992843424642}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &588340091419560055
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8160222066127095480}
+    m_Modifications:
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 58.27594
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.4700003
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 111.44069
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.1983296
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.9801354
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -157.121
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981929789986828623, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_Name
+      value: DeadSouljaBoy (13)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+--- !u!4 &1792676992843424642 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+  m_PrefabInstance: {fileID: 588340091419560055}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &999458102654156100
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8160222066127095480}
+    m_Modifications:
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 24.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 100.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7374828
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.675366
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -84.965
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981929789986828623, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_Name
+      value: DeadSouljaBoy (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8564927071141296441, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 8564927071141296441, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.32
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+--- !u!4 &2095339109064873649 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+  m_PrefabInstance: {fileID: 999458102654156100}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1221104426577030348
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8160222066127095480}
+    m_Modifications:
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 61
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 104.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981929789986828623, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_Name
+      value: DeadSouljaBoy (11)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+--- !u!4 &15997935734638393 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+  m_PrefabInstance: {fileID: 1221104426577030348}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1279363061196719276
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8160222066127095480}
+    m_Modifications:
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -15.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 20.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981929789986828623, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_Name
+      value: DeadSouljaBoy (5)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+--- !u!4 &75399994332327769 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+  m_PrefabInstance: {fileID: 1279363061196719276}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1286673735312442415
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8160222066127095480}
+    m_Modifications:
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 22.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 116.051956
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.055876557
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.9984377
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -186.406
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981929789986828623, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_Name
+      value: DeadSouljaBoy (9)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+--- !u!4 &77059245593472986 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+  m_PrefabInstance: {fileID: 1286673735312442415}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1381200433610830595
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8160222066127095480}
+    m_Modifications:
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -15.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981929789986828623, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_Name
+      value: DeadSouljaBoy (4)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+--- !u!4 &279760227386038518 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+  m_PrefabInstance: {fileID: 1381200433610830595}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1702896376485114479
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8160222066127095480}
+    m_Modifications:
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 106.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981929789986828623, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_Name
+      value: DeadSouljaBoy (7)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+--- !u!4 &534535495060576666 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+  m_PrefabInstance: {fileID: 1702896376485114479}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4483474705719466190
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8160222066127095480}
+    m_Modifications:
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 28.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 107.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.45690233
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.8895169
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -125.625
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981929789986828623, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_Name
+      value: DeadSouljaBoy (8)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+--- !u!4 &3382883324048847675 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+  m_PrefabInstance: {fileID: 4483474705719466190}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4869105355135497023
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8160222066127095480}
+    m_Modifications:
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 23.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.47000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 78.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.4045296
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.914525
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 132.277
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981929789986828623, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_Name
+      value: DeadSouljaBoy (14)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+--- !u!4 &6005659564325738698 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+  m_PrefabInstance: {fileID: 4869105355135497023}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5256866513666523640
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8160222066127095480}
+    m_Modifications:
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -21
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981929789986828623, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_Name
+      value: DeadSouljaBoy (3)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+--- !u!4 &6358746454376376845 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+  m_PrefabInstance: {fileID: 5256866513666523640}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5306378858743305857
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8160222066127095480}
+    m_Modifications:
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -21
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -13.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981929789986828623, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_Name
+      value: DeadSouljaBoy (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+--- !u!4 &6444336044074876276 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+  m_PrefabInstance: {fileID: 5306378858743305857}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5373065058045960521
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8160222066127095480}
+    m_Modifications:
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 106.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981929789986828623, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_Name
+      value: DeadSouljaBoy (6)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+--- !u!4 &6510547255017671356 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+  m_PrefabInstance: {fileID: 5373065058045960521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6966064136073052960
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8160222066127095480}
+    m_Modifications:
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 58.599808
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.4700003
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 106.89736
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.36731082
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.9300983
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -136.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981929789986828623, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_Name
+      value: DeadSouljaBoy (12)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+--- !u!4 &8099306548098279637 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+  m_PrefabInstance: {fileID: 6966064136073052960}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6985624504638764876
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8160222066127095480}
+    m_Modifications:
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -13.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981929789986828623, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_Name
+      value: DeadSouljaBoy (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+--- !u!4 &8087064640592043193 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+  m_PrefabInstance: {fileID: 6985624504638764876}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6990328154522906519
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8160222066127095480}
+    m_Modifications:
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.56514
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -12.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981929789986828623, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+      propertyPath: m_Name
+      value: DeadSouljaBoy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+--- !u!4 &8198882714466796642 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1210036770911923189, guid: d0e4d9ac98a3bf84c81ec813f76b5589, type: 3}
+  m_PrefabInstance: {fileID: 6990328154522906519}
+  m_PrefabAsset: {fileID: 0}
