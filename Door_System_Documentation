@@ -2,9 +2,17 @@
 
 ## Overview
 
-This document describes the Door and Terminal interaction system for the stealth-action Unity project. 
-The system provides automatic sliding doors that respond to player proximity, with configurable locking mechanisms (keycard, terminal, keypad). 
-Terminals provide puzzle-based unlocking via player interaction, integrating with inventory, progression data, and visual/audio feedback.
+This document describes the Door and Terminal interaction system 
+for the stealth-action Unity project. 
+
+The system provides automatic sliding doors 
+that respond to player proximity, 
+with configurable locking mechanisms (keycard, terminal, keypad). 
+
+Terminals provide puzzle-based unlocking 
+via player interaction, 
+integrating with inventory, progression data, 
+and visual/audio feedback.
 
 ## Architecture
 
