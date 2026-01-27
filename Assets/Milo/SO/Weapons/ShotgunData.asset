@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: ShotgunData
   m_EditorClassIdentifier: Assembly-CSharp::SO_WeaponType
   weaponID: 82e898b7-6a7b-41cd-996b-e1907dc4981a
+  weaponType: 1
+  usesLeftHandIK: 0
   displayName: Rattlesnake V
   weaponCategory: Shotgun
   ammoCategory: Shotgun Shells
   icon: {fileID: 0}
   description: 
-  damage: 50
+  damage: 100
   fireRate: 1
   isSemiAutomatic: 1
   attackCategory: 0
@@ -28,7 +30,7 @@ MonoBehaviour:
   reloadTime: 2
   hasBallistics: 1
   impactRange: 10
-  spreadStandardDeviation: 0.025
+  spreadStandardDeviation: 10
   damageOverDistance:
     serializedVersion: 2
     m_Curve:
@@ -66,8 +68,8 @@ MonoBehaviour:
   meleeReach: 0
   meleeHitRadius: 0
   meleeHitForce: 0
-  weaponModelPrefab: {fileID: 5836871964187019949, guid: 8b1b5d0845969ba448342b08857dc894, type: 3}
+  weaponModelPrefab: {fileID: 1777435887878209546, guid: 26502c9f5b5163d4c96602e12c7213f7, type: 3}
   muzzleFlashPrefab: {fileID: 0}
-  attackSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 0911c4d0d6a92434da45ab411647d6f3, type: 3}
   reloadSound: {fileID: 0}
-  dryFireSound: {fileID: 0}
+  dryFireSound: {fileID: 8300000, guid: cad00319a49c5dd489159e26d426a190, type: 3}
