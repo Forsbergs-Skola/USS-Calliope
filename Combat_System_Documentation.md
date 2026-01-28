@@ -57,7 +57,6 @@
   - `SetCurrentWeapon(SO_WeaponType)` sets weapon context and initializes `ImpactProcessor`.
   - `Execute()` determines which attack path to run:
     - **Hitscan**: raycast per pellet (`PelletCount`) → `ImpactProcessor.ProcessHit`
-    - **Non-lethal (taser)**: raycast → `ImpactProcessor.ProcessTase`
     - **Melee**: `Physics.SphereCastAll` → `ImpactProcessor.ProcessMeleeHit`
     - **Unarmed**: delegates to `UnarmedAttack.Attack(...)`
   - Ballistic spread:
@@ -71,8 +70,6 @@
   - `ProcessHit(RaycastHit)`:
     - Computes damage at distance using `SO_WeaponType.GetDamageAtDistance(distance)`.
     - Looks for `IDamageable` in parents and calls `TakeDamage(...)`.
-  - `ProcessTase(RaycastHit)`:
-    - If weapon is `NonLethal`, finds `EnemyStunController` and applies stun for `StunEffectTime`.
   - `ProcessMeleeHit(...)`:
     - Applies weapon damage to `IDamageable`.
   - `ProcessUnarmedHit(...)`:
