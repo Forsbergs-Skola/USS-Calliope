@@ -9,6 +9,7 @@
 ## [Player Movement](Player_Movement_Abilities_System_Documentation.md)
 ## [Door Mechanics](Door_System_Documentation.md)
 ## [Combat System](Combat_System_Documentation.md)
+## [NPCs - Enemy System](NPCs_Enemy_Systems.md)
 
 ## Misc. Technical Documentation
 ### [Tween Service](TweenService_Documentation.md)
