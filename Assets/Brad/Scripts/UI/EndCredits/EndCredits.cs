@@ -42,7 +42,7 @@ public class EndCredits : MonoBehaviour
         float startY = creditsXform.position.y;
         Vector3 startPos = new Vector3(creditsXform.position.x, creditsXform.position.y, creditsXform.position.z);
 
-        Tween moveTween = TweenService.GetFloatTween(gameObject, 0f, 2000f, 10f);
+        Tween moveTween = TweenService.GetFloatTween(gameObject, 0f, 2600f, 10f);
         moveTween.OnValueUpdated += (value) =>
         {
             float newY = startY + value.x;
