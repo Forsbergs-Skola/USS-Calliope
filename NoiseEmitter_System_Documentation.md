@@ -55,16 +55,16 @@ Enemies within the radius receive a **HeardPlayer** alert, switching to **invest
 ## Integration Examples
 
 **Player (PlayerController)**:
-```csharp
+```
 if (isRunning && noiseTimer > runNoiseInterval) {
     GetComponent<NoiseEmitter>().EmitRun();
     noiseTimer = 0f;
 }
-
-##Destructible Box (Interactable):
-
-csharp
+````
+**Destructible Box (Interactable)**:
+```
 public void Trigger() {
     GetComponent<NoiseEmitter>().EmitRun();  // Loud break noise
     Destroy(gameObject);
 }
+```
