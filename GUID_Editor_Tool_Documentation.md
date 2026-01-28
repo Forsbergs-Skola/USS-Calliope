@@ -7,7 +7,7 @@
 ### Technical Intent
 
 - Generate **GUID strings** inside the editor using `System.Guid.NewGuid()`.
-- Maintain the **current GUID value** in window state for subsequent operations (copy, log).
+- Maintain the **current GUID value** in window state for operations (copy, log).
 - Track which GUIDs have already been written to the console in this window instance to **avoid repeated logs** of the same identifier.
 
 ### Internal State & Structure
