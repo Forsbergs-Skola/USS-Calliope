@@ -14,3 +14,4 @@
 ### [Tween Service](TweenService_Documentation.md)
 ### [GUID Generator](GUID_Editor_Tool_Documentation.md)
 ### [Footstep System](Footsteps_System_Documentation.md)
+### [NoiseEmitter System](NoiseEmitter_System_Documentation.md)
