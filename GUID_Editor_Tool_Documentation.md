@@ -25,7 +25,7 @@
 
 ---
 
-## TDD / Expected Behavior 
+## Expected Behavior 
 
 ### 1) Open window
 
@@ -55,7 +55,7 @@
 - **When** the UI draws  
 - **Then** the copy/log buttons are not shown (tool early-returns until a GUID exists).
 
-### 5) Log GUID (single-use per GUID)
+### 5) Log GUID 
 
 - **Given** `guid` is non-empty  
 - **And** the current GUID has not been logged yet in this window session  
