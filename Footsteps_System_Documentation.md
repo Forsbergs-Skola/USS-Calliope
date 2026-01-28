@@ -22,7 +22,7 @@
 
 ## PlayerFootstepInterval – Timing Rules
 
-- **Movement‑driven cadence**
+- **Movement‑driven**
   - **Given** the player is not moving  
   - **Then** no timer progresses and no footsteps are fired.
   - **Given** the player starts or continues moving  
