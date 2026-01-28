@@ -6,9 +6,11 @@ public class PlatformMoving : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] int startPoint;
     [SerializeField] Transform[] movePoints;
-    public GameObject walls;
+    [SerializeField] GameObject walls;
 
     [SerializeField] private GameObject centralCorridor;
+    [SerializeField] GameObject liftBlock;
+    [SerializeField] GameObject stairwayPlatformCollider;
 
     int i;
     bool reverse;
@@ -49,13 +51,16 @@ public class PlatformMoving : MonoBehaviour
         if (canMove)
         {
             transform.position = Vector3.MoveTowards(transform.position, movePoints[i].position, speed * Time.deltaTime);
-            centralCorridor.SetActive(false);
             walls.SetActive(true);
+            centralCorridor.SetActive(false);
+            liftBlock.SetActive(true);
+            stairwayPlatformCollider.SetActive(false);
         }
         else
         {
             walls.SetActive(false);
             centralCorridor.SetActive(true);
+            stairwayPlatformCollider.SetActive(true);
         }
     }
 }
