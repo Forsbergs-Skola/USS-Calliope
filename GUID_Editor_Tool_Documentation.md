@@ -2,7 +2,7 @@
 
 **File**: `GuidGeneratorTool.cs`  
 **Type**: `UnityEditor.EditorWindow`  
-**Menu Path**: `Tools/GUID Generator`
+**File Path**: `Editor/GUID Generator`
 
 ### Technical Intent
 
