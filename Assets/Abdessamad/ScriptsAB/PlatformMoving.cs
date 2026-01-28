@@ -52,13 +52,10 @@ public class PlatformMoving : MonoBehaviour
             centralCorridor.SetActive(false);
             walls.SetActive(true);
         }
-        // if(canMove == true)
-        // {
-        //     walls.SetActive(true);
-        // }
         else
         {
             walls.SetActive(false);
+            centralCorridor.SetActive(true);
         }
     }
 }
