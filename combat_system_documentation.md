@@ -1,4 +1,4 @@
-# Milo Combat & Utilities (README)
+# The Combat System
 
 This folder contains Milo’s player combat gameplay stack: input → aiming → weapon handling → attack execution → hit processing, plus supporting utilities like hit chance and ballistic spread.
 
