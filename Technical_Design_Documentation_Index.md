@@ -8,7 +8,7 @@
 ## [UI System](UI_System_Documentation.md)
 ## [Player Movement](Player_Movement_Abilities_System_Documentation.md)
 ## [Door Mechanics](Door_System_Documentation.md)
-## [Combat System](combat system documentation.md)
+## [Data Management](combat-system-documentation.md)
 
 ## Misc. Technical Documentation
 ### [Tween Service](TweenService_Documentation.md)
