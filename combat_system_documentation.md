@@ -1,7 +1,4 @@
 # The Combat System
-
-This folder contains Milo’s player combat gameplay stack: input → aiming → weapon handling → attack execution → hit processing, plus supporting utilities like hit chance and ballistic spread.
-
 ## Combat Architecture (high level)
 
 - **Input (`AttackInput`)**: Raises C# events for aim/fire/reload/weapon switching + exposes move/sprint actions used for accuracy.
