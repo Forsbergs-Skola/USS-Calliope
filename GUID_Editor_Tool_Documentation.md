@@ -2,12 +2,30 @@
 
 **File**: `GuidGeneratorTool.cs`  
 **Type**: `UnityEditor.EditorWindow`  
+**Menu Path**: `Tools/GUID Generator`
 
-### Purpose
+### Technical Intent
 
-- Provide a quick, editor-only way to generate **new GUID strings** for use as gameplay/data identifiers.
-- Allow copying the generated GUID to the system clipboard.
-- Allow logging the GUID to the Unity Console **once per GUID** (prevents duplicate console spam during the same window session).
+- Generate **RFC 4122-style GUID strings** inside the editor using `System.Guid.NewGuid()`.
+- Maintain the **current GUID value** in window state for subsequent operations (copy, log).
+- Track which GUIDs have already been written to the console in this window instance to **avoid repeated logs** of the same identifier.
+
+### Internal State & Structure
+
+- **Fields**
+  - `string guid`  
+    - Holds the currently generated GUID string.  
+    - Empty string (`""`) means “no GUID generated yet”.
+  - `List<string> loggedIds`  
+    - In-memory cache of GUIDs that have already been logged via `Debug.Log`.  
+    - Lifetime is tied to the editor window instance; cleared on `OnDisable`.
+- **Construction / Opening**
+  - `[MenuItem("Tools/GUID Generator")]` exposes `OpenWindow()`, which calls `GetWindow<GuidGeneratorTool>("GUID Generator")`.  
+    - Reuses an existing instance if present; otherwise, creates a new one.
+
+---
+
+## TDD / Expected Behavior 
 
 ### 1) Open window
 
@@ -15,7 +33,7 @@
 - **When** the user clicks `Tools > GUID Generator`  
 - **Then** a window titled **“GUID Generator”** opens (or focuses if already open).
 
-### 2) Generate GUID
+### 2) Generate GUID (state mutation)
 
 - **Given** the window is open  
 - **When** the user clicks **Generate GUID**  
@@ -55,4 +73,3 @@
 - **Given** one or more GUIDs have been logged  
 - **When** the window is closed/disabled (`OnDisable`)  
 - **Then** `loggedIds` is cleared (no persistence between sessions).
-
