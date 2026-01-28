@@ -8,7 +8,7 @@
 - **Hit processing (`ImpactProcessor`)**: Applies damage/stun based on weapon type and hit target components.
 - **Accuracy (`HitChance`, `BallisticsUtility`)**: Computes a normalized hit chance score and turns that into visual + ballistic inaccuracy.
 
-## Key Scripts (by responsibility)
+## Key Scripts 
 
 ### Input
 
@@ -37,7 +37,7 @@
     - Applies Cinemachine camera offset (`CinemachineCameraOffset`) for aim pull.
   - Provides `TryGetAimDirection(origin, out direction)` for other systems (notably `PerformAttack`).
 
-### Weapon handling (equip, ammo, fire modes)
+### Weapon handling 
 
 - `Scripts/Combat/WeaponHandler.cs` (`PlayerWeaponHandler`)
   - Subscribes to `AttackInput` and routes actions:
@@ -65,7 +65,7 @@
   - Movement tracking:
     - For hitscan weapons, tracks time spent moving to inform spread (via input move action).
 
-### Hit processing (damage/stun)
+### Hit processing 
 
 - `Scripts/Combat/ImpactProcessor.cs`
   - `ProcessHit(RaycastHit)`:
@@ -106,7 +106,7 @@
 
 ## Combat Utilities
 
-### Ballistics (spread)
+### Ballistics 
 
 - `Scripts/Utility/BallisticsUtility.cs`
   - `GetGaussianSpread(forward, spreadStandardDeviation)`:
@@ -121,7 +121,7 @@
     - `CanFire()` returns whether firing is currently allowed.
     - `StartCooldown(waitTime)` disables firing until timer elapses.
 
-## Weapon Data (ScriptableObjects)
+## Weapon Data 
 
 - `Scripts/Combat/Data/SO_WeaponType.cs`
   - Defines weapon behavior and tuning:
@@ -138,7 +138,7 @@
     - `GetDamageAtDistance(distance)`
     - `ShouldTrackMovement()` (currently for hitscan)
 
-## End-to-end Example (what happens when you shoot)
+## End-to-end Example 
 
 1. Player holds aim → `AttackInput` raises aim events → `PlayerAimController` enters aiming after hold threshold.
 2. `PlayerAimController` computes aim direction, rotates player, updates crosshair color/noise using `HitChance`.
