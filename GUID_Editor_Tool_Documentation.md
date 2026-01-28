@@ -1,4 +1,4 @@
-# GUID Generator Tool
+# GUID Generator Editor Tool
 
 **File**: `GuidGeneratorTool.cs`  
 **Type**: `UnityEditor.EditorWindow`  
