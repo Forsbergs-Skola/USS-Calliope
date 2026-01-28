@@ -8,7 +8,7 @@ public class PhaseAdvanced : MonoBehaviour, IPhaseBehavior
         attackController.enabled = true;
 
         attackController.SetAttacks(data.availableAttacks);
-        Debug.Log("[PhaseAdvanced] Advanced attacks set");
+        //Debug.Log("[PhaseAdvanced] Advanced attacks set");
     }
 
     public void Tick()

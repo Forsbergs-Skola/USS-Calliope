@@ -74,7 +74,7 @@ public class EnemyLeapRuntime : MonoBehaviour
         var damageable = collision.collider.GetComponentInParent<IDamageable>();
         if (damageable != null)
         {
-            Debug.Log($"[Leap] {collision.gameObject.name} hit; Damage:{leapDamage}");
+            //Debug.Log($"[Leap] {collision.gameObject.name} hit; Damage:{leapDamage}");
 
             // Damage
             damageable.TakeDamage(leapDamage);

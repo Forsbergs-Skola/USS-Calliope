@@ -29,7 +29,7 @@ public class SO_RangedEnemyAttack : EnemyAttackSOClass
         // too far
         if (distance > maxRange)
         {
-            Debug.Log($"{context.enemy.name} distance: {distance} > maxRange: {maxRange}");
+            //Debug.Log($"{context.enemy.name} distance: {distance} > maxRange: {maxRange}");
             /*context.movement?.SetTarget(context.player);
             context.movement?.SetFollow(true);*/
             return false;

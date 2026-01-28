@@ -12,7 +12,7 @@ public class EnemyCallReceiver : MonoBehaviour, IEnemyCallable
         phaseMachine = GetComponent<EnemyPhaseStateMachine>();
 
         if (phaseMachine == null)
-            Debug.LogError($"{name} needs EnemyPhaseStateMachine");
+            Debug.Log($"{name} needs EnemyPhaseStateMachine");
     }
 
     public EnemyRank Rank =>
@@ -20,7 +20,7 @@ public class EnemyCallReceiver : MonoBehaviour, IEnemyCallable
 
     public void ReceiveCall(PatrolZone zone, Vector3 callPosition)
     {
-        Debug.Log("Receiving call");
+        //Debug.Log("Receiving call");
         ai?.ForceWatchfulFromCall(zone, callPosition);
     }
 }

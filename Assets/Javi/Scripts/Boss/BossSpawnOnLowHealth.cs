@@ -43,7 +43,7 @@ public class BossSpawnOnLowHealth : MonoBehaviour
     {
         if (spawner == null || player == null)
         {
-            Debug.LogWarning("[BossSummonOnLowHealth] Missing references");
+            //Debug.LogWarning("[BossSummonOnLowHealth] Missing references");
             return;
         }
 
@@ -57,7 +57,7 @@ public class BossSpawnOnLowHealth : MonoBehaviour
 
         if (points.Count < 3)
         {
-            Debug.LogWarning("[BossSummonOnLowHealth] Not enough patrol points");
+            //Debug.LogWarning("[BossSummonOnLowHealth] Not enough patrol points");
             return;
         }
 

@@ -19,7 +19,7 @@ public class EnemyPhaseStateMachine : MonoBehaviour
         infection = GetComponent<InfectionController>();
         if (infection == null)
         {
-            Debug.LogError("EnemyPhaseStateMachine requires InfectionController");
+            //Debug.LogError("EnemyPhaseStateMachine requires InfectionController");
             enabled = false;
             return;
         }
@@ -57,7 +57,7 @@ public class EnemyPhaseStateMachine : MonoBehaviour
 
         if (currentPhase == null)
         {
-            Debug.LogError($"Phase behavior {data.phaseName} not found on enemy.");
+            //Debug.LogError($"Phase behavior {data.phaseName} not found on enemy.");
             return;
         }
 

@@ -71,7 +71,7 @@ public class EnemyCallSystem : MonoBehaviour
 
         if (callZone == null)
         {
-            Debug.LogWarning($"{name}: No PatrolZone found near call position {position}");
+            //Debug.LogWarning($"{name}: No PatrolZone found near call position {position}");
             return;
         }
 
@@ -105,7 +105,7 @@ public class EnemyCallSystem : MonoBehaviour
             callable.ReceiveCall(callZone, position);
         }
 
-        Debug.Log($"{name} screamed and called allies to zone {callZone.name}!");
+        //Debug.Log($"{name} screamed and called allies to zone {callZone.name}!");
     }
     
     public void ResetCallState()

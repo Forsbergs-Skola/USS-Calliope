@@ -18,7 +18,7 @@ public class EnemyStunController : MonoBehaviour
 
     public void ApplyStun(float duration)
     {
-        Debug.Log($"[{name}] Applying stun");
+        //Debug.Log($"[{name}] Applying stun");
         // if (isStunned) return; // To avoid stunning effects again restarting the timer
         if (duration <= 0f)
             duration = defaultStunTime;

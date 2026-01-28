@@ -8,7 +8,7 @@ public class PhaseFinalBoss : MonoBehaviour, IPhaseBehavior
         attackController.enabled = true;
 
         attackController.SetAttacks(data.availableAttacks);
-        Debug.Log("[PhaseFinalBoss] FinalBoss attacks set");
+        //Debug.Log("[PhaseFinalBoss] FinalBoss attacks set");
     }
 
     public void Tick()
