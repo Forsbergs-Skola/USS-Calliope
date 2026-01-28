@@ -1,4 +1,4 @@
-# Player Footstep System (TDD Summary)
+# Player Footstep System 
 
 ## Overview
 This document describes the implementation of the player footstep system. How we avoid using one AudioSource per clip without allocating new ones. 
