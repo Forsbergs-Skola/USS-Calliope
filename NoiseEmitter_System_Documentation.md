@@ -60,6 +60,10 @@ if (isRunning && noiseTimer > runNoiseInterval) {
     GetComponent<NoiseEmitter>().EmitRun();
     noiseTimer = 0f;
 }
+
+##Destructible Box (Interactable):
+
+csharp
 public void Trigger() {
     GetComponent<NoiseEmitter>().EmitRun();  // Loud break noise
     Destroy(gameObject);
