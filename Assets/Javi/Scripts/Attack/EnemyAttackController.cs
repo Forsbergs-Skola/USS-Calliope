@@ -20,39 +20,24 @@ public class EnemyAttackController : MonoBehaviour
 
     private void Awake()
     {
-        /*var firePoint = transform.root.Find("FirePoint");
         context = new EnemyAttackContext
         {
             enemy = transform.root,
             movement = GetComponent<EnemyFollowPlayer>(),
             coroutineRunner = this,
-            firePoint = firePoint,
+            firePoint = transform.root.Find("FirePoint"),
         };
         
         if (context.firePoint == null)
         {
-            Debug.Log($"[{name}] FirePoint not found!");
-        }*/
+            //Debug.Log($"[{name}] FirePoint not found!");
+        }
         
         ai = GetComponent<EnemyAIStateController>();
     }
     
     private void Start()
     {
-        var firePoint = transform.root.Find("FirePoint");
-        context = new EnemyAttackContext
-        {
-            enemy = transform.root,
-            movement = GetComponent<EnemyFollowPlayer>(),
-            coroutineRunner = this,
-            firePoint = firePoint/*transform.root.Find("FirePoint")*/,
-        };
-        
-        if (context.firePoint == null)
-        {
-            Debug.Log($"[{name}] FirePoint not found!");
-        }
-        
         FindAndSetPlayer();
     }
     
