@@ -128,7 +128,6 @@
     - Impact range, pellet count, ballistics spread deviation
     - Damage-over-distance curve (`DamageOverDistance`)
     - Movement/sprint inaccuracy multipliers
-    - Stun duration for taser weapons
     - Melee reach/radius/force
     - Audio clips + visuals (model prefab, muzzle flash)
   - Provides helpers:
