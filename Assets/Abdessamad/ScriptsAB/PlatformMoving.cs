@@ -8,6 +8,8 @@ public class PlatformMoving : MonoBehaviour
     [SerializeField] Transform[] movePoints;
     public GameObject walls;
 
+    [SerializeField] private GameObject centralCorridor;
+
     int i;
     bool reverse;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -47,6 +49,7 @@ public class PlatformMoving : MonoBehaviour
         if (canMove)
         {
             transform.position = Vector3.MoveTowards(transform.position, movePoints[i].position, speed * Time.deltaTime);
+            centralCorridor.SetActive(false);
             walls.SetActive(true);
         }
         // if(canMove == true)
