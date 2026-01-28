@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Cinemachine;
+using System.Collections;
 
 public class MapCameraSwitch : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class MapCameraSwitch : MonoBehaviour
     [SerializeField] private GameObject LevelOne;
     [SerializeField] private GameObject LevelTwo;
     private bool LevelOneActive = true;
+    
 
     bool mapOpen;
     public GameObject MinimapRoom;
@@ -87,6 +89,8 @@ public class MapCameraSwitch : MonoBehaviour
         if (MinimapRoom) MinimapRoom.SetActive(true);
         if (player != null) player.LockMovement();
         
+        player.transform.rotation = Quaternion.LookRotation(Vector3.right);
+        
         ApplyLevelToggle();
     }
 
@@ -96,6 +100,12 @@ public class MapCameraSwitch : MonoBehaviour
         mapCam.Priority = 0;
         
         if (MinimapRoom) MinimapRoom.SetActive(false);
+        StartCoroutine(UnlockDelay());
+    }
+
+    private IEnumerator UnlockDelay()
+    {
+        yield return new WaitForSeconds(0.8f);
         if (player != null) player.UnlockMovement();
     }
 }

@@ -7,16 +7,29 @@ public class MinimapRoomLightUp : MonoBehaviour
     public Color activeColor   = new Color(0f, 1f, 0.7f, 1f);
 
     TextMeshProUGUI tmp;
+    private bool isActive;
 
     void Awake()
     {
         tmp = GetComponent<TextMeshProUGUI>();
-        SetActive(false);
+        ApplyColor();
+    }
+
+    void OnEnable()
+    {
+        if (!tmp) tmp = GetComponent<TextMeshProUGUI>();
+        ApplyColor();
     }
 
     public void SetActive(bool active)
     {
+        isActive = active;
+        ApplyColor();
+    }
+
+    private void ApplyColor()
+    {
         if (!tmp) return;
-        tmp.color = active ? activeColor : inactiveColor;
+        tmp.color = isActive ? activeColor : inactiveColor;
     }
 }

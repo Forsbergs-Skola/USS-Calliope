@@ -405,11 +405,22 @@ namespace Olle.Scripts
         {
             MovementLocked = true;
             _rb.linearVelocity = Vector3.zero;
+            
+            _moveInput = Vector2.zero;
+            _inputDir = Vector2.zero;
+            _wantsToRun = false;
+            
+            if(_animatorControl != null) _animatorControl.UpdateMovement(Vector2.zero, false);
         }
 
         public void UnlockMovement()
         {
             MovementLocked = false;
+            
+            _moveInput = Vector2.zero;
+            _wantsToRun = false;
+            
+            if(_animatorControl != null) _animatorControl.UpdateMovement(Vector2.zero, false);
         }
 
 
