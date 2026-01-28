@@ -1,6 +1,7 @@
 # Player Footstep System (TDD Summary)
 
----
+## Overview
+This document describes the implementation of the player footstep system. How we avoid using one AudioSource per clip without allocating new ones. 
 
 ## Responsibilities & Data Flow
 
@@ -17,8 +18,6 @@
 - **`AudioPoolManager` / `PlayerAudioPoolHandler`**
   - Provide a reusable pool of `AudioSource` instances.
   - Guarantee each footstep sound is played on a pooled source that is returned to the pool after playback finishes.
-
----
 
 ## PlayerFootstepInterval – Timing Rules
 
@@ -41,8 +40,6 @@
   - **Given** the player has just transitioned from not‑moving to moving  
   - **Then** the timer is “primed” so the first footstep happens shortly after movement starts, not instantly and not with a long delay.
 
----
-
 ## PlayerFootstepAudio – Clip & Pitch Rules
 
 - **Clip selection**
@@ -59,8 +56,6 @@
   - **Given** a clip and final pitch/volume have been selected  
   - **Then** the component requests a pooled `AudioSource` from `AudioPoolManager` and asks its `PlayerAudioPoolHandler` to play the clip with those parameters.
 
----
-
 ## Pooled Audio – Lifetime Rules
 
 - **Pool manager**
@@ -74,8 +69,6 @@
 - **Per‑source handler**
   - **Given** `PlayerAudioPoolHandler.Play(clip, volume, pitch)` is called on a pooled source  
   - **Then** the handler configures the underlying `AudioSource`, starts playback, and runs a coroutine that waits until the clip is finished before returning the source to the pool.
-
----
 
 ## Invariants
 
