@@ -1,7 +1,7 @@
 # The Combat System
 
 ## Overview
-This document describes the combat implementations for the USS Calliope Unity Project. The system provides designer friendly, realistic and prototype friendly combat. The combat system is data-driven with the help of Unity ScriptableObjects. It supports realistic ballistics, hitchance probability based on static and runtime data, isometric aiming and one fits all weapon creation. 
+This document describes the combat implementations for the USS Calliope Unity Project. The system provides designer friendly, realistic and prototype friendly combat. The combat system is data-driven with the help of Unity ScriptableObjects. 
 
 ## Architecture
 
