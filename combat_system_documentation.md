@@ -1,7 +1,7 @@
 # The Combat System
 ## Combat Architecture (high level)
 
-- **Input (`AttackInput`)**: Raises C# events for aim/fire/reload/weapon switching + exposes move/sprint actions used for accuracy.
+- **Input (`AttackInput`)**: Raises events for aim/fire/reload/weapon switching + exposes move/sprint actions used for accuracy.
 - **Aiming (`PlayerAimController`)**: Computes aim direction from the mouse, rotates player while aiming, drives crosshair visuals (color + noise), and applies Cinemachine aim offset.
 - **Weapon orchestration (`PlayerWeaponHandler`)**: Equips/unequips weapons, manages ammo via `AmmoModel`/inventory, enforces cooldowns/reload restrictions, and triggers attacks.
 - **Execution (`PerformAttack`)**: Performs raycasts (hitscan/taser), sphere casts (melee), delegates unarmed attacks, applies ballistic spread, and forwards hits to `ImpactProcessor`.
@@ -20,7 +20,7 @@
     - `SwitchWeaponTriggered`
     - `ReloadTriggered`
     - `UnEquipWeaponTriggered`
-    - `MouseMoved(Vector2)` (every frame)
+    - `MouseMoved(Vector2)` 
   - Exposes `MoveAction` and `SprintAction` used for inaccuracy/movement tracking.
 
 ### Aiming + Crosshair feedback
