@@ -18,7 +18,7 @@ public static class PatrolPointRegistry
         {
             if (point.PatrolZone == null)
             {
-                Debug.LogWarning($"PatrolPoint {point.name} has no PatrolZone assigned");
+                //Debug.LogWarning($"PatrolPoint {point.name} has no PatrolZone assigned");
                 continue;
             }
 
@@ -29,7 +29,7 @@ public static class PatrolPointRegistry
                 pointsByZone[point.PatrolZone].Add(point.transform);
         }
         isInitialized = true;
-        Debug.Log($"Patrol system initialized with {allPoints.Length} points across {pointsByZone.Count} zones");
+        //Debug.Log($"Patrol system initialized with {allPoints.Length} points across {pointsByZone.Count} zones");
     }
 
     public static void RegisterPoint(PatrolPoint point)
@@ -38,7 +38,7 @@ public static class PatrolPointRegistry
         
         if (point.PatrolZone == null)
         {
-            Debug.LogWarning($"PatrolPoint {point.name} has no PatrolZone assigned");
+            //Debug.LogWarning($"PatrolPoint {point.name} has no PatrolZone assigned");
             return;
         }
 
@@ -48,7 +48,7 @@ public static class PatrolPointRegistry
         if (!pointsByZone[point.PatrolZone].Contains(point.transform))
         {
             pointsByZone[point.PatrolZone].Add(point.transform);
-            Debug.Log($"Registered point {point.name} for zone {point.PatrolZone.name}");
+            //Debug.Log($"Registered point {point.name} for zone {point.PatrolZone.name}");
         }
     }
 
@@ -62,7 +62,7 @@ public static class PatrolPointRegistry
     {
         if (zone == null) 
         {
-            Debug.LogWarning($"Attempted to get points for null zone");
+            //Debug.LogWarning($"Attempted to get points for null zone");
             return null;
         }
         
@@ -70,7 +70,7 @@ public static class PatrolPointRegistry
         
         if (!pointsByZone.ContainsKey(zone)) 
         {
-            Debug.LogWarning($"No points registered for zone {zone.name}");
+            //Debug.LogWarning($"No points registered for zone {zone.name}");
             return new List<Transform>();
         }
 
@@ -105,7 +105,7 @@ public static class PatrolPointRegistry
             }
         }
         
-        Debug.Log("[PatrolPointRegistry] " + closestZone);
+        //Debug.Log("[PatrolPointRegistry] " + closestZone);
 
         return closestZone;
     }

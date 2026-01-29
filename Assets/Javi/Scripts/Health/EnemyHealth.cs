@@ -32,7 +32,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IDamageEvents
         OnDamaged?.Invoke(damage);
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
         
-        Debug.Log($"Enemy {name} took damage: " + damage +", enemyHealth: " + currentHealth);
+        //Debug.Log($"Enemy {name} took damage: " + damage +", enemyHealth: " + currentHealth);
         if (currentHealth <= 0)
         {
             Die();

@@ -18,7 +18,7 @@ public class EnemyFollowPlayer : MonoBehaviour
         
         if (movement == null)
         {
-            Debug.LogError($"{name} requires a SimpleMovementAgent component!");
+            //Debug.LogError($"{name} requires a SimpleMovementAgent component!");
             enabled = false;
             return;
         }

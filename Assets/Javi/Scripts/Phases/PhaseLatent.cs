@@ -8,7 +8,7 @@ public class PhaseLatent : MonoBehaviour, IPhaseBehavior
         attackController.enabled = true;
 
         attackController.SetAttacks(data.availableAttacks);
-        Debug.Log("[PhaseActive] Attacks set from phase data");
+        //Debug.Log("[PhaseActive] Attacks set from phase data");
     }
 
     public void Tick()

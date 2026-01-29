@@ -25,7 +25,7 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"jrv Projectile hit {other.name}");
+        //Debug.Log($"jrv Projectile hit {other.name}");
         
         if ((ignoredLayers.value & (1 << other.gameObject.layer)) != 0)
         {

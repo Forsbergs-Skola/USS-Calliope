@@ -21,7 +21,7 @@ public class SO_MeleeAttack : EnemyAttackSOClass
         var damageable = context.player.GetComponent<IDamageable>();
         if (damageable == null)
         {
-            Debug.LogError("Player does NOT implement IDamageable");
+            //Debug.LogError("Player does NOT implement IDamageable");
             return;
         }
 

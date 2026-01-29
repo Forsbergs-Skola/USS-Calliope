@@ -61,7 +61,7 @@ public class EnemyPatrolController : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"{name} has no patrol zones assigned. Patrolling disabled.");
+            //Debug.Log($"{name} has no patrol zones assigned. Patrolling disabled.");
         }
     }
     public void StartPatrol()
@@ -70,7 +70,7 @@ public class EnemyPatrolController : MonoBehaviour
 
         if (mainZones.Count == 0)
         {
-            Debug.LogWarning($"{name} has no patrol zones assigned");
+            //Debug.Log($"{name} has no patrol zones assigned");
             return;
         }
 
@@ -116,7 +116,7 @@ public class EnemyPatrolController : MonoBehaviour
                 case PatrolMode.AllowedSingleZone:
                     if (forcedZone == null)
                     {
-                        Debug.LogWarning($"{name}: Forced zone is null, falling back to main patrol");
+                        //Debug.LogWarning($"{name}: Forced zone is null, falling back to main patrol");
                         currentMode = PatrolMode.Main;
                         continue;
                     }
@@ -128,7 +128,7 @@ public class EnemyPatrolController : MonoBehaviour
 
             if (points == null || points.Count == 0)
             {
-                Debug.LogWarning($"{name}: No points found for zone {currentZone.name}");
+                //Debug.LogWarning($"{name}: No points found for zone {currentZone.name}");
                 yield return new WaitForSeconds(retryDelay);
                 continue;
             }
@@ -144,7 +144,7 @@ public class EnemyPatrolController : MonoBehaviour
                 yield return null;
             }
             
-            Debug.Log($"{name}: Reached point {nextPoint.name}. Starting look around...");
+            //Debug.Log($"{name}: Reached point {nextPoint.name}. Starting look around...");
             
             // Save rotation
             Vector3 lookPosition = transform.position;
@@ -169,7 +169,7 @@ public class EnemyPatrolController : MonoBehaviour
             transform.rotation = initialRotation;
             movement.SetMovementState(SimpleMovementAgent.MovementState.Patrolling);
             
-            Debug.Log($"{name}: Finished waiting at point {nextPoint.name}");
+            //Debug.Log($"{name}: Finished waiting at point {nextPoint.name}");
 
             /*float timer = 0f;
             while (timer < waitTimeAtPoint)

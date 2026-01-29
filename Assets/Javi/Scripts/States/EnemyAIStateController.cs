@@ -117,7 +117,7 @@ public class EnemyAIStateController : MonoBehaviour
         patrol.StartPatrol();
         currentState = State.Wandering;
         callSystem?.ResetCallState();
-        Debug.Log($"{name} entering Wandering state");
+       //Debug.Log($"{name} entering Wandering state");
     }
 
     private void EnterAttacking()
@@ -140,7 +140,7 @@ public class EnemyAIStateController : MonoBehaviour
         chase.SetTarget(player);
         //chase.SetFollow(true);
         currentState = State.Attacking;
-        Debug.Log($"{name} entering Attacking state");
+        //Debug.Log($"{name} entering Attacking state");
         
         StartCallLoop();
     }
@@ -156,14 +156,14 @@ public class EnemyAIStateController : MonoBehaviour
         //watchfulTimer = watchfulDuration;
         
         lastSeenZone = PatrolPointRegistry.GetClosestZone(player.position);
-        Debug.Log("[EnemyAIStateController] EnterWatchful "  + lastSeenZone);
+        //Debug.Log("[EnemyAIStateController] EnterWatchful "  + lastSeenZone);
         if (lastSeenZone == null)
         {
-            Debug.LogWarning($"{name}: Could not determine last seen zone, falling back to main patrol");
+            //Debug.LogWarning($"{name}: Could not determine last seen zone, falling back to main patrol");
         }
         
         currentState = State.Watchful;
-        Debug.Log($"{name} entering Watchful state");
+        //Debug.Log($"{name} entering Watchful state");
         
         if (watchfulRoutine != null)
             StopCoroutine(watchfulRoutine);
@@ -188,7 +188,7 @@ public class EnemyAIStateController : MonoBehaviour
         // Investigate zone
         if (lastSeenZone != null)
         {
-            Debug.Log("[EnemyAIStateController] WatchfulRoutine "  + lastSeenZone);
+            //Debug.Log("[EnemyAIStateController] WatchfulRoutine "  + lastSeenZone);
             patrol.PatrolSingleZone(lastSeenZone);
             yield return new WaitForSeconds(watchfulDuration);
         }
@@ -368,7 +368,7 @@ public class EnemyAIStateController : MonoBehaviour
         if (movement != null)
             movement.SetMovementState(SimpleMovementAgent.MovementState.Idle);*/
 
-        Debug.Log($"{name} finished Leap stun → Watchful (in place)");
+        //Debug.Log($"{name} finished Leap stun → Watchful (in place)");
     }
     
     public void ForceBossState()
@@ -385,7 +385,7 @@ public class EnemyAIStateController : MonoBehaviour
         if (movement != null)
             movement.SetMovementState(SimpleMovementAgent.MovementState.Investigating);
 
-        Debug.Log($"{name} forced into Boss Watchful state");
+        //Debug.Log($"{name} forced into Boss Watchful state");
     }
     
     public void OnLostPlayer()

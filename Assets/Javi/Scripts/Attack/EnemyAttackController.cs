@@ -30,7 +30,7 @@ public class EnemyAttackController : MonoBehaviour
         
         if (context.firePoint == null)
         {
-            Debug.LogError($"[{name}] FirePoint not found!");
+            //Debug.Log($"[{name}] FirePoint not found!");
         }
         
         ai = GetComponent<EnemyAIStateController>();
@@ -78,7 +78,7 @@ public class EnemyAttackController : MonoBehaviour
 
         if (activeAttack == null)
         {
-            Debug.Log($"{name} ATTACKING but no activeAttack");
+            //Debug.Log($"{name} ATTACKING but no activeAttack");
             TrySelectAttack();
             
             if (activeAttack == null &&
@@ -268,7 +268,7 @@ public class EnemyAttackController : MonoBehaviour
             );
 
             float maxRange = GetRangedMax(attack);
-            Debug.Log($"[HnadleMovement] dist: {dist}, maxrange: {maxRange}");
+            //Debug.Log($"[HnadleMovement] dist: {dist}, maxrange: {maxRange}");
             if (dist > maxRange)
             {
                 // go to the player
@@ -362,7 +362,7 @@ public class EnemyAttackController : MonoBehaviour
 
         // only one
         activeAttack = ranged ?? melee ?? leap;
-        Debug.Log($"jrv activeAttack {activeAttack}");
+        //Debug.Log($"jrv activeAttack {activeAttack}");
     }
 
     private float GetLeapMinDistance(EnemyAttackInstance leap)
@@ -383,18 +383,18 @@ public class EnemyAttackController : MonoBehaviour
         if (playerObject != null)
         {
             SetPlayer(playerObject.transform);
-            Debug.Log($"[EnemyAttackController] Player found: {context.player != null}");
+            //Debug.Log($"[EnemyAttackController] Player found: {context.player != null}");
         }
         else
         {
-            Debug.LogError($"[EnemyAttackController] No GameObject with tag '{playerTag}' found!");
+            //Debug.LogError($"[EnemyAttackController] No GameObject with tag '{playerTag}' found!");
         }
     }
 
     public void SetPlayer(Transform player)
     {
         context.player = player;
-        Debug.Log($"[EnemyAttackController] Player set: {player.name}");
+        //Debug.Log($"[EnemyAttackController] Player set: {player.name}");
     }
 
     public void SetInfection(float infection)
@@ -424,7 +424,7 @@ public class EnemyAttackController : MonoBehaviour
         {
             currentAttacks.Add(new EnemyAttackInstance { attack = attack });
         }
-        Debug.Log($"[EnemyAttackController] Attack instances created: {currentAttacks.Count}");
+        //Debug.Log($"[EnemyAttackController] Attack instances created: {currentAttacks.Count}");
     }
     
     /*private EnemyAttackInstance ChooseByProbability(List<EnemyAttackInstance> attacks)

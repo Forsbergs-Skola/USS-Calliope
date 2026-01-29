@@ -60,7 +60,7 @@ public class SO_LeapAttack : EnemyAttackSOClass
         var leapRuntime = context.enemy.GetComponent<EnemyLeapRuntime>();
         if (leapRuntime == null)
         {
-            Debug.LogError("EnemyLeapRuntime not found");
+            //Debug.Log("EnemyLeapRuntime not found");
             return;
         }
 
@@ -91,7 +91,7 @@ public class SO_LeapAttack : EnemyAttackSOClass
         // end
         if (runtime.IsLeapActive)
         {
-            Debug.Log($"{context.enemy.name} Leap ended");
+            //Debug.Log($"{context.enemy.name} Leap ended");
             runtime.EndLeap();
         }
     }
