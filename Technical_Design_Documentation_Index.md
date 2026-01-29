@@ -11,6 +11,7 @@
 ## [Combat System](Combat_System_Documentation.md)
 ## [NPCs - Enemy System](NPCs_Enemy_Systems.md)
 ## [Elevator Platform System](Elevator_Platform_System_Documentation.md)
+## [USS - Calliope: Main Story](USS-Calliopy_Main_Story.md)
 
 ## Misc. Technical Documentation
 ### [Tween Service](TweenService_Documentation.md)
