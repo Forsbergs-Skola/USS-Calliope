@@ -8,8 +8,8 @@ This document describes the combat implementations for the USS Calliope Unity Pr
 - **Input (`AttackInput`)**: Raises events for aim/fire/reload/weapon switching + exposes move/sprint actions used for accuracy.
 - **Aiming (`PlayerAimController`)**: Computes aim direction from the mouse, rotates player while aiming, drives crosshair visuals (color + noise), and applies Cinemachine aim offset.
 - **Weapon orchestration (`PlayerWeaponHandler`)**: Equips/unequips weapons, manages ammo via `AmmoModel`/inventory, enforces cooldowns/reload restrictions, and triggers attacks.
-- **Execution (`PerformAttack`)**: Performs raycasts (hitscan/taser), sphere casts (melee), delegates unarmed attacks, applies ballistic spread, and forwards hits to `ImpactProcessor`.
-- **Hit processing (`ImpactProcessor`)**: Applies damage/stun based on weapon type and hit target components.
+- **Execution (`PerformAttack`)**: Performs raycasts (hitscan), sphere casts (melee), delegates unarmed attacks, applies ballistic spread, and forwards hits to `ImpactProcessor`.
+- **Hit processing (`ImpactProcessor`)**: Applies damage based on weapon type and hit target components.
 - **Accuracy (`HitChance`, `BallisticsUtility`)**: Computes a normalized hit chance score and turns that into visual + ballistic inaccuracy.
 
 ## Key Scripts 
