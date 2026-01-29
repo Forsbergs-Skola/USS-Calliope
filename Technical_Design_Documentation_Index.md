@@ -11,6 +11,9 @@
 ## [Combat System](Combat_System_Documentation.md)
 ## [NPCs - Enemy System](NPCs_Enemy_Systems.md)
 ## [Elevator Platform System](Elevator_Platform_System_Documentation.md)
+## [Dither Shader Fade System](Dither_Fade_System_Documentation.md)
+## [Minimap System](Minimap_Documentation.md)
+## [Player Vision System](Player_Vision_Logic_Documentation.md)
 ## [USS - Calliope: Main Story](USS-Calliope_Main_Story.md)
 
 ## Misc. Technical Documentation
